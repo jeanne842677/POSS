@@ -1,4 +1,4 @@
-package com.kh.poss.member.controller;
+package test.http;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +29,12 @@ public class MemberController extends HttpServlet {
 
 	
     
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
+    //연습용연습용-예진진
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
+    //예찐
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -104,7 +110,7 @@ public class MemberController extends HttpServlet {
 	private void loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
 		request.getRequestDispatcher("/member/login-form").forward(request, response);
-		
+		//호로롤로롤
 		
 	}
 	
@@ -116,7 +122,7 @@ public class MemberController extends HttpServlet {
 		//로그인 기능 들어갈 곳 {} 
 		
 		response.sendRedirect("/index");
-		//로그인 아자아자
+		
 
 		
 	}
@@ -142,7 +148,20 @@ public class MemberController extends HttpServlet {
 	
 	//조인 폼으로 이동
 	private void joinFrom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
 		request.getRequestDispatcher("/member/join-form").forward(request, response);
 	
 	}
@@ -228,6 +247,17 @@ public class MemberController extends HttpServlet {
 
 	private void modifyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("modify Info 실행");
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
 		
 		request.getRequestDispatcher("/member/modify-info").forward(request, response);
 		
