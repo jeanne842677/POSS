@@ -1,4 +1,4 @@
-package test.http.kyungmin;
+package test.kyungmin;
 
 public class Kyungmin {
 	
