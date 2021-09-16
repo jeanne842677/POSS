@@ -142,7 +142,19 @@ public class MemberController extends HttpServlet {
 	
 	//조인 폼으로 이동
 	private void joinFrom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
 		request.getRequestDispatcher("/member/join-form").forward(request, response);
 	
 	}
