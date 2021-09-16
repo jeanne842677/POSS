@@ -260,6 +260,20 @@ public class MemberController extends HttpServlet {
 
 	//아이디 찾기 실행
 	private void findingId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		//아이디 찾기
+		
+		
 		// TODO Auto-generated method stub
 		
 	}
