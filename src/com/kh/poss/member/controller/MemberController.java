@@ -230,7 +230,7 @@ public class MemberController extends HttpServlet {
 		System.out.println("modify Info 실행");
 		
 		request.getRequestDispatcher("/member/modify-info").forward(request, response);
-		
+		//
 	}
 
 	
