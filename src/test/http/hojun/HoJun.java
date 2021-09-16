@@ -1,4 +1,4 @@
-package test.http;
+package test.http.hojun;
 
 public class HoJun {
 	
