@@ -2,187 +2,99 @@ package com.kh.poss.member.model.dto;
 
 import java.sql.Date;
 
-//DTO(데이터 전송 객체)
-//데이터 전송 객체
-//데이터베이스로부터 얻어온 데이터를 service(비즈니스로직)으로 보내기 위해 사용하는 객체
-//비즈니스 로직을 포함하고 있지 않은, 순수하게 데이터 전송만을 위해 사용되는 객체
-//getter/setter , equals, hashCode, toString 
-
-
-// *** DTO와 비슷한 친구들
-// domain object , value object(vo) , entity , bean
-
-//DTO의 조건 (JAVA BEAN 규약)
-//1. 모든 필드변수는 private 처리
-//2. 모든 필드변수는 getter/setter 메서드를 가져야 한다.
-//3. 반드시 기본 생성자(매개변수가 없는 생성자)가 존재해야 한다. 
-
-
-//오라클-자바 타입 매핑
-//CHAR , VARCHAR2 -> String
-//DATE -> java.util.Date  , java.sql.Date
-//Number -> int, double
-
-
-
 public class Member {
-	
-	/*
-	USER_ID	VARCHAR2(36 CHAR)
-	PASSWORD	VARCHAR2(60 CHAR)
-	EMAIL	VARCHAR2(50 CHAR)
-	GRADE	CHAR(4 CHAR)
-	TELL	VARCHAR2(15 CHAR)
-	REG_DATE	DATE
-	RENTABLE_DATE	DATE
-	IS_LEAVE	NUMBER
-	*/
-	
+
 	private String userId;
 	private String password;
+	private String name;
+	private String phone;
+	private String store_name;
+	private String address;
 	private String email;
-	private String grade;
-	private String tell;
-	private Date regDate;
-	private Date rentableDate;
-	private int isLeave;
-	private int number;
-	
+	private Date reg_date;
+	private int is_leave;
+
 	public Member() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
 	public String getUserId() {
 		return userId;
 	}
-
-
-
 
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-
-
-
 	public String getPassword() {
 		return password;
 	}
-
-
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
-
-	public String getGrade() {
-		return grade;
+	public Date getReg_date() {
+		return reg_date;
 	}
 
-
-
-
-	public void setGrade(String grade) {
-		this.grade = grade;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
-
-
-
-	public String getTell() {
-		return tell;
+	public int getIs_leave() {
+		return is_leave;
 	}
 
-
-
-
-	public void setTell(String tell) {
-		this.tell = tell;
-	}
-
-
-
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-
-
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-
-
-
-
-	public Date getRentableDate() {
-		return rentableDate;
-	}
-
-
-
-
-	public void setRentableDate(Date rentableDate) {
-		this.rentableDate = rentableDate;
-	}
-
-
-
-
-	public int getNumber() {
-		return number;
-	}
-
-
-
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-
-	public int getIsLeave() {
-		return isLeave;
-	}
-
-
-
-	public void setIsLeave(int isLeave) {
-		this.isLeave = isLeave;
+	public void setIs_leave(int is_leave) {
+		this.is_leave = is_leave;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [userId=" + userId + ", password=" + password + ", email=" + email + ", grade=" + grade
-				+ ", tell=" + tell + ", regDate=" + regDate + ", rentableDate=" + rentableDate + ", number=" + number
-				+ "]";
+		return "Member [userId=" + userId + ", password=" + password + ", name=" + name + ", phone=" + phone
+				+ ", store_name=" + store_name + ", address=" + address + ", email=" + email + ", reg_date=" + reg_date
+				+ ", is_leave=" + is_leave + "]";
 	}
-	
-	
-	
-	
-	
+
 }
