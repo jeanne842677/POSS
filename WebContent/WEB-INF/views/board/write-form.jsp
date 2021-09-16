@@ -1,0 +1,249 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+html, body{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.wrap_board {
+	width: 360px;
+	height: 640px;
+}
+
+
+.mobile_nav{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-weight: bold;
+	height: 40px;
+	background-color: rgb(97, 191, 173);
+}
+
+.mobile_nav>label:hover{
+	color: white;
+}
+
+.board_title{
+	display: flex;
+	width:100%;
+	align-items: center;
+	height: 50px;
+	background-color: rgb(249, 247, 232);
+}
+
+
+.back{
+	width:10%;
+	display:flex;
+	justify-content: end;
+	align-items: center;
+	
+}
+
+.board_title>#board_test{
+	width:80%;
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.board_list{
+	height: 450px;
+	padding-left: 5px;
+}
+
+.board_list>*{
+	margin-top: 10px;
+	width: 350px;
+}
+
+.content_info{
+	display: flex;
+	justify-content: space-around;
+	align-content: center;
+}
+
+.content_info>#writer{
+	border: thin;
+	border-style: solid;
+	border-color: gray;
+	border-radius: 5px;
+	width: 80px;
+}
+
+.content_info>#title{
+	border: thin;
+	border-style: solid;
+	border-color: gray;
+	border-radius: 5px;
+	width: 260px;
+}
+
+#content{
+	resize: none;
+	border: thin;
+	border-style: solid;
+	border-color: gray;
+	border-radius: 5px;
+	height: 400px;
+}
+
+.is_private{
+	padding-left: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#public, #private{
+	font-size: 14px;
+    margin-left: 10px;
+}
+
+.pw_setting{
+	padding-left: 10px;
+	margin-top: 20px;
+}
+
+.pw_setting>*{
+	border: thin;
+	border-style: solid;
+	border-color: gray;
+	border-radius: 5px;
+	font-size: 15px;
+}
+
+.pw_setting>label{
+	background-color: #f9f7e8;
+	border-color: none;
+	margin-right: 10px;
+}
+
+
+#write_btn{
+	width: 66px;
+	height: 25px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	float: right;
+	margin-right: 10px;
+	background-color: #61bfad;
+	font-size: 12px;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+</head>
+<body>
+
+<div class='wrap_board'> 
+	<div class='mobile_nav'>
+		<label>예약하기</label>
+		<label>예약확인</label>
+		<label>게시판</label>
+	</div>
+	<div class='board_title'>
+		<div class="back" style=" cursor: pointer;" onclick="location.href='#';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+		<label id='board_test'>새로운 글 작성</label>
+	</div>
+	<div class='board_list'>
+		<div class='content_info'>
+			<input type="text" class="form-control form-control-sm" id='writer' placeholder="작성자">
+			<input type="text" class="form-control form-control-sm" id='title' placeholder="글 제목">
+		</div>
+		<textarea  class="form-control form-control-lg" id="content" placeholder="내용을 입력해주세요"></textarea>
+	</div>
+	<div class='is_private'>
+  			<label class="switch">
+  				<input type="checkbox">
+  				<span class="slider round"></span>
+			</label>
+			<label id="public">공개</label><label id="private" style="display:none;">비공개</label>
+  	</div>
+	<div class='pw_setting'>
+			<label>비밀번호</label>
+			<input type="text" size="5" maxlength="4" id="password">
+			<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/write'">글쓰기</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+var check = $("input[type='checkbox']");
+check.click(function(){
+	$("#public").toggle();
+	$("#private").toggle();
+});
+</script>
+</body>
+</html>
