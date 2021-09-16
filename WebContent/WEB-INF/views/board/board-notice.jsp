@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
