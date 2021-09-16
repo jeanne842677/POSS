@@ -1,4 +1,4 @@
-package test.http.guhyeon;
+package test.guhyeon;
 
 public class Guhyeon {
 	

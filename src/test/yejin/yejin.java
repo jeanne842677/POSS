@@ -1,7 +1,7 @@
-package test.http;
+package test.yejin;
 
 public class yejin {
-	////
+
 	String yejin;
 	String gil;
 	String street;
