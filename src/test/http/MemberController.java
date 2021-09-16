@@ -15,7 +15,7 @@ import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.member.model.service.MemberService;
 
 
-@WebServlet("/member/*")
+@WebServlet("/test/*")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
