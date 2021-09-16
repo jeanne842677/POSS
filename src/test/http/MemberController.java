@@ -29,6 +29,11 @@ public class MemberController extends HttpServlet {
 
 	
     
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
+    //연습용연습용-예진진
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
