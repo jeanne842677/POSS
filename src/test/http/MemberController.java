@@ -29,6 +29,12 @@ public class MemberController extends HttpServlet {
 
 	
     
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
+    //연습용연습용-예진진
+    //연습용연습용-예진진 
+    //연습용연습용-예진진 
+    //예찐
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -142,7 +148,20 @@ public class MemberController extends HttpServlet {
 	
 	//조인 폼으로 이동
 	private void joinFrom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
+		//조인폼
 		request.getRequestDispatcher("/member/join-form").forward(request, response);
 	
 	}
