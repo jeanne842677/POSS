@@ -75,5 +75,6 @@ local.properties
 ### Java-Web ###
 ## ignoring target file
 target/
+src/com/kh/poss/common/db
 
 # End of https://www.toptal.com/developers/gitignore/api/java-web,eclipse
