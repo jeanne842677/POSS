@@ -260,9 +260,7 @@ public class MemberController extends HttpServlet {
 
 	//아이디 찾기 실행
 	private void findingId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		
-		Member member = memberService.selectMemberById("DEV");
-		System.out.println(member);
+
 	}
 
 
