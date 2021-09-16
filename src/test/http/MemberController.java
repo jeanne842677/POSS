@@ -228,6 +228,17 @@ public class MemberController extends HttpServlet {
 
 	private void modifyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("modify Info 실행");
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
+		//도와주세요
 		
 		request.getRequestDispatcher("/member/modify-info").forward(request, response);
 		
