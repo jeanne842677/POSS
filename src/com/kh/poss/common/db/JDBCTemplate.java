@@ -27,7 +27,7 @@ public class JDBCTemplate {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			String url = "jdbc:oracle:thin:@possdb_high?TNS_ADMIN=C:/CODE/E_servlet/Wallet_possDB";
+			String url = "jdbc:oracle:thin:@possdb_high?TNS_ADMIN=C:/CODE/e_servlet/Wallet_possDB";
 			String userId = "ADMIN";
 			String password = "Rngusgowh123";
 			
