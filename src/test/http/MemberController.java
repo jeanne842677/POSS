@@ -161,6 +161,7 @@ public class MemberController extends HttpServlet {
 		//조인폼
 		//조인폼
 		//조인폼
+		//조인폼
 		request.getRequestDispatcher("/member/join-form").forward(request, response);
 	
 	}
