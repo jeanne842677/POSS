@@ -116,7 +116,7 @@ public class MemberController extends HttpServlet {
 		//로그인 기능 들어갈 곳 {} 
 		
 		response.sendRedirect("/index");
-		
+		//로그인 아자아자
 
 		
 	}
