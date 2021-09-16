@@ -1,4 +1,4 @@
-package test.yejin;
+package yejin;
 
 public class yejin {
 
