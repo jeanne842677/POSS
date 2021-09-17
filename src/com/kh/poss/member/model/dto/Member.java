@@ -13,7 +13,7 @@ public class Member {
 	private String email;
 	private Date reg_date;
 	private int is_leave;
-
+	
 	public Member() {
 		// TODO Auto-generated constructor stub
 	}
@@ -58,6 +58,7 @@ public class Member {
 		this.store_name = store_name;
 	}
 
+	
 	public String getAddress() {
 		return address;
 	}
@@ -97,4 +98,5 @@ public class Member {
 				+ ", is_leave=" + is_leave + "]";
 	}
 
+	
 }
