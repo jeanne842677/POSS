@@ -1,8 +1,6 @@
 package com.kh.poss.member.model.service;
 
-
 import java.sql.Connection;
-
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.common.http.HttpConnector;
 import com.kh.poss.common.http.RequestParams;
@@ -25,7 +23,6 @@ public class MemberService {
 
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-
 
 
 	public Member memberAuthenticate(String userId, String password) {

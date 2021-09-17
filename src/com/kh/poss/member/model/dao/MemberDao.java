@@ -1,26 +1,16 @@
 package com.kh.poss.member.model.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.kh.poss.common.db.JDBCTemplate;
-
-
 import com.kh.poss.member.model.dto.Member;
-
-
 import com.kh.poss.common.exception.DataAccessException;
 
 public class MemberDao {
 
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-
-
-
-
 
 
 	public Member memberAuthenticate(String userId, String password, Connection conn) {

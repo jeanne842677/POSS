@@ -1,4 +1,4 @@
-/*let getLocationTemp = async () => {
+let getLocationTemp = async () => {
     const OPEN_WEATHER_API_KEY = '2348247efd54eca9a724c64d99b2ce0c';
     let coords = await getCoords();
  
@@ -45,16 +45,16 @@
             });
          })
      }
- }*/
+ }
     
- 
-// (async ()=>{
+
+(async ()=>{
     
     /* 지역과 기온 랜더링*/
-//    let locataionTemp = await getLocationTemp();
-//    document.querySelector('.location').innerHTML = locataionTemp.place;
-//    document.querySelector('.weather_temp').innerHTML = locataionTemp.temp + 'º ';
-//    document.querySelector('.weather_statu').innerHTML = locataionTemp.description;
-//    document.querySelector('.weather_icon').innerHTML = `<img src = 'http://openweathermap.org/img/wn/${locataionTemp.statu}@2x.png' class="weather">`;
+   let locataionTemp = await getLocationTemp();
+    document.querySelector('.location').innerHTML = locataionTemp.place;
+    document.querySelector('.weather_temp').innerHTML = locataionTemp.temp + 'º ';
+   document.querySelector('.weather_statu').innerHTML = locataionTemp.description;
+   document.querySelector('.weather_icon').innerHTML = `<img src = 'http://openweathermap.org/img/wn/${locataionTemp.statu}@2x.png' class="weather">`;
  
-// })();
+ })();
