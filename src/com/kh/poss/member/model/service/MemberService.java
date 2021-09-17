@@ -66,7 +66,7 @@ public class MemberService {
 		}
 		return member;
 	}
-	
+	//
 	public int insertMember(Member member){
 		Connection conn = template.getConnection();
 		int res = 0;
