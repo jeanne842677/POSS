@@ -26,8 +26,6 @@ public class MemberService {
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 
-
-
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
 		Member member = null;
@@ -41,7 +39,6 @@ public class MemberService {
 
 	}
 	
-	
 	public void authenticateByEmail(Member member, String persistToken) {
 		MailSender mailSender = new MailSender();
 		HttpConnector conn = new HttpConnector();
@@ -54,7 +51,19 @@ public class MemberService {
 		String response = conn.get("http://localhost:9090/mail?"+queryString);
 		mailSender.sendMail(member.getEmail(), "회원가입을 축하합니다.", response);
 	}
-	
+
+	public Member selectMemberById(String userId) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberById(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		
+		System.out.println(member);
+		return member;
+	}
 	
 	public int insertMember(Member member){
 		Connection conn = template.getConnection();
@@ -70,6 +79,26 @@ public class MemberService {
 		}
 		return res;
 
+	}
+
+	public int updateMember(String userId, String userPw, String name, String phone, String address, String storeName) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = memberDao.updateMember(userId, userPw, name, phone, address, storeName, conn);
+			
+			System.out.println("서비스 발동");
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
 	}
 }
 
