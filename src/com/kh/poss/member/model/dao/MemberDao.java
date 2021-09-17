@@ -2,20 +2,15 @@ package com.kh.poss.member.model.dao;
 
 
 import com.kh.poss.common.db.JDBCTemplate;
-<<<<<<< HEAD
-=======
+
 
 import com.kh.poss.common.exception.DataAccessException;
 import com.kh.poss.member.model.dto.Member;
->>>>>>> branch 'main' of https://github.com/sazzeo/poss-project
 
 public class MemberDao {
 
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-<<<<<<< HEAD
-	//
-	
-=======
+
 
 	public Member memberAuthenticate(String userId, String password, Connection conn) {
 		Member member = null;
