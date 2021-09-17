@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RequestParams {
+
    private Map<String,String> params = new HashMap<String,String>();
    
    private RequestParams(RequestParamsBuilder builder) {
@@ -35,6 +36,6 @@ public class RequestParams {
    public void setParams(Map<String, String> params) {
       this.params = params;
    }
-   
-
+  
 }
+

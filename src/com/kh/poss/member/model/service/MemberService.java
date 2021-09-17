@@ -80,5 +80,36 @@ public class MemberService {
 		return res;
 
 	}
+	
+	public Member selectMemberByEm(String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberByEm(email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
+	
+	public int updateMember(String userId, String userPw, String name, String phone, String address, String storeName) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = memberDao.updateMember(userId, userPw, name, phone, address, storeName, conn);
+			
+			System.out.println("서비스 발동");
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+	}
 }
 
