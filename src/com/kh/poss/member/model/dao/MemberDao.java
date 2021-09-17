@@ -18,12 +18,10 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from \"poss_user\" where \"user_id\" = ? and \"password\" = ?";
-
+		String query = "select * from poss_user where user_id = ?";
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
-			pstm.setString(2, password);
 			rset = pstm.executeQuery();
 
 			if (rset.next()) {
@@ -60,7 +58,26 @@ public class MemberDao {
 		return member;
 	}
 	
-	
+	public Member selectMemberByEm(String email, Connection conn) {
+		Member member = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from poss_user where email = ?";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, email);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertAllToMember(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		return member;
+	}
 	
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;

@@ -71,5 +71,27 @@ public class MemberService {
 		return res;
 
 	}
+	public Member selectMemberById(String userId) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberById(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
+	
+	public Member selectMemberByEm(String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberByEm(email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
+	
 }
 

@@ -78,7 +78,7 @@ public class MailSender {
 		
 		
 		Transport tr = session.getTransport("smtp");
-        tr.connect("smtp.gmail.com", Config.SMTP_AUTHENTICATION_ID.DESC, "!Tjs24fkdlwm");
+        tr.connect("smtp.gmail.com", Config.SMTP_AUTHENTICATION_ID.DESC, Config.SMTP_AUTHENTICATION_PASSWORD.DESC);
         msg.saveChanges();      // don't forget this
         tr.sendMessage(msg, msg.getAllRecipients());
         tr.close();
