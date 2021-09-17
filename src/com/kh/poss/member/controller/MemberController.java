@@ -1,16 +1,13 @@
 package com.kh.poss.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.member.model.dto.Member;
@@ -111,14 +108,28 @@ public class MemberController extends HttpServlet {
 	}
 	
 	
-	
+	//로그인 기능
 	//로그인 후 메인페이지로 이동
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//로그인 기능 들어갈 곳 {} 
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		System.out.println(userId);
+		System.out.println(password);
+		Member member = memberService.memberAuthenticate(userId, password);
+		System.out.println(member);
 		
+		//1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
+		//2. 사용자가 잘못된 아이디와 비밀번호를 입력한 경우
+		//	  사용자에게 아이디나 비밀번호가 틀렸음을 알림, login-form으로 redirect
+		if(member == null) {
+			response.sendRedirect("/member/login-form?err=1");
+			return;
+		}
+		
+		request.getSession().setAttribute("authentication", member);
 		response.sendRedirect("/index");
-		//로그인 아자아자
+		
 
 		
 	}
@@ -157,48 +168,45 @@ public class MemberController extends HttpServlet {
 	//회원 가입 버튼을 눌렀을 때 
 	private void join(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		
+		/* 
+		//이메일 인증 로직 구현 (일부러 안지웠음) 파라미터 추가하기
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
+		String tell = request.getParameter("tell");
 		String email = request.getParameter("email");
-		String store_name = request.getParameter("storeName");
-		String address = request.getParameter("address") + request.getParameter("detailAddress") + "(" + request.getParameter("postCode") + ")";
-		
+			
 		
 		Member member = new Member();
+		
+
+		//멤버 세팅
 		member.setUserId(userId);
 		member.setPassword(password);
-		member.setName(name);
-		member.setPhone(phone);
+		member.setTell(tell);
 		member.setEmail(email);
-		member.setStore_name(store_name);
-		member.setAddress(address);
+
 		
+		//이메일 관련 인증
+		memberService.authenticateByEmail(member);
 		
-		String persistToken = UUID.randomUUID().toString();
-		request.getSession().setAttribute("persistUser", member);
-		request.getSession().setAttribute("persistToken", persistToken);
-		
-		memberService.authenticateByEmail(member, persistToken);
-		
+		//여긴 나중에 수정할 것
 		request.setAttribute("msg", "이메일이 발송되었습니다.");
 		request.setAttribute("url", "/index");
 		request.getRequestDispatcher("/error/result").forward(request, response);
+		
+		*/
+		
+		//위 기능 구현 전 임시로 로그인창으로 보내는 리다이렉트
+		response.sendRedirect("/member/login-form");
+		
+		
 	}
 
 
 	//아이디 체크 
 	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
-		Member member = memberService.selectMemberById(userId);
-		System.out.println(member);
-		if (member == null) {
-			response.getWriter().print("available");
-		} else {
-			response.getWriter().print("disable");
-		}
+		
+		
 		
 		// fetch로 받음 PrintWriter로 보낼 것
 		
@@ -207,13 +215,15 @@ public class MemberController extends HttpServlet {
 
 	//이메일 인증
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		
-		Member member = (Member)session.getAttribute("persistUser");
-		memberService.insertMember(member);
-		session.removeAttribute("persistToken");
-		session.removeAttribute("persistUser");
+		//이메일 인증 구현 {}
+		
 		response.sendRedirect("/member/login-form");
+			
+
+		
+		
+		
 	}
 
 
@@ -230,7 +240,10 @@ public class MemberController extends HttpServlet {
 
 
 	private void modifyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("modify Info 실행");
+		
+		request.getRequestDispatcher("/member/modify-info").forward(request, response);
+		//
 	}
 
 	

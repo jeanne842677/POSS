@@ -5,12 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>글 작성페이지</title>
-<<<<<<< HEAD
-=======
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 <link rel="stylesheet" href="/resources/css/reset.css">
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
->>>>>>> refs/heads/dev
 <style type="text/css">
 html, body{
 	width: 100%;
@@ -224,10 +221,7 @@ input:checked + .slider:before {
     margin-right: 20px;
     background-color: #61bfad;
     font-size: 12px;
-<<<<<<< HEAD
-=======
     border: none;
->>>>>>> refs/heads/dev
 }
 
 </style>
@@ -244,29 +238,6 @@ input:checked + .slider:before {
 				<label class="now">게시판</label>
 			</div>
 			<div class='board_title'>
-<<<<<<< HEAD
-				<div class="back" style=" cursor: pointer;" onclick="location.href='#';"><i class="fas fa-arrow-left" id='arrow'></i></div>
-				<label id='board_test'>새로운 글 작성</label>
-			</div>
-			<div class='board_list'>
-				<div class='content_info'>
-					<input type="text" class="form-control form-control-sm" id='writer' placeholder="작성자">
-					<input type="text" class="form-control form-control-sm" id='title' placeholder="글 제목">
-				</div>
-				<textarea  class="form-control form-control-lg" id="content" placeholder="내용을 입력해주세요"></textarea>
-			</div>
-			<div class='is_private'>
-					<label class="switch">
-						<input type="checkbox">
-						<span class="slider round"></span>
-					</label>
-					<label id="public">공개</label><label id="private" style="display:none;">비공개</label>
-			</div>
-			<div class='pw_setting'>
-					<label>비밀번호</label>
-					<input type="text" size="5" maxlength="4" id="password">
-					<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='poss2.html'">글쓰기</button>
-=======
 				<div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
 				<label id='board_test'>새로운 글 작성</label>
 			</div>
@@ -288,7 +259,6 @@ input:checked + .slider:before {
 					<label>비밀번호</label>
 					<input type="text" size="5" maxlength="4" id="password">
 					<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='post'">글쓰기</button>
->>>>>>> refs/heads/dev
 			</div>
 		</div>
 	</div>
