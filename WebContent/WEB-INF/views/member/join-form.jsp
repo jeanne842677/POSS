@@ -146,17 +146,10 @@ color: white;
 }
 
 .valid-msg{
-<<<<<<< HEAD
-	display:block;
-	color:red;	
-	font-size:10px;
-}
-=======
 	color:red;	
 	font-size:10px;
 }
 
->>>>>>> refs/heads/dev
 </style>
 </head>
 <body>
@@ -167,33 +160,14 @@ color: white;
       <div class="info_test">
          <div>
             <label><l>* </l>아이디</label>
-<<<<<<< HEAD
-            <input type="text" class="form-control" id="userId" placeholder="ID">
-            <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
-<<<<<<< HEAD
-            <div id="idCheck" class="valid-msg" ></div> 
-=======
-            <span id="idCheck" class="valid-msg" >
-            	<c:if test="${not empty joinFailed.userId}">
-	           	    이미 존재하는 아이디 입니다.
-	            </c:if>
-            </span> 
->>>>>>> refs/heads/dev
-=======
             <input type="text" class="form-control" name="userId" id="userId" placeholder="ID" required />
             <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
->>>>>>> refs/heads/dev
          </div>
          <div id="idCheck" class="valid-msg" > </div>
          
          <div>
             <label><l>* </l>비밀번호</label>
-<<<<<<< HEAD
-            <input type="password"  class="form-control" id="password" placeholder="PASSWORD">
-      		<span id="pwCheck" class="valid-msg"> </span>
-=======
             <input type="password"  class="form-control" name="password" id="password" placeholder="PASSWORD">
->>>>>>> refs/heads/dev
             <label class="password_check"><l>* </l>확인</label>
             <input type="password" class="form-control" id="confirmPassword" placeholder="PASSWORD">
          </div>
@@ -204,30 +178,18 @@ color: white;
          
          <div>
             <label><l>* </l>대표자명</label>
-<<<<<<< HEAD
-            <input type="text" class="form-control" id="name" placeholder="대표자명">
-=======
             <input type="text" class="form-control" name="name" id="name" placeholder="대표자명">
->>>>>>> refs/heads/dev
          </div>
          <div>
             <label><l>* </l>대표번호</label>
-<<<<<<< HEAD
-            <input type="tel" class="form-control" id="phone" placeholder="대표 전화번호">
-=======
             <input type="tel" class="form-control" name="phone" id="phone" placeholder="대표 전화번호">
->>>>>>> refs/heads/dev
          </div>
          <div id="phoneCheck" class="valid-msg"> </div>
          
          <div>
             <label><l>* </l>이메일</label>
-<<<<<<< HEAD
-            <input type="email" class="form-control" id="email" placeholder="이메일">
-=======
             <input type="email" class="form-control" name="email" id="email" placeholder="이메일">
             <button type="button" class="btn btn-light" id="btnEmailCheck">중복 확인</button>
->>>>>>> refs/heads/dev
          </div>
          <div id="emailCheck" class="valid-msg" > </div>
         
@@ -238,24 +200,14 @@ color: white;
       
             <div class="addr">
                <label><l>* </l>매장주소</label>
-<<<<<<< HEAD
-               <input type="text" class="form-control"  style="width: 250px; margin-right: 10px;" placeholder="기본주소" id="address"> 
-               <input type="text" class="form-control" id="postCode" style="width: 120px;" placeholder="우편번호" >  
-               <button id="storeAddressBtn" class="btn btn-dark" onclick="search()">주소찾기</button>
-=======
                <input type="text" class="form-control"  style="width: 250px; margin-right: 10px;" placeholder="기본주소" name="address" id="address"> 
                <input type="text" class="form-control" name='postCode' name="postCode" id="postCode" style="width: 120px;" placeholder="우편번호" >  
                <button id="storeAddressBtn" type='button' class="btn btn-dark" onclick="search()">주소찾기</button>
->>>>>>> refs/heads/dev
             </div>
         
          <div>
             <label></label>
-<<<<<<< HEAD
-            <input type="text" class="form-control" id="detailAddress" style="width: 250px;" placeholder="상세주소">
-=======
             <input type="text" class="form-control" name="detailAddress" id="detailAddress" style="width: 250px;" placeholder="상세주소">
->>>>>>> refs/heads/dev
          </div>
 
  
@@ -267,21 +219,10 @@ color: white;
    </div>
 
  </form>
-<<<<<<< HEAD
-
-=======
  
->>>>>>> refs/heads/dev
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
-//
->>>>>>> refs/heads/dev
-=======
->>>>>>> refs/heads/dev
 function search() {
 	new daum.Postcode({
         oncomplete: function(data) {
