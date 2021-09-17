@@ -43,6 +43,12 @@ public class MemberController extends HttpServlet {
 		case "login" :  //로그인 후 메인페이지로 이동
 			login(request, response);
 			break;
+		case "kakao-form" :  //로그인 후 메인페이지로 이동
+			kakaoForm(request, response);
+			break;
+		case "kakao-login" :  //로그인 후 메인페이지로 이동
+			kakaoLogin(request, response);
+			break;
 		case "logout" : //로그 아웃 후 로그인폼으로 이동
 			logout(request, response);
 			break;
@@ -100,6 +106,10 @@ public class MemberController extends HttpServlet {
 
 
 
+
+
+
+
 	//로그인 폼으로 이동
 	private void loginForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
@@ -122,6 +132,21 @@ public class MemberController extends HttpServlet {
 	}
 	
 	
+	private void kakaoForm(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		
+		request.getRequestDispatcher("/test/kakao-test").forward(request, response);
+		
+		
+	}
+	
+	private void kakaoLogin(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
+		
+		String code = (String)request.getAttribute("code");
+		System.out.println(code);
+		
+		
+	}
+
 
 	//로그아웃 후 메인페이지로 이동
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -257,7 +282,10 @@ public class MemberController extends HttpServlet {
 
 	//아이디 찾기 실행
 	private void findingId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-
+		
+		
+		Member member = memberService.selectMemberById("dev");
+		System.out.println(member);
 	}
 
 

@@ -1,8 +1,11 @@
 package com.kh.poss.member.model.service;
 
 
+import java.sql.Connection;
+
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.member.model.dao.MemberDao;
+import com.kh.poss.member.model.dto.Member;
 
 
 
@@ -21,6 +24,28 @@ public class MemberService {
 
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
+
+	
+	
+
+	
+	public Member selectMemberById(String userId) {
+
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+			member = memberDao.selectMemberById(userId, conn);
+		} finally {
+			template.close(conn);
+
+		}
+
+		return member;
+
+	}
+
+	
 
 	
 
