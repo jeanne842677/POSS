@@ -19,7 +19,8 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from \"poss_user\" where \"user_id\" = ?";
+
+		String query = "select * from poss_user where user_id = ?";
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
@@ -39,7 +40,7 @@ public class MemberDao {
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
-		String query = "insert into \"poss_user\"(\"user_id\",\"password\",\"name\",\"phone\",\"store_name\",\"address\",\"email\")"
+		String query = "insert into poss_user(user_id,password,name,phone,store_name,address,email)"
 				+ " values(?, ?, ?, ?, ?, ?, ?)";
 		try {
 			pstm = conn.prepareStatement(query);

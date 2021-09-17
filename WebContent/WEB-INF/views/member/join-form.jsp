@@ -162,7 +162,15 @@ color: white;
             <label><l>* </l>아이디</label>
             <input type="text" class="form-control" id="userId" placeholder="ID">
             <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
+<<<<<<< HEAD
             <div id="idCheck" class="valid-msg" ></div> 
+=======
+            <span id="idCheck" class="valid-msg" >
+            	<c:if test="${not empty joinFailed.userId}">
+	           	    이미 존재하는 아이디 입니다.
+	            </c:if>
+            </span> 
+>>>>>>> refs/heads/dev
          </div>
          <div>
             <label><l>* </l>비밀번호</label>
@@ -212,7 +220,11 @@ color: white;
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> refs/heads/dev
 function search() {
 	new daum.Postcode({
         oncomplete: function(data) {
