@@ -28,7 +28,20 @@ public class MemberService {
 
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-	
+
+
+	public Member memberAuthenticate(String userId, String password) {
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+			member = memberDao.memberAuthenticate(userId, password, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+
+	}
 	
 	public void authenticateByEmail(Member member, String persistToken) {
 		MailSender mailSender = new MailSender();
@@ -67,6 +80,7 @@ public class MemberService {
 			template.close(conn);
 		}
 		return res;
+
 	}
 
 }

@@ -7,14 +7,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.kh.poss.common.db.JDBCTemplate;
-import com.kh.poss.member.model.dto.Member;
+
 import com.kh.poss.common.exception.DataAccessException;
+import com.kh.poss.member.model.dto.Member;
 
 public class MemberDao {
 
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-	
 
+	public Member memberAuthenticate(String userId, String password, Connection conn) {
+		Member member = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from \"poss_user\" where \"user_id\" = ? and \"password\" = ?";
+
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			pstm.setString(2, password);
+			rset = pstm.executeQuery();
+
+			if (rset.next()) {
+				member = convertAllToMember(rset);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		return member;
+	}
+	
 	public Member selectMemberById(String userId, Connection conn) {
 		Member member = null;
 		PreparedStatement pstm = null;
