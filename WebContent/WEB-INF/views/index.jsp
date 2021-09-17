@@ -1,104 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
 
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/all.css">
+<script type="text/javascript" src="resources/js/clock.js"></script>
+<script type="text/javascript" src="resources/js/weather.js"></script>
+
    
 
 <style type="text/css">
 html, body {
-	width:100%;
+	width: 100vw;
+	min-width: 1130px;
+	height: 100vh;
+	min-height: 640px;
+	display: flex;
+	justify-content: center;
 }
 
+.wrap{
+	width: 100%;
+	min-width: 360px;
+	height: 100%;
+	min-height: 640px;
+}
 
-/*  div,ul,li,a,span {
+/* div{
 	border: solid thin;
 }   */
 
-/*네비게이션영역 */
-#header{
-	width:100%;
-    height:100px;
-    background-color: #aaa;
-    background-color: white;
-    justify-content: center;
-}
-
-/*로고*/
-.logo {
-    width:200px;
-    position: absolute;
-    left: 230px;
-}
-
-/*상단바*/
+/* 상단바 */
 .navbar{
-	width:100%;
-	height: 90px;
-	display:flex;
-	font-size: 25px;
+	width: 100%;
+	justify-content: center;
 	border-bottom: 1px solid;
 }
 
-/* 상단바 세부 그룹 */
+
+/* 상단바 속 요소 그룹 */
 .nav_group{
-	width:50%; 
-	margin-left: 430px;
 	display: flex;
 }
 
-.nav_group > * {
-	flex-shrink:0;
+/* 로고 */
+.logo{
+	width: 200px;
 }
 
-/* 구현해조 */
+/* 가운데 정렬, 글자 깨짐 방지 */
+#shrink{
+	flex-shrink: 0;
+	align-self: center;
+}
+
+/* 유저 이름 : 구현해조 */
 .user_name{
-   margin-top: 28px;
-   font-size: 20px;
-   margin-left: 10px;
-   display: flex;
-   font-weight: bolder;
-   color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    color: black;
 }
 
-/* 안녕하세요 */
-.hello{
-   font-size: 13px;
-   margin-top: 33px;
-   font-weight: bolder;
+/* 안녕하세요, 유저이름, 님 간격 */
+.hello,.user_name,.nim{
+	margin-left: 10px;
+	margin-top: 20px;
 }
 
-/* 님 */
-.nim{
-   font-size: 13px;
-   margin-top: 33px;
-   margin-left: 10px;
-   font-weight: bolder;
+/* 내정보 간격 */
+.my_info{
+	margin-left: 20px;
+	margin-top: 20px;
 }
-
-/* 시계 */
-.clock{
-	flex-shrink:0;
-	font-weight: bold;
-	color: #343a40;
-	margin-top: 27px;
-	margin-left: 55%;
-}
-
 
 /* 내정보 버튼 */
 #info_button{
 	border-radius: 15px;
 	font-size: 12px;
-	height: 30px;
-	margin-top: 27px;
-	margin-left: 20px;
+}
+
+
+/* 시계 간격 */
+.clock{
+	margin-left: 500px;
+	margin-top: 20px;
+	font-size: 30px;
+	flex-shrink:0;
+	font-weight: bold;
+	color: #343a40;
+}
+
+/* 로그아웃 간격 */
+.logout{
+	margin-left: 30px;
+	margin-top: 20px;
 }
 
 /* 로그아웃 버튼 */
@@ -106,17 +108,17 @@ html, body {
 	border-radius: 100%;
 	width: 50px;
 	height: 50px;
-	align-self: center;
-	margin-top: 20px;
-	margin-left: 20px;
+	background-color: rgb(255, 79, 79);
 }
 
-/* 메뉴버튼들 wrap */
+/* 메인메뉴 */
 .main_menu_wrap{
-   display: flex;
-   justify-content: center;
-   margin-top: 5%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 
 /* 포스버튼 */
 #pos_btn{
@@ -126,9 +128,24 @@ html, body {
    background-color: rgb(255, 139, 139);
    color: white;
    font-weight: bolder;
-   /* box-shadow: 3px 3px 3px #333; */
+   box-shadow: 3px 3px 3px #333;
    justify-content: center;
    align-items: center;
+}
+
+
+#pos_btn:focus{
+  color: #fff;
+  background-color: #cf8083;
+  border-color: #c2787b;
+  box-shadow: 0 0 0 0.25rem rgba(245, 166, 169, 0.5);
+}
+
+#pos_btn:checked{
+  color: #fff;
+  background-color: #c2787b;
+  border-color: #b67174;
+  
 }
 
 /* 포스메뉴에 달러 */
@@ -144,14 +161,29 @@ html, body {
    background-color: rgb(97, 191, 173);
    color: white;
    font-weight: bolder;
-   /* box-shadow: 3px 3px 3px #333; */
+   box-shadow: 3px 3px 3px #333;
    align-content: center;
+}
+
+
+#sales_manage_btn:focus{
+  color: #fff;
+  background-color: #66a593;
+  border-color: #609b8a;
+  box-shadow: 0 0 0 0.25rem rgba(140, 203, 185, 0.5);
+}
+
+#sales_manage_btn:checked{
+  color: #fff;
+  background-color: #609b8a;
+  border-color: #5a9282;
+  
 }
 
 /* 매출관리 아이콘 */
 #store_icon{
    font-size: 50px;
-   color: black;
+   color: white;
 }
 
 /* 웨이팅 버튼 */
@@ -162,9 +194,25 @@ html, body {
    background-color: rgb(249, 247, 232);
    color: black;
    font-weight: bolder;
-   /* box-shadow: 3px 3px 3px #333; */
+   box-shadow: 3px 3px 3px #333;
    align-content: center;
 }
+
+
+#waiting_btn:focus{
+  color: #000;
+  background-color: #f9fafb;
+  border-color: #f9fafb;
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+}
+
+#waiting_btn:checked{
+  color: #000;
+  background-color: rgb(245, 245, 220);
+  border-color: #f9fafb;
+  
+}
+
 
 /* 웨이팅 아이콘 */
 #waiting_icon{
@@ -181,8 +229,23 @@ html, body {
    color: black;
    font-weight: bolder;
    margin-top: 25px;
-  /*  box-shadow: 3px 3px 3px #333; */
+   box-shadow: 3px 3px 3px #333;
 }
+
+#notiboard_btn:focus{
+  color: #000;
+  background-color: #f9fafb;
+  border-color: #f9fafb;
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+}
+
+#notiboard_btn:checked{
+  color: #fff;
+  background-color: #f9fafb;
+  border-color: #f9fafb;
+  
+}
+
 
 /* 게시판 아이콘 */
 #board_icon{
@@ -197,26 +260,41 @@ html, body {
    font-size: 20px;
    background-color: rgb(255, 213, 125);
    font-weight: bolder;
-   /* box-shadow: 3px 3px 3px #333; */
+   box-shadow: 3px 3px 3px #333;
    color: white;
    margin-top: 25px;
+}
+
+#reservation_manage_btn:focus{
+  color: #fff;
+  background-color: #d9af58;
+  border-color: #cca552;
+  box-shadow: 0 0 0 0.25rem rgba(255, 213, 126, 0.5);
+}
+
+#reservation_manage_btn:checked{
+  color: #fff;
+  background-color: #cca552;
+  border-color: #bf9b4d;
+  
 }
 
 /* 예약 아이콘 */
 #reservation_manage_icon{
    font-size: 50px;
-   color: black;
+   color: white;
 }
 
 /* 오늘 예약 건수 버튼 */
 #today_reservation_btn{
    width: 290px;
-   height: 210px;
+   height: 207px;
    font-size: 20px;
    background-color: white;
    font-weight: bolder;
    color: black;
    border: 2px;
+   margin-top: 5px;
 }
 
 /* 오늘 예약은 */
@@ -234,7 +312,7 @@ html, body {
 /* 총 */
 #trt_total{
    font-size: 20px;
-   margin-top: 10px;
+   margin-top: 11px;
 }
 /* 예약건수 */
 #trt_num{
@@ -242,6 +320,7 @@ html, body {
    font-size: 32px;
    padding-left: 10px;
    padding-right: 10px;
+   text-shadow: 1px 2px 2px #333;
 }
 /* 건 입니다. */
 #trt_cnt{
@@ -251,14 +330,14 @@ html, body {
 /* 오늘 날씨 */
 .today_weather_btn{
    width: 290px;
-   height: 210px;
+   height: 207px;
    font-size: 19px;
    background-color: white;
    font-weight: bolder;
-   border: 3px solid black;
-   margin-top: 25px;
-   border-radius: 5%;
+   border-radius: 0.6rem;
    position: relative;
+   margin-top: 27px;
+   box-shadow: 0 0 0 0.25rem lightgray
 }
 
 /* 날씨 wrap */
@@ -317,80 +396,63 @@ html, body {
 .column_3{
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: space-between;
    margin-left: 35px;
 }
 
-
-
-
-
-/* footer*/
-/* #footer{
-	width:100%;
-    width:100%;
-    height:30px;
-    background-color: #61bfad;
-}
- */
-    
-
-
-
-    
 </style>
 </head>
-<body>
+<body onload="renderCurrentTime()">
     <div class="wrap">
-    	<header id="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            	<img src="/resources/image/LOGO2.png" class="logo">
-        		<div class="nav_group">
-        			<div class="hello">
-                  		안녕하세요
-            		</div>
-            		<div class="user_name">
-               			<strong>구현해조</strong> 
-               		</div>
-               		<div class="nim">님!</div>
-           			
-            		<button type="button" class="btn btn-secondary" id="info_button" onclick="location.href='/member/mypage'">> 내정보</button>
-            		<div class="clock"> </div>
-            		
-            		<button type="button" class="btn btn-secondary" id="logout" onclick="showConfirmLogout();">
-            			<div id="logout_btn" id="logout">
-                    		<i class="fas fa-power-off"></i>
-                     	</div>
-            		</button>
-            	</div>  
-            </nav>
-    	</header>
+		<header id="header">
+			<nav class="navbar">
+				<div class="nav_group">
+					<div class="logo"><img src="/resources/image/LOGO2.png" class="logo"></div>
+					<div class="hello" id="shrink">안녕하세요</div>
+					<div class="user_name" id="shrink">구현해조</div>
+					<div class="nim" id="shrink">님!</div>
+					
+					<div class="my_info" id="shrink">
+						<button type="button" class="btn btn-secondary" id="info_button" onclick="location.href='/member/mypage'">
+							> 내정보
+						</button>
+					</div>
+					<div class="clock" id="shrink"></div>
+					<div class="logout"  id="shrink">
+					<button type="button" class="btn btn-secondary" id="logout"
+						onclick="showConfirmLogout();">
+						<div id="logout_btn" id="logout">
+							<i class="fas fa-power-off"></i>
+						</div>
+					</button>
+					</div>
+				</div>
+			</nav>
+		</header>
 	
 	
-         <div class="main_menu_wrap">
-            <div>
+	 <div class="main_menu_wrap">
+	 
             <div class="column_0">
-	            <button type="button" class="btn btn-secondary" id="pos_btn" onclick="location.href='/member/login-form'">
+	            <button type="button" class="btn btn-secondary" id="pos_btn"  onclick="location.href='/member/login-form'">
 	                 <div id="dalar">$</div><div id="pos_text">포스</div>
 	            </button>
-	        </div>
-         </div>
+         	</div>
+         	
             <div class="column_1">
-             <button type="button" class="btn btn-primary" id="sales_manage_btn" onclick="location.href='/sales/confirm'">
-                <div id="store_icon">
-                   <i class="fas fa-cash-register"></i>
-                </div>
-                  <div id="sales_manage_text">매출관리</div>
-             </button>
-             
-             <button type="button" class="btn btn-light" id="notiboard_btn" onclick="location.href='/board/notice'">
-                     <div id="board_icon">
-                        <i class="far fa-comments"></i>
-                     </div>
-                    <div id="notiboard_text">게시판</div>
-             </button>
-               
-               
+	             <button type="button" class="btn btn-primary" id="sales_manage_btn" onclick="location.href='/sales/confirm'">
+	                <div id="store_icon">
+	                   <i class="fas fa-cash-register"></i>
+	                </div>
+	                  <div id="sales_manage_text">매출관리</div>
+	             </button>
+	             
+	             <button type="button" class="btn btn-light" id="notiboard_btn" onclick="location.href='/board/notice'">
+	                     <div id="board_icon">
+	                        <i class="far fa-comments"></i>
+	                     </div>
+	                    <div id="notiboard_text">게시판</div>
+	             </button>
             </div>
           
           <div class="column_2">
@@ -398,148 +460,52 @@ html, body {
                   <div id="waiting_icon">
                      <i class="fas fa-user-clock"></i>
                   </div>
-                 <div id="waiting_text">웨이팅</div>
+                  <div id="waiting_text">웨이팅</div>
               </button>
               
-            <button type="button" class="btn btn-warning" id="reservation_manage_btn"  onclick="location.href='/reserve/confirm'">
+            <button type="button" class="btn btn-warning" id="reservation_manage_btn" onclick="location.href='/reserve/confirm'">
                   <div id="reservation_manage_icon">
                      <i class="fas fa-address-book"></i>
                   </div>
-                 <div id="reservation_manage_text">예약내역</div>
-              </button>
+                  <div id="reservation_manage_text">예약내역</div>
+            </button>
           </div>
           
           <div class="column_3">
-             <button type="button" class="btn btn-outline-primary" id="today_reservation_btn">
+             <button type="button" class="btn btn-outline-primary" id="today_reservation_btn" onclick="location.href='/reserve/confirm'">
                  <div id="trt">오늘의 예약은</div>
                     <div id="today_reservation_text">
                        <div id="trt_total">총</div> 
                        <div id="trt_num">5</div> 
                        <div id="trt_cnt">건 입니다.</div> 
-                        </div>
+                    </div>
               </button>
              
              <div class="today_weather_btn">
                  <div class='location'></div>
                  <div class='weather_temp'></div>
-                <div class="weather_wrap">
-                    <div class="weather_statu"></div>
-                    <div class="weather_icon"></div>
-                </div>
-               
+                 <div class="weather_wrap">
+	                 <div class="weather_statu"></div>
+	                 <div class="weather_icon"></div>
+                 </div>
               </div>
               
           </div>
+          
        </div>
-       
-   </div>
+	
+</div>
 
-
-<!-- <footer id="footer"></footer> -->
-
-
-
-<script type="text/javascript">
-
-   function renderCurrentTime() { //시간 받아오기
-      let now = new Date();
-      let hour = now.getHours();
-      let minutes = now.getMinutes();
-      
-        if(hour<12){
-             ampm="AM";
-           }
-        else{
-             ampm="PM";
-           }
-         
-      hour = hour < 10 ? "0"+hour:hour;
-      minutes = minutes < 10 ? "0" + minutes:minutes;
-      document.querySelector('.clock').innerHTML = `${ampm}  ${hour} : ${minutes}`;
-      setTimeout(renderCurrentTime,1000);
-   }
-   
-   renderCurrentTime();
-   
-</script>  
-
-<script type="text/javascript"> //날씨 받아오기
-let getLocationTemp = async () => {
-    const OPEN_WEATHER_API_KEY = '2348247efd54eca9a724c64d99b2ce0c';
-    let coords = await getCoords();
- 
-    let params = {
-          lat:coords.latitude,
-          lon:coords.longitude,
-          appid:OPEN_WEATHER_API_KEY,
-          units:'metric',
-          lang:'kr'
-    };
-    
-    let queryString = createQueryString(params);
-    let url = `https://api.openweathermap.org/data/2.5/weather?${queryString}`;
-    
-    let response = await fetch(url);
-    let obj =  await response.json();
-    console.dir(obj);
-    return {
-       temp : obj.main.temp,
-       place : obj.name,
-       description : obj.weather[0].main,
-       statu : obj.weather[0].icon
-    }
- }
- 
-      let createQueryString = (params) => {
-       let arr = [];
-       for(key in params){
-          arr.push(key + '=' + params[key]);
-       }
-       
-       return arr.join('&');   
-    } 
- 
- let getCoords = () => {
-    if(!navigator.geolocation) {
-        return new Promise((resolve,reject)=>{
-           reject();
-         });
-    }else{
-         return new Promise((resolve,reject)=>{
-            navigator.geolocation.getCurrentPosition((position) => {
-               resolve(position.coords);
-            });
-         })
-     }
- }
-    
- 
- (async ()=>{
-    
-    /* 지역과 기온 랜더링*/
-    let locataionTemp = await getLocationTemp();
-    document.querySelector('.location').innerHTML = locataionTemp.place;
-    document.querySelector('.weather_temp').innerHTML = locataionTemp.temp + 'º ';
-    document.querySelector('.weather_statu').innerHTML = locataionTemp.description;
-    document.querySelector('.weather_icon').innerHTML = `<img src = 'http://openweathermap.org/img/wn/${locataionTemp.statu}@2x.png' class="weather">`;
- 
- })();
- 
- 
-
-</script>
 
 <script type="text/javascript">
 
 function showConfirmLogout() {
 	if(confirm("로그아웃 하시겠습니까?")){
 		alert("로그아웃 되었습니다.");
-		location.href='/member/logout';
 	}else{
 		alert("취소 되었습니다.");
-		}
 	}
-
+}
 
 
 

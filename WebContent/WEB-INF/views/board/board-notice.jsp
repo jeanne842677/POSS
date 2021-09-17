@@ -6,15 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
 <title>poss 게시판 목록 페이지</title>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css" href="bootstrap.css"/> 
-=======
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
->>>>>>> refs/heads/dev
-=======
-<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
->>>>>>> refs/heads/dev
 <link rel="stylesheet" href="/resources/css/reset.css">
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 
@@ -32,9 +24,6 @@ html, body{
 	color:white;
 }
 
-label{
-	color: black;
-}
 .wrap_all{
 	width:100%;
 	height:100%;
@@ -198,15 +187,7 @@ label{
 			<label class="now">게시판</label>
 		</div>
 		<div class='board_title'>
-<<<<<<< HEAD
-<<<<<<< HEAD
-			<div class="back" style=" cursor: pointer;" onclick="location.href='poss2.html';"><i class="fas fa-arrow-left" id='arrow'></i></div>
-=======
-			<div class="back" style=" cursor: pointer;" onclick="location.href='board-notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
->>>>>>> refs/heads/dev
-=======
-			<div class="back" style=" cursor: pointer;" onclick="location.href='board-notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
->>>>>>> refs/heads/dev
+			<div class="back" style=" cursor: pointer;" onclick="location.href='../index';"><i class="fas fa-arrow-left" id='arrow'></i></div>
 			<label id='board_test'>게시판</label>
 			<div class="find"><i class="fas fa-search" onclick="prompt('검색할 내용을 입력하세요')"></i></div>
 		</div>
@@ -219,9 +200,7 @@ label{
 			</div>
 			<div class='board_content'>
 				<div id='content_idx'>1</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-				<div id='content_title' onclick="location.href='poss4.html'">[질문] 예약 가능한가요?</div>
+				<div id='content_title' onclick="location.href='/board/post'">[질문] 예약 가능한가요?</div>
 				<div id='content_writer'>권구현</div>
 				<div id='content_date'>2021/08/30</div>
 			</div>
@@ -291,128 +270,6 @@ label{
 				<div id='content_writer'>권구현</div>
 				<div id='content_date'>2021/08/30</div>
 			</div>
-=======
-				<div id='content_title' onclick="location.href='post'">[질문] 예약 가능한가요?</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>2</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>3</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>4</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>5</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>6</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>7</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>8</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>9</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>10</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			
->>>>>>> refs/heads/dev
-=======
-				<div id='content_title' onclick="location.href='post'">[질문] 예약 가능한가요?</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>2</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>3</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>4</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>5</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>6</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>7</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>8</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>9</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			<div class='board_content'>
-				<div id='content_idx'>10</div>
-				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
-				<div id='content_writer'>권구현</div>
-				<div id='content_date'>2021/08/30</div>
-			</div>
-			
->>>>>>> refs/heads/dev
 
 		</div>
 
@@ -442,16 +299,58 @@ label{
 			</ul>
 		</div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='poss3.html'">글쓰기</button>
-=======
-		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='write-form'">글쓰기</button>
->>>>>>> refs/heads/dev
-=======
-		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='write-form'">글쓰기</button>
->>>>>>> refs/heads/dev
+		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/write-form'">글쓰기</button>
 	</div>
 </div>
+
+
+
+
+<!-- <script type="text/javascript">
+
+let idx = 1;
+
+document.querySelector('#write_btn').addEventListener('click', e => {
+		
+		let textTest1 = prompt('인덱스 입력');
+		let textTest2 = prompt('제목 입력');
+		let textTest3 = prompt('작성자 입력');
+		let textTest4 = prompt('작성일 입력');
+	
+		let newDiv = document.createElement("div");
+		newDiv.setAttribute("class", "board_content");
+		newDiv.setAttribute("id", idx);
+		
+		let addDiv = document.getElementById("list");
+		addDiv.appendChild(newDiv);
+		
+		let childDiv1 = document.createElement("div");
+		childDiv1.setAttribute("id", "content_idx");
+		childDiv1.innerHTML = textTest1;
+		
+		let childDiv2 = document.createElement("div");
+		childDiv2.setAttribute("id", "content_title");
+		childDiv2.innerHTML = textTest2;
+		
+		let childDiv3 = document.createElement("div");
+		childDiv3.setAttribute("id", "content_writer");
+		childDiv3.innerHTML = textTest3;
+		
+		let childDiv4 = document.createElement("div");
+		childDiv4.setAttribute("id", "content_date");
+		childDiv4.innerHTML = textTest4;
+
+		let addChild = document.getElementById(idx);
+		
+		addChild.appendChild(childDiv1);
+		addChild.appendChild(childDiv2);
+		addChild.appendChild(childDiv3);
+		addChild.appendChild(childDiv4);
+		
+		idx++;
+});
+
+</script> -->
+
 </body>
 </html>

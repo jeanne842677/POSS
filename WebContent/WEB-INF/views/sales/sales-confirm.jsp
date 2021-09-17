@@ -68,6 +68,15 @@
         flex-shrink:0;
     }
 
+
+
+    .section-wrap{
+        width: 1130px;
+        display: block;
+        margin: auto;
+    }
+
+
     /* 메뉴아래 매출관리, 오늘 총 매출------------------------------------------------  */
     #title_area{
         width:100%;
@@ -75,7 +84,7 @@
     }
 
     .title{
-        width:100%;
+        width: 1130px;
         height:100px;  
         display: flex;
         justify-content: center;
@@ -321,7 +330,7 @@
     <div class="wrap">
     <header id="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <img src="/resources/image/LOGO6.png" class="logo">
+                    <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
                    
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
@@ -346,7 +355,7 @@
             </div>  
             </nav>
     </header>
-
+<div class="section-wrap">
     <section id="title_area">
         <div class="title">
             <a>매출관리</a>
@@ -448,6 +457,7 @@
 </div>
 <!-- 매출내역 end ============================================================================= -->
 
+</div>
 
 
 
