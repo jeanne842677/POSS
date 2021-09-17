@@ -18,10 +18,11 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from poss_user where user_id = ?";
+		String query = "select * from poss_user where user_id = ? and password = ?";
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
+			pstm.setString(2, password);
 			rset = pstm.executeQuery();
 
 			if (rset.next()) {
@@ -116,6 +117,33 @@ public class MemberDao {
 		member.setReg_date(rset.getDate("reg_date"));
 		member.setIs_leave(rset.getInt("is_leave"));
 		return member;
+	}
+
+	public int updateMember(String userId, String userPw, String name, String phone, String address, String storeName, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update poss_user set password = ?, name = ?, phone = ?, store_name = ?, address = ? where user_id = ?";
+		
+		System.out.println(userId + "," + userPw + "," + name + "," + phone + "," + address + "," + storeName);
+		try {
+			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userPw);
+			pstm.setString(2, name);
+			pstm.setString(3, phone);
+			pstm.setString(4, storeName);
+			pstm.setString(5, address);
+			pstm.setString(6, userId);
+			
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		System.out.println("다오 발동");
+		return res;
 	}
 	
 }

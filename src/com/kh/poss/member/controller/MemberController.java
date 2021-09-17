@@ -76,6 +76,7 @@ public class MemberController extends HttpServlet {
 			break;
 		case "modify" : 
 			modify(request, response); //내 정보가 수정됐을 시 수행하는 메소드
+			break;
 		case "lostid" : //아이디 찾기 폼으로 이동
 			lostId(request, response);
 			break;
@@ -272,39 +273,50 @@ public class MemberController extends HttpServlet {
 
 	private void mypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		request.getRequestDispatcher("/member/mypage").forward(request, response);
+		String userId = request.getParameter("userId");
+		Member member = memberService.selectMemberById(userId);
 		
+		String[] splitAddress = member.getAddress().split("\\(");
+		
+		request.getSession().setAttribute("myInfo", member);
+		request.getSession().setAttribute("addressNum", splitAddress[1].replaceAll("\\)", ""));
+		request.getSession().setAttribute("detailAddress", splitAddress[0]);
+		
+		request.getRequestDispatcher("/member/mypage").forward(request, response);
 		
 	}
 
 	
 
-
-
-
 	private void modifyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		System.out.println("modify Info 실행");
 		
 		request.getRequestDispatcher("/member/modify-info").forward(request, response);
-		//
+		
 	}
 
 	
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//내정보 db에 업데이트(구현해야함)
+		String userId = request.getParameter("userId");
+		String userPw = request.getParameter("userPw");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String storeName = request.getParameter("storeName");
+		
+		if(memberService.updateMember(userId, userPw, name, phone, address, storeName) > 0) {
+			Member member = memberService.selectMemberById(userId);
+			request.setAttribute("myInfo", member);
+			response.getWriter().print("available");
+		} else {
+			response.getWriter().print("disable");
+		}
 		
 		
-		
-		
-		
-		//내정보 페이지로 redirect
-
-		response.sendRedirect("/member/mypage");
-			
-		
-		
-	}
+}
 
 
 
