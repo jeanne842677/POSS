@@ -7,7 +7,11 @@
 <meta charset="UTF-8">
 <title>poss 게시판 목록 페이지</title>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="bootstrap.css"/> 
+=======
+<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
+>>>>>>> refs/heads/dev
 =======
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 >>>>>>> refs/heads/dev
@@ -195,7 +199,11 @@ label{
 		</div>
 		<div class='board_title'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div class="back" style=" cursor: pointer;" onclick="location.href='poss2.html';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+=======
+			<div class="back" style=" cursor: pointer;" onclick="location.href='board-notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+>>>>>>> refs/heads/dev
 =======
 			<div class="back" style=" cursor: pointer;" onclick="location.href='board-notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
 >>>>>>> refs/heads/dev
@@ -211,6 +219,7 @@ label{
 			</div>
 			<div class='board_content'>
 				<div id='content_idx'>1</div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 				<div id='content_title' onclick="location.href='poss4.html'">[질문] 예약 가능한가요?</div>
 				<div id='content_writer'>권구현</div>
@@ -343,6 +352,67 @@ label{
 			</div>
 			
 >>>>>>> refs/heads/dev
+=======
+				<div id='content_title' onclick="location.href='post'">[질문] 예약 가능한가요?</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>2</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>3</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>4</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>5</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>6</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>7</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>8</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>9</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			<div class='board_content'>
+				<div id='content_idx'>10</div>
+				<div id='content_title'>[질문] 예약 문의하고싶어효오오</div>
+				<div id='content_writer'>권구현</div>
+				<div id='content_date'>2021/08/30</div>
+			</div>
+			
+>>>>>>> refs/heads/dev
 
 		</div>
 
@@ -373,7 +443,11 @@ label{
 		</div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='poss3.html'">글쓰기</button>
+=======
+		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='write-form'">글쓰기</button>
+>>>>>>> refs/heads/dev
 =======
 		<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='write-form'">글쓰기</button>
 >>>>>>> refs/heads/dev
