@@ -4,6 +4,8 @@ package com.kh.poss.member.model.service;
 import java.sql.Connection;
 
 import com.kh.poss.common.db.JDBCTemplate;
+import com.kh.poss.common.http.HttpConnector;
+import com.kh.poss.common.http.RequestParams;
 import com.kh.poss.common.mail.MailSender;
 import com.kh.poss.member.model.dao.MemberDao;
 import com.kh.poss.member.model.dto.Member;
