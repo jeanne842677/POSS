@@ -1,7 +1,6 @@
 package com.kh.poss.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
@@ -109,14 +108,28 @@ public class MemberController extends HttpServlet {
 	}
 	
 	
-	
+	//로그인 기능
 	//로그인 후 메인페이지로 이동
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//로그인 기능 들어갈 곳 {} 
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		System.out.println(userId);
+		System.out.println(password);
+		Member member = memberService.memberAuthenticate(userId, password);
+		System.out.println(member);
 		
+		//1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
+		//2. 사용자가 잘못된 아이디와 비밀번호를 입력한 경우
+		//	  사용자에게 아이디나 비밀번호가 틀렸음을 알림, login-form으로 redirect
+		if(member == null) {
+			response.sendRedirect("/member/login-form?err=1");
+			return;
+		}
+		
+		request.getSession().setAttribute("authentication", member);
 		response.sendRedirect("/index");
-		//로그인 아자아자
+		
 
 		
 	}

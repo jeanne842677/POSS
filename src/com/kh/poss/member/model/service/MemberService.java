@@ -21,7 +21,55 @@ public class MemberService {
 
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
+<<<<<<< HEAD
+=======
+
+
+	public Member memberAuthenticate(String userId, String password) {
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+			member = memberDao.memberAuthenticate(userId, password, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+
+	}
+	
+	public void authenticateByEmail(Member member, String persistToken) {
+		MailSender mailSender = new MailSender();
+		HttpConnector conn = new HttpConnector();
+		
+		String queryString = conn.urlEncodedForm(RequestParams.builder()
+				.param("mailTemplate", "join-auth-mail")
+				.param("userId", member.getUserId())
+				.param("persistToken", persistToken).build());
+		
+		String response = conn.get("http://localhost:9090/mail?"+queryString);
+		mailSender.sendMail(member.getEmail(), "회원가입을 축하합니다.", response);
+	}
+>>>>>>> branch 'main' of https://github.com/sazzeo/poss-project
 
 	
+<<<<<<< HEAD
+=======
+	public int insertMember(Member member){
+		Connection conn = template.getConnection();
+		int res = 0;
+		try {
+			res = memberDao.insertMember(member, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+
+	}
+>>>>>>> branch 'main' of https://github.com/sazzeo/poss-project
 
 }
