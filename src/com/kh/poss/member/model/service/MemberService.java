@@ -10,9 +10,6 @@ import com.kh.poss.common.mail.MailSender;
 import com.kh.poss.member.model.dao.MemberDao;
 import com.kh.poss.member.model.dto.Member;
 
-
-
-
 //Service
 //어플리케이션의 비즈니스로직을 작성
 //사용자의 요청을 컨트롤러로부터 위임받아 해당 요청을 처리하기 위해 필요한 핵심적인 작업을 진행
@@ -30,6 +27,7 @@ public class MemberService {
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 
 
+
 	public Member memberAuthenticate(String userId, String password) {
 		Connection conn = template.getConnection();
 		Member member = null;
@@ -42,6 +40,7 @@ public class MemberService {
 		return member;
 
 	}
+	
 	
 	public void authenticateByEmail(Member member, String persistToken) {
 		MailSender mailSender = new MailSender();
@@ -56,6 +55,7 @@ public class MemberService {
 		mailSender.sendMail(member.getEmail(), "회원가입을 축하합니다.", response);
 	}
 
+
 	public Member selectMemberById(String userId) {
 		Connection conn = template.getConnection();
 		Member member = null;
@@ -66,7 +66,8 @@ public class MemberService {
 		}
 		return member;
 	}
-	//
+
+
 	public int insertMember(Member member){
 		Connection conn = template.getConnection();
 		int res = 0;
@@ -82,5 +83,5 @@ public class MemberService {
 		return res;
 
 	}
-
 }
+

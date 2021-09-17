@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>글 상세페이지</title>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
+<link rel="stylesheet" href="/resources/css/reset.css">
+>>>>>>> refs/heads/dev
 =======
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 <link rel="stylesheet" href="/resources/css/reset.css">
@@ -194,8 +199,12 @@ tbody>tr{
 
 </style>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <link href="resources/css/bootstrap.css" rel="stylesheet">
 <link href="resources/css/all.css" rel="stylesheet">
+=======
+
+>>>>>>> refs/heads/dev
 =======
 
 >>>>>>> refs/heads/dev
@@ -210,12 +219,21 @@ tbody>tr{
 			</div>
 			<div class='board_title'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<div class="back" style=" cursor: pointer;" onclick="location.href='poss2.html';"><i class="fas fa-arrow-left" id='arrow'></i></div>
 				<label id='board_test'>[질문] 예약 가능한가요?</label>
 			</div>
 			<div class='board_list'>
 				<label type="text" readonly="readonly" id="content">예약 가능한가여?</label>
 				<button type="button" class="btn btn-primary" id='edit_btn' onclick="location.href='poss3.html'">글수정</button>
+=======
+				<div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+				<label id='board_test'>[질문] 예약 가능한가요?</label>
+			</div>
+			<div class='board_list'>
+				<label type="text" readonly="readonly" id="content">예약 가능한가여?</label>
+				<button type="button" class="btn btn-primary" id='edit_btn' onclick="location.href='write-form'">글수정</button>
+>>>>>>> refs/heads/dev
 =======
 				<div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
 				<label id='board_test'>[질문] 예약 가능한가요?</label>
