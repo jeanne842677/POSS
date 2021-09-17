@@ -144,36 +144,44 @@ background-color:rgb(97,191,173);
 color: white;
 
 }
+
+.valid-msg{
+	display:block;
+	color:red;	
+	font-size:10px;
+}
 </style>
 </head>
 <body>
- <div class="wrap">
+
+ <form class="wrap" action="/member/join" method="post" id="frm_join">
    <div class="wrap_test">
       <img src="/resources/image/LOGO2.png">
       <div class="info_test">
          <div>
             <label><l>* </l>아이디</label>
             <input type="text" class="form-control" id="userId" placeholder="ID">
-            <button type="button" class="btn btn-light" id="auth_id_btn">중복 확인</button> 
+            <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
+            <div id="idCheck" class="valid-msg" ></div> 
          </div>
          <div>
             <label><l>* </l>비밀번호</label>
-            <input type="password"  class="form-control" id="userPw" placeholder="PASSWORD">
-      
+            <input type="password"  class="form-control" id="password" placeholder="PASSWORD">
+      		<span id="pwCheck" class="valid-msg"> </span>
             <label class="password_check"><l>* </l>확인</label>
-            <input type="password" class="form-control" id="userPwConfirm" placeholder="PASSWORD">
+            <input type="password" class="form-control" id="confirmPassword" placeholder="PASSWORD">
          </div>
          <div>
             <label><l>* </l>대표자명</label>
-            <input type="text" class="form-control" id="managerName" placeholder="대표자명">
+            <input type="text" class="form-control" id="name" placeholder="대표자명">
          </div>
          <div>
             <label><l>* </l>대표번호</label>
-            <input type="text" class="form-control" id="managerPhone" placeholder="대표 전화번호">
+            <input type="tel" class="form-control" id="phone" placeholder="대표 전화번호">
          </div>
          <div>
             <label><l>* </l>이메일</label>
-            <input type="email" class="form-control" id="managerPhone" placeholder="이메일">
+            <input type="email" class="form-control" id="email" placeholder="이메일">
          </div>
          <div>
             <label><l>* </l>매장명</label>
@@ -183,13 +191,13 @@ color: white;
             <div class="addr">
                <label><l>* </l>매장주소</label>
                <input type="text" class="form-control"  style="width: 250px; margin-right: 10px;" placeholder="기본주소" id="address"> 
-               <input type="text" class="form-control" id="postcode" style="width: 120px;" placeholder="우편번호" >  
+               <input type="text" class="form-control" id="postCode" style="width: 120px;" placeholder="우편번호" >  
                <button id="storeAddressBtn" class="btn btn-dark" onclick="search()">주소찾기</button>
             </div>
         
          <div>
             <label></label>
-            <input type="text" class="form-control" id="storeDetailAddress" style="width: 250px;" placeholder="상세주소">
+            <input type="text" class="form-control" id="detailAddress" style="width: 250px;" placeholder="상세주소">
          </div>
 
  
@@ -200,62 +208,37 @@ color: white;
       </div>
    </div>
 
-</div>
+ </form>
+
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 
-document.querySelector(".join").addEventListener('click', e => {
-  
-   location.href="/member/join";
-})
-
 function search() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
 
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                 //   document.getElementById("address").value = extraAddr;
-                
-                } else {
-                  //  document.getElementById("address").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("storeDetailAddress").focus();
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
             }
-        }).open();
-    }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('postCode').value = data.zonecode;
+            document.getElementById("address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("detailAddress").focus();
+        }
+    }).open();
+}
 </script>
+<script type="text/javascript" src="/resources/js/joinForm.js"></script>
 </body>
 </html>

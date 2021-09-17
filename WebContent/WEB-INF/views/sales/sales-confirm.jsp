@@ -19,6 +19,7 @@
 <style type="text/css">
    html, body {
         width:100%;
+        min-width:1130px;
     }
 
     /* div {
@@ -35,7 +36,7 @@
 
     /*로고*/
     .logo {
-        width:170px;
+        width:155px;
     }
 
     /*네비게이션 wrap*/
@@ -58,7 +59,7 @@
     }
 
     .menugroup{
-        width:40%; 
+        width:43%; 
     }
 
     /* 메뉴글씨 */
@@ -126,6 +127,7 @@
         width:150px;
         margin-left:10px;
         font-weight: bold;
+        border-radius: 5px;
     }
 
     .tab1{
@@ -230,7 +232,7 @@
     }
     .onetopmenu>*{
         justify-content: center;
-        padding:70px 10px 10px 18px;
+        padding:52px 10px 10px 10px;
     }
 
     /* 메뉴 순위 */
@@ -319,7 +321,7 @@
     <div class="wrap">
     <header id="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <img src="/resources/image/LOGO2.png" class="logo">
+                    <img src="/resources/image/LOGO6.png" class="logo">
                    
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
@@ -329,14 +331,17 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">매출관리</a>
+                  <a class="nav-link active" href="/sales/confirm">매출관리</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">게시판</a>
+                  <a class="nav-link" href="/board/notice">게시판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">예약관리</a>
+                  <a class="nav-link" href="#">웨이팅</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
+                  </li>
             </ul>  
             </div>  
             </nav>

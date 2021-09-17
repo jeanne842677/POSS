@@ -3,12 +3,14 @@ package com.kh.poss.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.member.model.dto.Member;
@@ -180,45 +182,48 @@ public class MemberController extends HttpServlet {
 	//회원 가입 버튼을 눌렀을 때 
 	private void join(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		
-		/* 
-		//이메일 인증 로직 구현 (일부러 안지웠음) 파라미터 추가하기
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		String tell = request.getParameter("tell");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
-			
+		String store_name = request.getParameter("storeName");
+		String address = request.getParameter("address") + request.getParameter("detailAddress") + "(" + request.getParameter("postCode") + ")";
+		
 		
 		Member member = new Member();
-		
-
-		//멤버 세팅
 		member.setUserId(userId);
 		member.setPassword(password);
-		member.setTell(tell);
+		member.setName(name);
+		member.setPhone(phone);
 		member.setEmail(email);
-
+		member.setStore_name(store_name);
+		member.setAddress(address);
 		
-		//이메일 관련 인증
-		memberService.authenticateByEmail(member);
 		
-		//여긴 나중에 수정할 것
+		String persistToken = UUID.randomUUID().toString();
+		request.getSession().setAttribute("persistUser", member);
+		request.getSession().setAttribute("persistToken", persistToken);
+		
+		memberService.authenticateByEmail(member, persistToken);
+		
 		request.setAttribute("msg", "이메일이 발송되었습니다.");
 		request.setAttribute("url", "/index");
 		request.getRequestDispatcher("/error/result").forward(request, response);
-		
-		*/
-		
-		//위 기능 구현 전 임시로 로그인창으로 보내는 리다이렉트
-		response.sendRedirect("/member/login-form");
-		
-		
 	}
 
 
 	//아이디 체크 
 	private void checkID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		String userId = request.getParameter("userId");
+		System.out.println(userId);
+		Member member = memberService.selectMemberById(userId);
+		System.out.println(member);
+		if (member == null) {
+			response.getWriter().print("available");
+		} else {
+			response.getWriter().print("disable");
+		}
 		
 		// fetch로 받음 PrintWriter로 보낼 것
 		
@@ -227,15 +232,13 @@ public class MemberController extends HttpServlet {
 
 	//이메일 인증
 	private void joinImpl(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		
-		//이메일 인증 구현 {}
-		
+		Member member = (Member)session.getAttribute("persistUser");
+		memberService.insertMember(member);
+		session.removeAttribute("persistToken");
+		session.removeAttribute("persistUser");
 		response.sendRedirect("/member/login-form");
-			
-
-		
-		
-		
 	}
 
 
