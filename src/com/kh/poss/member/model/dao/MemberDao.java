@@ -1,16 +1,18 @@
 package com.kh.poss.member.model.dao;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.kh.poss.common.db.JDBCTemplate;
-
-
-import com.kh.poss.common.exception.DataAccessException;
 import com.kh.poss.member.model.dto.Member;
+import com.kh.poss.common.exception.DataAccessException;
 
 public class MemberDao {
 
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-
 
 	public Member memberAuthenticate(String userId, String password, Connection conn) {
 		Member member = null;
@@ -35,6 +37,7 @@ public class MemberDao {
 		return member;
 	}
 	
+
 	public Member selectMemberById(String userId, Connection conn) {
 		Member member = null;
 		PreparedStatement pstm = null;
@@ -56,6 +59,8 @@ public class MemberDao {
 		}
 		return member;
 	}
+	
+	
 	
 	public int insertMember(Member member, Connection conn) {
 		int res = 0;
@@ -80,6 +85,8 @@ public class MemberDao {
 		return res;
 	}
 	
+	
+	
 	private Member convertAllToMember(ResultSet rset) throws SQLException {
 		Member member = new Member();
 		member.setUserId(rset.getString("user_id"));
@@ -93,6 +100,6 @@ public class MemberDao {
 		member.setIs_leave(rset.getInt("is_leave"));
 		return member;
 	}
->>>>>>> branch 'main' of https://github.com/sazzeo/poss-project
 	
 }
+
