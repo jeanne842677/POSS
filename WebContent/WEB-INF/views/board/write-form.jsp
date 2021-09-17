@@ -4,26 +4,45 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글 작성페이지</title>
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
+<link rel="stylesheet" href="/resources/css/reset.css">
+<script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+>>>>>>> refs/heads/dev
 <style type="text/css">
 html, body{
 	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
+	margin: unset;
 }
 
+.now{
+	color:white;
+}
+
+.wrap_all{
+	width:100%;
+	height:100%;
+	display:flex;
+	justify-content: center;
+}
 .wrap_board {
-	width: 360px;
-	height: 640px;
+	width:1130px;
+	height:80%;
 }
 
 
 .mobile_nav{
+	width:100%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	font-weight: bold;
-	height: 40px;
+	height: 50px;
 	background-color: rgb(97, 191, 173);
 }
 
@@ -43,7 +62,7 @@ html, body{
 .back{
 	width:10%;
 	display:flex;
-	justify-content: end;
+	justify-content: center;
 	align-items: center;
 	
 }
@@ -93,6 +112,7 @@ html, body{
 	border-color: gray;
 	border-radius: 5px;
 	height: 400px;
+	width:100%;
 }
 
 .is_private{
@@ -176,67 +196,102 @@ input:checked + .slider:before {
 
 .pw_setting>*{
 	border: thin;
-	border-style: solid;
-	border-color: gray;
-	border-radius: 5px;
-	font-size: 15px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 80px;
+    height: 30px;
 }
 
 .pw_setting>label{
 	background-color: #f9f7e8;
-	border-color: none;
-	margin-right: 10px;
+	margin-right: 1px;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
 }
 
 
 #write_btn{
-	width: 66px;
-	height: 25px;
-	display:flex;
-	align-items: center;
-	justify-content: center;
-	float: right;
-	margin-right: 10px;
-	background-color: #61bfad;
-	font-size: 12px;
+	width: 80px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    margin-right: 20px;
+    background-color: #61bfad;
+    font-size: 12px;
+<<<<<<< HEAD
+=======
+    border: none;
+>>>>>>> refs/heads/dev
 }
 
 </style>
-
-<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+<link href="resources/css/bootstrap.css" rel="stylesheet">
+<link href="resources/css/all.css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 </head>
 <body>
-
-<div class='wrap_board'> 
-	<div class='mobile_nav'>
-		<label>예약하기</label>
-		<label>예약확인</label>
-		<label>게시판</label>
-	</div>
-	<div class='board_title'>
-		<div class="back" style=" cursor: pointer;" onclick="location.href='#';"><i class="fas fa-arrow-left" id='arrow'></i></div>
-		<label id='board_test'>새로운 글 작성</label>
-	</div>
-	<div class='board_list'>
-		<div class='content_info'>
-			<input type="text" class="form-control form-control-sm" id='writer' placeholder="작성자">
-			<input type="text" class="form-control form-control-sm" id='title' placeholder="글 제목">
+	<div class="wrap_all">
+		<div class='wrap_board'> 
+			<div class='mobile_nav'>
+				<label>예약하기</label>
+				<label>예약확인</label>
+				<label class="now">게시판</label>
+			</div>
+			<div class='board_title'>
+<<<<<<< HEAD
+				<div class="back" style=" cursor: pointer;" onclick="location.href='#';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+				<label id='board_test'>새로운 글 작성</label>
+			</div>
+			<div class='board_list'>
+				<div class='content_info'>
+					<input type="text" class="form-control form-control-sm" id='writer' placeholder="작성자">
+					<input type="text" class="form-control form-control-sm" id='title' placeholder="글 제목">
+				</div>
+				<textarea  class="form-control form-control-lg" id="content" placeholder="내용을 입력해주세요"></textarea>
+			</div>
+			<div class='is_private'>
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+					</label>
+					<label id="public">공개</label><label id="private" style="display:none;">비공개</label>
+			</div>
+			<div class='pw_setting'>
+					<label>비밀번호</label>
+					<input type="text" size="5" maxlength="4" id="password">
+					<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='poss2.html'">글쓰기</button>
+=======
+				<div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+				<label id='board_test'>새로운 글 작성</label>
+			</div>
+			<div class='board_list'>
+				<div class='content_info'>
+					<input type="text" class="form-control form-control-sm" id='writer' placeholder="작성자">
+					<input type="text" class="form-control form-control-sm" id='title' placeholder="글 제목">
+				</div>
+				<textarea  class="form-control form-control-lg" id="content" placeholder="내용을 입력해주세요"></textarea>
+			</div>
+			<div class='is_private'>
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+					</label>
+					<label id="public">공개</label><label id="private" style="display:none;">비공개</label>
+			</div>
+			<div class='pw_setting'>
+					<label>비밀번호</label>
+					<input type="text" size="5" maxlength="4" id="password">
+					<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='post'">글쓰기</button>
+>>>>>>> refs/heads/dev
+			</div>
 		</div>
-		<textarea  class="form-control form-control-lg" id="content" placeholder="내용을 입력해주세요"></textarea>
 	</div>
-	<div class='is_private'>
-  			<label class="switch">
-  				<input type="checkbox">
-  				<span class="slider round"></span>
-			</label>
-			<label id="public">공개</label><label id="private" style="display:none;">비공개</label>
-  	</div>
-	<div class='pw_setting'>
-			<label>비밀번호</label>
-			<input type="text" size="5" maxlength="4" id="password">
-			<button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/write'">글쓰기</button>
-	</div>
-</div>
 
 <script type="text/javascript">
 var check = $("input[type='checkbox']");
@@ -245,5 +300,6 @@ check.click(function(){
 	$("#private").toggle();
 });
 </script>
+
 </body>
 </html>

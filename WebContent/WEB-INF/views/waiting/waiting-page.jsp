@@ -16,6 +16,8 @@
       
       html , body {
         width:100%;
+        min-width:1130px;
+        min-height:630px;
         height:100%;
       }
       
@@ -27,10 +29,31 @@
 
       .left_wrap{
         width:50%;
-        min-width: 600px;
         background-color:rgb(97,191,173);
     
 
+      }
+
+      .logo{
+          width:100%;
+          height:10%;
+          z-index:100;
+      }
+
+      .line{
+        width:50%;
+        display:fixed;
+        position:absolute;
+        margin-top: 30px;
+        height:3px;
+        background-color: #f9f7e8;
+      }
+
+      .logo>img{
+          width:150px;
+          margin:35px 10px 10px 10px;
+          display:block;
+          position:absolute;
       }
 
       .left_wrap * {
@@ -40,7 +63,7 @@
 
       /*현재 대기중인 팀*/
       .wait_team_wrap {
-        height: 80%;
+        height: 70%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -112,8 +135,6 @@
       .right_wrap {
         width:50%;
         height:100%;
-        min-height:800px;
-        min-width: 600px;
          display:flex;
          flex-direction: column;
 
@@ -243,6 +264,7 @@
   <body>
     <div class="wrap">
       <div class="left_wrap">
+          <div class="logo"><div class="line"></div><img src="/resources/image/LOGO6.png"></div>
         <div class="wait_team_wrap">
           <div class="wait_team">
             <div class="wait_team_num_wrap">

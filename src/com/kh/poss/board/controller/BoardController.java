@@ -81,8 +81,7 @@ public class BoardController extends HttpServlet {
 	}
 	
 	
-	private void post(HttpServletRequest request, HttpServletResponse response) {
-		
+	private void post(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		//쿼리에 보드 번호,id 담아서 보냄=>
 		//알맞은 포스트 불러오기 
