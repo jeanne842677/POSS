@@ -179,67 +179,59 @@ html, body {
                			<strong>구현해조</strong> 
                		</div>
                		<div class="nim">님!</div>
-            			<button type="button" class="btn btn-secondary" id="main_button" onclick="javascript:location.href='main1.html'">> 메인으로</button>
+            			<button type="button" class="btn btn-secondary" id="main_button" onclick="javascript:location.href='/index'">> 메인으로</button>
             		</div>  
             	</div>
             </nav>
     	</header>
-	
-	<div class="modify_my_info_text">내정보 수정</div>
-	    <div class="wrap_modify">
-	    	 <div class="info_text">
-	    	<div>
-		     <label>매장명</label>
-	         <input type="text" id="storeName" placeholder="매장명">
-	         </div>
-	         <div>
-	         <label>매장주소</label>
-	         <input type="text" id="storeAddress" style="width: 135px;" placeholder="우편번호">
-	         <button type="button" class="btn btn-secondary" id="searchAddress" onclick="search()">주소찾기</button>
-	         </div>
-	         <div>
-	         <label></label>
-	         <input type="text" id="storeDetailAddress" placeholder="상세주소">
-	         </div>
-	         <div>
-	         <label>대표자명</label>
-	         <input type="text" id="managerName" placeholder="대표자명">
-	         </div>
-	         <div>
-	         <label>대표번호</label>
-	         <input type="text" id="managerPhone" placeholder="대표 전화번호">
-	         </div>
-	         <div>
-	         <label>아이디</label>
-	        <!--  <input type="text" id="userId" placeholder="ID"> -->
-	         <div class="ID" style="width: 250px;">ID</div>
-	         </div>
-	         <div>
-	         <label>비밀번호</label>
-	         <input type="password" id="userPw" placeholder="PASSWORD">
-	         </div>
-	         <div>
-	         <label>비밀번호 확인</label>
-         	 <input type="password" id="userPwConfirm" placeholder="PASSWORD">
-             </div>
-       
-      </div>
-   </div>
 
-	
-	
-	<div class="modify_my_info">
-		<button class="btn btn-lg btn-primary" type="button" id="modify_confirm_btn" onclick="location.href='/member/mypage'">확인</button>
-	</div>
-	
-	
-	
+		<div class="modify_my_info_text">내정보 수정</div>
+		    <div class="wrap_modify">
+		    
+		    	 <div class="info_text">
+		    	<div>
+			     <label>매장명</label>
+		         <input type="text" id="storeName" name="storeName" value="${myInfo.store_name}">
+		         </div>
+		         <div>
+		         <label>매장주소</label>
+		         <input type="text" id="storeAddress" name="storeAddress" style="width: 135px;" value="${addressNum}">
+		         <button type="button" class="btn btn-secondary" id="searchAddress" onclick="search();">주소찾기</button>
+		         </div>
+		         <div>
+		         <label></label>
+		         <input type="text" id="storeDetailAddress" name="storeDetailAddress" value="${detailAddress}">
+		         </div>
+		         <div>
+		         <label>대표자명</label>
+		         <input type="text" id="managerName" name="name" value="${myInfo.name}">
+		         </div>
+		         <div>
+		         <label>대표번호</label>
+		         <input type="text" id="managerPhone" name="phone" value="${myInfo.phone}">
+		         </div>
+		         <div>
+		         <label>아이디</label>
+		         <input type="text" id="ID" name="id" name="id" value="${myInfo.userId}" readonly>
+		         </div>
+		         <div>
+		         <label>비밀번호</label>
+		         <input type="password" id="userPw" name="password" value="${myInfo.password}">
+		         </div>
+		         <div>
+		         <label>비밀번호 확인</label>
+	         	 <input type="password" id="userPwConfirm" placeholder="PASSWORD">
+	             </div>
+	      </div>
+	   </div>
+	   
+		<div class="modify_my_info">
+			<button class="btn btn-lg btn-primary" type="submit" id="modify_confirm_btn">확인</button>
+		</div>
 </div>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-
-
 
 function search(){
    daum.postcode.load(function(){
@@ -247,15 +239,55 @@ function search(){
               oncomplete: function(data) {
                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
                   // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                  
+                  let addr = '';
+                  
+                  if (data.userSelectedType === 'R'){
+                	  addr = data.roadAddress;
+                  } else {
+                	  addr = data.jibunAddress;
+                  }
+                  
+                  document.getElementById("storeAddress").value = data.zonecode;
+                  document.getElementById("storeDetailAddress").value = addr;
               }
        }).open();
    });
 }
 
+
+document.querySelector("#modify_confirm_btn").addEventListener("click", e => {
+	let storeNameParams = document.getElementById("storeName").value;
+	let storeAddressParams = document.getElementById("storeDetailAddress").value + "(" + document.getElementById("storeAddress").value + ")";
+	let nameParams = document.getElementById("managerName").value;
+	let phoneParams = document.getElementById("managerPhone").value;
+	let idParams = document.getElementById("ID").value;
+	let pwParams = document.getElementById("userPw").value;
+	
+	let confirmPw = document.getElementById("userPwConfirm").value;
+	
+	if (pwParams == confirmPw){
+		fetch("/member/modify?storeName="+storeNameParams+"&address="+storeAddressParams
+				+"&name="+nameParams+"&phone="+phoneParams
+				+"&userId="+idParams+"&userPw="+pwParams, {
+			method: "POST"
+		})
+		.then(res => res.text())
+		.then(text => {
+
+			if (text == "available") {
+				location.href = "/member/mypage?userId="+idParams;
+			} else if (text == "disable") {
+				location.href = "/index";
+			}
+		})
+	} else {
+		alert("비밀번호 똑바로 ~");
+		return;
+	}
+	
+})
+
 </script>
-
-
-
-
 </body>
 </html>
