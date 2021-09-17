@@ -4,12 +4,9 @@ package com.kh.poss.member.model.service;
 import java.sql.Connection;
 
 import com.kh.poss.common.db.JDBCTemplate;
-import com.kh.poss.common.http.HttpConnector;
-import com.kh.poss.common.http.RequestParams;
 import com.kh.poss.common.mail.MailSender;
 import com.kh.poss.member.model.dao.MemberDao;
 import com.kh.poss.member.model.dto.Member;
-
 
 //Service
 //어플리케이션의 비즈니스로직을 작성
@@ -26,8 +23,23 @@ public class MemberService {
 
 	private MemberDao memberDao = new MemberDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
-	
 
+
+
+	public Member memberAuthenticate(String userId, String password) {
+		Connection conn = template.getConnection();
+		Member member = null;
+
+		try {
+			member = memberDao.memberAuthenticate(userId, password, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+
+	}
+	
+	
 	public void authenticateByEmail(Member member, String persistToken) {
 		MailSender mailSender = new MailSender();
 		HttpConnector conn = new HttpConnector();
@@ -39,17 +51,6 @@ public class MemberService {
 		
 		String response = conn.get("http://localhost:9090/mail?"+queryString);
 		mailSender.sendMail(member.getEmail(), "회원가입을 축하합니다.", response);
-	}
-
-	public Member selectMemberById(String userId) {
-		Connection conn = template.getConnection();
-		Member member = null;
-		try {
-			member = memberDao.selectMemberById(userId, conn);
-		} finally {
-			template.close(conn);
-		}
-		return member;
 	}
 	
 	
@@ -66,7 +67,7 @@ public class MemberService {
 			template.close(conn);
 		}
 		return res;
+
 	}
-	
 }
 

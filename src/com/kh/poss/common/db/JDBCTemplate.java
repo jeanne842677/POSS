@@ -86,7 +86,7 @@ public class JDBCTemplate {
 
 
       try {
-
+    	  
          conn = pds.getConnection();
          // 트랜젝션 관리를 개발하기 하기 위해 Auto commit 끄기
          conn.setAutoCommit(false); // 세션 완료시에는 commit이 됨.

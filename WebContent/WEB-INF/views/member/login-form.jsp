@@ -149,13 +149,13 @@ body {
 <body>
     <div class="wrap">
         <div class="login_wrap">
-
+	
             <img id="logo" src="/resources/image/LOGO2.png">
             <div class="inner_login_wrap">
                 <input type="text" class="form-control" id="userId" placeholder="아이디">
-                <input type="password" class="form-control" id="userPw" placeholder="비밀번호">
+                <input type="password" class="form-control" id="password" placeholder="비밀번호">
                 <div class="loginAlert">!아이디 혹은 비밀번호가 일치하지 않습니다.</div>
-                <button type="button" class="btn btn-secondary" id="loginBtn" onclick="location.href='/member/login'">로그인</button>
+                <button type="button" class="btn btn-secondary" id="loginBtn" onclick="defaultLogin()">로그인</button>
                 <button type="button" class="btn btn-light" id="kakaoLoginBtn">카카오 계정으로 로그인</button>
                 <div class="find_wrap">
                     <span><a class="nav-link" href="/member/lostid">아이디 찾기</a></span>
@@ -167,9 +167,25 @@ body {
             </div>
         </div>
     </div>
+    
+    
+<script type="text/javascript">
 
-<script type="javascript">
+let defaultLogin=() => {
 
+uri = "/member/login";
+fetch(uri , {
+	//body에 파라미터 보내기
+
+	method :'post',
+	headers : {'Content-Type' : 'application/json'},
+	body : JSON.stringify({'key값':'value값'})}
+	//json파싱
+	//document.value
+})
+
+
+}
 
 </script>
 
