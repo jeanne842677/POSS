@@ -322,6 +322,30 @@ public class MemberController extends HttpServlet {
 
 	//아이디 찾기 실행
 	private void findingId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+System.out.println("실행");
+		
+		
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+
+
+		Member member = memberService.selectMemberByEmailAndName(name,email);
+		
+		if(member==null) {
+			
+			//아이디 또는 비밀번호가 없습니다. 알림창 
+			return;
+		
+		}
+		
+		String persistToken = UUID.randomUUID().toString();
+		persistToken = persistToken.substring(0, 6); //6자리 인증번호 생성
+		
+		System.out.println("findingId메소드:" + member);
+		
+		request.getSession().setAttribute("persistToken", persistToken);  //세션에 토큰 저장
+		
+		memberService.idFindByEmail(member, persistToken);
 		
 		
 	}

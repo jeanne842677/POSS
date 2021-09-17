@@ -111,5 +111,35 @@ public class MemberService {
 		return res;
 		
 	}
+	
+	public void idFindByEmail(Member member, String persistToken) {
+		MailSender mailSender = new MailSender();
+		HttpConnector conn = new HttpConnector();
+		
+		//쿼리 파라미터화 만들기
+		String queryString = conn.urlEncodedForm(RequestParams.builder()
+				.param("mailTemplate", "findig-id-mail")
+				.param("userId", member.getUserId())
+				.param("persistToken", persistToken).build());
+		
+		String response = conn.get("http://localhost:9090/mail?"+queryString);
+		mailSender.sendMail(member.getEmail(), "아이디 찾기 인증 메일입니다.", response);
+		
+	}
+
+
+
+
+	public Member selectMemberByEmailAndName(String name, String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberByEmailAndName(name, email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
+	
 }
 

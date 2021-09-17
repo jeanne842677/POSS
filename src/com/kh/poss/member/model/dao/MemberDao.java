@@ -146,5 +146,31 @@ public class MemberDao {
 		return res;
 	}
 	
+
+
+	public Member selectMemberByEmailAndName(String name, String email, Connection conn) {
+		Member member = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from poss_user where name=? and email = ?";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, name);
+			pstm.setString(2, email);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertAllToMember(rset);
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		return member;
+	}
+	
+	
 }
 

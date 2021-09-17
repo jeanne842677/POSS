@@ -188,10 +188,10 @@ l {
             <div class="inner_login_wrap">
                 <div class="text1"><l>* </l>이메일로 아이디 찾기</div>
                 <input type="text" class="form-control" id="name" placeholder="이름">
-                <input type="email" class="form-control" id="email" placeholder="이메일">
+                <input type="email" class="form-control" id="email" placeholder="이메일@">
                 <div class="email_auth"> 
                     <input type="text" class="form-control" id="authentication" placeholder="인증번호를 입력하세요.">
-                    <button type="button" class="btn btn-light" id="auth_btn">인증번호 받기</button> 
+                    <button type="button" class="btn btn-light" id="auth_btn" onclick="emailAuth()">인증번호 받기</button> 
                 </div>
                 <button type="button" class="btn btn-secondary" id="next_btn"> 다음으로</button>
 
@@ -199,10 +199,26 @@ l {
         </div>
     </div>
 
-<script type="javascript">
 
+<script type="text/javascript">
+
+let emailAuth = function() {
+	
+	let uri = "/member/finding-id";
+	
+	let name = document.querySelector("#name").value;
+	let email = document.querySelector("#email").value;
+	console.dir(name);
+	console.dir(email);
+	
+	fetch(uri+"?name="+name+"&email="+email,{method: "POST"});
+
+
+
+}
 
 </script>
+
 
 </body>
 </html>
