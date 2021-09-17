@@ -143,6 +143,13 @@ html, body {
 	height: 200px;
 }
 
+#confirmPw{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 200px;
+}
+
 /* 내정보 수정 */
 .modify_my_info{
 	margin-top: 50px;
@@ -242,18 +249,18 @@ html, body {
 		    	<div>아이디</div>
 			</div>
 			<div class="info">
-				<div>구현해조</div>
-		    	<div>서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F,3F,4F,5F,6F</div>
-		    	<div>name</div>
-		    	<div>010-0000-0000</div>
-		    	<div>ID</div>
+				<div>${myInfo.store_name}</div>
+		    	<div>${myInfo.address}</div>
+		    	<div>${myInfo.name}</div>
+		    	<div>${myInfo.phone}</div>
+		    	<div>${myInfo.userId}</div>
 			</div>
 		</div>
 	</div>
 	
 	
 	<div class="modify_my_info">
-		<button class="btn btn-lg btn-primary" type="button" id="modify_btn" onclick="location.href='/member/modify-info'">내정보 수정</button>
+		<button class="btn btn-lg btn-primary" type="button" id="modify_btn" onclick="modifyInfo()">내정보 수정</button>
 	</div>
 	
 	<div class="line"></div>
@@ -281,6 +288,19 @@ function showConfirmDeleteAccount() {
 		alert("취소 되었습니다.");
 		}
 	}
+	
+function modifyInfo(){
+	
+	let test = prompt("비밀번호 입력하세요~");
+	
+	if(test != ${myInfo.password}){
+		alert("돌아가");
+		return;
+	}
+	
+	location.href = "/member/modify-info";
+	
+}
 
 
 

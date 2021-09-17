@@ -146,10 +146,10 @@ color: white;
 }
 
 .valid-msg{
-	display:block;
 	color:red;	
 	font-size:10px;
 }
+
 </style>
 </head>
 <body>
@@ -160,56 +160,66 @@ color: white;
       <div class="info_test">
          <div>
             <label><l>* </l>아이디</label>
-            <input type="text" class="form-control" id="userId" placeholder="ID">
+            <input type="text" class="form-control" name="userId" id="userId" placeholder="ID" required />
             <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
-            <div id="idCheck" class="valid-msg" ></div> 
          </div>
+         <div id="idCheck" class="valid-msg" > </div>
+         
          <div>
             <label><l>* </l>비밀번호</label>
-            <input type="password"  class="form-control" id="password" placeholder="PASSWORD">
-      		<span id="pwCheck" class="valid-msg"> </span>
+            <input type="password"  class="form-control" name="password" id="password" placeholder="PASSWORD">
             <label class="password_check"><l>* </l>확인</label>
             <input type="password" class="form-control" id="confirmPassword" placeholder="PASSWORD">
          </div>
+         <div class='d-flex' style="justify-content: space-between;">
+         	 <div id="pwCheck" class="valid-msg"> </div>
+        	 <div id="pwConfirmCheck" class="valid-msg"> </div>
+         </div>
+         
          <div>
             <label><l>* </l>대표자명</label>
-            <input type="text" class="form-control" id="name" placeholder="대표자명">
+            <input type="text" class="form-control" name="name" id="name" placeholder="대표자명">
          </div>
          <div>
             <label><l>* </l>대표번호</label>
-            <input type="tel" class="form-control" id="phone" placeholder="대표 전화번호">
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="대표 전화번호">
          </div>
+         <div id="phoneCheck" class="valid-msg"> </div>
+         
          <div>
             <label><l>* </l>이메일</label>
-            <input type="email" class="form-control" id="email" placeholder="이메일">
+            <input type="email" class="form-control" name="email" id="email" placeholder="이메일">
+            <button type="button" class="btn btn-light" id="btnEmailCheck">중복 확인</button>
          </div>
+         <div id="emailCheck" class="valid-msg" > </div>
+        
          <div>
             <label><l>* </l>매장명</label>
-            <input type="text" class="form-control" id="storeName" placeholder="매장명">
+            <input type="text" class="form-control" name="storeName" id="storeName" placeholder="매장명">
          </div>
       
             <div class="addr">
                <label><l>* </l>매장주소</label>
-               <input type="text" class="form-control"  style="width: 250px; margin-right: 10px;" placeholder="기본주소" id="address"> 
-               <input type="text" class="form-control" id="postCode" style="width: 120px;" placeholder="우편번호" >  
-               <button id="storeAddressBtn" class="btn btn-dark" onclick="search()">주소찾기</button>
+               <input type="text" class="form-control"  style="width: 250px; margin-right: 10px;" placeholder="기본주소" name="address" id="address"> 
+               <input type="text" class="form-control" name='postCode' name="postCode" id="postCode" style="width: 120px;" placeholder="우편번호" >  
+               <button id="storeAddressBtn" type='button' class="btn btn-dark" onclick="search()">주소찾기</button>
             </div>
         
          <div>
             <label></label>
-            <input type="text" class="form-control" id="detailAddress" style="width: 250px;" placeholder="상세주소">
+            <input type="text" class="form-control" name="detailAddress" id="detailAddress" style="width: 250px;" placeholder="상세주소">
          </div>
 
  
             <p class="testConfirm"></p>
             <div>
-            <button class="btn btn-secondary join">JOIN-US</button>
+            <button class="btn btn-secondary join" type='submit'>JOIN-US</button>
          </div>
       </div>
    </div>
 
  </form>
-
+ 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 
