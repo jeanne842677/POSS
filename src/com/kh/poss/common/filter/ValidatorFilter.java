@@ -59,13 +59,19 @@ public class ValidatorFilter implements Filter {
 	private String memberValidation(HttpServletRequest httpRequest, String[] uriArr) {
 		
 		String redirectUrl = null;
+		JoinForm joinForm = new JoinForm(httpRequest);
 		
 		switch (uriArr[2]) {
 		case "join":
-			JoinForm joinForm = new JoinForm(httpRequest);
 			if(!joinForm.test()) {
 				redirectUrl = "/member/join-form";
 			}
+			break;
+		case "chang-pass-impl":
+			if(!joinForm.testPass()) {
+				redirectUrl = "/member/change-pass";
+			}
+			
 			break;
 		}
 		return redirectUrl;

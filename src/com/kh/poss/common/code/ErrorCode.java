@@ -10,7 +10,8 @@ public enum ErrorCode {
 	AUTHENTICATION_FAILED_ERROR("유효하지 않은 인증입니다."),
 	UNAUTHORIZED_PAGE_ERROR("접근 권한이 없는 페이지 입니다."),
 	FAILED_FILE_UPLOAD_ERROR("파일 업로드에 실패했습니다."),
-	REDIRECT_LOGIN_PAGE("","/member/login-form");
+	REDIRECT_LOGIN_PAGE("","/member/login-form"),
+	USER_INFORMATION_NOT_FOUND("입력하신 정보와 일치하는 회원을 찾을 수 없습니다. 인증 절차를 다시 시도해 보세요." , "/member/lostid");
 	
 	public final String MESSAGE;
 	public final String URL;

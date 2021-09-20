@@ -30,8 +30,12 @@ public class SalesController extends HttpServlet {
 		
 		
 		switch(uri[uri.length-1]) {
-		case "confirm" :  //매출 내역 확인 폼으로 이동
+		case "confirm" :  //매출 조회 확인 폼으로 이동
 			confirm(request, response);
+			
+			break;
+		case "detail" :  //매출 내역 폼으로 이동
+			detail(request, response);
 			
 			break;
 		default : throw new PageNotFoundException();
@@ -42,6 +46,12 @@ public class SalesController extends HttpServlet {
 	private void confirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
 		request.getRequestDispatcher("/sales/sales-confirm").forward(request, response);
+		
+	}
+	
+	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+		request.getRequestDispatcher("/sales/sales-detail").forward(request, response);
 		
 	}
 

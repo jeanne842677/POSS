@@ -3,11 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
-
-<title>회원가입 페이지</title>
+<title>카카오계정으로 가입하기</title>
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <style type="text/css">
 
@@ -37,17 +35,19 @@ align-items: center;
 
 
 /*가운데 폼 wrap*/
-.wrap_test {
-    width: 700px;
-    height: 700px;
-    border-radius: 10px;
-    background-color: rgb(249, 247, 232);
-    box-shadow: 10px 10px grey;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
+.wrap_test{
 
+width: 700px;
+height: 600px;
+border-radius: 10px;
+background-color: rgb(249, 247, 232);
+box-shadow: 10px 10px grey;
+
+display: flex;
+justify-content: center;
+position: relative;
+
+}
 
 img{
 width: 400px;
@@ -74,14 +74,13 @@ font-weight: 800;
 }
 
 /*인풋 태그 있는 wrap*/
+.info_test{
 
-.info_test {
-    position: relative;
-    width: 650px;
-    top: 90px;
-    height: 520px;
+position: relative;
+width: 650px;
+top:90px;
+height:520px;
 }
-
 
 .info_test>div{
 margin-bottom: 15px;
@@ -158,19 +157,6 @@ color: white;
    <div class="wrap_test">
       <img src="/resources/image/LOGO2.png">
       <div class="info_test">
-         <div>
-            <label><l>* </l>아이디</label>
-            <input type="text" class="form-control" name="userId" id="userId" placeholder="ID" required />
-            <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
-         </div>
-         <div id="idCheck" class="valid-msg" > </div>
-         
-         <div>
-            <label><l>* </l>비밀번호</label>
-            <input type="password"  class="form-control" name="password" id="password" placeholder="PASSWORD">
-            <label class="password_check"><l>* </l>확인</label>
-            <input type="password" class="form-control" id="confirmPassword" placeholder="PASSWORD">
-         </div>
          <div class='d-flex' style="justify-content: space-between;">
          	 <div id="pwCheck" class="valid-msg"> </div>
         	 <div id="pwConfirmCheck" class="valid-msg"> </div>

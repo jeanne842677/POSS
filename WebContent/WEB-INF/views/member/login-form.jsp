@@ -93,8 +93,7 @@ body {
 }
 
 /*로그인 정보 알림 문구*/
-.loginAlert {
-	display: none;
+#loginAlert {
 	height: 15px;
 	font-size: 11px;
 	margin: 15px 0 15px 0;
@@ -113,18 +112,18 @@ body {
 		<div class="login_wrap">
 			<img id="logo" src="/resources/image/LOGO2.png">
 			<div class="inner_login_wrap">
-				<input type="text" class="form-control" id="userId"
-					placeholder="아이디"> <input type="password"
-					class="form-control" id="password" placeholder="비밀번호">
-				<div class="loginAlert">!아이디 혹은 비밀번호가 일치하지 않습니다.</div>
+				<input type="text" class="form-control" id="userId" placeholder="아이디" required> 
+				<input type="password" class="form-control" id="password" placeholder="비밀번호" required>
+					<c:if test="${not empty param.err}">
+						<div class="valid-msg" id="loginAlert">! 아이디 혹은 비밀번호가 일치하지 않습니다.</div>
+					</c:if>
 				<button type="button" class="btn btn-secondary" id="loginBtn">로그인</button>
 				<button type="button" class="btn btn-light" id="kakaoLoginBtn">카카오
 					계정으로 로그인</button>
 				<div class="find_wrap">
 					<span><a class="nav-link" href="/member/lostid">아이디 찾기</a></span> <span>|</span>
-					<span><a class="nav-link" href="/member/lostpass">비밀번호
-							찾기</a></span> <span>|</span> <span><a class="nav-link"
-						href="/member/join-form">회원 가입</a></span>
+					<span><a class="nav-link" href="/member/lostpass">비밀번호 찾기</a></span> <span>|</span> 
+					<span><a class="nav-link" href="/member/join-form">회원 가입</a></span>
 				</div>
 			</div>
 		</div>
@@ -147,7 +146,6 @@ body {
              alert("로그인 되었습니다.");
              location.href="/index";
           }else if(text == 'disable'){
-            alert("아이디와 비밀번호를 확인하세요.");      
             location.href="/member/login-form?err=1";
           }
     })

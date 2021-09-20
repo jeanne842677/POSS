@@ -407,17 +407,30 @@ html, body {
       <header id="header">
          <nav class="navbar">
             <div class="nav_group">
-               <div class="logo"><img src="/resources/image/LOGO2.png" class="logo"></div>
-               <div class="hello" id="shrink">안녕하세요</div>
-               <div class="user_name" id="shrink">구현해조</div>
-               <div class="nim" id="shrink">님!</div>
-               
-               <div class="my_info" id="shrink">
-                  <button type="button" class="btn btn-secondary" id="info_button" onclick="location.href='/member/mypage'">
-                     > 내정보
-                  </button>
+              <div class="logo"><img src="/resources/image/LOGO2.png" class="logo"></div>
+              <c:if test="${not empty authentication}">
+	               <div class="hello" id="shrink">안녕하세요</div>
+	               <div class="user_name" id="shrink">${authentication.name}</div>
+	               <div class="nim" id="shrink">님!</div>
+	               
+	               <div class="my_info" id="shrink">
+	                  <button type="button" class="btn btn-secondary" id="info_button" 
+	                  onclick="location.href='/member/mypage?userId=${authentication.userId}'" >
+	                     > 내정보
+	                  </button>
+	               </div>
+               </c:if>
+               <c:if test="${empty authentication}">
+	               <div class="hello" id="shrink">로그인 후 이용해주세요.</div>
+	               
+	               <div class="my_info" id="shrink">
+	                  <button type="button" class="btn btn-secondary" id="info_button" onclick="location.href='/member/login-form'">
+	                     > 로그인
+	                  </button>
                </div>
+               </c:if>
                <div class="clock" id="shrink"></div>
+               <c:if test="${not empty authentication}">
                <div class="logout"  id="shrink">
                <button type="button" class="btn btn-secondary" id="logout"
                   onclick="showConfirmLogout();">
@@ -426,6 +439,7 @@ html, body {
                   </div>
                </button>
                </div>
+               </c:if>
             </div>
          </nav>
       </header>
@@ -472,6 +486,7 @@ html, body {
           </div>
           
           <div class="column_3">
+           <c:if test="${not empty authentication}">
              <button type="button" class="btn btn-outline-primary" id="today_reservation_btn" onclick="location.href='/reserve/confirm'">
                  <div id="trt">오늘의 예약은</div>
                     <div id="today_reservation_text">
@@ -480,7 +495,7 @@ html, body {
                        <div id="trt_cnt">건 입니다.</div> 
                     </div>
               </button>
-             
+             </c:if>
              <div class="today_weather_btn">
                  <div class='location'></div>
                  <div class='weather_temp'></div>

@@ -221,7 +221,7 @@ html, body {
 <body>
     <div class="wrap">
     	<header id="header">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar">
             	<div class="nav_wrap">
             		<img src="/resources/image/LOGO2.png" class="logo">
         			<div class="nav_group">
@@ -229,7 +229,7 @@ html, body {
                   			안녕하세요
             			</div>
             		<div class="user_name">
-               			<strong>구현해조</strong> 
+               			<strong>${authentication.name}</strong> 
                		</div>
                		<div class="nim">님!</div>
             			<button type="button" class="btn btn-secondary" id="main_button" onclick="location.href='/index'">> 메인으로</button>
@@ -249,11 +249,11 @@ html, body {
 		    	<div>아이디</div>
 			</div>
 			<div class="info">
-				<div>${myInfo.store_name}</div>
-		    	<div>${myInfo.address}</div>
-		    	<div>${myInfo.name}</div>
-		    	<div>${myInfo.phone}</div>
-		    	<div>${myInfo.userId}</div>
+				<div>${authentication.store_name}</div>
+		    	<div>${authentication.address}</div>
+		    	<div>${authentication.name}</div>
+		    	<div>${authentication.phone}</div>
+		    	<div>${authentication.userId}</div>
 			</div>
 		</div>
 	</div>
@@ -274,26 +274,44 @@ html, body {
 	</div>
 	
 	<div class="delete">
-		<div><button type="button" class="btn btn-secondary" id="delete_account_btn" onclick="showConfirmDeleteAccount();">> 회원탈퇴</button></div>
+		<div><button type="button" class="btn btn-secondary" id="delete_account_btn">> 회원탈퇴</button></div>
 	</div>
 	
 </div>
 
 <script type="text/javascript">
 
-function showConfirmDeleteAccount() {
+document.querySelector("#delete_account_btn").addEventListener("click", e => {
+	
+	let uri = "/member/deleteUser";
+
 	if(confirm("정말로 POSS를 탈퇴하시겠습니까?")){
-		alert("탈퇴 되었습니다.");
+			let userId = window.prompt("아이디를 입력해주세요");
+			let password = window.prompt("비밀번호를 입력해주세요");
+		
+			fetch(uri+"?userId="+userId+"&password="+ password, {method: "POST"})
+			.then(res => res.text())
+			.then(text => {
+				if (text == "available") {
+					alert("탈퇴 되었습니다.");
+					location.href="/index";
+		         } else if (text == "disable") {
+		        	 alert("아이디 및 비밀번호가 일치하지 않습니다.");
+		 			return;
+		         }
+			})
+		
+		
 	}else{
 		alert("취소 되었습니다.");
-		}
 	}
+})
 	
 function modifyInfo(){
 	
 	let test = prompt("비밀번호 입력하세요~");
 	
-	if(test != ${myInfo.password}){
+	if(test != ${authentication.password}){
 		alert("돌아가");
 		return;
 	}

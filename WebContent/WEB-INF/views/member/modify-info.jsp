@@ -176,7 +176,7 @@ html, body {
                   			안녕하세요
             			</div>
             		<div class="user_name">
-               			<strong>구현해조</strong> 
+               			<strong>${authentication.name}</strong> 
                		</div>
                		<div class="nim">님!</div>
             			<button type="button" class="btn btn-secondary" id="main_button" onclick="javascript:location.href='/index'">> 메인으로</button>
@@ -191,7 +191,7 @@ html, body {
 		    	 <div class="info_text">
 		    	<div>
 			     <label>매장명</label>
-		         <input type="text" id="storeName" name="storeName" value="${myInfo.store_name}">
+		         <input type="text" id="storeName" name="storeName" value="${authentication.store_name}">
 		         </div>
 		         <div>
 		         <label>매장주소</label>
@@ -204,19 +204,19 @@ html, body {
 		         </div>
 		         <div>
 		         <label>대표자명</label>
-		         <input type="text" id="managerName" name="name" value="${myInfo.name}">
+		         <input type="text" id="managerName" name="name" value="${authentication.name}">
 		         </div>
 		         <div>
 		         <label>대표번호</label>
-		         <input type="text" id="managerPhone" name="phone" value="${myInfo.phone}">
+		         <input type="text" id="managerPhone" name="phone" value="${authentication.phone}">
 		         </div>
 		         <div>
 		         <label>아이디</label>
-		         <input type="text" id="ID" name="id" name="id" value="${myInfo.userId}" readonly>
+		         <input type="text" id="ID" name="id" name="id" value="${authentication.userId}" readonly>
 		         </div>
 		         <div>
 		         <label>비밀번호</label>
-		         <input type="password" id="userPw" name="password" value="${myInfo.password}">
+		         <input type="password" id="userPw" name="password" value="${authentication.password}">
 		         </div>
 		         <div>
 		         <label>비밀번호 확인</label>

@@ -32,6 +32,8 @@ public class JoinForm {
 		
 	}
 	
+
+	
 	public boolean test() {
 		
 		boolean res = true;
@@ -71,6 +73,23 @@ public class JoinForm {
 		
 		return res;
 	}
+	
+	
+	public boolean testPass() {
+		boolean res = true;
+		boolean valid = true;
+		
+		
+		//비밀번호가 영수특수문자 조합의 8자리 이상 문자열
+		valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", password);
+		if(!valid) {
+			failedAttribute.put("password", password);
+			res = false;
+		}	
+		
+		return res;
+	}
+	
 
 	public String getUserId() {
 		return userId;

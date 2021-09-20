@@ -18,7 +18,7 @@ public class MemberDao {
 		Member member = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		String query = "select * from poss_user where user_id = ? and password = ?";
+		String query = "select * from poss_user where user_id = ? and password = ? and is_leave = 0";
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, userId);
@@ -147,6 +147,25 @@ public class MemberDao {
 	}
 	
 
+	public int deleteUser(String userId, String password, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update poss_user set is_leave = 1 where user_id = ? and password =?";
+
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			pstm.setString(2, password);
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
+	
 
 	public Member selectMemberByEmailAndName(String name, String email, Connection conn) {
 		Member member = null;
@@ -156,6 +175,53 @@ public class MemberDao {
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, name);
+			pstm.setString(2, email);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				member = convertAllToMember(rset);
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		return member;
+	}
+
+
+	public int updateMemberPass(String userId, String password, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update poss_user set password = ? where user_id = ?";
+		
+		try {
+			
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, password);
+			pstm.setString(2, userId);
+			
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		
+		return res;
+
+	}
+	
+
+	public Member selectMemberByEmailAndUserId(String userId, String email, Connection conn) {
+		Member member = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from poss_user where user_id=? and email = ?";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
 			pstm.setString(2, email);
 			rset = pstm.executeQuery();
 			

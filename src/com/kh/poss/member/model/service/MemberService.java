@@ -112,20 +112,75 @@ public class MemberService {
 		
 	}
 	
-	public void idFindByEmail(Member member, String persistToken) {
+	
+	public int deleteUser(String userId, String password) {
+		Connection conn = template.getConnection();
+		int res = 0;
+
+		try {
+			res = memberDao.deleteUser(userId, password, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			e.printStackTrace();
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
+	
+	
+	
+	public int updateMemberPass(String userId, String password) {
+		
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = memberDao.updateMemberPass(userId, password , conn);
+			
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+		
+		
+	}
+	
+	public void idFindByEmail(Member member, String persistToken , String type) {
+		
 		MailSender mailSender = new MailSender();
 		HttpConnector conn = new HttpConnector();
 		
-		//쿼리 파라미터화 만들기
 		String queryString = conn.urlEncodedForm(RequestParams.builder()
-				.param("mailTemplate", "findig-id-mail")
+				.param("mailTemplate", "finding-user-mail")
 				.param("userId", member.getUserId())
+				.param("findingType", type)
 				.param("persistToken", persistToken).build());
 		
 		String response = conn.get("http://localhost:9090/mail?"+queryString);
-		mailSender.sendMail(member.getEmail(), "아이디 찾기 인증 메일입니다.", response);
+		String findType = "";
+		if(type.equals("findingId")) {
+			findType = "아이디";
+		}else if (type.equals("findingPassword")) {
+			
+			findType = "비밀번호";
+		}
+		mailSender.sendMail(member.getEmail(), findType+" 찾기 인증 메일입니다.", response);
 		
+		
+		
+	
 	}
+
+
+
 
 
 
@@ -135,6 +190,19 @@ public class MemberService {
 		Member member = null;
 		try {
 			member = memberDao.selectMemberByEmailAndName(name, email, conn);
+		} finally {
+			template.close(conn);
+		}
+		return member;
+	}
+	
+
+
+	public Member selectMemberByEmailAndUserId(String userId, String email) {
+		Connection conn = template.getConnection();
+		Member member = null;
+		try {
+			member = memberDao.selectMemberByEmailAndUserId(userId, email, conn);
 		} finally {
 			template.close(conn);
 		}

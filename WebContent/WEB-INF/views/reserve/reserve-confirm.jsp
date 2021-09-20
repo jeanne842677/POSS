@@ -13,433 +13,419 @@
     
 
 <style type="text/css">
-   html, body {
-        width:100%;
-        min-width:1130px;
-    }
-
-    /* div {
+html, body {
+	width: 100%;
+	min-width: 1130px;
+}
+/* 
+div {
         border: solid thin;
-    } */
+    }  */
 
+/* header (네비게이션영역)-------------------------------------------------------- */
+#header {
+	width: 100%;
+	height: 80px;
+	background-color: #aaa;
+}
 
-    /* header (네비게이션영역)-------------------------------------------------------- */
-    #header{
-        width:100%;
-        height:80px;
-        background-color: #aaa;
-    }
+/*로고*/
+.logo {
+	width: 155px;
+}
 
-    /*로고*/
-    .logo {
-        width:155px;
-    }
+/*네비게이션 wrap*/
+.navbar-nav {
+	-ms-flex-direction: row;
+	flex-direction: row;
+	justify-content: space-around;
+	min-width: 390px;
+}
 
-    /*네비게이션 wrap*/
-    .navbar-nav {
-        -ms-flex-direction: row;
-        flex-direction: row;
-        justify-content: space-around;
-        min-width: 390px;
-        }
+/*메뉴*/
+.navbar {
+	width: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 25px;
+	font-weight: bold;
+	padding-top: 0;
+}
 
-    /*메뉴*/
-    .navbar{
-        width:100%;
-        height: 80px;
-        display:flex;
-        justify-content: space-between;
-        font-size: 25px;
-        font-weight: bold;
-        padding-top:0;
-    }
+.menugroup {
+	width: 43%;
+}
 
-    .menugroup{
-        width:43%; 
-    }
+/* 메뉴글씨 */
+.navbar-dark .navbar-nav .nav-link {
+	color: #343a40;
+	flex-shrink: 0;
+}
 
-    /* 메뉴글씨 */
-    .navbar-dark .navbar-nav .nav-link{
-        color: #343a40;
-        flex-shrink:0;
-    }
+.section-wrap {
+	width: 1130px;
+	display: block;
+	margin: auto;
+}
 
+/* 메뉴아래 매출관리, 오늘 총 매출------------------------------------------------  */
+#title_area {
+	width: 100%;
+	min-width: 550px;
+	height: 100px;
+}
 
+.title {
+	width: 1130px;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	flex-shrink: 0;
+	line-height: 100px;
+	position: absolute;
+	font-size: 25px;
+	color: #343a40;
+	font-weight: bolder;
+	padding: 10px 0px 0px 0px;
+}
 
-    .section-wrap{
-        width: 1130px;
-        display: block;
-        margin: auto;
-    }
+/* tab영역------------------------------------------------------- */
+#tabzone {
+	width: 100%;
+	height: 40px;
+	display: flex;
+}
 
+#tabzone>* {
+	text-align: center;
+	width: 150px;
+	margin-left: 10px;
+	font-weight: bold;
+	border-radius: 5px;
+}
 
-    /* 메뉴아래 매출관리, 오늘 총 매출------------------------------------------------  */
-    #title_area{
-        width:100%;
-        min-width: 550px;
-        height:100px;
-    }
+.tab1 {
+	color: #343a40;
+	background-color: #f9f7e8;
+	border-style: none;
+}
 
-    .title{
-        width: 1130px;
-        height:100px;  
-        display: flex;
-        justify-content: center;
-        flex-shrink: 0;
-        line-height: 100px;
-        position: absolute;
-        font-size:25px;
-        color: #343a40;
-        font-weight: bolder;
-        padding:10px 0px 0px 0px;
-    }
+.tab2 {
+	color: white;
+	background-color: #ff8b8b;
+	border-style: none;
+}
 
-    
+.tab3 {
+	color: white;
+	background-color: #ff8b8b;
+	border-style: none;
+}
 
-    /* tab영역------------------------------------------------------- */
-    #tabzone{
-        width: 100%;
-        height:40px;
-        display:flex;
-    }
+/* tap, 조회 */
+#search-tab {
+	width: 100%;
+	height: 150px;
+	margin-bottom: 4vw;
+}
 
-    #tabzone>*{
-        text-align: center;
-        width:150px;
-        margin-left:10px;
-        font-weight: bold;
-        border-radius: 5px;
-    }
+/* tap, 조회 전체영역 */
+.info-form {
+	width: 100%;
+	height: 100%;
+}
 
-    .tab1{
-        color: #343a40; 
-        background-color: #f9f7e8;
-        border-style: none;
-    }
+/* tap */
+.info-tab {
+	width: 100%;
+	height: 50px;
+}
 
-    .tab2{
-        color:white;
-        background-color: #ff8b8b;
-        border-style: none;
-    }
+/* tap 버튼 */
+.info-tab>button {
+	width: 200px;
+	height: 100%;
+	background-color: rgb(249, 247, 232);
+	color: black;
+}
 
-    .tab3{
-        color:white;
-        background-color: #ff8b8b;
-        border-style: none;
-    }
+.info-tab>button:hover {
+	background-color: rgb(255, 167, 167);
+	color: white;
+}
 
-    /* tap, 조회 */
-	#search-tab{
-		width: 100%;
-		height: 150px;
-		margin-bottom: 4vw;
-	}
+/* 조회 */
+.info-input {
+	width: 100%;
+	height: 80px;
+	overflow: hidden;
+	background-color: rgb(249, 247, 232);
+	display: flex;
+	align-items: center;
+	padding: 0 2vw 0 2vw;
+	justify-content: space-between
+}
 
-	/* tap, 조회 전체영역 */
-	.info-form{
-		width: 100%;
-		height: 100%;
-	}
+/* input-wrap1,2,3 */
+.input-wrap1 {
+	width: 60%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.input-wrap2 {
+	width: 27%;
+	display: flex;
+	justify-content: flex-end;
+	flex-shrink: 0;
+}
+
+.input-wrap3 {
+	width: 8%;
+	display: flex;
+	flex-shrink: 0;
+	justify-content: center;
+}
+
+/* 휴대폰 번호 입력란, 카테고리란 */
+#tel, #time {
+	width: 170px;
+	height: 30px;
+	font-size: 11px;
+}
+
+#tel::placeholder {
+	text-align: center;
+}
+
+/* 회원 선택 */
+.select_member {
+	width: 27%;
+	margin-top: auto;
+	align-items: center;
+}
+
+.name {
+	display: flex;
+	align-items: center;
+	width: 75px;
+}
+
+/* 기간선택 */
+.select_date>* {
+	margin: 2px 0px 2px 0px;
+}
+
+.select_date {
+	min-width: 180px;
+}
+
+.start, .end {
+	width: 130px;
+	height: 30px;
+	font-size: 13px;
+}
+
+.date {
+	display: flex;
+}
+
+/* 시간 선택 */
+.select_time {
+	width: 20%;
+	margin-top: auto;
+	align-items: center;
+}
+
+.time {
+	display: flex;
+}
+
+/* 조회버튼 */
+#btn-search {
+	width: 100px;
+	height: 40px;
+	background-color: rgb(97, 191, 173);
+	color: white;
+	border: none;
+}
+
+/* 라디오 버튼 wrap */
+.radio {
+	font-size: 20px;
+}
+
+.radio>* {
+	margin: 0 10px 0 10px;
+}
+
+/* 기간선택 창------------------------------------------------------ */
+#showterm {
+	width: 100%;
+	height: 80px;
+	background-color: #f9f7e8;
+	display: flex;
+	align-items: center;
+}
+
+#showterm>* {
 	
-	/* tap */
-	.info-tab{
-		width: 100%;
-		height: 50px;
-	}
-	
-	/* tap 버튼 */
-	.info-tab>button{
-		width: 200px;
-		height: 100%;
-		background-color: rgb(249, 247, 232);
-		color: black;
-	}
-	
-	.info-tab>button:hover{
-		background-color: rgb(255, 167, 167);
-		color: white;
-	}
+}
 
-	/* 조회 */
-	.info-input{
-		width: 100%;
-		height: 80px;
-		overflow: hidden;
-		background-color: rgb(249, 247, 232);
-		display: flex;
-		align-items: center;
-		padding: 0 2vw 0 2vw;
-        justify-content: space-between
-	}
+/* 매출분석, 기간----------------------------------------------- */
+.con1titlezone {
+	width: 100%;
+	height: 50;
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 50px 20px 50px;
+	font-size: 23px;
+	font-weight: bold;
+	color: #343a40;
+}
 
-	/* input-wrap1,2,3 */
-	.input-wrap1{
-		width:60%;
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	.input-wrap2{
-		width: 27%;
-		display: flex;
-		justify-content: flex-end;
-		flex-shrink: 0;
-	}
-	
-	.input-wrap3{
-        width: 8%;
-		display: flex;
-		flex-shrink: 0;
-		justify-content: center;
-		
-	}
+/* 매출분석, 메뉴분석---------------------------------------- */
+#content1 {
+	width: 100%;
+	min-width: 800px;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin: 0px 0px 10px 0px;
+}
 
+/* 글자 설정 */
+.smfont, .rednum, .resnum, .bold {
+	flex-shrink: 0;
+}
 
+.smfont {
+	font-size: 15px;
+	color: #343a40;
+}
 
-	
+.rednum {
+	font-size: 25px;
+	font-weight: bold;
+	color: #fe4f4f;
+}
 
-	
+.resnum {
+	font-size: 25px;
+	font-weight: bold;
+	color: #343a40;
+}
 
-	/* 휴대폰 번호 입력란, 카테고리란 */
-	#tel, #time{
-		width: 170px;
-		height:30px;
-        font-size: 11px;
-	}
+.bold {
+	font-weight: bold;
+}
 
-	#tel::placeholder{
-		text-align: center;
-	}
+/* 매출분석 */
+.analyze {
+	width: 30%;
+	padding: 0px 0px 0px 100px;
+}
 
-	/* 회원 선택 */
-	.select_member{
-        width:27%;
-        margin-top: auto;
-		align-items: center;
-	}
-    .name{
-        display:flex;
-        align-items: center;
-        width: 75px;
-    }
+.analyze>* {
+	margin: 0px 0px 10px 0px;
+	width: 180px;
+}
 
-	/* 기간선택 */
-	.select_date>*{
-		margin: 2px 0px 2px 0px; 
-	}
+/* top메뉴 */
+.onetopmenu {
+	width: 30%;
+	text-align: center;
+	border: 15px solid #ff8b8b;
+	width: 270px;
+	height: 270px;
+	border-radius: 270px;
+	min-width: 270px;
+}
 
-	.select_date{
-		min-width:180px;
-	}
+.onetopmenu>* {
+	justify-content: center;
+	padding: 52px 10px 10px 10px;
+}
 
-	.start, .end{
-		width: 130px;
-        height: 30px;
-        font-size:13px;
-	}
+/* 메뉴 순위 */
+.ordernum {
+	min-width: 200px;
+	width: 15%;
+}
 
-    .date{
-        display:flex;
-    }
+.rankmenu {
+	min-width: 200px;
+	width: 10%;
+}
 
-	/* 시간 선택 */
-	.select_time{
-        width: 20%;
-        margin-top: auto;
-        align-items: center;
-	}
+.ordernum>*, .rankmenu>* {
+	font-size: 16px;
+	margin: 30px;
+	font-weight: bold;
+	color: #343a40;
+}
 
-    .time{
-        display:flex;
-    }
+.ordernum>* {
+	padding-left: 0px;
+}
 
-	/* 조회버튼 */
-	#btn-search{
-		width: 100px;
-		height: 40px;
-		background-color: rgb(97, 191, 173);
-		color: white;
-		border: none;
-	}
+/* footer ----------------------------------------------------------*/
+#footer {
+	width: 100%;
+	width: 100%;
+	height: 30px;
+	background-color: #61bfad;
+}
 
-	/* 라디오 버튼 wrap */
-	.radio{
-		font-size: 20px;
-	}
+/* 표  */
+#content {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 65vh;
+	margin-top: 9px;
+}
 
-	.radio>*{
-		margin: 0 10px 0 10px;
-	}
+.content-wrap {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
 
+.table th {
+	text-align: center;
+}
 
-    /* 기간선택 창------------------------------------------------------ */
-    #showterm{
-        width:100%;
-        height:80px;
-        background-color: #f9f7e8;
-        display:flex;
-        align-items: center;
-    }
+.table td {
+	text-align: center;
+}
 
-    #showterm>*{
-       
-    }
-    
+#btn-table {
+	border-radius: 5%;
+	height: 30px;
+	line-height: 20px;
+}
 
-    /* 매출분석, 기간----------------------------------------------- */
-    .con1titlezone{
-        width:100%;
-        height: 50;
-        display:flex;
-        justify-content: space-between;
-        padding:20px 50px 20px 50px;
-        font-size: 23px;
-        font-weight: bold;
-        color: #343a40;
-    }
+.btn-secondary.disabled, .btn-secondary:disabled {
+	background-color: #ccc;
+	border-color: #ccc;
+}
 
-    /* 매출분석, 메뉴분석---------------------------------------- */
-    #content1{
-        width:100%;
-        min-width: 800px;
-        height: 300px;
-        display:flex;
-        align-items: center;
-        justify-content: space-around;
-        margin:0px 0px 10px 0px;
-    }
+/* 모달창 */
+.modal {
+	margin-top: 30vh;
+}
 
-    /* 글자 설정 */
-    .smfont, .rednum, .resnum, .bold{
-        flex-shrink: 0;
-    }
+.modify {
+	position: absolute;
+	right: 65px;
+	color: rgb(97, 191, 173);
+	background-color: white;
+	border: none;
+}
 
-    .smfont{
-        font-size:15px;
-        color:#343a40;
-    }
-
-    .rednum{
-        font-size:25px;
-        font-weight: bold;
-        color:#fe4f4f;
-    }
-
-    .resnum{
-        font-size:25px;
-        font-weight: bold;
-        color:#343a40;
-    }
-
-    .bold{
-        font-weight: bold;
-    }
-
-
-    /* 매출분석 */
-    .analyze{
-        width:30%;
-        padding:0px 0px 0px 100px;
-    }
-
-    .analyze>*{
-        margin:0px 0px 10px 0px;
-        width:180px;
-    }
-    
-    /* top메뉴 */
-    .onetopmenu{
-        width:30%;
-        text-align: center;
-        border:15px solid #ff8b8b;
-        width:270px; height:270px;
-        border-radius:270px;
-        min-width: 270px;
-
-    }
-    .onetopmenu>*{
-        justify-content: center;
-        padding:52px 10px 10px 10px;
-    }
-
-    /* 메뉴 순위 */
-    .ordernum {
-        min-width: 200px;
-        width:15%;
-    }
-
-    .rankmenu{
-        min-width: 200px;
-        width:10%;
-    }
-
-    .ordernum>*, .rankmenu>*{
-        font-size:16px;
-        margin:30px;
-        font-weight:bold;
-        color:#343a40;
-    }
-
-    .ordernum>*{
-        padding-left:0px;
-        
-    }
-
-   
-     
-
-    /* footer ----------------------------------------------------------*/
-    #footer{
-        width:100%;
-        width:100%;
-        height:30px;
-        background-color: #61bfad;
-    }
-
-    /* 표  */
-	#content{
-		display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 65vh;
-        margin-top: 9px;
-	}
-
-	.content-wrap{
-		width: 100%;
-		height: 100%;
-		overflow: auto;
-	}
-	
-	.table th{
-		text-align: center;
-	}
-
-	.table td{
-		text-align: center;
-	}
-
-	#btn-table{
-		border-radius: 5%;
-		height:30px;
-		line-height: 20px;
-	}
-	
-	 .btn-secondary.disabled, .btn-secondary:disabled{
-        background-color: #ccc;
-        border-color: #ccc;
-    }
-
-
-    /* 모달창 */
-    .modal{
-        margin-top: 30vh;
-    }
-
-
-
-    
 </style>
 </head>
 <body>
@@ -451,22 +437,21 @@
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">포스
-                    <span class="visually-hidden">(current)</span>
-                  </a>
+                  <a class="nav-link" href="#">포스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="/sales/confirm">매출관리</a>
+                  <a class="nav-link" href="/sales/confirm">매출관리</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/board/notice">게시판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">웨이팅</a>
+                  <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
-                  </li>
+                    <a class="nav-link active" href="/reserve/confirm">예약내역</a>
+                </li>
+                
             </ul>  
             </div>  
             </nav>
@@ -474,7 +459,7 @@
 <div class="section-wrap">
     <section id="title_area">
         <div class="title">
-            <a>예약내역</a>
+            <a>예약내역</a><button class="modify"onclick="location.href='/reserve/modify'"><i class="fas fa-cog"></i></button>
         </div>
         
     </section>
@@ -752,7 +737,7 @@
                   <td>010-0000-0000</td>
                   <td>방문</td>
                   <td>아기의자 1개 세팅</td>
-                  <td>정상</button></td>
+                  <td>정상</td>
                 </tr>
                 <tr>
                   <td>2021.08.14</td>
@@ -919,6 +904,5 @@
 </script>
 
 
-</div>
 </body>
 </html>

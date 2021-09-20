@@ -25,10 +25,12 @@ public class HttpConnector {
 		String responseBody = "";
 				
 		try {
+			
 			HttpURLConnection conn = getConnection(url, "GET");
 			responseBody = getResponseBody(conn);
 			
 		} catch (IOException e) {
+			
 			throw new HandleableException(ErrorCode.HTTP_CONNECT_ERROR,e);
 		}
 		

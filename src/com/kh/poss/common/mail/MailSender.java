@@ -15,7 +15,7 @@ import com.kh.poss.common.exception.HandleableException;
 
 public class MailSender {
 	
-	
+
 	private static final Properties SMTP_PROPERTIES;
 	
 	//스테틱 변수 초기화 블록
@@ -28,6 +28,8 @@ public class MailSender {
 		SMTP_PROPERTIES.put("mail.smtp.ssl.protocols", "TLSv1.2"); //자바 1.8이랑 맞는 tls통신 버전
 		SMTP_PROPERTIES.put("mail.smtp.auth", "true");
 		SMTP_PROPERTIES.put("mail.debug","true");
+		
+		
 	}
 	
 	
@@ -50,6 +52,7 @@ public class MailSender {
 		    } catch (MessagingException mex) {
 		    	
 		    	//사용자에게 "메일 발송 중 문제가 생겼습니다."  전달 후 email로 보내기 
+		    	System.out.println("샌드메일에서 에러발생");
 		        throw new HandleableException(ErrorCode.MAIL_SEND_FAIL_ERROR , mex);
 		        
 		        

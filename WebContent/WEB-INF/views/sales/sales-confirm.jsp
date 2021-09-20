@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>매출관리</title>
+       <title>매출관리</title>
     
 	<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -319,6 +319,35 @@
         background-color: #61bfad;
     }
 
+    /* 표  */
+	#content{
+		display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 65vh;
+        margin-top: 9px;
+	}
+
+	.content-wrap{
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+	}
+	
+	.table th{
+		text-align: center;
+	}
+
+	.table td{
+		text-align: center;
+	}
+
+	#btn-table{
+		border-radius: 5%;
+		height:30px;
+		line-height: 20px;
+	}
+
     
 
 
@@ -368,8 +397,8 @@
     </section>
 
     <section id="tabzone">
-        <input type="button" id="tab1" class="tab1" onclick="tab1btnclick()" style="background-color: #f9f7e8; color:#343a40;" value="전체조회">
-        <input type="button" id="tab2" class="tab2" onclick="tab2btnclick()" style="background-color: #ff8b8b; color:white;" value="매출내역">
+        <input type="button" id="tab1" class="tab1" onclick="location.href='/sales/confirm'" value="전체조회">
+        <input type="button" id="tab2" class="tab2" onclick="location.href='/sales/detail'" value="매출내역">
     </section>
 
 
@@ -448,14 +477,6 @@
 <!-- 전체조회 end========================================================================= -->
 
 
-<!-- 매출내역 ============================================================================= -->
-<div id="slaes_history" style="display:none;">
-
-    <section id="showterm"></section>
-
-    <p style="height: 500px;"> 매출내역 페이지~~~~</p>
-</div>
-<!-- 매출내역 end ============================================================================= -->
 
 </div>
 
@@ -470,37 +491,6 @@
 
 
 <script type="text/javascript">
-
-    function tab1btnclick() {
-        let tab1 = document.getElementById('see_all');
-        let tab2 = document.getElementById('slaes_history');
-
-        
-        if(tab1.style.display === 'none')  {
-          tab1.style.display = 'block';
-          tab2.style.display = 'none';
-          document.getElementById('tab1').style.backgroundColor="#f9f7e8";
-          document.getElementById('tab1').style.color="#343a40";
-          document.getElementById('tab2').style.backgroundColor="#ff8b8b";
-          document.getElementById('tab2').style.color="white";
-        }
-      } 
-
-      function tab2btnclick() {
-        let tab1 = document.getElementById('see_all');
-        let tab2 = document.getElementById('slaes_history');
-        
-        if(tab2.style.display === 'none')  {
-          tab2.style.display = 'block';
-          tab1.style.display = 'none';
-          document.getElementById('tab2').style.backgroundColor="#f9f7e8";
-          document.getElementById('tab2').style.color="#343a40";
-          document.getElementById('tab1').style.backgroundColor="#ff8b8b";
-          document.getElementById('tab1').style.color="white";
-        }
-      } 
-
-
 
     
 
