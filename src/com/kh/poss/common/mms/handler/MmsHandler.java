@@ -17,11 +17,12 @@ public class MmsHandler extends HttpServlet {
         super();
     }
 
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		   	
-			String phone =  request.getParameter("phone");
-			String context =  request.getParameter("context");
-			String uri = request.getParameter("redirectUri");
+			String phone = "01095347492"; //request.getParameter("phone");
+			String context =  "예진아~~싸랑해^0^";//request.getParameter("context");
+			String uri = "/index"; //request.getParameter("redirectUri");
 			
 			System.out.println("폰번호:" + phone);
 			System.out.println("글내용:" + context);
@@ -29,7 +30,7 @@ public class MmsHandler extends HttpServlet {
 			MmsSender mmsSender = new MmsSender();
 			
 			mmsSender.setMessage(phone , context);
-		    response.sendRedirect(uri);
+		    response.sendRedirect("/index");
 	
 	}
 	

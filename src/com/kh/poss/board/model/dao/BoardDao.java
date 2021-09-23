@@ -45,15 +45,27 @@ public class BoardDao {
       return res;
    }
 
-   public List<Board> selectBoardList(String userId, Connection conn) {
+   public List<Board> selectBoardList(String userId, int page, Connection conn) {
       List<Board> boardList = new ArrayList<Board>();
+      int startNum = (page-1)*10+1;
+      int endNum = page*10;
       Board board = null;
       PreparedStatement pstm = null;
       ResultSet rset = null;
-      String query = "select * from board where user_id = ? order by board_no desc";
+      
+      
+      String query = "select * from "
+            + "(select * from "
+            + "(select ROWNUM row_num, v.* from (select * from board where user_id = ? order by board_no desc) v) "
+            + "where row_num >= ?) "
+            + "where row_num <= ?";
+      
+      
       try {
          pstm = conn.prepareStatement(query);
          pstm.setString(1, userId);
+         pstm.setInt(2, startNum);
+         pstm.setInt(3, endNum);
          rset = pstm.executeQuery();
          
          while(rset.next()) {
@@ -92,6 +104,30 @@ public class BoardDao {
       }   
       System.out.println(searchList);
       return searchList;
+   }
+   
+   public int getAllCount(Connection conn, String userId) {
+      int count = 0;
+      ResultSet rset = null;
+      PreparedStatement pstm = null;
+      String query = "select COUNT(*) as count from board where user_id = ?";
+               
+      try {
+         pstm = conn.prepareStatement(query);
+         pstm.setString(1, userId);
+         rset = pstm.executeQuery();
+         
+         if(rset.next()) {
+            count = rset.getInt("count");
+         }
+      } catch (SQLException e) {
+         throw new DataAccessException(e);
+      } finally {
+         template.close(pstm);
+      }
+      
+      System.out.println(count);
+      return count;
    }
    
    public Board selectBoardDetail(String userId, String boardIdx, Connection conn) {
@@ -141,11 +177,11 @@ public class BoardDao {
    }
    
    public int modifyBoard(String boardIdx, String writer, String title, String content, String password, int isPrivate, Connection conn) {
-	   int res = 0;
-	   PreparedStatement pstm = null;
-	   String query = "update board set writer=?, title=?, board_content=?, board_private=?, board_pw=? where board_idx=?";
+      int res = 0;
+      PreparedStatement pstm = null;
+      String query = "update board set writer=?, title=?, board_content=?, board_private=?, board_pw=? where board_idx=?";
             
-	   try {
+      try {
          pstm = conn.prepareStatement(query);
          pstm.setString(1, writer);
          pstm.setString(2, title);
@@ -155,28 +191,65 @@ public class BoardDao {
          pstm.setString(6, boardIdx);
          
          res = pstm.executeUpdate();
-	    } catch (SQLException e) {
-	         throw new DataAccessException(e);
-	    } finally {
-	         template.close(pstm);
-	    }
-	   
-	    return res;
-	}
-   
-   private Board convertAllToBoard(ResultSet rset) throws SQLException {
-      Board Board = new Board();
-      Board.setBoardIdx(rset.getString("board_idx"));
-      Board.setUserId(rset.getString("user_id"));
-      Board.setTitle(rset.getString("title"));
-      Board.setBoardContent(rset.getString("board_content"));
-      Board.setWriter(rset.getString("writer"));
-      Board.setBoardPw(rset.getString("board_pw"));
-      Board.setRegDate(rset.getDate("reg_date"));
-      Board.setBoardPrivate(rset.getInt("board_private"));
-      Board.setBoardNo(rset.getInt("board_no"));
-      return Board;
+       } catch (SQLException e) {
+            throw new DataAccessException(e);
+       } finally {
+            template.close(pstm);
+       }
+      
+       return res;
    }
+   
+   public int deleteBoard(String boardIdx, Connection conn) {
+      int res = 0;
+      PreparedStatement pstm = null;
+      String query = "delete from board where board_idx=?";
+            
+      try {
+         pstm = conn.prepareStatement(query);
+         pstm.setString(1, boardIdx);
+         
+         res = pstm.executeUpdate();
+       } catch (SQLException e) {
+            throw new DataAccessException(e);
+       } finally {
+            template.close(pstm);
+       }
+       return res;
+   }
+   
+
+   public int deleteReply(String replyIdx, Connection conn) {
+      int res = 0;
+         PreparedStatement pstm = null;
+         String query = "delete from reply where reply_idx=?";
+               
+         try {
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, replyIdx);
+            
+            res = pstm.executeUpdate();
+          } catch (SQLException e) {
+               throw new DataAccessException(e);
+          } finally {
+               template.close(pstm);
+          }
+          return res;
+   }
+
+   private Board convertAllToBoard(ResultSet rset) throws SQLException {
+       Board Board = new Board();
+       Board.setBoardIdx(rset.getString("board_idx"));
+       Board.setUserId(rset.getString("user_id"));
+       Board.setTitle(rset.getString("title"));
+       Board.setBoardContent(rset.getString("board_content"));
+       Board.setWriter(rset.getString("writer"));
+       Board.setBoardPw(rset.getString("board_pw"));
+       Board.setRegDate(rset.getDate("reg_date"));
+       Board.setBoardPrivate(rset.getInt("board_private"));
+       Board.setBoardNo(rset.getInt("board_no"));
+       return Board;
+    }
 
 
    

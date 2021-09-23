@@ -10,7 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
        <title>매출관리</title>
-    
+           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="resources/js/datepicker-ko.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
@@ -347,6 +350,17 @@
 		height:30px;
 		line-height: 20px;
 	}
+	
+	/* datepicker */
+    .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    width: 47%;
+    float: right;
+    }
+
+    .ui-datepicker .ui-datepicker-title select.ui-datepicker-year {
+    float: left;
+    width: 50%;
+}
 
     
 
@@ -407,10 +421,9 @@
 
     <section id="showterm">
         <p class="selectday">기간선택 &nbsp;</p>
-        <input type="date" class="start" > 
-        
+        <input type="text" id ="thismonth" class="start" >         
         <div class="seebtn">
-            <button type="button" class="btn btn-primary">조회</button>
+            <button type="button" onclick="selectedmonth()" class="btn btn-primary">조회</button>
         </div>
     </section>
 
@@ -418,7 +431,7 @@
    
     <div class="con1titlezone">
         <p class="con1_title">[ 매출분석 ]</p>
-        <p class="con1_date">2021.08</p>
+        <p class="con1_date"></p>
     </div>
 
     <section id="content1">
@@ -491,7 +504,54 @@
 
 
 <script type="text/javascript">
+//현재 월 이후로 막기
+	$(document).ready(function(){
+	    $("#thismonth").datepicker({
+	            closeText : "닫기",
+	            prevText : "이전달",
+	            nextText : "다음달",
+	            currentText : "오늘",
+	            changeMonth: true,
+	            changeYear: true,
+	            monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+	            monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+	            dateFormat: 'yy-mm',
+	            changeMonth: true,
+	            changeYear: true,
+	            showButtonPanel: true,
+	            maxDate: 0,
+	
+	        onClose: function(dateText, inst) {
+	            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+	            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+	            $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+	        }
+	    });
+	
+	
+	    $("#thismonth").focus(function () {
+	        $(".ui-datepicker-calendar").hide();
+	        $("#ui-datepicker-div").position({
+	            my: "center top",
+	            at: "center bottom",
+	            of: $(this)
+	        });
+	    });
+	 
+	
+	});
 
+
+// 현재 월 기본값으로 표시
+	  document.getElementById('thismonth').value= new Date().toISOString().slice(0, 7);
+	  const dday = document.querySelector("#thismonth").value;
+	  document.querySelector(".con1_date").innerText=dday;
+
+// 기간 선택 값 받아오기
+	    function selectedmonth(){
+	    const dday = document.querySelector("#thismonth").value;
+	    document.querySelector(".con1_date").innerText=dday;
+	    }
     
 
 </script>

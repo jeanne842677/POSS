@@ -73,10 +73,10 @@ html, body{
 }
 
 .find{
-   width:10%;
+   width:30%;
    display:flex;
    align-items: center;
-   justify-content: center;
+   justify-content: space-around;
 }
 
 .board_list{
@@ -174,6 +174,29 @@ html, body{
    
 }
 
+#keywordBox {
+	width: 50%;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	//border-bottom-color: ;
+	background-color: transparent;
+}
+
+
+#keywordBox::placeholder {
+	text-align: center;
+}
+#search {
+	width: 60px;
+	height: 30px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #61bfad;
+    font-size: 12px;
+}
+
 </style>
 <link href="/resources/css/bootstrap.css" rel="stylesheet">
 <link href="/resources/css/all.css" rel="stylesheet">
@@ -187,9 +210,13 @@ html, body{
          <label class="now">게시판</label>
       </div>
       <div class='board_title'>
-         <div class="back" style=" cursor: pointer;" onclick="location.href='../index';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+         <div class="back" style=" cursor: pointer;" onclick="location.href='/index';"><i class="fas fa-arrow-left" id='arrow'></i></div>
          <label id='board_test'>게시판</label>
-         <div class="find"><i class="fas fa-search" onclick="inputKeyword()"></i></div>
+         <div class="find">
+         	<i class="fas fa-search">
+         	</i><input type="text" id="keywordBox">
+         	<button type="button" class="btn btn-primary" id="search" onclick="inputKeyword('${userId}')">검색</button>
+         </div>
       </div>
       <div class='board_list' id='list'>
          <div class='board_nav'>
@@ -200,7 +227,7 @@ html, body{
          </div>
          <c:if test="${not empty boardList and empty param.search}">
          <c:forEach items="${boardList}" var="bl">
-            <div class='board_content' onclick="confirmPrivate(${bl.boardIdx}, ${bl.boardPrivate}, ${bl.boardPw})">
+            <div class='board_content' onclick="confirmPrivate(${bl.boardIdx}, ${bl.boardPrivate}, ${bl.boardPw}, '${bl.userId}')">
                <div id='content_idx'><c:out value="${bl.boardNo}"/></div>
                <div id='content_title'>
                <c:if test="${bl.boardPrivate eq 1}"><i class="fas fa-lock"></i><c:out value="${bl.title}"/></c:if>
@@ -213,9 +240,12 @@ html, body{
          </c:if>
          <c:if test="${not empty param.keyword}">
          <c:forEach items="${searchList}" var="sl">
-            <div class='board_content'>
+            <div class='board_content' onclick="confirmPrivate(${sl.boardIdx}, ${sl.boardPrivate}, ${sl.boardPw}, '${sl.userId}')">
                <div id='content_idx'><c:out value="${sl.boardNo}"/></div>
-               <div id='content_title' onclick="location.href='/board/post?boardIdx=<c:out value="${sl.boardIdx}"/>'"><c:out value="${sl.title}"/></div>
+               <div id='content_title'>
+               <c:if test="${sl.boardPrivate eq 1}"><i class="fas fa-lock"></i><c:out value="${sl.title}"/></c:if>
+               <c:if test="${sl.boardPrivate eq 0}"><c:out value="${sl.title}"/></c:if>
+               </div>
                <div id='content_writer'><c:out value="${sl.writer}"/></div>
                <div id='content_date'><c:out value="${sl.regDate}"/></div>
             </div>
@@ -224,106 +254,87 @@ html, body{
       </div>
       <div id="page">
          <ul class="pagination">
-         <li class="page-item disabled">
-            <a class="page-link" href="#">&laquo;</a>
-         </li>
-         <li class="page-item active">
-            <a class="page-link" href="#">1</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link" href="#">2</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link" href="#">3</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link" href="#">4</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link" href="#">5</a>
-         </li>
-         <li class="page-item">
-            <a class="page-link" href="#">&raquo;</a>
-         </li>
+        <c:choose>
+            <c:when test="${not empty param.page}">
+               <li class="page-item">
+                  <a class="page-link" onclick="prev(${param.page})">&laquo;</a>
+               </li>
+            </c:when>
+            <c:otherwise>
+               <li class="page-item">
+                  <a class="page-link" onclick="alert('이전 페이지가 존재하지 않습니다.')">&laquo;</a>
+               </li>
+            </c:otherwise>
+         </c:choose>
+         <c:forEach items="${pageList}" var="pl">
+            <li class="page-item">
+               <a class="page-link" href="/board/${userId}/notice?page=${pl}">${pl}</a>
+            </li>
+         </c:forEach>
+         <c:choose>
+            <c:when test="${empty param.page}">
+               <li class="page-item">
+                  <a class="page-link" href="/board/${userId}/notice?page=2">&raquo;</a>
+               </li>
+            </c:when>
+            <c:when test="${ fn:length(pageList) > param.page} ">
+               <li class="page-item">
+                  <a class="page-link" href="/board/${userId}/notice?page=${param.page+1}">&raquo;</a>
+               </li>
+            </c:when>
+            <c:otherwise>
+               <li class="page-item">
+                  <a class="page-link" onclick="alert('다음 페이지가 존재하지 않습니다.')">&raquo;</a>
+               </li>
+            </c:otherwise>
+         </c:choose>
+         
          </ul>
       </div>
-
-      <button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/write-form'">글쓰기</button>
+      <button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/${userId}/write-form'">글쓰기</button>
    </div>
 </div>
 
-
-
-
-<!-- <script type="text/javascript">
-
-let idx = 1;
-
-document.querySelector('#write_btn').addEventListener('click', e => {
-      
-      let textTest1 = prompt('인덱스 입력');
-      let textTest2 = prompt('제목 입력');
-      let textTest3 = prompt('작성자 입력');
-      let textTest4 = prompt('작성일 입력');
-   
-      let newDiv = document.createElement("div");
-      newDiv.setAttribute("class", "board_content");
-      newDiv.setAttribute("id", idx);
-      
-      let addDiv = document.getElementById("list");
-      addDiv.appendChild(newDiv);
-      
-      let childDiv1 = document.createElement("div");
-      childDiv1.setAttribute("id", "content_idx");
-      childDiv1.innerHTML = textTest1;
-      
-      let childDiv2 = document.createElement("div");
-      childDiv2.setAttribute("id", "content_title");
-      childDiv2.innerHTML = textTest2;
-      
-      let childDiv3 = document.createElement("div");
-      childDiv3.setAttribute("id", "content_writer");
-      childDiv3.innerHTML = textTest3;
-      
-      let childDiv4 = document.createElement("div");
-      childDiv4.setAttribute("id", "content_date");
-      childDiv4.innerHTML = textTest4;
-
-      let addChild = document.getElementById(idx);
-      
-      addChild.appendChild(childDiv1);
-      addChild.appendChild(childDiv2);
-      addChild.appendChild(childDiv3);
-      addChild.appendChild(childDiv4);
-      
-      idx++;
-});
-
-</script> -->
 <script type="text/javascript">
-function inputKeyword() {
-   let keyword = prompt("검색");
-   location.href='/board/search?keyword='+keyword;
+function inputKeyword(userId) {
+   let keyword = document.querySelector("#keywordBox").value;
+   if(keyword == "") {
+	   location.href='/board/'+userId+'/notice';
+   }else {
+	   location.href='/board/'+userId+'/search?keyword='+keyword;
+   }
 }
 
-function confirmPrivate(idxParams, privateParams, pwParams){
-	
-	if(privateParams == 0){
-		location.href = '/board/post?boardIdx='+idxParams;
-	} else if(privateParams == 1){
-		let confirmPw = prompt("비밀번호를 입력하세요");
-		
-		if(confirmPw == pwParams){
-			location.href = '/board/post?boardIdx='+idxParams;
-		} else {
-			alert("다시 입력하세요!");
-			return;
-		}
-		
-	} else {
-		alert("오류 발생");
-	}
-	
+function prev(inputPage) {
+   
+   let page = inputPage - 1;
+   
+   if(page == 0){
+      alert("전 페이지가 존재하지 않습니다.");
+      return;
+   }
+   
+   location.href = "/board/${userId}/notice?page="+page;
+}
+
+function confirmPrivate(idxParams, privateParams, pwParams, userId){
+   
+   if(privateParams == 0){
+      location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
+   } else if(privateParams == 1){
+      let confirmPw = prompt("비밀번호를 입력하세요");
+      
+      if(confirmPw == pwParams){
+         location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
+      } else {
+         alert("다시 입력하세요!");
+         return;
+      }
+      
+   } else {
+      alert("오류 발생");
+   }
+   
 }
 
 </script>

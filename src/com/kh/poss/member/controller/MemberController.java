@@ -55,6 +55,10 @@ public class MemberController extends HttpServlet {
 		case "join-form": // 회원가입 폼으로 이동
 			joinFrom(request, response);
 			break;
+		case "kakao-join": // 카카오계정으로 회원가입 폼으로 이동
+			kakaoJoin(request, response);
+			break;
+
 		case "join":
 			join(request, response);
 			break;
@@ -104,7 +108,7 @@ public class MemberController extends HttpServlet {
 		case "chang-pass-impl":// 비밀번호 바꾸기 실행
 			changePassImpl(request, response);
 			break;
-		case "deleteUser" : //회원 탈퇴
+		case "deleteUser": // 회원 탈퇴
 			deleteUser(request, response);
 			break;
 		default:
@@ -127,28 +131,25 @@ public class MemberController extends HttpServlet {
 	// 로그인 기능
 	// 로그인 후 메인페이지로 이동
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		Member member = memberService.memberAuthenticate(userId, password);
 		request.getSession().setAttribute("authentication", member);
-		
+
 		System.out.println(userId);
 		System.out.println(password);
 		System.out.println(member);
-		
-		//1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
-		//2. 사용자가 잘못된 아이디와 비밀번호를 입력한 경우
-		//	  사용자에게 아이디나 비밀번호가 틀렸음을 알림
-		
-	      if (member == null) {
-	          response.getWriter().print("disable");
-	       } else {
-	          response.getWriter().print("available");
-	       }
 
-		
-		
+		// 1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
+		// 2. 사용자가 잘못된 아이디와 비밀번호를 입력한 경우
+		// 사용자에게 아이디나 비밀번호가 틀렸음을 알림
+
+		if (member == null) {
+			response.getWriter().print("disable");
+		} else {
+			response.getWriter().print("available");
+		}
 
 	}
 
@@ -180,6 +181,14 @@ public class MemberController extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.getRequestDispatcher("/member/join-form").forward(request, response);
+
+	}
+
+	// 카카오 회원가입 폼으로 이동
+	private void kakaoJoin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.getRequestDispatcher("/member/kakao-join").forward(request, response);
 
 	}
 
@@ -263,19 +272,18 @@ public class MemberController extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		Member member = memberService.selectMemberById(userId);
-		
+
 		if (member == null) {
 			response.sendRedirect("/member/login-form");
 			return;
 		}
-		
+
 		String[] splitAddress = member.getAddress().split("\\(");
-		
+
 		request.getSession().setAttribute("addressNum", splitAddress[1].replaceAll("\\)", ""));
 		request.getSession().setAttribute("detailAddress", splitAddress[0]);
-		
+
 		request.getRequestDispatcher("/member/mypage").forward(request, response);
-		
 
 	}
 

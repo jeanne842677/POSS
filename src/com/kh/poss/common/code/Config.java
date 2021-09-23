@@ -4,9 +4,9 @@ public enum Config {
 	
 	
 	DOMAIN("http://localhost:9090"),
-	COMPANY_EMAIL("jee4870@gmail.com"),
-	SMTP_AUTHENTICATION_ID("jee4870@gmail.com"),
-	SMTP_AUTHENTICATION_PASSWORD("!Tjs24fkdlwm");
+	COMPANY_EMAIL("webposs123@gmail.com"),
+	SMTP_AUTHENTICATION_ID("webposs123@gmail.com"),
+	SMTP_AUTHENTICATION_PASSWORD("Rngusgowh1");
 	
 	
 	public final String DESC ;

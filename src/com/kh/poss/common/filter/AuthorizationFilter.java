@@ -41,19 +41,13 @@ public class AuthorizationFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		String[] uriArr = httpRequest.getRequestURI().split("/");
-		System.out.println(uriArr.length);
 
 		if (uriArr.length != 0) {
 			switch (uriArr[1]) {
 			case "sales":
-				loginAuthorize(httpRequest, httpResponse, uriArr);
-				break;
 			case "board":
-				loginAuthorize(httpRequest, httpResponse, uriArr);
-				break;
 			case "waiting":
-				loginAuthorize(httpRequest, httpResponse, uriArr);
-				break;
+			case "seat" :
 			case "reserve":
 				loginAuthorize(httpRequest, httpResponse, uriArr);
 				break;

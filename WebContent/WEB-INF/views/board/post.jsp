@@ -13,6 +13,7 @@ html, body{
    display: flex;
    justify-content: center;
    margin: unset;
+   overflow: auto;
 }
 
 .now{
@@ -187,7 +188,23 @@ tbody>tr{
     font-size: 12px;
 }
 
+#edit_btn1{
+   width: 80px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    margin-right: 20px;
+    background-color: rgb(255, 167, 167);
+    font-size: 12px;
+}
 
+.valid-msg{
+	color:red;	
+	font-size:10px;
+	border: none;
+}
 </style>
 <link href="/resources/css/bootstrap.css" rel="stylesheet">
 <link href="/resources/css/all.css" rel="stylesheet">
@@ -201,20 +218,22 @@ tbody>tr{
             <label class="now">게시판</label>
          </div>
          <div class='board_title'>
-            <div class="back" style=" cursor: pointer;" onclick="location.href='/board/notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+            <div class="back" style=" cursor: pointer;" onclick="location.href='/board/${board.userId}/notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
             <label id='board_test'>${board.title}</label>
          </div>
          <div class='board_list'>
             <label type="text" readonly="readonly" id="content">${board.boardContent}</label>
-            <button type="button" class="btn btn-primary" id='edit_btn' onclick="location.href='/board/modify-form'">글수정</button>
+            <button type="button" class="btn btn-primary" id='edit_btn1' onclick="confirmPw2(${board.boardPw}, '${board.userId}')">삭제</button>
+            <button type="button" class="btn btn-primary" id='edit_btn' onclick="confirmPw(${board.boardPw}, '${board.userId}')">수정</button>
          </div>
          <div class="reply_title">댓글</div>
          
          <div class='reply_list'>
-            <form id='reply_all' class='reply_info' action="/board/reply-write" method='post'>
+            <form id='reply_all' class='reply_info' action="/board/${board.userId}/reply-write" method='post'>
                <input type='text' id='reply_writer' name='writer' class="form-control form-control-sm" placeholder="작성자">
                <input type='password' maxlength=4 id='reply_pw' name='password' class="form-control form-control-sm" placeholder="암호">
                <input type='text' id='reply' name='content' class="form-control form-control-sm" placeholder="댓글 내용">
+               <span id="pwCheck" class="valid-msg"> </span>
                <button id='submit' class="btn btn-primary">등록</button>
          	</form>
       
@@ -233,7 +252,7 @@ tbody>tr{
                   	<tr>
                   		<td>${rl.replyWriter}</td>
                   		<td>${rl.reply}</td>
-                  		<td><button id="delete">삭제</button></td>
+                  		<td><button id="delete" onclick="deleteReply(${rl.replyIdx},${rl.replyPw}, '${board.userId}')">삭제</button></td>
                   	</tr>
                   </tbody>
                   </c:forEach>
@@ -248,48 +267,55 @@ tbody>tr{
 
 <script type="text/javascript">
 
-/* document.querySelector("#submit").addEventListener("click", e => {
-   let tr = document.createElement('tr');
-   tr.setAttribute("align", "center");
-   let flg = true;
-   
-   document.querySelectorAll("#reply_all input").forEach(e => {
-      if(e.value){
-         flg = false;
-      } else {
-         flg = true;
-      }
-      
-      if(e.id != 'reply_pw'){
-         let td = document.createElement('td');
-         td.innerHTML = e.value;
-         tr.appendChild(td);
-      }
-   })
-   
-   if(flg){
-      alert("빈칸 없이 입력하세요.");
-      return;
-   }
-   
-   let delTd = document.createElement('td');
-   delTd.innerHTML = '<button id="delete">삭제</button>';
-   delTd.addEventListener('click', () => {
-      var write;
-      let pw = document.getElementById('reply_pw');
-      write = prompt("비밀번호를 입력하세요.");
-      if(write == pw){
-         alert("정상적으로 삭제되었습니다.")
-         tr.remove();
-      }else{
-         alert("비밀번호가 다릅니다.");
-      }
-      
-   })
-   
-   tr.appendChild(delTd);
-   document.querySelector('tbody').appendChild(tr);
-}) */
+function confirmPw(pwParams,userId){
+	
+	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
+		
+	if(inputPw == pwParams){
+		location.href = '/board/'+userId+'/modify-form';
+	} else {
+		alert("다시 입력하세요!");
+		return;
+	}
+}
 
+function confirmPw2(pwParams,userId){
+	
+	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
+		
+	if(inputPw == pwParams){
+		alert("게시글이 삭제되었습니다.");
+		location.href = '/board/'+userId+'/delete';
+	} else {
+		alert("다시 입력하세요!");
+		return;
+	}
+}
+
+function deleteReply(replyIdx, replyPw, userId) {
+	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
+	
+	if(inputPw == replyPw){
+		alert("댓글이 삭제되었습니다.");
+		location.href = '/board/'+userId+'/reply-delete?replyIdx='+replyIdx;
+	} else {
+		alert("다시 입력하세요!");
+		return;
+	}
+}
+
+(() => {
+	document.querySelector('#reply_all').addEventListener('submit', e => {
+			
+			let pwReg = /^\d{4}$/;
+			
+			if(!pwReg.test(reply_pw.value)){
+				e.preventDefault();
+				document.querySelector('#reply_pw').value = "";
+				document.querySelector('#pwCheck').innerHTML ='비밀번호는 숫자 4자리입니다.'; 
+			}
+	})
+})();
 </script>
+
 </html>

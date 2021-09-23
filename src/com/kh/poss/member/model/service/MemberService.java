@@ -190,6 +190,8 @@ public class MemberService {
 		Member member = null;
 		try {
 			member = memberDao.selectMemberByEmailAndName(name, email, conn);
+
+			template.commit(conn);
 		} finally {
 			template.close(conn);
 		}
@@ -209,5 +211,9 @@ public class MemberService {
 		return member;
 	}
 	
+
+	
+
+
 }
 

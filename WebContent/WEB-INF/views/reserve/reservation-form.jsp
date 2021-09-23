@@ -5,10 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 페이지</title>
-<link href="resources/css/all.css" rel="stylesheet">
-<link href="resources/css/reset.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<link href="/resources/css/all.css" rel="stylesheet">
+<link href="/resources/css/reset.css" type="text/css" rel="stylesheet">
+<link  href="/resources/css/bootstrap.css" type="text/css" rel="stylesheet">
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
@@ -168,7 +167,6 @@
 
 
 	/* 날짜,시간,인원/테이블 선택칸 ---------------------------------------*/
-	
 	/* 날짜 ------------------------------*/
 	.cal_wrap{
 		width: 320px;
@@ -359,6 +357,7 @@
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 
 <div class="wrap">
 	<div class="wrap_res">
@@ -524,12 +523,12 @@
 			<form class='client_input'>
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>예약자</div>
-					<div><input type="text" class="form-control" placeholder="예약자를 입력해주세요"></div>
+					<div><input type="text" id="name" class="form-control" placeholder="예약자를 입력해주세요"></div>
 				</div>
 				
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>연락처</div>
-					<div><input type="text" class="form-control" placeholder="연락처를 입력해주세요"></div>
+					<div><input type="text" id="number"  class="form-control" placeholder="연락처를 입력해주세요"></div>
 				</div>
 				
 				<div>
@@ -548,12 +547,54 @@
 </div>
 </div>
 
-
-
-
-
-
 <script type="text/javascript">
+function res_confirm() {
+	// 예약자명 받아오기
+		let name = document.getElementById('name').value;
+	//번호 받아오기
+		let number = document.getElementById('number').value;
+	//인원 받아오기
+		let resultCnt = document.getElementById('result');
+		let resultClient = document.getElementById('selected_client');
+		let resnumber = resultCnt.innerText;
+		let count =  resultClient.innerText = resnumber + '인';
+	//테이블 받아오기
+		let resultTable = document.getElementById('selected_table');
+		let tablenum = resultTable.innerText;
+		let table = resultTable.innerText = tablenum;
+	
+	let con = confirm("예약자: " + name + "\n연락처: " + number +" \n인 원: " + count  + "\n테이블: " + table);
+	
+	/* let write = "예약자: " + name + "\n연락처: " + number +" \n인 원: " + count  + "\n테이블: " + table;
+
+	modal1();
+	setModalTitle('modal1','예약내용 확인');
+	setModalBody('modal1', write); */
+	
+	if(con == true) {
+		let con2 = confirm("예약 내역을 확인하시겠습니까?");
+		if(con2 == true) {
+			location.href='/reserve/reservation-confirm';
+		}else if(con2 == false) {
+			return;
+		}
+		
+	}else if(con == false){
+		alert("취소되었습니다.");
+		
+	}
+	
+
+	
+}
+
+
+
+
+
+
+
+
 /* 인원 증감 버튼 
  * 선택된 인원 표시해주기
  */
@@ -596,23 +637,14 @@ function table_selector(table) {
 	resultTable.innerText = table;
 }
 
-function res_confirm() {
-	let con = confirm("예약자: 홍길동\n연락처: 010-0000-000\n인 원: 2인\n테이블: Table1");
-	if(con == true) {
-		let con2 = confirm("예약 내역을 확인하시겠습니까?");
-		if(con2 == true) {
-			location.href='/reserve/reservation-confirm';
-		}else if(con2 == false) {
-			return;
-		}
-		
-	}else if(con == false){
-		alert("취소되었습니다.");
-		
-	} 
-}
+
 
 
 </script>
+
+
+
+
+
 </body>
 </html>

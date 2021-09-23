@@ -28,12 +28,20 @@ public class reserveController extends HttpServlet {
 		
 
 		switch(uri[uri.length-1]) {
-		case "confirm" :  //예약 내역 확인 폼으로 이동
+		case "confirm" :  //예약 전체내역 확인 폼으로 이동
 			confirm(request, response);
 			
 			break;
 		case "modify" :  //예약 설정 폼으로 이동
 			modify(request, response);
+			
+			break;
+		case "okay" :  //예약 조회 내역으로 이동
+			okay(request, response);
+			
+			break;
+		case "cancel" :  //예약 취소 내역 폼으로 이동
+			cancel(request, response);
 			
 			break;
 		case "reservation-form" :  //고객용 예약 폼으로 이동
@@ -60,6 +68,16 @@ public class reserveController extends HttpServlet {
 
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/reserve/reserve-modify").forward(request, response);
+		
+	}
+	
+	private void okay(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/reserve/reserve-okay").forward(request, response);
+		
+	}
+	
+	private void cancel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/reserve/reserve-cancel").forward(request, response);
 		
 	}
 

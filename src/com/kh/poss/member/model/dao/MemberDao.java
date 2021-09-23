@@ -202,7 +202,7 @@ public class MemberDao {
 			pstm.setString(1, password);
 			pstm.setString(2, userId);
 			
-			res = pstm.executeUpdate();
+			pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
@@ -236,7 +236,10 @@ public class MemberDao {
 		}
 		return member;
 	}
-	
+
+
+
+
 	
 }
 

@@ -55,7 +55,7 @@ body {
 	width: 80%;
 	height: 70%;
 	position: absolute;
-	top: 130px;
+	top: 100px;
 }
 
 .inner_login_wrap>* {
@@ -104,6 +104,11 @@ body {
 	padding: 0px;
 	color: gray;
 }
+
+.kakao_join{
+    display:flex;
+    justify-content: center;
+}
 </style>
 <title>Document</title>
 </head>
@@ -125,12 +130,21 @@ body {
 					<span><a class="nav-link" href="/member/lostpass">비밀번호 찾기</a></span> <span>|</span> 
 					<span><a class="nav-link" href="/member/join-form">회원 가입</a></span>
 				</div>
+				<div class="kakao_join">
+                    <span><a class="nav-link" href="/member/kakao-join">카카오 계정으로 가입하기</a></span>
+                </div>
 			</div>
 		</div>
 	</div>
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 
-	<script type="text/javascript">
-	  
+<script type="text/javascript">
+	
+	   let login = function() {
+
+       	location.href = "/index";
+       	
+       }
 	
     document.querySelector("#loginBtn").addEventListener('click', e => {
  		let id = document.querySelector('#userId').value;
@@ -143,8 +157,10 @@ body {
     ).then(text => {
     	console.dir(text);
     	 if(text == 'available'){
-             alert("로그인 되었습니다.");
-             location.href="/index";
+    		setModalTitle('modal2','Poss 로그인');
+			setModalBody('modal2','로그인 되었습니다.');
+			setOkayFunc = login;
+			modal2();
           }else if(text == 'disable'){
             location.href="/member/login-form?err=1";
           }
@@ -155,6 +171,8 @@ body {
     })
 
 </script>
+
+
 
 </body>
 </html>

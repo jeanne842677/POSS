@@ -9,20 +9,19 @@ public class MmsSender {
 	
 	
 	
-	public void setMessage(String phone , String context) {
+	public static void setMessage(String phone , String context) {
 		
 
-		  String api_key = "NCSLBJW1MNQDYWXB";
-	      String api_secret = "14RB1KQWXFFS876H8TUVOPAVFEF2SLUJ";
+		  String api_key = "NCSWYQ05MLTN4URX";
+	      String api_secret = "GM14FK3ESJSI6ZHR3CEHKMBPLFU3YPI1";
 	      Message coolsms = new Message(api_key, api_secret);
 	      
 	      
 
 	      HashMap<String, String> params = new HashMap<String, String>();
 	      params.put("to", phone);
-	      params.put("from", "01094244977");
+	      params.put("from", "01095347492");
 	      params.put("type", "SMS");
-	    //  params.put("subject", "[구현포차]");
 	      params.put("text", context);
 	      params.put("app_version", "test app 1.2"); 
 

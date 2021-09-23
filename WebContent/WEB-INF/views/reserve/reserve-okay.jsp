@@ -116,14 +116,14 @@ div {
 }
 
 .tab1 {
-	color: #343a40;
-	background-color: #f9f7e8;
+	color: white;
+	background-color: #ff8b8b;
 	border-style: none;
 }
 
 .tab2 {
-	color: white;
-	background-color: #ff8b8b;
+	color: #343a40;
+	background-color: #f9f7e8;
 	border-style: none;
 }
 
@@ -385,11 +385,11 @@ div {
     	<input type="button" id="tab1" class="tab1" onclick="location.href='/reserve/confirm'" value="전체조회">
         <input type="button" id="tab2" class="tab2" onclick="location.href='/reserve/okay'" value="예약조회">
         <input type="button" id="tab3" class="tab3" onclick="location.href='/reserve/cancel'"  value="취소조회">    
-    </section>
+	</section>
 
 
-     <!-- 전체조회 ============================================================================ -->
-     <div id="see_all" >
+<!-- 예약내역 ============================================================================= -->
+<div id="reserve_history" >
 
     <section id="showterm">
         <div class='info-input'>
@@ -429,6 +429,7 @@ div {
             </div>
                 
         </div>
+
     </section>
 
     <div id='content'>
@@ -444,7 +445,6 @@ div {
                   <th scope="col">연락처</th>
                   <th scope="col">방문상태</th>
                   <th scope="col">특이사항</th>
-                  <th scope="col">예약거절</th>
                   <th scope="col">처리상태</th>
                 </tr>
               </thead>
@@ -458,58 +458,29 @@ div {
                   <td>010-0000-0000</td>
                   <td>방문</td>
                   <td>아기의자 1개 세팅</td>
-                  <td><button id='btn-table' class="btn btn-outline-secondary" onclick="cancel()">예약취소</button></td>
-                  <td>-</td>
-                </tr>
-                <tr>
-                  <td>2021.08.10</td>
-                  <td>2021.08.10</td>
-                  <td>2명</td>
-                  <td>1번</td>
-                  <td>길예진</td>
-                  <td>010-0000-0000</td>
-                  <td>방문</td>
-                  <td>비건</td>
-                  <td><button id='btn-table' class="btn btn-secondary disabled"  onclick="cancel()">예약취소</button></td>
                   <td>정상</td>
                 </tr>
                 <tr>
-                    <td>2021.08.08</td>
-                    <td>2021.08.08</td>
-                    <td>3명</td>
-                    <td>1번</td>
-                    <td>이호준</td>
-                    <td>010-0000-0000</td>
-                    <td>방문</td>
-                    <td>아기의자 1개 세팅</td>
-                    <td><button id='btn-table' class="btn btn-secondary disabled"  onclick="cancel()">예약취소</button></td>
-                    <td>취소</td>
-                  </tr>
+                  <td>2021.08.14</td>
+                  <td>2021.08.14</td>
+                  <td>3명</td>
+                  <td>1번</td>
+                  <td>이호준</td>
+                  <td>010-0000-0000</td>
+                  <td>방문</td>
+                  <td>아기의자 1개 세팅</td>
+                  <td>정상</td>
+                </tr>
               </tbody>
             </table>
         </div>
     </div>
-   
-    
-    </div>
-<!-- 전체조회 end========================================================================= -->
-
+</div>
+<!-- 예약내역 end ============================================================================= -->
 
 
 
 <script type="text/javascript">
-function cancel() {
-	modal1();
-	setModalTitle('modal1','예약취소');
-	setModalBody('modal1', '정말로 예약을 취소 하시겠습니까?')
-	setYesFunc = function ok(){
-		modal2();
-		setModalTitle('modal2','예약취소 완료');
-		setModalBody('modal2', '예약이 취소되었습니다.')
-		setOkayFunction = close;
-	}
-	setNotFunction = close;
-}
 
 
 

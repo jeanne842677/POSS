@@ -105,6 +105,15 @@
 	.input::placeholder{
 		font-size: 13px;
 	}
+	
+	input:focus {
+		outline:none;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom-color: #61bfad;
+		border-bottom-style: thin solid;
+	}
 	/* 버튼 */
 	.foot_wrap{
 		display:flex;

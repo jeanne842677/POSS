@@ -45,7 +45,7 @@ public class ReplyDao {
       Reply reply = null;
       List<Reply> replyList = new ArrayList<Reply>();
       
-      String query = "select * from reply where board_idx = ? order by reply_idx desc";
+      String query = "select * from reply where board_idx = ? order by reply_idx";
       try {
          pstm = conn.prepareStatement(query);
          pstm.setString(1, boardIdx);

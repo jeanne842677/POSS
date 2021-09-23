@@ -226,10 +226,15 @@ input:checked + .slider:before {
     border: none;
 }
 
+.valid-msg{
+	color:red;	
+	font-size:10px;
+	border: none;
+}
 </style>
 </head>
 <body>
-	<form class="wrap_all" action="/board/write" method="post" id="frm_wirte">
+	<form class="wrap_all" action="/board/${userId}/write" method="post" id="frm_write">
 		<div class='wrap_board'> 
 			<div class='mobile_nav'>
 				<label>예약하기</label>
@@ -237,7 +242,7 @@ input:checked + .slider:before {
 				<label class="now">게시판</label>
 			</div>
 			<div class='board_title'>
-				<div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+				<div class="back" style=" cursor: pointer;" onclick="location.href='/board/${userId}/notice'"><i class="fas fa-arrow-left" id='arrow'></i></div>
 				<label id='board_test'>새로운 글 작성</label>
 			</div>
 			<div class='board_list'>
@@ -257,7 +262,8 @@ input:checked + .slider:before {
 			<div class='pw_setting'>
 					<label>비밀번호</label>
 					<input type="text" size="5" maxlength="4" name="password" id="password">
-					<button type="submit" class="btn btn-primary" id='write_btn' onclick="location.href='post'">글쓰기</button>
+					<span id="pwCheck" class="valid-msg"> </span>
+					<button type="submit" class="btn btn-primary" id='write_btn'>글쓰기</button>
 			</div>
 		</div>
 	</form>
@@ -268,6 +274,20 @@ check.click(function(){
 	$("#public").toggle();
 	$("#private").toggle();
 });
+
+(() => {
+	document.querySelector('#frm_write').addEventListener('submit', e => {
+			
+			let pwReg = /^\d{4}$/;
+			
+			if(!pwReg.test(password.value)){
+				e.preventDefault();
+				document.querySelector('#password').value = "";
+				document.querySelector('#pwCheck').innerHTML ='비밀번호는 숫자 4자리입니다.'; 
+			}
+	})
+})();
+
 </script>
 
 </body>

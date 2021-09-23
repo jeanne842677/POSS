@@ -229,7 +229,7 @@ input:checked + .slider:before {
 </style>
 </head>
 <body>
-   <form class="wrap_all" action="/board/modify" method="post" id="frm_modify">
+   <form class="wrap_all" action="/board/${board.userId}/modify" method="post" id="frm_modify">
       <div class='wrap_board'> 
          <div class='mobile_nav'>
             <label>예약하기</label>
@@ -237,7 +237,7 @@ input:checked + .slider:before {
             <label class="now">게시판</label>
          </div>
          <div class='board_title'>
-            <div class="back" style=" cursor: pointer;" onclick="location.href='notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
+            <div class="back" style=" cursor: pointer;" onclick="location.href='/board/${board.userId}/notice';"><i class="fas fa-arrow-left" id='arrow'></i></div>
             <label id='board_test'>원본 글 수정하기</label>
          </div>
          <div class='board_list'>

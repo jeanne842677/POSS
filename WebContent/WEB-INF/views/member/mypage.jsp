@@ -177,7 +177,7 @@ html, body {
 /* 링크 감싸는 */
 .link_wrap{
 	display: flex;
-	justify-content: center;;
+	justify-content: center;
 }
 
 /* 예약페이지 링크 영역 */
@@ -270,6 +270,10 @@ html, body {
 			<div>예약페이지 URL</div>
 			<div>https://possreservation.co.kr</div>
 			<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn">> 바로가기</button>
+			<div>게시판페이지  URL</div>
+			<div>https://localhost:9090/board/${authentication.userId}/notice</div>
+<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn" onclick="location.href='/board/${authentication.userId}/notice'">> 바로가기</button>
+
 		</div>
 	</div>
 	
