@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +58,7 @@ public class WaitingDao {
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
-				res = rset.getInt("cnt")+1;
+				res = rset.getInt("cnt");
 				System.out.println(res);
 			}
 		} catch (SQLException e) {
@@ -72,11 +74,74 @@ public class WaitingDao {
 		
 		Member member = (Member) request.getSession().getAttribute("authentication");
 		String storeName = member.getStore_name();
-		MmsSender.setMessage(phone, "[" + storeName + "]\n웨이팅 등록이 완료되었습니다.\n * 예약인원 : " + waitingPeopleNum + "명");
+		MmsSender.setMessage(phone, storeName, "\n웨이팅 등록이 완료되었습니다.\n* 웨이팅 인원 : " + waitingPeopleNum + "명\n* 호출 시 안계실 경우 웨이팅이 취소될 수 있으니 유의해 주시기 바랍니다." );
 		return 1;
 	}
 
 
+	public List<Waiting> selectWaitingList(String userId, Connection conn) {
+	      List<Waiting> waitingList = new ArrayList<Waiting>();
+	      Waiting waiting = null;
+	      PreparedStatement pstm = null;
+	      ResultSet rset = null;
+	      String query = "select rownum waiting_num, v.* from (select phone,num,time from waiting where user_id = ? and time >= sysdate order by time)v";
+	      try {
+	         pstm = conn.prepareStatement(query);
+	         pstm.setString(1, userId);
+	        
+	         rset = pstm.executeQuery();
+	         
+	         while(rset.next()) {
+	        	waiting = convertAllToWaiting(rset);
+	        	waitingList.add(waiting);
+	         }
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      } finally {
+	         template.close(rset, pstm);
+	      }   
+	      System.out.println(waitingList);
+	      return waitingList;
+	   }
+
+
+	public List<Waiting> searchWaitingList(String userId, String start, String end_date, Connection conn) {
+	     List<Waiting> searchWaitingList = new ArrayList<Waiting>();
+	      Waiting waiting = null;
+	      PreparedStatement pstm = null;
+	      ResultSet rset = null;
+	      String query = "select rownum waiting_num, v.* from (select phone,num,time from waiting where user_id = ? and time between ? and ? order by time)v";
+	      try {
+	         pstm = conn.prepareStatement(query);
+	         pstm.setString(1, userId);
+	         pstm.setString(2, start);
+	         pstm.setString(3, end_date);
+	        
+	         rset = pstm.executeQuery();
+	         
+	         while(rset.next()) {
+	        	waiting = convertAllToWaiting(rset);
+	        	searchWaitingList.add(waiting);
+	         }
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      } finally {
+	         template.close(rset, pstm);
+	      }   
+	      System.out.println("searchWaitingList : " + searchWaitingList);
+	      return searchWaitingList;
+	}
+
+	private Waiting convertAllToWaiting(ResultSet rset)  throws SQLException {
+		Waiting waiting = new Waiting();
+		waiting.setWaitingNum(rset.getString("waiting_num"));
+		//waiting.setUserId(rset.getString("user_id"));
+		waiting.setPhone(rset.getString("phone"));
+		waiting.setWaitingPeople(rset.getInt("num"));
+		waiting.setTime(rset.getDate("time"));
+		//waiting.setOrderIdx(rset.getString("order_master_idx"));
+		return waiting;
+	}
 	
 	
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.common.exception.DataAccessException;
 import com.kh.poss.seat.model.dto.Seat;
+import com.kh.poss.seat.model.dto.SeatHTML;
 
 public class SeatDao {
 
@@ -57,7 +58,7 @@ public class SeatDao {
 	*/
 	
 	//html save하기
-	public void saveHtml(Seat seat, Connection conn) {
+	public void saveHtml(SeatHTML seat, Connection conn) {
 		
 		CallableStatement cstm = null;
 		String query = "{call SP_SAVE_HTML(?,?,?)}";
@@ -84,21 +85,21 @@ public class SeatDao {
 	}
 	
 
-	 public List<Seat> selectSeatList(String userId, Connection conn) {
-	      List<Seat> seatList = new ArrayList<Seat>();
+	 public List<SeatHTML> selectSeatList(String userId, Connection conn) {
+	      List<SeatHTML> seatList = new ArrayList<SeatHTML>();
 	      PreparedStatement pstm = null;
 	      ResultSet rset = null;
 	      
-	      String query = "select * from seat where user_id = ? order by seat_idx";
+	      String query = "select * from seat_html where user_id = ? order by seat_html_idx";
 	      try {
 	         pstm = conn.prepareStatement(query);
 	         pstm.setString(1, userId);
 	         rset = pstm.executeQuery();
 	         while(rset.next()) {
-	            Seat seat = new Seat(); 
+	            SeatHTML seat = new SeatHTML(); 
 	            seat.setFloor( rset.getString("floor"));
 	            seat.setTableHtml(rset.getString("table_html"));
-	            seat.setTableIdx(rset.getString("seat_idx"));
+	            seat.setTableIdx(rset.getString("seat_html_idx"));
 	            seat.setUserId(rset.getString("user_id"));
 	            seatList.add(seat);
 	         }
@@ -109,6 +110,33 @@ public class SeatDao {
 	      }   
 	      return seatList;
 	   }
-	
+
+/*
+	public int insertSeat(Seat seat, Connection conn) {
+		 int res = 0;
+	      PreparedStatement pstm = null;
+	      String query = "insert into seat"
+	            + " values(sc_seat_idx.nextval,?, ?)";
+	      try {
+	         pstm = conn.prepareStatement(query);
+	         pstm.setString(1, board.getUserId());
+	         pstm.setString(2, board.getTitle());
+	         pstm.setString(3, board.getBoardContent());
+	         pstm.setString(4, board.getWriter());
+	         pstm.setString(5, board.getBoardPw());
+	         pstm.setDate(6, date1);
+	         pstm.setInt(7, board.getBoardPrivate());
+	         pstm.setString(8, board.getUserId());
+	         
+	         res = pstm.executeUpdate();
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      } finally {
+	         template.close(pstm);
+	      }
+	      return res;
+		
+	}
+	*/
 
 }

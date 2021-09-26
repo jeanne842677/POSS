@@ -1,7 +1,13 @@
 package com.kh.poss.waiting.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +31,7 @@ public class WaitingController extends HttpServlet {
 
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String[] uri = request.getRequestURI().split("/");
 		System.out.println(Arrays.toString(uri));
@@ -42,13 +47,18 @@ public class WaitingController extends HttpServlet {
 			break;
 			
 		case "waiting-confirm": // 웨이팅 내역 폼으로 이동
-			waitingConfirm(request, response);
+			waitingConfirmPage(request, response);
+			break;
+			
+		case "waiting-search": // 웨이팅 내역 폼으로 이동
+			waitingSearch(request, response);
 			break;
 		default:
 			throw new PageNotFoundException();
 		}
 
 	}
+
 
 	// 웨이팅 폼으로 이동
 	private void waitingPage(HttpServletRequest request, HttpServletResponse response)
@@ -67,14 +77,9 @@ public class WaitingController extends HttpServlet {
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
 		String userId = member.getUserId();
-		System.out.println(userId);
-
 		String phone = request.getParameter("phone");
-		System.out.println(phone);
-
 		String waitingPeopleNum = request.getParameter("waitingPeopleNum");
 		int waitingPeople = Integer.parseInt(waitingPeopleNum);
-		System.out.println(waitingPeople);
 		
 		Waiting waiting = new Waiting();
 		waiting.setUserId(userId);
@@ -82,8 +87,13 @@ public class WaitingController extends HttpServlet {
 		waiting.setWaitingPeople(waitingPeople);
 		
 		int isSuccess = waitingService.insertWaiting(waiting);
-		
 		int waitingCnt = waitingService.waitingCnt(waiting);
+		int time = (waitingService.waitingCnt(waiting))*15;
+		
+		String team = Integer.toString(waitingCnt);
+		String estimatedTime = Integer.toString(time);
+		request.getSession().setAttribute("team", team);
+		request.getSession().setAttribute("estimatedTime", estimatedTime);
 		
 		int isSuccessSendwaitingMessage = waitingService.confirmWaitingByMessage(request, response, phone, waitingPeopleNum);
 
@@ -100,18 +110,88 @@ public class WaitingController extends HttpServlet {
 		}else {
 			System.out.println("발송 실패");
 		}
+		
+
 	}
 	
 
 	// 웨이팅 내역 폼으로 이동
-	private void waitingConfirm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void waitingConfirmPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    Member member = (Member) request.getSession().getAttribute("authentication");
+	    String userId = member.getUserId();
+		List<Waiting> waitingList = waitingService.selectWaitingList(userId);
+		
+		request.setAttribute("waitingList", waitingList);
+		
+		List<String> timeList = new ArrayList<>();
+		
+		for(Waiting w : waitingList) {
+			Date time = w.getTime();
+			SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd HH:mm");
+			String dateFormat = format.format(time);
+			timeList.add(dateFormat);
+		}
+		
+		System.out.println(timeList);
+		request.setAttribute("timeList", timeList);
+		
 		request.getRequestDispatcher("/waiting/waiting-confirm").forward(request, response);
+
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	
+	private void waitingSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		request.setAttribute("start", start);
+		request.setAttribute("end", end);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		
+		try {
+			c.setTime(sdf.parse(end));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		end = sdf.format(c.getTime());
+		c.add(Calendar.DATE, 1);   //하루 더하기
+		String end_date = sdf.format(c.getTime());
+		System.out.println(end_date);
+
+		List<Waiting> searchWaitingList = waitingService.searchWaitingList(userId,start,end_date);
+
+		request.setAttribute("searchWaitingList", searchWaitingList);
+
+		List<String> searchTimeList = new ArrayList<>();
+
+		for (Waiting w : searchWaitingList) {
+			Date time = w.getTime();
+			SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/dd HH:mm");
+			String dateFormat = format.format(time);
+			searchTimeList.add(dateFormat);
+		}
+
+		System.out.println("searchTimeList : " +searchTimeList);
+		request.setAttribute("searchTimeList", searchTimeList);
+
+		request.getRequestDispatcher("/waiting/waiting-confirm").forward(request, response);
+		
+	}
+	
+	
+	
+	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);
 	}

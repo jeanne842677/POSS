@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.member.model.dto.Member;
-import com.kh.poss.seat.model.dto.Seat;
+import com.kh.poss.seat.model.dto.SeatHTML;
 import com.kh.poss.seat.model.service.SeatService;
 
 @WebServlet("/seat/*")
@@ -52,11 +52,11 @@ public class SeatController extends HttpServlet {
 
 	
 
-	//선택 버튼 눌렀을 때 
+	//포스 버튼 눌렀을 때
 	private void select(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member)request.getSession().getAttribute("authentication");
-		List<Seat> seatList = seatService.selectSeatList(member.getUserId());
+		List<SeatHTML> seatList = seatService.selectSeatList(member.getUserId());
 		request.setAttribute("tableHtml", seatList.get(0));
 		
 		request.getRequestDispatcher("/seat/select-seat").forward(request, response);
@@ -69,7 +69,7 @@ public class SeatController extends HttpServlet {
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member)request.getSession().getAttribute("authentication");
-		List<Seat> seatList = seatService.selectSeatList(member.getUserId());
+		List<SeatHTML> seatList = seatService.selectSeatList(member.getUserId());
 		request.setAttribute("tableHtml", seatList.get(0));
 		
 		request.getRequestDispatcher("/seat/seat-modify").forward(request, response) ;
@@ -87,15 +87,14 @@ public class SeatController extends HttpServlet {
 		Member member = (Member)request.getSession().getAttribute("authentication");
 		String userId = member.getUserId(); 
 		System.out.println(userId);
-		Seat seat = new Seat();
+		SeatHTML seat = new SeatHTML();
 		seat.setFloor("1층");
 		seat.setTableHtml(html);
 		seat.setUserId(userId);
 		
 		seatService.saveHtml(seat); //html db에 저장하기
 		
-		
-		
+
 		
 		
 	}

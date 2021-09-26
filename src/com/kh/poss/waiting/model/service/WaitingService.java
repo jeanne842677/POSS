@@ -1,6 +1,7 @@
 package com.kh.poss.waiting.model.service;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +78,30 @@ public class WaitingService {
 		
 	}
 
+
+	public List<Waiting> selectWaitingList(String userId) {
+	      List<Waiting> waitingList = null;
+	      Connection conn = template.getConnection();
+	      try {
+	    	  waitingList = waitingDao.selectWaitingList(userId, conn);
+	      } finally {
+	         template.close(conn);
+	      }
+	      return waitingList;
+	   }
+
+
+	public List<Waiting> searchWaitingList(String userId, String start, String end_date) {
+	    List<Waiting> searchWaitingList = null;
+	      Connection conn = template.getConnection();
+	      try {
+	    	  searchWaitingList = waitingDao.searchWaitingList(userId, start, end_date, conn);
+	      } finally {
+	         template.close(conn);
+	      }
+	      return searchWaitingList;
+	}
+	   
 	
 }
 

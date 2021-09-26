@@ -11,9 +11,11 @@ import java.util.Map;
 import javax.servlet.ServletInputStream;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.seat.model.dao.SeatDao;
 import com.kh.poss.seat.model.dto.Seat;
+import com.kh.poss.seat.model.dto.SeatHTML;
 
 public class SeatService {
 
@@ -22,7 +24,7 @@ public class SeatService {
 
 	
 	
-	public void saveHtml(Seat seat) {
+	public void saveHtml(SeatHTML seat) {
 
 		Connection conn = template.getConnection();
 
@@ -45,10 +47,10 @@ public class SeatService {
 	
 	
 	
-	public List<Seat> selectSeatList(String userId) {
+	public List<SeatHTML> selectSeatList(String userId) {
 
 		Connection conn = template.getConnection();
-		List<Seat> seatList = new ArrayList<>();
+		List<SeatHTML> seatList = new ArrayList<>();
 
 		try {
 			seatList = seatDao.selectSeatList(userId, conn);
@@ -90,14 +92,68 @@ public class SeatService {
 		Gson gson = new Gson();
 		Map<String , Object> map = gson.fromJson(body, Map.class);
 		String html = (String) map.get("table");
+		
+		String tables = map.get("tables").toString();
+		JsonArray tablesArr = gson.fromJson(tables, JsonArray.class);
+		
+		
+		/*
+		List<Map<String, String>> tableList = new ArrayList<>();
+		for(int i = 0; i<tablesArr.size(); i++) {
+			
+			Map<String , String> tableMap = gson.fromJson(tablesArr.get(i).toString(), Map.class);
+			tableList.add(tableMap);
+			
+			
+		}
+		
+		System.out.println(tableList);
+		//tableList = > 테이블 리스트가 담겨있는 map
+		
+		for(Map<String, String> tm : tableList) {
+			Seat seat = new Seat();
+			String seatIdx = tm.get("seat_idx");
+			String seatName = tm.get("set_name");
+			
+			if(seatIdx=="undefine") {
+				seat.setSeatIdx(seadtIdx);
+				seat.setSeatName(seatName);
+				insertSeat(seat);
+			
+			}
+			
+		}
+		*/
+		
 		html = html.trim();
+		
 		
 		return html;
 		
 	}
 	
 	
-	
+	/*
+	public void insertSeat(Seat seat) {
+
+		Connection conn = template.getConnection();
+
+		try {
+			
+			seatDao.insertSeat(seat , conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+			
+		} finally {
+			
+			template.close(conn);
+		}
+
+	}
+
+	*/
 	
 
 }

@@ -6,7 +6,8 @@ public enum Config {
 	DOMAIN("http://localhost:9090"),
 	COMPANY_EMAIL("webposs123@gmail.com"),
 	SMTP_AUTHENTICATION_ID("webposs123@gmail.com"),
-	SMTP_AUTHENTICATION_PASSWORD("Rngusgowh1");
+	SMTP_AUTHENTICATION_PASSWORD("Rngusgowh1"),
+	UPLOAD_PATH("C:\\CODE\\upload\\");
 	
 	
 	public final String DESC ;

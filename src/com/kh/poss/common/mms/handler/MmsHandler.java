@@ -23,13 +23,14 @@ public class MmsHandler extends HttpServlet {
 			String phone = "01095347492"; //request.getParameter("phone");
 			String context =  "예진아~~싸랑해^0^";//request.getParameter("context");
 			String uri = "/index"; //request.getParameter("redirectUri");
+			String storeName = "";
 			
 			System.out.println("폰번호:" + phone);
 			System.out.println("글내용:" + context);
 			
 			MmsSender mmsSender = new MmsSender();
 			
-			mmsSender.setMessage(phone , context);
+			mmsSender.setMessage(phone, storeName , context);
 		    response.sendRedirect("/index");
 	
 	}

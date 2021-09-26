@@ -156,6 +156,8 @@ html, body {
 	position:relative;
 }
 
+
+
 .btn_wrap {
 
 	display: flex;
@@ -171,6 +173,8 @@ html, body {
 	margin-top: 10px;
 }
 
+
+
 .btn_bottom{
 
 	display: flex;
@@ -179,16 +183,18 @@ html, body {
 
 }
 
-.btn_bottom>* , .btn_top>* {
+.btn {
 
 	border-radius: 1px 6px 6px 1px;
 	width:150px;
 	height:60px;
 	font-size:20px;
-	margin-top:2px;
+	margin-bottom:2px;
 
 
 }
+
+
 .card-body {
 	overflow: scroll;
 	
@@ -259,6 +265,16 @@ background-color: transparent;
 border: none;
 
 }
+
+
+
+.floor {
+	padding: 0px;
+	line-height: 60px;
+
+}
+
+
 
 </style>
 
@@ -336,17 +352,26 @@ border: none;
 						${ tableHtml.tableHtml }
 					</c:if>
 				</div>
-				<div class="btn_wrap">
+								<div class="btn_wrap">
 					<div class="btn_top">
+
 						
-						<button type="button" class="btn btn-dark">1층</button>
-						<button type="button" class="btn btn-dark">2층</button>
+<div class="btn-group-vertical floor_group" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" >
+  <label class="btn btn-info floor" for="btnradio1">1층</label>
+<!--   <input type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
+  <label class="btn btn-info floor" for="btnradio2">Radio 2</label>
+  <input type="radio" class="btn-check " name="btnradio" id="btnradio3" autocomplete="off" >
+  <label class="btn btn-info floor" for="btnradio3">Radio 3</label> -->
+</div>
+						
+							
 
 					</div>
 					<div class="btn_bottom">
 						
 						<button type="button" class="btn btn-secondary" id="table_add">테이블 추가</button>
-						<button type="button" class="btn btn-secondary">플로어 추가</button>
+						<!-- <button type="button" class="btn btn-secondary" id="floor_add">플로어 추가</button> -->
 						<button type="button" class="btn btn-dark" id="remove_all">모두 삭제</button>
 						<button type="button" class="btn btn-secondary" id="save_btn">저장</button>
 						<button type="button" class="btn btn-secondary" id="return_btn">돌아가기</button>
@@ -420,6 +445,8 @@ $( function() {
   } );
  
  
+ 
+//선택창으로 돌아가기
 document.querySelector('#return_btn').addEventListener('click' , e=> {
 	
 	location.href = "/seat/select";
@@ -427,38 +454,56 @@ document.querySelector('#return_btn').addEventListener('click' , e=> {
 	
 })
 
+
+//save버튼을 눌렀을 때
 document.querySelector('#save_btn').addEventListener('click' , e=> {
 
 	document.querySelectorAll('.table_text').forEach(tableText=>{
 		
-		tableText.setAttribute("value" , tableText.value );
+	tableText.setAttribute("value" , tableText.value );
 
 		
 	});
 	
 	
 	let fullhtml = document.querySelector('.table_wrap').innerHTML;
+	let tableArr = [];
+	
+	document.querySelectorAll('.drag').forEach(e=>{
+		
+		
+		tableArr.push({
+			seat_idx : e.dataset.idx ,
+			seat_name : "테이블명"
+			
+		});
+		
+		
+	})
 	
 	
 	//html전송
 	fetch('/seat/save-modify' , {
 		method: "POST",
-		body: JSON.stringify({ "table" : fullhtml}),
+		body: JSON.stringify({ "table" : fullhtml,
+			tables: tableArr }),
 		headers: {"Content-type": "application/json; charset=UTF-8"}	
 	
 	})
 	
 	
 })
+
  
- 
+ //테이블 추가 버튼을 눌렀을 때 
 	document.querySelector('#table_add').addEventListener('click' , e=> {
 		
 		let div = document.createElement('div');
 		div.setAttribute("class" , "drag resize");
+		div.setAttribute("data-idx" , randomAlpha());
 		div.innerHTML = `<input type="text" value="새테이블" class="table_text">`;
 	
-		$( div ).draggable();
+		$(div).draggable();
 		$(div).resizable({
 		  
 		  //마우스 hover 아닐때 핸들러 숨기기
@@ -473,13 +518,30 @@ document.querySelector('#save_btn').addEventListener('click' , e=> {
 
 		$(".drag").css("position" , "absolute");
 		document.querySelector('.table_wrap').appendChild(div);
-		
-		
-		
-		
+
 		
 	})
 	
+	
+/* 	
+	//플로어 추가 버튼 누르면
+	document.querySelector('#floor_add').addEventListener('click' , e=> {
+		let cnt = "btnradio"+(document.querySelectorAll('.btn-check').length + 1);
+
+		document.querySelector('.floor_group').innerHTML += `<input type='radio' class='btn-check' name='btnradio' id='`+cnt+`' autocomplete='off' >
+		  <label class='btn btn-info floor' for='`+cnt+`'>새 플로어</label>`;
+		document.querySelector('#'+cnt).checked = true;   
+	
+
+		
+	})
+	
+	document.querySelector('.btn-check').addEventListener('CheckboxStateChange' , e=>{
+		
+		alert('체크');
+		
+	});
+	 */
 	
 
 let removeAllTable = () => {
@@ -497,6 +559,25 @@ document.querySelector('#remove_all').addEventListener('click' , e=> {
 	
 	
 });
+
+
+
+//랜덤한 4글자 알파벳 생성
+let randomAlpha = ()=> {
+	
+	let alpha = '';
+	for(let i =0 ; i < 4; i++) {
+		let ran = Math.random() * 26 + 65;
+		alpha += String.fromCharCode(ran);
+	}
+	
+	
+	return alpha;
+	
+	
+	
+}
+
 
 </script>
 

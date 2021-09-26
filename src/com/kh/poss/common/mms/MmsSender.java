@@ -9,7 +9,7 @@ public class MmsSender {
 	
 	
 	
-	public static void setMessage(String phone , String context) {
+	public static void setMessage(String phone , String storeName, String context) {
 		
 
 		  String api_key = "NCSWYQ05MLTN4URX";
@@ -21,7 +21,8 @@ public class MmsSender {
 	      HashMap<String, String> params = new HashMap<String, String>();
 	      params.put("to", phone);
 	      params.put("from", "01095347492");
-	      params.put("type", "SMS");
+	      params.put("type", "LMS");
+	      params.put("subject", "[" + storeName + "]");
 	      params.put("text", context);
 	      params.put("app_version", "test app 1.2"); 
 

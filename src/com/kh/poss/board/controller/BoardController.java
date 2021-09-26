@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -108,29 +109,9 @@ public class BoardController extends HttpServlet {
    }
 
    private void write(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-      
-      System.out.println(userId);
-      String writer = request.getParameter("writer");
-      String title = request.getParameter("title");
-      String content = request.getParameter("content");
-      String Private = request.getParameter("isPrivate");
-      String password = request.getParameter("password");
 
-      int isPrivate = 0;
-
-      if (Private != null) {
-         isPrivate = 1;
-      }
-
-      Board board = new Board();
-      board.setUserId(userId);
-      board.setWriter(writer);
-      board.setTitle(title);
-      board.setBoardContent(content);
-      board.setBoardPrivate(isPrivate);
-      board.setBoardPw(password);
-      // 글쓰기 버튼시 db에 등록할 로직 구현 {}
-
+       
+	  Board board = boardService.getBoard(request, userId);
       int ibSuccess = boardService.insertBoard(board);
       if (ibSuccess == 1) {
          System.out.println("게시판 등록 성공");
@@ -140,6 +121,7 @@ public class BoardController extends HttpServlet {
       response.sendRedirect("/board/"+userId+"/notice"); // 게시판으로 이동
    }
 
+   
    private void post(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
       
       String boardIdx = request.getParameter("boardIdx");

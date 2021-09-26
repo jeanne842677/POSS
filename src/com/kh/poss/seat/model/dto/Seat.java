@@ -1,64 +1,42 @@
 package com.kh.poss.seat.model.dto;
 
 public class Seat {
-	
-	private String tableIdx;
-	private String userId;
-	private String floor;
-	private String tableHtml;
-	
-	
+
+	private String seatIdx;
+	private String seatName;
+	private String seatHtmlIdx;
+
 	public Seat() {
-		// TODO Auto-generated constructor stub
+
 	}
 
-
-	public String getTableIdx() {
-		return tableIdx;
+	public String getSeatIdx() {
+		return seatIdx;
 	}
 
-
-	public void setTableIdx(String tableIdx) {
-		this.tableIdx = tableIdx;
+	public void setSeatIdx(String seatIdx) {
+		this.seatIdx = seatIdx;
 	}
 
-
-	public String getUserId() {
-		return userId;
+	public String getSeatName() {
+		return seatName;
 	}
 
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setSeatName(String seatName) {
+		this.seatName = seatName;
 	}
 
-
-	public String getFloor() {
-		return floor;
+	public String getSeatHtmlIdx() {
+		return seatHtmlIdx;
 	}
 
-
-	public void setFloor(String floor) {
-		this.floor = floor;
+	public void setSeatHtmlIdx(String seatHtmlIdx) {
+		this.seatHtmlIdx = seatHtmlIdx;
 	}
-
-
-	public String getTableHtml() {
-		return tableHtml;
-	}
-
-
-	public void setTableHtml(String tableHtml) {
-		this.tableHtml = tableHtml;
-	}
-
 
 	@Override
 	public String toString() {
-		return "Seat [tableIdx=" + tableIdx + ", userId=" + userId + ", floor=" + floor + ", tableHtml=" + tableHtml
-				+ "]";
+		return "Seat [seatIdx=" + seatIdx + ", seatName=" + seatName + ", seatHtmlIdx=" + seatHtmlIdx + "]";
 	}
-	
-	
-	
+
 }

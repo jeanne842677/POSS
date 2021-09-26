@@ -165,6 +165,8 @@ html, body {
 	margin-top: 10px;
 }
 
+
+
 .btn_bottom{
 
 	display: flex;
@@ -179,10 +181,11 @@ html, body {
 	width:150px;
 	height:60px;
 	font-size:20px;
-	margin-top:2px;
+	margin-bottom:2px;
 
 
 }
+
 .card-body {
 	overflow: scroll;
 	
@@ -256,6 +259,14 @@ border: none;
 outline:none;
 
 }
+
+
+.floor {
+	padding: 0px;
+	line-height: 60px;
+
+}
+
 
 </style>
 
@@ -335,9 +346,18 @@ outline:none;
 				</div>
 				<div class="btn_wrap">
 					<div class="btn_top">
+
 						
-						<button type="button" class="btn btn-dark">1층</button>
-						<button type="button" class="btn btn-dark">2층</button>
+<div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
+  <label class="btn btn-info floor" for="btnradio1">1층</label>
+<!--   <input type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
+  <label class="btn btn-info floor" for="btnradio2">Radio 2</label>
+  <input type="radio" class="btn-check " name="btnradio" id="btnradio3" autocomplete="off" >
+  <label class="btn btn-info floor" for="btnradio3">Radio 3</label> -->
+</div>
+						
+							
 
 					</div>
 					<div class="btn_bottom">
@@ -380,9 +400,17 @@ outline:none;
 	//테이블 선택시 실행되는 메소드 (추가예정)
 	document.querySelectorAll('.drag').forEach(e=>{
 		
-		e.addEventListener('click' , e=> {
+		e.addEventListener('click' , event=> {
 			
-			alert("테이블 선택");
+			let idx= e.dataset.idx;
+			let table = e.childNodes[0].value ;
+			
+			location.href="/menu/select?idx=" + idx + "&table=" + table;
+			
+			
+			
+			
+			
 		})
 
 		
@@ -393,6 +421,9 @@ outline:none;
 		location.href='/seat/modify';
 		
 	})
+	
+	
+	
 
 </script>
 
