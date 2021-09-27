@@ -5,10 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- datepicker 기간제어 하는데 필요한거 start -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+<!-- datepicker 기간제어 하는데 필요한거 end -->
+
+<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">   
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
 <style type="text/css">
 /* 
@@ -168,6 +174,7 @@ html, body {
 	width: 100%;
 	height: 28vh;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -192,6 +199,10 @@ html, body {
 .cal_wrap>table>caption {
    caption-side: top;
    text-align: center;
+}
+
+.radio{
+	margin-top: 30px;
 }
 
 /* content3 ----------------------------------------- */
@@ -251,6 +262,10 @@ html, body {
    font-size: 20px;
 }
 
+.select_time{
+	margin-top: 20px;
+}
+
 
 /* footer ----------------------------------------- */
 .footer {
@@ -259,13 +274,35 @@ html, body {
    background-color: rgb(97, 191, 173);
 }
 
+.drag{
+   position:absolute;
+   background-color: red;
+   width:200px;
+   height: 200px;
+   border-radius: 5px;
+   display:inline-block;
+
+}
+
+.table_text  {
+background-color: transparent;
+border: none;
+
+}
+
+.table_text:focus {
+outline:none;
+
+}
+
 </style>
 </head>
 <body>
+<form action="/reserve/${userId}/reserve-modify" method="post">
 <div class="wrap">
     <header id="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
+                    <a href="/index"><img src="/resources/image/LOGO6.png" class="logo"></a>
                    
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
@@ -273,16 +310,16 @@ html, body {
                   <a class="nav-link" href="#">포스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/sales/confirm">매출관리</a>
+                  <a class="nav-link" href="/sales/${userId }/confirm">매출관리</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/board/notice">게시판</a>
+                  <a class="nav-link" href="/board/${userId }/notice">게시판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
+                  <a class="nav-link" href="/waiting/${userId }/waiting-page">웨이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
+                    <a class="nav-link" href="/reserve/${userId }/confirm">예약내역</a>
                 </li>
                 
             </ul>  
@@ -299,257 +336,27 @@ html, body {
             </div>
                <!-- 캘린더 -->
 				<div id='main1'>
-					<div class='cal_wrap'> </div>
-				</div>	   
+					<div class="select_date">
+                		<div class="date" id="date" value="">기간선택&nbsp;<label>
+                    		<input type="text" class="start" id="start" name="start" value="${reserveConfig.startPeriod}" autocomplete="off"/> - </label>
+                    		<input type="text" class="end" id="end" name="end" value="${reserveConfig.endPeriod}" autocomplete="off"/>
+                    	</div>
+            		</div>
+					
+					<div class="select_time">
+                		<div class="date" id="date" value="">시간선택&nbsp;<label>
+                    		<input type="text" class="timepicker" value="${reserveConfig.openTime}" id="openTime" name="openTime" autocomplete="off" placeholder="매장 여는시간"/> - </label>
+                    		<input type="text" class="timepicker" value="${reserveConfig.closeTime}" id="endTime" name="endTime" autocomplete="off" placeholder="매장 마감시간"/>
+                    	</div>
+            		</div>
+            		
+					<div class='radio'> 
+	                    <button type='submit' id='btn-search' class="btn btn-primary">설정</button>
+					</div>
+				</div>
+				
          </div>
-         <hr style='border-top: 3px dashed black'>
-         
-         <div class='content2'>
-            <div>테이블</div>
-         </div>
-         <hr style='border-top: 3px dashed black'>
-         
-         <div class='content3'>
-            <div id='title3'>
-               <div>예약 활성 시간 설정</div>
-            </div>
-            <div id='time_title'>
-               <div id='1hour'>1시간 단위</div>
-               <div id='30min'>30분 단위</div>
-            </div>
-            <div id='time_table'>
-               <table border="1" class='table table-bordered'>
-                  <tr>
-                     <th>시간</th>
-                     <th>예약 활성</th>
-                  </tr>
-                  <tr>
-                     <td class="center">12:00 ~ 13:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>13:00 ~ 14:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>14:00 ~ 15:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>15:00 ~ 16:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>16:00 ~ 17:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>17:00 ~ 18:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>18:00 ~ 19:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>19:00 ~ 20:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>20:00 ~ 21:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>21:00 ~ 22:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>22:00 ~ 23:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>23:00 ~ 24:00</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-               </table>
-               
-               <table border="1" class='table table-bordered'>
-                  <tr>
-                     <th>시간</th>
-                     <th>예약 활성</th>
-                  </tr>
-                  <tr>
-                     <td>12:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>13:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>14:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>15:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>16:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>17:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>18:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>19:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>20:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>21:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>22:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-                  <tr>
-                     <td>23:30</td>
-                     <td>
-                        <div class="form-check form-switch">
-                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                             <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                         </div>
-                       </td>
-                  </tr>
-               </table>
-               
-            </div>
-         </div>
+        
    
       </div>
    </main>
@@ -558,129 +365,94 @@ html, body {
 
 
 </div>
-
-
-
-
-
-
-
-
+</form>
 <script type="text/javascript">
+//****꼭 위에 jquery cdn 3줄 넣어야 동작해요*****
+//라디오버튼 선택시 해당 기간으로 설정
 
-/* 캘린더 */
-//캘린더 폼만들기
-let makeform = function(selector) {
-
-    let cal = document.querySelector(selector);
-    console.dir(cal);
-    
-    //테이블 생성
-    let table = document.createElement('table');
-    table.setAttribute('border','1');
-    table.setAttribute('width','500px');
-    table.setAttribute('height','400px');
-    
-    //캡션 추가
-    let caption = document.createElement('caption');
-    caption.setAttribute('style','font-size:30px')
-    table.append(caption);
-
-    //캡션 디브 추가
-    let captionDiv = document.createElement('div');
-    caption.append(captionDiv);
-
-    let prev = document.createElement('span');
-    prev.setAttribute('onclick' , 'prevMonth()');
-    prev.setAttribute('style','margin:20px');
-    let month = document.createElement('span');
-    let next = document.createElement('span');
-    next.setAttribute('style','margin:20px');
-    next.setAttribute('onclick','nextMonth()');
-    captionDiv.append(prev);
-    captionDiv.append(month);
-    captionDiv.append(next);
-
-    prev.innerHTML ='<';
-    month.innerHTML ='8월';
-    next.innerHTML ='>';
-
-
-    //행 추가
-    let low = document.createElement('tr');
-    table.append(low);
-
-    //요일 추가
-    let dayArr = ['일','월', '화','수','목','금','토'];
-    for(let i = 0 ; i < 7 ; i ++) {
-        let day = document.createElement('th');
-        day.innerHTML = dayArr[i];
-        low.append(day);
-    }
-
-
-    for(let j = 0 ; j <5 ; j++) {
-        let week = document.createElement('tr');
-        table.append(week);
-        for(let i = 0 ; i<7 ; i++) {
-            let day = document.createElement('td');
-            week.append(day); 
-        }
-    }
-
-    cal.append(table);
-    return cal;
+//1주
+function week() {
+      let seven = document.getElementById('7days');
+	  let test = '+' + seven.value + 'W';
+	  
+      if(seven.checked){
+         $(function(){  
+            $("#start").datepicker();
+            $("#end").datepicker();         
+            $("#start").datepicker('setDate', $("#start").val());
+            $("#end").datepicker('setDate', test);
+         });
+      }
 }
 
-
-let monthDraw = function(cal,date) {
-
-    //오늘
-    let today = new Date(date);
-
-    //첫째날
-    let firstDate = new Date(date); 
-    firstDate.setDate(1); //일 구하기
-
-    //마지막날
-    let lastDate = new Date(date);
-    lastDate.setMonth(lastDate.getMonth()+1);
-    lastDate.setDate(0);
-
-    let row = cal.childNodes[1].childNodes;
-    row[0].childNodes[0].childNodes[1].innerHTML = today.getFullYear()+"년 " + (today.getMonth()+1) +"월"
-
-    let dayIdx = 1;
-    for(let i = 2 ; i <7 ; i++ ) {
-        let col = row[i].childNodes;
-        for(let j=0; j < 7 ; j++) {
-            
-            if(i==2 && j<firstDate.getDay()) {
-                col[j].innerHTML = '';
-            }else if(i==6 && dayIdx > lastDate.getDate()) {
-                col[j].innerHTML = '';
-
-            }else {
-                col[j].innerHTML = dayIdx++;
+//end 날짜가 start 날짜보다 일찍 넘기지않게 비활성화
+$(function() {
+        // start Date 설정시 end Date의 min Date 지정
+        $("#start").datepicker({
+            dateFormat: "yy-mm-dd",
+            dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+            monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+            monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+            numberOfMonths: 1,
+            changeMonth: true,
+            showMonthAfterYear: true,
+            changeYear: true,
+            minDate:'today',
+            onClose: function(selectedDate) {
+                $("#end").datepicker( "option", "minDate", selectedDate);
             }
-        }
-    }
-};
+        });
+        
+         // end Date 설정시 start Date max Date 지정
+        $("#end").datepicker({
+            dateFormat: "yy-mm-dd",
+            dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+            monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+            monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+            numberOfMonths: 1,
+            changeMonth: true,
+            showMonthAfterYear: true,
+            changeYear: true,
+            minDate:$("#start").val(),
+            onClose: function(selectedDate) {
+                $("#start").datepicker("option", "maxDate", selectedDate);
+            }
+        });
 
-    let newDate = new Date();
-    //데이 받아서 
-    let cal = makeform('.cal_wrap');
-    monthDraw(cal, newDate);
+   });
+   
 
-let prevMonth = function () {
-    newDate.setMonth(newDate.getMonth()-1);
-    monthDraw(cal,newDate);
-};
 
-let nextMonth = function () {
-    newDate.setMonth(newDate.getMonth()+1);
-    monthDraw(cal,newDate);
-};
+$(function() {
+	$('#openTime')
+	.timepicker({
+	    timeFormat: 'HH:mm',
+	    interval: 30,
+	    startTime: '00:00',
+	    dynamic: false,
+	    dropdown: true,
+	    scrollbar: true,
+	    change: function(time){
+	    	$('#endTime').timepicker('option', 'minTime', time);
+	    	$('#endTime').timepicker('setTime', time);
+	    	
+	    }
+	});
+	
+	$('#endTime')
+	.timepicker({
+	    timeFormat: 'HH:mm',
+	    interval: 30,
+	    dynamic: false,
+	    dropdown: true,
+	    scrollbar: true,
+	    maxTime: '23:30',
+	    minTime: $('#openTime').val()
+	});
+	
+});
+
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </body>
 </html>

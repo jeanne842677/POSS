@@ -227,16 +227,20 @@ th {
         <div class="wait_team_wrap">
           <div class="wait_team">
             <div class="wait_team_num_wrap">
+              <c:if test="${not empty team}">
               <div> 현재 대기팀 </div>
-              <div class="team_num">2</div>
+              <div class="team_num">${team}</div>
+              </c:if>
             </div>
             <div style="font-size:20px;">휴대폰 번호를 입력하시면 <br> 문자로 알려드립니다.</div>
           </div>
         </div>
         <div class="wait_time_wrap">
+         <c:if test="${not empty estimatedTime}">
           <span>예상시간</span>
-          <span id="wait_time">15</span>
+          <span id="wait_time">${estimatedTime}</span>
           <span>분</span>
+          </c:if>
         </div>
       </div>
 
@@ -461,8 +465,6 @@ th {
 
 
       
-    
-    
     </script>
 
 

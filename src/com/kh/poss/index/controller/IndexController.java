@@ -24,12 +24,10 @@ public class IndexController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("인덱스 페이지");
-		//response.sendRedirect("/WEB-INF/views/index.jsp"); 얘는 웹단에서 다시 부르는 거라 web-inf접근 불가
 		
 		request.getRequestDispatcher("/index").forward(request, response);
 		
 		
-		//request.getRequestDispatcher("/index").forward(request, response);
 		
 		
 		

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.poss.board.model.dto.Board;
+import com.kh.poss.board.model.dto.Criteria;
+import com.kh.poss.board.model.dto.PageMaker;
 import com.kh.poss.board.model.dto.Reply;
 import com.kh.poss.board.model.service.BoardService;
 import com.kh.poss.board.model.service.ReplyService;
@@ -30,7 +31,7 @@ public class BoardController extends HttpServlet {
    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	  
       String[] uri = request.getRequestURI().split("/");
       System.out.println(Arrays.toString(uri));
       System.out.println("날아온 url : " + uri[uri.length - 1]); // 콘솔 확인용 코드 (추후 삭제 예정)
@@ -75,30 +76,21 @@ public class BoardController extends HttpServlet {
 
 
    private void notice(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-      
-     int page = 1;
-     int index = 1;
-     
-     if(request.getParameter("page") != null) {
-        page = Integer.parseInt(request.getParameter("page"));
-     }
-     
-     int count = boardService.getAllCount(userId);
-     int totalPage = (int)Math.ceil(count/(double)10);
-     System.out.println(totalPage);
-     
-     int[] pageList = new int[totalPage];
-     List<Board> boardList = boardService.selectBoardList(userId, page);
-     
-     
-     for (int i = 0; i < totalPage; i++) {
-        pageList[i] = index;
-        index++;
-     }
-     
+	  Criteria cri = new Criteria();
+	  int page = 1; 
+	  if(request.getParameter("page") != null) {
+		  page = Integer.parseInt(request.getParameter("page"));
+	  }
+	  cri.setPage(page);
+	  PageMaker pageMaker = new PageMaker();
+	  pageMaker.setCri(cri);
+	  pageMaker.setTotalCount(boardService.getAllCount(userId));
+	        
+	  List<Board> boardList = boardService.selectBoardList(userId, cri);
+	    
       request.setAttribute("boardList", boardList);
       request.setAttribute("userId", userId);
-      request.setAttribute("pageList", pageList);
+      request.setAttribute("pageMaker", pageMaker);
       
       request.getRequestDispatcher("/board/board-notice").forward(request, response);
    }
@@ -109,9 +101,29 @@ public class BoardController extends HttpServlet {
    }
 
    private void write(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
+      
+      System.out.println(userId);
+      String writer = request.getParameter("writer");
+      String title = request.getParameter("title");
+      String content = request.getParameter("content");
+      String Private = request.getParameter("isPrivate");
+      String password = request.getParameter("password");
 
-       
-	  Board board = boardService.getBoard(request, userId);
+      int isPrivate = 0;
+
+      if (Private != null) {
+         isPrivate = 1;
+      }
+
+      Board board = new Board();
+      board.setUserId(userId);
+      board.setWriter(writer);
+      board.setTitle(title);
+      board.setBoardContent(content);
+      board.setBoardPrivate(isPrivate);
+      board.setBoardPw(password);
+      // 글쓰기 버튼시 db에 등록할 로직 구현 {}
+
       int ibSuccess = boardService.insertBoard(board);
       if (ibSuccess == 1) {
          System.out.println("게시판 등록 성공");
@@ -121,7 +133,6 @@ public class BoardController extends HttpServlet {
       response.sendRedirect("/board/"+userId+"/notice"); // 게시판으로 이동
    }
 
-   
    private void post(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
       
       String boardIdx = request.getParameter("boardIdx");
@@ -143,11 +154,23 @@ public class BoardController extends HttpServlet {
    }
 
    private void search(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-      
+      Criteria cri = new Criteria();
       String searchKeyword = request.getParameter("keyword");
-      List<Board> searchList = boardService.searchBoardList(userId, searchKeyword);
+      
+      int page = 1; 
+	  if(request.getParameter("page") != null) {
+		  page = Integer.parseInt(request.getParameter("page"));
+	  }
+	  cri.setPage(page);
+	  PageMaker pageMaker = new PageMaker();
+	  pageMaker.setCri(cri);
+	  pageMaker.setTotalCount(boardService.getSearchCount(userId, searchKeyword));
+	  
+      List<Board> searchList = boardService.searchBoardList(userId, searchKeyword, cri);
       request.setAttribute("userId", userId);
+      request.setAttribute("searchKeyword", searchKeyword);
       request.setAttribute("searchList", searchList);
+      request.setAttribute("pageMaker", pageMaker);
       request.getRequestDispatcher("/board/board-notice").forward(request, response);
    }
 

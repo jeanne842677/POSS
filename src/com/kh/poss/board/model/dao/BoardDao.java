@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.kh.poss.board.model.dto.Board;
+import com.kh.poss.board.model.dto.Criteria;
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.common.exception.DataAccessException;
 
@@ -45,10 +46,8 @@ public class BoardDao {
       return res;
    }
 
-   public List<Board> selectBoardList(String userId, int page, Connection conn) {
+   public List<Board> selectBoardList(String userId, Criteria cri, Connection conn) {
       List<Board> boardList = new ArrayList<Board>();
-      int startNum = (page-1)*10+1;
-      int endNum = page*10;
       Board board = null;
       PreparedStatement pstm = null;
       ResultSet rset = null;
@@ -64,8 +63,8 @@ public class BoardDao {
       try {
          pstm = conn.prepareStatement(query);
          pstm.setString(1, userId);
-         pstm.setInt(2, startNum);
-         pstm.setInt(3, endNum);
+         pstm.setInt(2, cri.getPageStart());
+         pstm.setInt(3, cri.getPage()*10);
          rset = pstm.executeQuery();
          
          while(rset.next()) {
@@ -81,16 +80,23 @@ public class BoardDao {
       return boardList;
    }
    
-   public List<Board> searchBoardList(String userId, String searchKeyword,Connection conn) {
+   public List<Board> searchBoardList(String userId, String searchKeyword,Criteria cri,Connection conn) {
       List<Board> searchList = new ArrayList<Board>();
       Board board = null;
       PreparedStatement pstm = null;
       ResultSet rset = null;
-      String query = "select * from board where user_id = ? and title like ? order by board_no desc";
+      String query = "select * from "
+              + "(select * from "
+              + "(select ROWNUM row_num, v.* from (select * from board where user_id = ? and title like ? order by board_no desc) v) "
+              + "where row_num >= ?) "
+              + "where row_num <= ?";
+      
       try {
          pstm = conn.prepareStatement(query);
          pstm.setString(1, userId);
          pstm.setString(2, "%" + searchKeyword + "%");
+         pstm.setInt(3, cri.getPageStart());
+         pstm.setInt(4, cri.getPage()*10);
          rset = pstm.executeQuery();
          
          while(rset.next()) {
@@ -128,6 +134,31 @@ public class BoardDao {
       
       System.out.println(count);
       return count;
+   }
+   
+   public int getSearchCount(Connection conn, String userId, String searchKeyword) {
+	   int count = 0;
+	   ResultSet rset = null;
+	   PreparedStatement pstm = null;
+	   String query = "select COUNT(*) as count from board where user_id = ? and title like ?";
+	   
+	   try {
+		   pstm = conn.prepareStatement(query);
+		   pstm.setString(1, userId);
+		   pstm.setString(2, "%" + searchKeyword + "%");
+		   rset = pstm.executeQuery();
+		   
+		   if(rset.next()) {
+			   count = rset.getInt("count");
+		   }
+	   } catch (SQLException e) {
+		   throw new DataAccessException(e);
+	   } finally {
+		   template.close(pstm);
+	   }
+	   
+	   System.out.println(count);
+	   return count;
    }
    
    public Board selectBoardDetail(String userId, String boardIdx, Connection conn) {

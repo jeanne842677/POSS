@@ -181,56 +181,63 @@ html, body {
 }
 
 /* 웨이팅 버튼 */
-#waiting_btn {
-	width: 210px;
-	height: 100px;
-	font-size: 20px;
-	background-color: rgb(249, 247, 232);
-	color: black;
-	font-weight: bolder;
-	box-shadow: 3px 3px 3px #333;
-	align-content: center;
-	margin-bottom: 10px;
+#waiting_btn{
+   width: 210px;
+   height: 100px;
+   font-size: 20px;
+   background-color: rgb(249, 247, 232);
+   color: black;
+   font-weight: bolder;
+   box-shadow: 3px 3px 3px #333;
+   align-content: center;
+   margin-bottom:10px;
 }
 
-#waiting_btn:focus {
-	color: #000;
-	background-color: #f9fafb;
-	border-color: #f9fafb;
-	box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+
+#waiting_btn:focus{
+  color: #000;
+  background-color: #f9fafb;
+  border-color: #f9fafb;
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
 }
 
-#waiting_btn:checked {
-	color: #000;
-	background-color: rgb(245, 245, 220);
-	border-color: #f9fafb;
+#waiting_btn:checked{
+  color: #000;
+  background-color: rgb(245, 245, 220);
+  border-color: #f9fafb;
+  
 }
 
 /* 웨이팅 내역버튼 */
-#waitinglookup_btn {
-	width: 210px;
-	height: 100px;
-	font-size: 20px;
-	/*    background-color: rgb(249, 247, 232); */
-	color: white;
-	font-weight: bolder;
-	box-shadow: 3px 3px 3px #333;
-	align-content: center;
+#waitinglookup_btn{
+   width: 210px;
+   height: 100px;
+   font-size: 20px;
+   background-color: #6cc3d5;
+   border-color: #6cc3d5;
+   color: white;
+   font-weight: bolder;
+   box-shadow: 3px 3px 3px #333;
+   align-content: center;
 }
 
-#waitinglookup_btn:focus {
-	color: #000;
-	background-color: #f9fafb;
-	border-color: #f9fafb;
-	box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+#waitinglookup_btn>#waiting_icon>i{
+   color:white;
 }
 
-#waitinglookup_btn:checked {
-	color: #000;
-	background-color: rgb(245, 245, 220);
-	border-color: #f9fafb;
+
+#waitinglookup_btn:focus{
+  color: white;
+  background-color: rgb(87, 153, 167);
+  border-color: rgb(87, 153, 167);
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
 }
 
+#waitinglookup_btn:checked{
+  color: white;
+  background-color: rgb(87, 153, 167);
+  border-color: rgb(87, 153, 167);
+}
 /* 웨이팅 아이콘 */
 #waiting_icon {
 	font-size: 30px;
@@ -275,34 +282,70 @@ html, body {
 }
 
 /* 예약 내역 버튼 */
-#reservation_manage_btn {
-	width: 210px;
-	height: 210px;
-	font-size: 20px;
-	background-color: rgb(255, 213, 125);
-	font-weight: bolder;
-	box-shadow: 3px 3px 3px #333;
-	color: white;
-	margin-top: 25px;
+#reservation_manage_btn{
+   width: 210px;
+    height: 100px;
+    font-size: 20px;
+    background-color: rgb(255, 213, 125);
+    font-weight: bolder;
+    box-shadow: 3px 3px 3px #333;
+    color: white;
 }
 
-#reservation_manage_btn:focus {
-	color: #fff;
-	background-color: #d9af58;
-	border-color: #cca552;
-	box-shadow: 0 0 0 0.25rem rgba(255, 213, 126, 0.5);
+#reservation_manage_btn:focus{
+  color: #fff;
+  background-color: #d9af58;
+  border-color: #cca552;
+  box-shadow: 0 0 0 0.25rem rgba(255, 213, 126, 0.5);
 }
 
-#reservation_manage_btn:checked {
-	color: #fff;
-	background-color: #cca552;
-	border-color: #bf9b4d;
+#reservation_manage_btn:checked{
+  color: #fff;
+  background-color: #cca552;
+  border-color: #bf9b4d;
+  
 }
+
+/* 예약 폼 버튼 */
+#reservation_form_btn{
+   width: 210px;
+    height: 100px;
+    font-size: 20px;
+    background-color: rgb(249, 247, 232);
+    color: black;
+    font-weight: bolder;
+    box-shadow: 3px 3px 3px #333;
+    align-content: center;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+#reservation_form_btn:focus{
+  color: #000;
+  background-color: #f9fafb;
+  border-color: #f9fafb;
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+}
+
+#reservation_form_btn:checked{
+  color: #000;
+  background-color: rgb(245, 245, 220);
+  border-color: #f9fafb;
+  
+}
+
+
+
 
 /* 예약 아이콘 */
-#reservation_manage_icon {
-	font-size: 50px;
-	color: white;
+#reservation_manage_icon{
+   font-size: 30px;
+   color: white;
+}
+
+#reservation_form_icon{
+   font-size: 30px;
+   color: #000;
 }
 
 /* 오늘 예약 건수 버튼 */
@@ -510,9 +553,16 @@ html, body {
 					<div id="waiting_text">웨이팅 내역</div>
 				</button>
 
+				<button type="button" class="btn btn-light" id="reservation_form_btn" onclick="location.href='/reserve/${authentication.userId}/reservation-form'">
+				      <div id="reservation_form_icon">
+				          <i class="fas fa-clipboard-list"></i>
+				      </div>
+				      <div id="reservation_manage_text">예약</div>
+				</button>
+
 				<button type="button" class="btn btn-warning"
 					id="reservation_manage_btn"
-					onclick="location.href='/reserve/confirm'">
+					onclick="location.href='/reserve/${authentication.userId}/confirm'">
 					<div id="reservation_manage_icon">
 						<i class="fas fa-address-book"></i>
 					</div>
@@ -524,11 +574,11 @@ html, body {
 				<c:if test="${not empty authentication}">
 					<button type="button" class="btn btn-outline-primary"
 						id="today_reservation_btn"
-						onclick="location.href='/reserve/confirm'">
+						onclick="location.href='/reserve/${authentication.userId}/confirm'">
 						<div id="trt">오늘의 예약은</div>
 						<div id="today_reservation_text">
 							<div id="trt_total">총</div>
-							<div id="trt_num">5</div>
+							<div id="trt_num">${reservationNum}</div>
 							<div id="trt_cnt">건 입니다.</div>
 						</div>
 					</button>

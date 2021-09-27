@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
 <title>예약 페이지</title>
 <link href="/resources/css/all.css" rel="stylesheet">
 <link href="/resources/css/reset.css" type="text/css" rel="stylesheet">
@@ -16,9 +17,12 @@
 		height: 100%;
 		display: flex;
 		justify-content: center;
-		
 	}
 	
+	form {
+		width:100%;
+		height:100%;
+	}
 	
 	.wrap{
 		width:100%;
@@ -188,6 +192,8 @@
 	/* 시간 div들 라인 */
 	.time_L1, .time_L2, .time_L3{
 		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
 		justify-content: space-around;
 	}
 	
@@ -195,6 +201,10 @@
 	.time_L1, .time_L2, .time_L3>button{
 		margin: 4px 2px 4px 2px;
 	
+	}
+	
+	.button_div{
+		width: 50px;
 	}
 	
 	/* 시간 버튼에 있는 text */
@@ -354,18 +364,23 @@
         justify-content: center;
         align-items: center;
 	}
+	
+.valid-msg{
+	color:red;	
+	font-size:10px;
+}	
 </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
-
+<form action="/reserve/${userId}/reservation-insert" method="post" id="frm_reserve">
 <div class="wrap">
 	<div class="wrap_res">
 	<!-- 네비게이션 바 -->
 	<div class="nav">
-        <div class="now" onclick="location.href='/reserve/reservation-form'">예약하기</div>
-        <div onclick="location.href='/reserve/reservation-lookup'">예약확인</div>
-        <div onclick="location.href='/board/notice'">게시판</div>
+        <div class="now" onclick="location.href='/reserve/${userId}/reservation-form'">예약하기</div>
+        <div onclick="location.href='/reserve/${userId}/reservation-lookup'">예약확인</div>
+        <div onclick="location.href='/board/${userId}/notice'">게시판</div>
 	</div>
 
 	<!-- 매장 사진 -->
@@ -398,9 +413,10 @@
 		      	<!-- 아코디언 1번 컨텐츠 -->
 		      	<div class="cal_wrap">
 		      		<div>선택된 날짜 :&nbsp</div>
-		      		<div><input type="date" id='input_date'></div>
+		      		<jsp:useBean id="currDay" class="java.util.Date"></jsp:useBean>
+		      		<fmt:formatDate var="dayFormat" value="${currDay}" pattern="yyyy-MM-dd"/>
+		      		<div><input type="date" name="reDate" id='input_date' value="${dayFormat}" min="${dayFormat}" max="${reserveConfig.endPeriod}"></div>
 		      	</div>
-		      	
 		      	
 		      </div>
 		    </div>
@@ -419,22 +435,15 @@
 		      
 		        <!-- 아코디언 2번 컨텐츠 -->
 		        <div class='time_L1'>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('01:00')">01:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('02:00')">02:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('03:00')">03:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('04:00')">04:00</button>
-		        </div>
-		        <div class='time_L2'>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('05:00')">05:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('06:00')">06:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('07:00')">07:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('08:00')">08:00</button>
-		        </div>
-		        <div class='time_L3'>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('09:00')">09:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('10:00')">10:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('11:00')">11:00</button>
-		        	<button type="button" class="btn btn-primary" onclick="time_selector('12:00')">12:00</button>
+		        	<jsp:useBean id="currTime" class="java.util.Date"></jsp:useBean>
+		        	<c:forEach items="${timeArr}" var="ta">
+	        			<div class="button_div">
+	        			<fmt:parseDate var="taDate" value="${ta}" pattern="HH:mm" type="time"/>
+	        			<fmt:formatDate var="taFormat" value="${taDate}" pattern="HH:mm"/>
+	        			<fmt:formatDate var="curFormat" value="${currTime}" pattern="HH:mm"/>
+	        					<button type="button" class="btn btn-primary time-btn" onclick="time_selector('${ta}')">${ta}</button>
+	        			</div>
+		        	</c:forEach>
 		        </div>
 		        
 		        
@@ -507,6 +516,9 @@
 		  </div>
 		</div>	
 	</div>
+	<input type="hidden" name="time" id="time">
+	<input type="hidden" name="num" id="num">
+	<input type="hidden" name="seatIdx" id="seatIdx" value="1">
 	<!-- 공백 -->
 	<hr style="border:6px color= rgb(97, 191, 173); padding: 0 20px 0 20px">
 	<!-- 예약자 정보칸 -->
@@ -520,34 +532,35 @@
 		
 		<div class='client_body'>
 			
-			<form class='client_input'>
+			<div class='client_input'>
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>예약자</div>
-					<div><input type="text" id="name" class="form-control" placeholder="예약자를 입력해주세요"></div>
+					<div><input type="text" name="name" id="name" class="form-control" placeholder="예약자를 입력해주세요"></div>
 				</div>
 				
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>연락처</div>
-					<div><input type="text" id="number"  class="form-control" placeholder="연락처를 입력해주세요"></div>
+					<div><input type="text" name="phone" id="number"  class="form-control" placeholder="연락처를 입력해주세요"></div>
 				</div>
 				
 				<div>
 					<div class="ci_text">요청사항</div>
-					<div><textarea rows="4" style="resize: none" class="form-control" placeholder="요청하실 내용을 입력해주세요"></textarea></div>
+					<div><textarea rows="4" style="resize: none" class="form-control" name="content" placeholder="요청하실 내용을 입력해주세요"></textarea></div>
 				</div>
 				
 				<hr style="border:6px color= rgb(97, 191, 173);">
 				<div  class="res_btn">
-				    <button id='btn_reservation' onclick="res_confirm()" class="btn btn-secondary">예약하기</button>
+				    <button id='btn_reservation' type="button"   onclick="res_confirm()" class="btn btn-secondary">예약하기</button>
                 </div>
 				<hr style="border:6px color= rgb(97, 191, 173);">
-			</form>
+			</div>
 		</div>
 	</div>
 </div>
 </div>
-
+</form>
 <script type="text/javascript">
+
 function res_confirm() {
 	// 예약자명 받아오기
 		let name = document.getElementById('name').value;
@@ -563,36 +576,19 @@ function res_confirm() {
 		let tablenum = resultTable.innerText;
 		let table = resultTable.innerText = tablenum;
 	
-	let con = confirm("예약자: " + name + "\n연락처: " + number +" \n인 원: " + count  + "\n테이블: " + table);
-	
-	/* let write = "예약자: " + name + "\n연락처: " + number +" \n인 원: " + count  + "\n테이블: " + table;
+	let write = "예약자: " + name + "<br><br>연락처: " + number +"<br><br>인 원: " + count  + "<br><br>테이블: " + table + "<br><br><br>예약을 완료하시겠습니까?";
 
 	modal1();
 	setModalTitle('modal1','예약내용 확인');
-	setModalBody('modal1', write); */
+	setModalBody('modal1', write);
 	
-	if(con == true) {
-		let con2 = confirm("예약 내역을 확인하시겠습니까?");
-		if(con2 == true) {
-			location.href='/reserve/reservation-confirm';
-		}else if(con2 == false) {
-			return;
-		}
+	setYesFunc = submit;
 		
-	}else if(con == false){
-		alert("취소되었습니다.");
-		
-	}
-	
-
-	
 }
 
-
-
-
-
-
+function submit() {
+	document.querySelector("#frm_reserve").submit();
+}
 
 
 /* 인원 증감 버튼 
@@ -602,7 +598,7 @@ function count(type) {
 	  let resultCnt = document.getElementById('result');
 	  let resultClient = document.getElementById('selected_client');
 	  let number = resultCnt.innerText;
-	  
+	  let numParameter = document.getElementById('num');
 	  if(type === 'plus') {
 	    number = parseInt(number) + 1;
 	  }else if(type === 'minus')  {
@@ -613,22 +609,92 @@ function count(type) {
 	 
 	  resultCnt.innerText = number;
 	  resultClient.innerText = number + '인';
+	  numParameter.value = number;
+	  console.dir(numParameter.value);
 }
 
 
 /* 선택된 시간 표시해주기 */
 function time_selector(time) {
 	let resultTime = document.getElementById('selected_time');
+	let timeParameter = document.getElementById('time');
 	resultTime.innerText = time;
+	timeParameter.value = time;
+	console.dir(timeParameter.value);
+	
+}
+
+//데이터 포맷팅 함수
+let dateFormat = (date) => {
+	
+	let month = date.getMonth()+1;
+	
+	month = month < 10 ? "0" + month : month;
+	
+	
+	return date.getFullYear() + "-" + month + "-" + date.getDate();
 }
 
 
+//시간 포맷 함수
+let timeFormat = (date) => {
+	
+	let hour = date.getHours();
+	let minute = date.getMinutes();
+
+	hour = hour < 10 ? "0" + hour : hour;
+	minute = minute <10 ? "0" + minute : minute;
+	return hour + ":" + minute;
+	
+}
+
+
+let todayTimeDisabled = () => {
+	
+	let time = timeFormat(new Date());
+	document.querySelectorAll('.time-btn').forEach(e=> {
+		
+		if(e.innerText < time) {
+			e.setAttribute("class" , "btn btn-primary time-btn disabled");
+		}
+		
+		
+	})
+	
+};
+
+
 /* 선택된 날짜 표시해주기 */
-document.getElementById('input_date').addEventListener('mouseleave', e => {
+document.getElementById('input_date').addEventListener('change', e => {
 	let resultDate = document.getElementById('selected_date');
 	let date = document.getElementById('input_date').value;
 	resultDate.innerText = date;
+	
+	
+	let today = dateFormat(new Date());
+	
+	if(date == today) {
+		
+		todayTimeDisabled();
+		
+	}else {
+		
+		document.querySelectorAll('.time-btn').forEach(e=> {
+			
+			e.setAttribute("class" , "btn btn-primary time-btn");
+			
+			
+		})
+		
+	}
+	
+	
+	
 })
+
+document.getElementById('selected_date').innerText =  document.getElementById('input_date').value;
+todayTimeDisabled();
+
 
 
 /* 선택된 테이블 표시해주기 */
@@ -636,7 +702,6 @@ function table_selector(table) {
 	let resultTable = document.getElementById('selected_table');
 	resultTable.innerText = table;
 }
-
 
 
 

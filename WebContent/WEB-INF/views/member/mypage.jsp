@@ -176,18 +176,17 @@ html, body {
 
 /* 링크 감싸는 */
 .link_wrap{
-	display: flex;
-	justify-content: center;
+	display: block;
 }
 
 /* 예약페이지 링크 영역 */
 .reservation_page_link{
-	width: 30%;
-	display: flex;
-	justify-content: space-around;
-	display: flex;
-	margin-left: 20px;
-	margin-top: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
 }
 
 .reservation_page_link>*{
@@ -198,7 +197,35 @@ html, body {
 #reservation_link_btn{
 	border-radius: 15px;
 	font-size: 10px;
+    margin-left:10px;
 }
+
+
+
+/* 게시판페이지 링크 영역 */
+.board_page_link{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.board_page_link>*{
+	flex-shrink: 0;
+}
+
+/* 게시판페이지 바로가기 버튼 */
+#board_link_btn{
+	border-radius: 15px;
+	font-size: 10px;
+    margin-left:10px;
+}
+
+
+
+
 
 /* 회원탈퇴 영역 */
 .delete{
@@ -219,7 +246,7 @@ html, body {
 </style>
 </head>
 <body>
-    <div class="wrap">
+   
     	<header id="header">
             <nav class="navbar">
             	<div class="nav_wrap">
@@ -237,7 +264,7 @@ html, body {
             	</div>
             </nav>
     	</header>
-	
+	 <div class="wrap">
 	<div class="my_info_text">내정보</div>
 	<div class="info_wrap">
 		<div class="my_info">
@@ -270,10 +297,12 @@ html, body {
 			<div>예약페이지 URL</div>
 			<div>https://possreservation.co.kr</div>
 			<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn">> 바로가기</button>
+		</div>
+		<div class="board_page_link">
 			<div>게시판페이지  URL</div>
 			<div>https://localhost:9090/board/${authentication.userId}/notice</div>
-<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn" onclick="location.href='/board/${authentication.userId}/notice'">> 바로가기</button>
-
+			<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn" onclick="location.href='/board/${authentication.userId}/notice'">> 바로가기</button>
+		</div>
 		</div>
 	</div>
 	

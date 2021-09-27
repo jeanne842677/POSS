@@ -225,11 +225,11 @@ html, body{
             <label id='writer'>작성자</label>
             <label id='date'>작성일</label>
          </div>
-         <c:if test="${not empty boardList and empty param.search}">
+         <c:if test="${not empty boardList and empty param.keyword}">
          <c:forEach items="${boardList}" var="bl">
             <div class='board_content' onclick="confirmPrivate(${bl.boardIdx}, ${bl.boardPrivate}, ${bl.boardPw}, '${bl.userId}')">
                <div id='content_idx'><c:out value="${bl.boardNo}"/></div>
-               <div id='content_title'>
+               <div id='content_title' type="button">
                <c:if test="${bl.boardPrivate eq 1}"><i class="fas fa-lock"></i><c:out value="${bl.title}"/></c:if>
                <c:if test="${bl.boardPrivate eq 0}"><c:out value="${bl.title}"/></c:if>
                </div>
@@ -253,43 +253,44 @@ html, body{
          </c:if>
       </div>
       <div id="page">
-         <ul class="pagination">
-        <c:choose>
-            <c:when test="${not empty param.page}">
-               <li class="page-item">
-                  <a class="page-link" onclick="prev(${param.page})">&laquo;</a>
-               </li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item">
-                  <a class="page-link" onclick="alert('이전 페이지가 존재하지 않습니다.')">&laquo;</a>
-               </li>
-            </c:otherwise>
-         </c:choose>
-         <c:forEach items="${pageList}" var="pl">
-            <li class="page-item">
-               <a class="page-link" href="/board/${userId}/notice?page=${pl}">${pl}</a>
-            </li>
-         </c:forEach>
-         <c:choose>
-            <c:when test="${empty param.page}">
-               <li class="page-item">
-                  <a class="page-link" href="/board/${userId}/notice?page=2">&raquo;</a>
-               </li>
-            </c:when>
-            <c:when test="${ fn:length(pageList) > param.page} ">
-               <li class="page-item">
-                  <a class="page-link" href="/board/${userId}/notice?page=${param.page+1}">&raquo;</a>
-               </li>
-            </c:when>
-            <c:otherwise>
-               <li class="page-item">
-                  <a class="page-link" onclick="alert('다음 페이지가 존재하지 않습니다.')">&raquo;</a>
-               </li>
-            </c:otherwise>
-         </c:choose>
-         
-         </ul>
+         <c:if test="${empty param.keyword}">
+	         <ul class="btn-group pagination">
+			    <c:if test="${pageMaker.prev }">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/notice?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+			    </li>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/notice?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+			    </li>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/notice?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+			    </li>
+			    </c:if>
+			</ul>
+		</c:if>
+         <c:if test="${not empty param.keyword}">
+	         <ul class="btn-group pagination">
+			    <c:if test="${pageMaker.prev }">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/search?keyword=${searchKeyword}&page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+			    </li>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/search?keyword=${searchKeyword}&page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+			    </li>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li>
+			        <a href='<c:url value="/board/${userId }/search?keyword=${searchKeyword}&page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+			    </li>
+			    </c:if>
+			</ul>
+		</c:if>
       </div>
       <button type="button" class="btn btn-primary" id='write_btn' onclick="location.href='/board/${userId}/write-form'">글쓰기</button>
    </div>

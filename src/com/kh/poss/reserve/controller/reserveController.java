@@ -276,7 +276,7 @@ public class reserveController extends HttpServlet {
 	private void resform(HttpServletRequest request, HttpServletResponse response, String userId)
 			throws ServletException, IOException {
 		ReserveConfig reserveConfig = reserveService.selectConfig(userId);
-
+		
 		SimpleDateFormat testFormat = new SimpleDateFormat("HH:mm");
 		Calendar cal = Calendar.getInstance();
 		String[] timeArr = null;

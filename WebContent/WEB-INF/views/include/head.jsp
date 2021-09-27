@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <c:set var="contextPath" value="${ pageContext.request.contextPath }"/>
 <!-- pageContext 객체 : request와 response 객체를 담고있는 서블릿 객체 -->
 <meta charset="UTF-8">

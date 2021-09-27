@@ -71,7 +71,7 @@ public class MenuController extends HttpServlet {
 			throw new PageNotFoundException();
 
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 
@@ -100,7 +100,6 @@ public class MenuController extends HttpServlet {
 		
 		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 		List<MenuCat> menuCatList = menuService.selectCateList(userId);
-		System.out.println(menuCatList);
 		
 		request.setAttribute("menuCatList", menuCatList);
 		request.getRequestDispatcher("/menu/menu-modify").forward(request, response);
@@ -120,7 +119,6 @@ public class MenuController extends HttpServlet {
 		menuCat.setIcon(icon);
 		menuCat.setColor(color);
 		menuCat.setName(name);
-		System.out.println(userId);
 		menuService.insertCate(menuCat);
 		
 		response.sendRedirect("/menu/modify");
@@ -184,7 +182,6 @@ public class MenuController extends HttpServlet {
 			if(mc.getCatIdx().equals(catIdx)) {
 				
 				request.setAttribute("thisCat", mc);
-				System.out.println(mc);
 				break;
 			}
 			
@@ -244,9 +241,7 @@ public class MenuController extends HttpServlet {
 		List<Menu> menuList = menuService.selectMenuList(catIdx);
 		Gson gson = new Gson();
 		String menuListJson = gson.toJson(menuList);
-		
-		System.out.println(menuListJson);
-		
+	
 		response.setHeader("Content-Type", "application/json; charset=utf-8");
 		response.getWriter().print(menuListJson);
 		
