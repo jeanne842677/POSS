@@ -131,7 +131,6 @@
 		width: 50%;
         min-width:50%;
 		height: 300px;
-		background: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAxMDRfMTI4%2FMDAxNjA5NzY2MzMyODA5.9JJ0tPl0BXdP5biTBDXVnM_nJC4_tfQekiyjv1M7dqog.D35YCMymi94tvSbhxuKxeTbWCodEPP4ckSaLadCRJ_0g.JPEG.positively_h%2FIMG_9599.JPG&type=a340");
         background-size: cover;
         }
 
@@ -386,12 +385,14 @@
 	<!-- 매장 사진 -->
 	<div id="description">
         <div class='picture'>
-            <div class="pic_text">구현해조</div>
+            <div class="pic_text">
+				<img src="${imageFile.downloadLink}">
+			</div>
         </div>
             
         <!-- 매장 정보기입란 -->
         <div class="message">
-            신당 원조맛집 구현포차!!
+           ${reserveConfig.storeInfo}
         </div>
     </div>
 	

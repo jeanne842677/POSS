@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.poss.common.db.JDBCTemplate;
 import com.kh.poss.common.exception.DataAccessException;
+import com.kh.poss.common.file.FileDTO;
 import com.kh.poss.common.mms.MmsSender;
 import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.reserve.model.dto.Reserve;
@@ -298,15 +299,14 @@ public class ReserveDao {
 		} finally {
 			template.close(rset, pstm);
 		}
-	      		
 		return reserveConfig;
 	}
 	
 	public void modifyReserve(String userId, String startPeriod, String endPeriod, String openTime, String closeTime,
-			Connection conn) {
+			String introductionOfStore, Connection conn) {
 		
 		CallableStatement cstm = null;
-		String query = "{call SP_SETTING_RESERVE(?,?,?,?,?)}";
+		String query = "{call SP_SETTING_RESERVE(?,?,?,?,?,?)}";
 		
 
 		try {
@@ -316,12 +316,62 @@ public class ReserveDao {
 			cstm.setString(3, closeTime);
 			cstm.setString(4, startPeriod);
 			cstm.setString(5, endPeriod);
+			cstm.setString(6, introductionOfStore);
 			cstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
 		} finally {
 			template.close(cstm);
 		}
+	}
+	
+	public void uploadImage(FileDTO fileDTO, String userId, Connection conn) {
+		
+		CallableStatement cstm = null;
+		String query = "{call SP_MODIFY_IMAGE(?,?,?,?)}";
+		
+
+		try {
+			cstm = conn.prepareCall(query);
+			cstm.setString(1, userId);
+			cstm.setString(2, fileDTO.getOriginFileName());
+			cstm.setString(3, fileDTO.getRenameFileName());
+			cstm.setString(4, fileDTO.getSavePath());
+			cstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(cstm);
+		}
+		
+	}
+	
+	public FileDTO selectImage(String userId, Connection conn) {
+		FileDTO fileDTO = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from store_file where user_id = ?";
+
+		try {
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+
+			if(rset.next()) {
+				fileDTO = new FileDTO();
+				fileDTO.setOriginFileName(rset.getString("origin_file_name"));
+				fileDTO.setRenameFileName(rset.getString("rename_file_name"));
+				fileDTO.setSavePath(rset.getString("save_path"));
+			}
+
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		
+		return fileDTO;
 	}
 	
 	private Reserve convertAllToReserve(ResultSet rset) throws SQLException {
@@ -348,6 +398,7 @@ public class ReserveDao {
 		reserveConfig.setCloseTime(rset.getString("close_time"));
 		reserveConfig.setStartPeriod(rset.getString("start_period"));
 		reserveConfig.setEndPeriod(rset.getString("end_period"));
+		reserveConfig.setStoreInfo(rset.getString("store_Info"));;
 		return reserveConfig;
 	}
 	

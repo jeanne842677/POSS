@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.poss.common.db.JDBCTemplate;
+import com.kh.poss.common.file.FileDTO;
 import com.kh.poss.reserve.model.dao.ReserveDao;
 import com.kh.poss.reserve.model.dto.Reserve;
 import com.kh.poss.reserve.model.dto.ReserveConfig;
@@ -178,11 +179,11 @@ public class ReserveService {
 	    return reserveConfig;
 	}
 
-	public void modifyReserve(String userId, String startPeriod, String endPeriod, String openTime, String closeTime) {
+	public void modifyReserve(String userId, String startPeriod, String endPeriod, String openTime, String closeTime, String introductionOfStore) {
 		Connection conn = template.getConnection();
 		
 		try {
-			reserveDao.modifyReserve(userId, startPeriod, endPeriod, openTime, closeTime, conn);
+			reserveDao.modifyReserve(userId, startPeriod, endPeriod, openTime, closeTime, introductionOfStore, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -190,6 +191,33 @@ public class ReserveService {
 		} finally {
 			template.close(conn);
 		}
+	}
+
+	public void uploadImage(FileDTO fileDTO, String userId) {
+		Connection conn = template.getConnection();
+
+		try {
+			reserveDao.uploadImage(fileDTO, userId, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+	}
+
+	public FileDTO selectImage(String userId) {
+		FileDTO fileDTO = null;
+
+		Connection conn = template.getConnection();
+		try {
+			fileDTO = reserveDao.selectImage(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		return fileDTO;
 	}
 
 

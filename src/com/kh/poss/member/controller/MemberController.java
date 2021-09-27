@@ -135,9 +135,7 @@ public class MemberController extends HttpServlet {
       String userId = request.getParameter("userId");
       String password = request.getParameter("password");
       Member member = memberService.memberAuthenticate(userId, password);
-      String reservationNum = Integer.toString(reserveService.countReservation(member.getUserId()));
-      
-      request.getSession().setAttribute("reservationNum", reservationNum);
+    
       request.getSession().setAttribute("authentication", member);
    
       // 1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
@@ -149,6 +147,10 @@ public class MemberController extends HttpServlet {
       } else {
          response.getWriter().print("available");
       }
+      
+      String reservationNum = Integer.toString(reserveService.countReservation(member.getUserId()));
+      
+      request.getSession().setAttribute("reservationNum", reservationNum);
 
    }
 

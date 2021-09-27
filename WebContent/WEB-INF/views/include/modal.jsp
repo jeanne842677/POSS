@@ -58,3 +58,24 @@
     </div>
 </div>
 <!--  okay 모달 end -->
+
+<!-- okay 모달 -->
+<div class="modal" style="display:none; margin-top:30vh" id="modal3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal3-title">제목</h5>
+                <button type="button" id="close_btn3" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal3-body">
+                <p>내용</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm" class="btn btn-primary" data-bs-dismiss="modal" onclick="clickConfirm(setConfirmFunc)">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  okay 모달 end -->

@@ -1,4 +1,5 @@
 
+
 	let modal1 = () => {
 
 
@@ -6,13 +7,20 @@
 	    document.querySelector('#modal1').style.display = 'block';
 
 	};
-
-
+	
 	let modal2 = () => {
 
 
 	    document.querySelector('.dimm').style.display = 'block';
 	    document.querySelector('#modal2').style.display = 'block';
+
+	};
+	
+	let modal3 = () => {
+
+
+	    document.querySelector('.dimm').style.display = 'block';
+	    document.querySelector('#modal3').style.display = 'block';
 
 	};
 
@@ -66,6 +74,14 @@
 
 	    document.querySelector('.dimm').style.display = 'none';
 	    document.querySelector('#modal2').style.display = 'none';
+
+	});
+	
+	//모달 3 확인 눌렀을 
+	document.querySelector('#confirm').addEventListener('click',e=>{
+
+	    document.querySelector('.dimm').style.display = 'none';
+	    document.querySelector('#confirm').style.display = 'none';
 
 	});
 
@@ -177,6 +193,22 @@
 
 
 	let setOkayFunc= function() {
+		
+		
+	}
+	
+	let clickConfirm = function(ConfirmFunc) {
+
+	    document.querySelector('.dimm').style.display = 'none';
+	    document.querySelector('#modal3').style.display = 'none';
+	    ConfirmFunc();
+
+		
+		
+	}
+
+
+	let setConfirmFunc= function() {
 		
 		
 	}

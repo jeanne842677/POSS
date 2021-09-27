@@ -246,7 +246,7 @@ html, body {
 </style>
 </head>
 <body>
-   
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
     	<header id="header">
             <nav class="navbar">
             	<div class="nav_wrap">
@@ -310,7 +310,6 @@ html, body {
 		<div><button type="button" class="btn btn-secondary" id="delete_account_btn">> 회원탈퇴</button></div>
 	</div>
 	
-</div>
 
 <script type="text/javascript">
 
@@ -341,17 +340,37 @@ document.querySelector("#delete_account_btn").addEventListener("click", e => {
 })
 	
 function modifyInfo(){
+	modal3();
+	setModalTitle('modal3','비밀번호 확인');
+	setModalBody('modal3', '흐에ㅔ에엥ㅇㅇ');
+   	setConfirmFunc = function confirmPw(){
+   		if(document.getElementById("confirmPw") == '${authentication.password}'){
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 완료');
+   	   	    setModalBody('modal2', '비밀번호가 확인되었습니다.');
+   	   		setOkayFunc = function confirmTrue(){
+   				location.href = "/member/modify-info";
+   			}
+   		} else {
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 실패');
+   	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
+   	   		setOkayFunc = function rCancel(){
+   	   			return;
+   	   		}
+   		}
+   	}
 	
-	let test = prompt("비밀번호 입력하세요~");
+}	
 	
-	if(test != ${authentication.password}){
-		alert("돌아가");
+	/* let test = prompt("비밀번호 입력하세요~");
+	
+	if(test == '${authentication.password}'){
+		location.href = "/member/modify-info";
+	} else {
+		alert("비밀번호가 올바르지 않습니다");
 		return;
-	}
-	
-	location.href = "/member/modify-info";
-	
-}
+	} */
 
 
 

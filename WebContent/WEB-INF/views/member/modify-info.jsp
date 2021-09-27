@@ -216,13 +216,17 @@ html, body {
 		         </div>
 		         <div>
 		         <label>비밀번호</label>
-		         <input type="password" id="userPw" name="password" value="${authentication.password}">
+		         <input type="password" id="password" name="password" value="${authentication.password}" class="valid-msg">
 		         </div>
 		         <div>
 		         <label>비밀번호 확인</label>
-	         	 <input type="password" id="userPwConfirm" placeholder="PASSWORD">
+	         	 <input type="password" id="confirmPassword" placeholder="PASSWORD">
 	             </div>
-	      </div>
+				<div class='d-flex' style="justify-content: space-between;">
+					<div id="pwCheck" class="valid-msg"></div>
+					<div id="pwConfirmCheck" class="valid-msg"></div>
+				</div>
+			</div>
 	   </div>
 	   
 		<div class="modify_my_info">
@@ -289,5 +293,6 @@ document.querySelector("#modify_confirm_btn").addEventListener("click", e => {
 })
 
 </script>
+<script type="text/javascript" src="/resources/js/joinForm.js"></script>
 </body>
 </html>
