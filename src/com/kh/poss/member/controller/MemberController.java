@@ -166,8 +166,25 @@ public class MemberController extends HttpServlet {
    private void kakaoLogin(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
 
-      String code = (String) request.getAttribute("code");
-      System.out.println(code);
+		String userId = request.getParameter("userId");
+		String password = "kakaopw123!";
+		Member member = memberService.memberAuthenticate(userId, password);
+
+		request.getSession().setAttribute("authentication", member);
+
+		// 1. DataBase 또는 Service단에서 문제가 생겨서 예외가 발생
+		// 2. 사용자가 잘못된 아이디와 비밀번호를 입력한 경우
+		// 사용자에게 아이디나 비밀번호가 틀렸음을 알림
+
+		if (member == null) {
+			response.getWriter().print("disable");
+		} else {
+			response.getWriter().print("available");
+		}
+
+		String reservationNum = Integer.toString(reserveService.countReservation(member.getUserId()));
+
+		request.getSession().setAttribute("reservationNum", reservationNum);
 
    }
 
@@ -190,7 +207,10 @@ public class MemberController extends HttpServlet {
    // 카카오 회원가입 폼으로 이동
    private void kakaoJoin(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-
+	  
+	  String userId = request.getParameter("userId");
+	  request.setAttribute("kakaoId", userId);
+	  
       request.getRequestDispatcher("/member/kakao-join").forward(request, response);
 
    }
@@ -199,8 +219,14 @@ public class MemberController extends HttpServlet {
    private void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       String userId = request.getParameter("userId");
-      System.out.println(userId);
-      String password = request.getParameter("password");
+      String password = "";
+      
+		if (request.getParameter("password") == null) {
+			password = "kakaopw123!";
+		} else {
+			password = request.getParameter("password");
+		}
+
       String name = request.getParameter("name");
       String phone = request.getParameter("phone");
       String email = request.getParameter("email");
@@ -208,7 +234,7 @@ public class MemberController extends HttpServlet {
       String address = request.getParameter("address") + " " + request.getParameter("detailAddress") + "("
             + request.getParameter("postCode") + ")";
       System.out.println("address : " + address);
-
+      
       Member member = new Member();
       member.setUserId(userId);
       member.setPassword(password);
@@ -300,21 +326,24 @@ public class MemberController extends HttpServlet {
    }
 
    private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	  
+	  String url = "";
+	  
       // 내정보 db에 업데이트(구현해야함)
-      String userId = request.getParameter("userId");
-      String userPw = request.getParameter("userPw");
+      String userId = request.getParameter("id");
+      String userPw = request.getParameter("password");
       String name = request.getParameter("name");
       String phone = request.getParameter("phone");
-      String address = request.getParameter("address");
+      String address = request.getParameter("storeDetailAddress") + "(" + request.getParameter("storeAddress") + ")";
       String storeName = request.getParameter("storeName");
 
       if (memberService.updateMember(userId, userPw, name, phone, address, storeName) > 0) {
          Member member = memberService.selectMemberById(userId);
          request.getSession().setAttribute("authentication", member);
-         response.getWriter().print("available");
+         url = "/member/mypage?userId=" + member.getUserId();
+         response.sendRedirect(url);
       } else {
-         response.getWriter().print("disable");
+    	  response.sendRedirect("/member/modify-info");
       }
 
    }

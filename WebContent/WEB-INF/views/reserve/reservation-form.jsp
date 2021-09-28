@@ -133,6 +133,11 @@
 		height: 300px;
         background-size: cover;
         }
+        
+    #store_img{
+    	width: 500px;
+    	height: 300px;
+    }
 
     .picture::before{
         content: "";
@@ -386,7 +391,7 @@
 	<div id="description">
         <div class='picture'>
             <div class="pic_text">
-				<img src="${imageFile.downloadLink}">
+				<img id="store_img" src="${imageFile.downloadLink}">
 			</div>
         </div>
             

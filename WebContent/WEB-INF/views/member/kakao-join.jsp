@@ -157,10 +157,12 @@ color: white;
    <div class="wrap_test">
       <img src="/resources/image/LOGO2.png">
       <div class="info_test">
-         <div class='d-flex' style="justify-content: space-between;">
-         	 <div id="pwCheck" class="valid-msg"> </div>
-        	 <div id="pwConfirmCheck" class="valid-msg"> </div>
+         <div>
+            <label><l>* </l>아이디</label>
+            <input type="text" class="form-control" value="${kakaoId}" name="userId" id="userId" placeholder="ID" required />
+            <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
          </div>
+         <div id="idCheck" class="valid-msg" > </div>
          
          <div>
             <label><l>* </l>대표자명</label>

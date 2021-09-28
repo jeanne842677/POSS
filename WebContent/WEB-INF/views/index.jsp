@@ -464,6 +464,7 @@ html, body {
 	margin-left: 35px;
 }
 </style>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body onload="renderCurrentTime()">
 	<div class="wrap">
@@ -598,20 +599,39 @@ html, body {
 
 	</div>
 
-	<%@ include file="/WEB-INF/views/include/modal.jsp"%>
-	<script type="text/javascript">
+<%@ include file="/WEB-INF/views/include/modal.jsp"%>
+<script type="text/javascript">
 		let logout = function() {
 
 			location.href = "/member/logout";
 
 		}
+		
+		let kakaoLogout = function(){	
+			Kakao.API.request({
+				url: '/v1/user/unlink',
+				success: function(res){
+					Kakao.Auth.logout(function() {
+						location.href = "/member/logout";
+					});
+				},				
+			})
+		}
+	
+		
 		function showConfirmLogout() {
-
+			
 			setModalTitle('modal1', 'Poss 로그아웃');
 			setModalBody('modal1', '로그아웃 하시겠습니까?');
-			setYesFunc = logout;
+			Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
+			Kakao.isInitialized();
+			
+			if(!Kakao.Auth.getAccessToken()){
+				setYesFunc = logout;
+			} else {
+				setYesFunc = kakaoLogout;
+			}
 			modal1();
-
 		}
 	</script>
 

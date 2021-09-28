@@ -403,7 +403,7 @@
         color:white;
     }
 
-    .cancel, .ok, .allcancel, .kakaopay, .cash{
+    .cancel, .okBtn, .allcancel, .kakaopay, .cash{
         width:20%;
         display:flex;
         font-size: 25px;
@@ -488,6 +488,8 @@
         box-shadow: 5px 5px #aaa;
         margin:0 10px;
         position:relative;
+        
+        
     }
     
    
@@ -497,7 +499,7 @@
 
 
     <div id="header">
-        <div class="back" style=" cursor: pointer;" onclick="location.href='/seat/select-seat';"><i class="fas fa-chevron-left"></i> </div>
+        <div class="back" style=" cursor: pointer;" onclick="location.href='/seat/select'"><i class="fas fa-chevron-left"></i> </div>
         <div class="now_order">현재주문 3건 | 09월 06일 오전 9:25</div>
         <div class="modify_toggle">
         	<div class="form-check form-switch">
@@ -523,7 +525,7 @@
 
         <div id="content1">
             <div class="table_num">
-                <div class="tb_num">1번</div>
+                <div class="tb_num">${ orderNum }번</div>
                 <div class="wait_time">0:00</div>
             </div>
 
@@ -532,12 +534,10 @@
             </div>
 
                 <div class="order_sum">
-                    <div class="sum">
-                        <div class="menusum">주문금액</div><div class="ordernum" id="orderPrice"></div>
-                    </div>
+    
 
                     <div class="pay">
-                        <div class="paysum">총 금액</div> <div class="paynum" id="totalPrice"></div>
+                        <div class="paysum">총 금액</div> <div class="paynum" id="totalPrice">0</div>
                     </div>
                 </div>
         </div>
@@ -572,20 +572,20 @@
             </div>
             
             <div class="select_commit">
-                <div class="cancel" style=" cursor: pointer;" onclick="location.href='#';">취소</div>
-                <div class="ok" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-check-circle"></i><p class="hide">확인</p></div>
-                <div class="allcancel" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-times-circle"></i><p class="hide">전체취소</p></div>
+                <div class="cancel" style=" cursor: pointer;" id="selectCancel" onclick="location.href='#';">취소</div>
+                <div class="okBtn" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-check-circle"></i><p class="hide">확인</p></div>
+                <div class="allcancel" style=" cursor: pointer;" onclick="allCancel()"><i class="far fa-times-circle"></i><p class="hide">전체취소</p></div>
                 <div class="kakaopay" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-credit-card"></i><p class="hide">카카오페이</p></div>
                 <div class="cash" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-money-bill-alt"></i><p class="hide">현금</p></div>
+            
             </div>       
     </div>
 </div>
             
-</div>
 
 </section>
 
-
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 <script type="text/javascript">
 
 	let idx = 0;
@@ -610,121 +610,269 @@
     })
     
     
+
+    
     let createMenu = (menu) => {
-    	
-    	document.querySelector('.menu_name').innerHTML = '';
-    		
-    		menu.forEach(m => {
-    			let menuDiv = document.createElement('div');
-    			menuDiv.setAttribute('class', 'meuelist');
-    			menuDiv.setAttribute('style', "background-color:"+ m.color);
-    			menuDiv.innerHTML = `<div class="cat_box_icon"><img class='cat_box_icon_img' src='/resources/icon/` + m.icon + `.png'></div>
+       
+       document.querySelector('.menu_name').innerHTML = '';
+          
+          menu.forEach(m => {
+             let menuDiv = document.createElement('div');
+             menuDiv.setAttribute('class', 'meuelist');
+             menuDiv.setAttribute('style', "background-color:"+ m.color);
+             menuDiv.setAttribute("data-menuidx", m.menuIdx);
+             menuDiv.innerHTML = `<div class="cat_box_icon"><img class='cat_box_icon_img' src='/resources/icon/` + m.icon + `.png'></div>
             <div class='menu_info'><div class='menutitle'>` + m.name +`</div><div class='menuprice'>`+ m.price +`</div></div>`;
-    		
-            menuDiv.addEventListener('click' , event=>{
+          
+            menuDiv.addEventListener('click' , e =>{
+               let isReturn = 'false';
+               let sameMenu = null;
+               let mDiv =  menuDiv.dataset.menuidx;
+               if(document.querySelector('.selectmenu')) {    
+                  document.querySelectorAll('.selectmenu').forEach(e => {
+                      if(e.dataset.menuidx == mDiv) {
+                         sameMenu = e;
+                         isReturn = 'true';
+                      }
+                   })
+               }
+               if(isReturn == 'true') {
+                  plusCnt(sameMenu);
+                  plusPrice(sameMenu);
+                  plusTotal(sameMenu);
+                    changeColor(sameMenu);
+                  return;
+               }
+                   let addList = document.createElement("div");
+                   addList.setAttribute("class","selectmenu");
+                   addList.setAttribute("data-check","true");
+                   addList.setAttribute("data-menuidx", m.menuIdx);
+                   //색변환
+                   addList.addEventListener('click', e => {
+                      document.querySelectorAll('.selectmenu').forEach(i => {
+                          i.style.background = 'white';
+                          i.dataset.check = "false";
+                       })
+                       addList.style.background = 'rgb(181, 227, 216)';
+                      addList.dataset.check = "true";
+                   })
+        
+                      let nameDiv = document.createElement("div");
+                      nameDiv.setAttribute("class", "selectname");
+                      nameDiv.innerHTML += m.name;
+                      addList.appendChild(nameDiv);
+                      
+                   let unitPrice = document.createElement("div");
+                      unitPrice.setAttribute("class","oneprice");
+                      unitPrice.innerHTML += m.price;
+                      addList.appendChild(unitPrice);
+                      
 
-            	let addList = document.createElement("div");
-            	addList.setAttribute("class","selectmenu");
+                      let testDiv = document.createElement("div");
+                      testDiv.setAttribute("class", "plma");
+                      testDiv.setAttribute("id", "plma");
+                       
+                      let count = 1;
+                      
+                      let minusDiv = document.createElement("div");
+                      minusDiv.setAttribute("class", "minus");
+                      minusDiv.setAttribute("id", "m");
+                      minusDiv.setAttribute("type", "button");
+                      minusDiv.innerHTML = '-';
+                      let countDiv = document.createElement("div");
+                      countDiv.setAttribute("id", "count");
+                      countDiv.innerHTML = count;
+                      
+                      let plusDiv = document.createElement("div");
+                      plusDiv.setAttribute("class", "plus");
+                      plusDiv.setAttribute("type", "button");
+                      plusDiv.setAttribute("id", "p");
+                      plusDiv.innerHTML = '+';
+                      
+                      plusDiv.onclick = function(){
+                     let number = countDiv.innerHTML;
+                         number = parseInt(number) + 1;
+                         countDiv.innerHTML = number;
+                         
+                         let price =  m.price;
+                         let totalPrice = parseInt(resPrice.innerHTML);
+                         totalPrice += parseInt(price);
+                         resPrice.innerHTML = totalPrice;
+                         plusTotal(addList);
+                      }
+                      
+                      minusDiv.onclick = function(){
+                     let number = countDiv.innerHTML;
+                       number = parseInt(number) - 1;
+                        countDiv.innerHTML = number;
+                       
+                       let price = m.price;
+                       let totalPrice = parseInt(resPrice.innerHTML);
+                       totalPrice -= parseInt(price);
+                       resPrice.innerHTML = totalPrice;
+                       minusTotal(addList);
+                       if(parseInt(number) == 0) {
+                          addList.remove();       
+                       }
+                      }
+                      testDiv.appendChild(minusDiv);
+                      testDiv.appendChild(countDiv); 
+                      testDiv.appendChild(plusDiv);
 
-               	let nameDiv = document.createElement("div");
-               	nameDiv.setAttribute("class", "selectname");
-               	nameDiv.innerHTML += m.name;
-               	addList.appendChild(nameDiv);
-               	
-            	let unitPrice = document.createElement("div");
-               	unitPrice.setAttribute("class","oneprice");
-               	unitPrice.innerHTML += m.price;
-               	addList.appendChild(unitPrice);
-               	
+                      addList.appendChild(testDiv);
 
-               	let testDiv = document.createElement("div");
-               	testDiv.setAttribute("class", "plma");
-               	testDiv.setAttribute("id", "plma");
-             		
-               	let count = 1;
-               	
-               	let minusDiv = document.createElement("div");
-               	minusDiv.setAttribute("class", "minus");
-               	minusDiv.setAttribute("id", "m");
-               	minusDiv.setAttribute("type", "button");
-               	minusDiv.innerHTML = '-';
-               	
-               	let countDiv = document.createElement("div");
-               	countDiv.setAttribute("id", "count");
-               	countDiv.innerHTML = count;
-               	
-               	let plusDiv = document.createElement("div");
-               	plusDiv.setAttribute("class", "plus");
-               	plusDiv.setAttribute("type", "button");
-               	plusDiv.setAttribute("id", "p");
-               	plusDiv.innerHTML = '+';
-               	
-               	plusDiv.onclick = function(){
-        			let number = countDiv.innerHTML;
-               		
-               		number = parseInt(number) + 1;
-               		
-               		countDiv.innerHTML = number;
-               		
-               		let price =  m.price;
-               		let totalPrice = parseInt(resPrice.innerHTML);
-               		totalPrice += parseInt(price);
-               		
-               		resPrice.innerHTML = totalPrice;
-               		
-               		orderDiv.innerHTML = totalPrice + "원";
-               		totalDiv.innerHTML = totalPrice + "원";
-               		
-               	}
-               	
-               	minusDiv.onclick = function(){
-        			let number = countDiv.innerHTML;
-               		
-               		if(number > 1){
-               			number = parseInt(number) - 1;
-               			
-               			countDiv.innerHTML = number;
-               			
-               			let price = m.price;
-               			let totalPrice = parseInt(resPrice.innerHTML);
-               			totalPrice -= parseInt(price);
-               			
-               			resPrice.innerHTML = totalPrice;
-               			
-               			orderDiv.innerHTML = totalPrice + "원";
-                   		totalDiv.innerHTML = totalPrice + "원";
-               		}
-               	}
-
-                
-               	testDiv.appendChild(minusDiv);
-               	testDiv.appendChild(countDiv); 
-               	testDiv.appendChild(plusDiv);
-
-               	addList.appendChild(testDiv);
-
-               	let resPrice = document.createElement("div");
-               	resPrice.setAttribute("class","resprice");
-               	resPrice.innerHTML +=  m.price;
-               	addList.appendChild(resPrice);
-               	
-
-               	document.getElementById("total_list").appendChild(addList);
-               	
+                      let resPrice = document.createElement("div");
+                      resPrice.setAttribute("class","resprice");
+                      resPrice.innerHTML +=  m.price;
+                      addList.appendChild(resPrice);
+                      
+                      document.getElementById("total_list").appendChild(addList);
+                      
+                      //총 주문금액
+                      totalPrice(addList);
+                    changeColor(addList);
             })
-            
-            
-            
-            document.querySelector('.menu_name').append(menuDiv);
-            
-            
-            
-            
-    	})              	
-    	
+            document.querySelector('.menu_name').append(menuDiv); 
+       })   
     };
     
+//전체취소    
+function allCancel() {
+   document.querySelector('#totalPrice').innerHTML = 0;
+   let cell = document.querySelector('#total_list');
+   while (cell.hasChildNodes()) { 
+      cell.removeChild(cell.firstChild); 
+   }
+}
 
+
+//단일 취소
+document.querySelector("#selectCancel").addEventListener('click', e => {
+   let trueDom = null;
+   document.querySelectorAll('.selectmenu').forEach(e => {
+      if(e.dataset.check == 'true') {
+         trueDom = e;
+      }
+   })
+   let orderPrice =  document.querySelector('#totalPrice').innerHTML;
+   let resPrice = trueDom.lastChild;
+    let minus = parseInt(orderPrice) - parseInt(resPrice.innerHTML);
+    document.querySelector('#totalPrice').innerHTML = minus;
+    trueDom.remove();
+   
+   if(document.querySelector('.selectmenu')) {
+      let lastNode = document.querySelector('#total_list').lastChild; 
+      changeColor(lastNode);
+      lastNode = null;
+   }
+})
+
+//클릭시 해당 메뉴 선택 
+function changeColor(selectmenu) {
+   document.querySelectorAll('.selectmenu').forEach( e => {
+       e.style.background = 'white';
+       e.dataset.check = "false";
+    })
+    selectmenu.style.background = 'rgb(181, 227, 216)';
+   selectmenu.dataset.check = "true";
+}
+//카운트 증가
+function plusCnt(selectmenu) {
+   let count = selectmenu.children[2].children[1].innerText;
+   let count2 = parseInt(count) + 1;
+   selectmenu.children[2].children[1].innerText = count2;
+}
+//메뉴별 가격증가
+function plusPrice(selectmenu) {
+   let onePrice = selectmenu.children[1].innerText;
+   let resPrice = selectmenu.lastChild.innerText;
+   let sumEach = parseInt(resPrice) + parseInt(onePrice);
+   selectmenu.lastChild.innerText = sumEach;
+}
+//총 주문금액 증가
+function plusTotal(selectmenu) {
+   let orderPrice =  document.querySelector('#totalPrice').innerHTML;
+   let onePrice = selectmenu.children[1].innerText;
+    let sumTotal = parseInt(orderPrice) + parseInt(onePrice);
+    document.querySelector('#totalPrice').innerHTML = sumTotal;
+}
+//총 주문금액 감소
+function minusTotal(selectmenu) {
+   let orderPrice =  document.querySelector('#totalPrice').innerHTML;
+   let onePrice = selectmenu.children[1].innerText;
+    let sumTotal = parseInt(orderPrice) - parseInt(onePrice);
+    document.querySelector('#totalPrice').innerHTML = sumTotal;
+}
+//총 주문금액
+function totalPrice(selectmenu) {
+   let orderPrice =  document.querySelector('#totalPrice').innerHTML;
+   let resPrice = selectmenu.lastChild.innerText;
+    let sum = parseInt(orderPrice) + parseInt(resPrice);
+    document.querySelector('#totalPrice').innerHTML = sum;
+}
+
+
+document.querySelector('.cash').addEventListener('click' , e=> {
+	
+	
+	   let totalPrice = document.querySelector('.paynum').innerText;
+	   setModalTitle('modal1','현금결제');
+	      setModalBody('modal1', '현금결제를 진행하시겠습니까?');
+	      modal1();
+	      setYesFunc = function testFnc(){
+	         setModalTitle('modal2','현금결제');
+	            setModalBody('modal2', '총 결제 금액 : ' + totalPrice + '원');
+	          modal2();
+	         }
+	
+	
+});
+
+
+    
+    
+ 
+    
+	document.querySelector(".okBtn").addEventListener("click", e => {
+    	
+		let menuArr = [];
+		
+		document.querySelectorAll(".selectmenu").forEach(ele=> {
+			
+			let menuIdx = ele.dataset.menuidx
+			let menuName = ele.children[0].innerText;
+			let menuPrice = ele.children[1].innerText;
+			let menuCnt = ele.children[2].children[1].innerText;
+			
+		
+			let menuObj = {
+					menuIdx : menuIdx,
+					menuCnt : menuCnt
+					
+			};
+			
+			menuArr.push(menuObj);
+			
+		});
+		
+		fetch('/order/order-impl?html_idx=${htmlIdx}&tableUUID=${tableUUID}&orderNum=${ orderNum }' , {
+			  method: "POST",
+			  headers: {
+			    "Content-Type": "application/json; charset=utf-8",
+			  },
+			  body: JSON.stringify({
+			    orderList: menuArr
+			  })
+		});
+	
+		
+    	
+    });
+	
+	
+	
+
+    
 
     
 </script>

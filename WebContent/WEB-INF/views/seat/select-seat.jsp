@@ -22,10 +22,10 @@
 진회색 : rgb(127, 127, 127)
 진갈색 : rgb(79, 65, 51)
  */
-html, body {
-	width: 100vw;
-	min-width: 360px;
-	height: 100vh;
+ html, body {
+	width: 100%;
+	min-width: 1590px;
+	height: 100%;
 	min-height: 640px;
 	display: flex;
 	justify-content: center;
@@ -41,53 +41,52 @@ html, body {
 	flex-direction: column;
 }
 
-/* 상단 네비게이션바 */
-#nav {
-	width: 100vw;
-	height: 70px;
-	background-color: rgb(97, 191, 173);
-	flex-shrink: 0;
-}
-
-/* 1000px 기준으로 네비 항목들 변경 */
-@media screen and (min-width: 1000px) {
-	#ndn1 {
-		display: none;
-	}
-}
-
-@media screen and (max-width: 1000px) {
-	#ndn2 {
-		display: none;
-	}
-}
-
-/* 네비게이션바 항목들 */
-#nav_items>li>a {
-	font-size: 20px;
-	color: black;
-	font-weight: bold;
-	margin-left: 1.5vw;
-}
-
-/* 항목 색변경 호버 */
-#nav_items>li>a:hover {
-	color: white;
-}
-
-/* 오른쪽 정렬 */
-#nav_items_wrap {
-	position: absolute;
-	right: 1vw;
+/* header (네비게이션영역)-------------------------------------------------------- */
+#header {
+	width: 100%;
+	height: 80px;
+	background-color: #aaa;
 }
 
 /*로고*/
 .logo {
-	width: 10vw;
-	min-width: 120px;
-	position: absolute;
+	width: 155px;
 }
 
+/*네비게이션 wrap*/
+.navbar-nav {
+	-ms-flex-direction: row;
+	flex-direction: row;
+	justify-content: space-around;
+	min-width: 390px;
+}
+
+/*메뉴*/
+.navbar {
+	width: 100%;
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 25px;
+	font-weight: bold;
+	padding-top: 0;
+}
+
+.menugroup {
+	width: 43%;
+}
+
+/* 메뉴글씨 */
+.navbar-dark .navbar-nav .nav-link {
+	color: #343a40;
+	flex-shrink: 0;
+}
+
+.section-wrap {
+	width: 1130px;
+	display: block;
+	margin: auto;
+}
 
 .under_wrap {
 
@@ -95,32 +94,35 @@ html, body {
 	height:100%;
 	background-color: lightgray;
 	display: flex;;
-	justify-content:space-around;
+	justify-content:center;
 
 }
 
+.content{
+   display: flex;;
+	
+}
 
 
 .left_wrap{
 
-	width: 350px;
+	width: 30%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
+   align-items: center;
 }
 
 .center_wrap {
-
-	width: 1350px;
 	display: flex;
-
+   width:70%;
 }
 
 
 
 .card {
-
-	height: 370px;		
+   width:98%;
+	height: 47%;		
 
 }
 
@@ -144,7 +146,7 @@ html, body {
 
 
 .table_wrap {
-	width:1200px;
+	width:1100px;
 	background-color: white;
 	overflow: hidden;
 	position:relative;
@@ -165,27 +167,23 @@ html, body {
 	margin-top: 10px;
 }
 
-
-
 .btn_bottom{
 
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 80px;
+	margin-bottom: 40px;
 
 }
 
 .btn {
-
 	border-radius: 1px 6px 6px 1px;
-	width:150px;
+	width:135px;
 	height:60px;
 	font-size:20px;
-	margin-bottom:2px;
+	margin-top:2px;
 
 
 }
-
 .card-body {
 	overflow: scroll;
 	
@@ -197,7 +195,7 @@ html, body {
 .reserve , .waiting {
 	width:100%;
 	height: 50px;
-	background-color: RGB(255, 206, 103);
+	background-color: rgba(255, 207, 103, 0.7);
 	margin-bottom: 5px;
 	display: flex;
 	color:black;
@@ -207,7 +205,7 @@ html, body {
 
 .waiting {
 
-	background-color: RGB(243, 150, 154);
+	background-color: rgb(243, 150, 154, 0.7);
 
 
 }
@@ -241,12 +239,13 @@ html, body {
 
 .drag{
 	position:absolute;
-	background-color: red;
+	background-color: rgba(181, 227, 216, 0.7);
 	width:200px;
 	height: 200px;
 	border-radius: 5px;
 	display:inline-block;
-
+   border: solid 1px #ccc;
+   padding: 10px;
 }
 
 .table_text  {
@@ -268,6 +267,7 @@ outline:none;
 }
 
 
+
 </style>
 
 </head>
@@ -279,28 +279,32 @@ outline:none;
 
 
 		<!-- 상단 네비게이션 -->
-		<nav class="navbar navbar-expand-lg navbar-dark" id='nav'>
-			<img src="/resources/image/LOGO2.png" class="logo"
-				onclick="javascript:location.href='main1.html'">
-			<div class="container-fluid">
-				<div class="navbar" id='nav_items_wrap'>
-					<ul class="navbar-nav me-auto" class="menu" id='nav_items'>
-						<li class="nav-item" id='ndn2'><a class="nav-link" href="#">포스</a>
-						</li>
-						<li class="nav-item" id='ndn2'><a class="nav-link" href="#">매출관리</a>
-						</li>
-						<li class="nav-item" id='ndn2'><a class="nav-link" href="#">게시판</a>
-						</li>
-						<li class="nav-item" id='ndn2'><a class="nav-link" href="#">예약관리</a>
-						</li>
-						<li class="nav-item" id='ndn2'><a class="nav-link"
-							href="myPage.html">내정보</a></li>
-						<li class="nav-item" id='ndn1'><a class="nav-link" href="#"><i
-								class="fas fa-bars"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<header id="header">
+         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                 <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
+                
+     <div class="menugroup">
+         <ul class="navbar-nav me-auto" class="menu">
+             <li class="nav-item">
+               <a class="nav-link active" href="#">포스</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/sales/confirm">매출관리</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/board/notice">게시판</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" href="/reserve/confirm">예약내역</a>
+             </li>
+             
+         </ul>  
+         </div>  
+         </nav>
+ </header>
 
 
 
@@ -309,8 +313,9 @@ outline:none;
 		<!------------------------------------------------------->
 
 		<div class="under_wrap">
+         <div class="content">
 			<div class="left_wrap">
-				<div class="card border-warning mb-3" id="reserve" style="max-width: 21rem;">
+				<div class="card border-warning mb-3" id="reserve" >
 					<div class="card-header" id="reserve_header">예약</div>
 					<div class="card-body">
 						<div class="reserve">
@@ -324,7 +329,7 @@ outline:none;
 							
 					</div>
 				  </div>
-				<div class="card border-secondary mb-3" id="waiting" style="max-width: 21rem;">
+				<div class="card border-secondary mb-3" id="waiting" >
 					<div class="card-header" id="waiting_header">웨이팅</div>
 					<div class="card-body">
 						<div class="waiting" >
@@ -379,13 +384,11 @@ outline:none;
 
 		</div>
 
-
+   </div>
 
 	</div>
 	
 </body>
-
-
 <script type="text/javascript">
 	
 
@@ -404,8 +407,9 @@ outline:none;
 			
 			let idx= e.dataset.idx;
 			let table = e.childNodes[0].value ;
-			
-			location.href="/menu/select?idx=" + idx + "&table=" + table;
+			let tableUUID =  e.dataset.idx;
+			let htmlIdx = 	${ tableHtml.tableIdx }
+			location.href="/menu/select?idx=" + htmlIdx + "&tableUUID=" + tableUUID;
 			
 			
 			

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
-<script defer src="/resources/js/modal.js"></script>
+<script defer src="/resources/js/modal.js?ver=1"></script>
     
 
 
@@ -70,7 +69,7 @@
                 </button>
             </div>
             <div class="modal-body" id="modal3-body">
-                <p>내용</p>
+                <input type="password" id="confirmPw" style="margin-left: 110px; width: 200px; height: 80px;">
             </div>
             <div class="modal-footer">
                 <button type="button" id="confirm" class="btn btn-primary" data-bs-dismiss="modal" onclick="clickConfirm(setConfirmFunc)">확인</button>

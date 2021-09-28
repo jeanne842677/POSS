@@ -111,6 +111,7 @@ body {
 }
 </style>
 <title>Document</title>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 	<div class="wrap">
@@ -123,7 +124,7 @@ body {
 						<div class="valid-msg" id="loginAlert">! 아이디 혹은 비밀번호가 일치하지 않습니다.</div>
 					</c:if>
 				<button type="button" class="btn btn-secondary" id="loginBtn">로그인</button>
-				<button type="button" class="btn btn-light" id="kakaoLoginBtn">카카오
+				<button type="button" class="btn btn-light" id="kakaoLoginBtn" onclick="kakaoLogin()">카카오
 					계정으로 로그인</button>
 				<div class="find_wrap">
 					<span><a class="nav-link" href="/member/lostid">아이디 찾기</a></span> <span>|</span>
@@ -131,21 +132,42 @@ body {
 					<span><a class="nav-link" href="/member/join-form">회원 가입</a></span>
 				</div>
 				<div class="kakao_join">
-                    <span><a class="nav-link" href="/member/kakao-join">카카오 계정으로 가입하기</a></span>
+                    <span><a class="nav-link" onclick="testLogin()">카카오 계정으로 가입하기</a></span>
                 </div>
 			</div>
 		</div>
 	</div>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
 
-<script type="text/javascript">
-	
+<script type="text/javascript"> 
+	   
 	   let login = function() {
 
        	location.href = "/index";
        	
        }
+	   
+   	Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
+	Kakao.isInitialized();
 	
+	function testLogin(){
+	   	
+		Kakao.Auth.login({
+			success: (auth) => {
+				Kakao.API.request({
+					url: '/v2/user/me',
+					success: function(res){
+						let kakaoId = res.id;
+						location.href = '/member/kakao-join?userId='+kakaoId;
+					}
+				})
+			},
+			fail: (err) => {
+				console.error(err)
+			}
+		})
+	}
+		
     document.querySelector("#loginBtn").addEventListener('click', e => {
  		let id = document.querySelector('#userId').value;
 	   	let password = document.querySelector('#password').value;
@@ -165,10 +187,48 @@ body {
             location.href="/member/login-form?err=1";
           }
     })
-    	
-         
-       
-    })
+  })
+  
+  function kakaoLogin(){
+	   	
+    	Kakao.Auth.login({
+			success: (auth) => {
+				Kakao.API.request({
+					url: '/v2/user/me',
+					success: function(res){
+						let kakaoId = res.id;
+						
+						fetch('/member/kakao-login?userId=' + kakaoId, 
+					    		{method:'POST'}
+					    ).then(response => response.text()
+					    		
+					    ).then(text => {
+					    	console.dir(text);
+					    	 if(text == 'available'){
+					    		setModalTitle('modal2','Poss 로그인');
+								setModalBody('modal2','로그인 되었습니다.');
+								setOkayFunc = login;
+								modal2();
+					          }else if(text == 'disable'){
+					        	  Kakao.API.request({
+					  				url: '/v1/user/unlink',
+					  				success: function(res){
+					  					Kakao.Auth.logout(function() {
+					  						location.href = "/member/logout";
+					  					});
+					  				},				
+					  			})
+					          }
+					    })
+					}
+				})
+			},
+			fail: (err) => {
+				console.error(err)
+			}
+		})
+   }
+  
 
 </script>
 

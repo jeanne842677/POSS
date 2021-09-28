@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
-<title>내정보 수정</title>
+<title>내정보</title>
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 
 <style type="text/css">
@@ -342,9 +342,8 @@ document.querySelector("#delete_account_btn").addEventListener("click", e => {
 function modifyInfo(){
 	modal3();
 	setModalTitle('modal3','비밀번호 확인');
-	setModalBody('modal3', '흐에ㅔ에엥ㅇㅇ');
    	setConfirmFunc = function confirmPw(){
-   		if(document.getElementById("confirmPw") == '${authentication.password}'){
+   		if(document.getElementById("confirmPw").value == '${authentication.password}'){
    			modal2();
    	   		setModalTitle('modal2','비밀번호 확인 완료');
    	   	    setModalBody('modal2', '비밀번호가 확인되었습니다.');
@@ -356,22 +355,12 @@ function modifyInfo(){
    	   		setModalTitle('modal2','비밀번호 확인 실패');
    	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
    	   		setOkayFunc = function rCancel(){
-   	   			return;
+   	   		location.href = "/member/mypage?userId=${authentication.userId}";
    	   		}
    		}
    	}
 	
-}	
-	
-	/* let test = prompt("비밀번호 입력하세요~");
-	
-	if(test == '${authentication.password}'){
-		location.href = "/member/modify-info";
-	} else {
-		alert("비밀번호가 올바르지 않습니다");
-		return;
-	} */
-
+}
 
 
 </script>

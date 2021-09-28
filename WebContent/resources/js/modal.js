@@ -45,6 +45,15 @@
 	    document.querySelector('#modal2').style.display = 'none';
 
 	});
+	
+	document.querySelector('#close_btn3').addEventListener('click',e=>{
+
+	    
+
+	    document.querySelector('.dimm').style.display = 'none';
+	    document.querySelector('#modal3').style.display = 'none';
+
+	});
 
 
 	//모달1 예 눌렀을 때 

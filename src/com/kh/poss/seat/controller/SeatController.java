@@ -56,8 +56,25 @@ public class SeatController extends HttpServlet {
 	private void select(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member)request.getSession().getAttribute("authentication");
-		List<SeatHTML> seatList = seatService.selectSeatList(member.getUserId());
-		request.setAttribute("tableHtml", seatList.get(0));
+		String userId = member.getUserId(); 
+		List<SeatHTML> seatList = seatService.selectSeatList(userId);
+		
+		System.out.println(seatList);
+		
+		if(seatList.size()==0 ) {
+			
+			System.out.println("여기");
+			SeatHTML seat = new SeatHTML();
+			seat.setFloor("1층");
+			seat.setTableHtml("");
+			seat.setUserId(userId);
+			request.setAttribute("tableHtml", seat);
+			seatService.saveHtml(seat);
+			
+		}else {
+			System.out.println("setList : 여기");
+			request.setAttribute("tableHtml", seatList.get(0));
+		}
 		
 		request.getRequestDispatcher("/seat/select-seat").forward(request, response);
 		
@@ -86,7 +103,6 @@ public class SeatController extends HttpServlet {
 
 		Member member = (Member)request.getSession().getAttribute("authentication");
 		String userId = member.getUserId(); 
-		System.out.println(userId);
 		SeatHTML seat = new SeatHTML();
 		seat.setFloor("1층");
 		seat.setTableHtml(html);

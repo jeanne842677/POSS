@@ -19,6 +19,7 @@ import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.menu.model.dto.Menu;
 import com.kh.poss.menu.model.dto.MenuCat;
 import com.kh.poss.menu.model.service.MenuService;
+import com.kh.poss.order.model.service.OrderService;
 import com.oreilly.servlet.MultipartRequest;
 
 @WebServlet("/menu/*")
@@ -81,17 +82,19 @@ public class MenuController extends HttpServlet {
 
 
 
-
+	//메뉴 선택창에 들어왔을때 
 	private void select(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String table = request.getParameter("table");
-		String idx = request.getParameter("idx");
-		System.out.println(table);
-		System.out.println(idx);
-
+		OrderService orderService = new OrderService();
+		
+		String table = request.getParameter("tableUUID");
+		String HtmlIdx = request.getParameter("idx");
+		int todayOrderNum =  orderService.selectTodayOrderNum(HtmlIdx);
 		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 		List<MenuCat>  menuCatList = menuService.selectCateList(userId);
 		request.setAttribute("menuCatList", menuCatList);
+		request.setAttribute("tableUUID", table);
+		request.setAttribute("htmlIdx", HtmlIdx);
+		request.setAttribute("orderNum", todayOrderNum);
 		request.getRequestDispatcher("/menu/menu-select").forward(request, response);
 
 	}
