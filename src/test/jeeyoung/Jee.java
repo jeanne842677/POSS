@@ -47,8 +47,19 @@ public class Jee extends HttpServlet {
 		case "mmsTest" :
 			mmsTest(request,response);
 			break;
+		case "socket" :
+			socket(request,response);
+			break;
 	
 		}
+	}
+
+	private void socket(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		SocketTest soc = new SocketTest();
+		
+		
 	}
 
 	private void mmsTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

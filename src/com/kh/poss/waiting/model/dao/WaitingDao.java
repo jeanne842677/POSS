@@ -132,13 +132,15 @@ public class WaitingDao {
 	      return searchWaitingList;
 	}
 	
-	public int updateWaiting(Waiting waiting, Connection conn) {
+	
+	//웨이팅 0으로 변경
+	public int updateWaiting(String waitingNum, Connection conn) {
 		int res = 0;
 		PreparedStatement pstm = null;
 		String query = "update waiting set is_waiting = 0 where waiting_num = ?";
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, waiting.getWaitingNum());
+			pstm.setString(1, waitingNum);
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -147,6 +149,38 @@ public class WaitingDao {
 		}
 		return res;
 	}
+	
+	
+	public List<Waiting> selectTodayWaiting(String userId , Connection conn) {
+		
+		List<Waiting> waitingList = new ArrayList<>();
+		PreparedStatement pstm = null;
+	    ResultSet rset = null;
+	    
+	    String query = "select * from waiting where user_Id = ? and to_char(time, 'YY-MM-DD') = to_char(sysdate , 'YY-MM-DD')"
+	    		+ " and is_waiting = 1";
+	    try {
+	         pstm = conn.prepareStatement(query);
+	         pstm.setString(1, userId);
+	         rset = pstm.executeQuery();
+	         
+	         while(rset.next()) {
+	        	Waiting waiting = convertAllToWaiting(rset);
+	        	waitingList.add(waiting);
+	         }
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      } finally {
+	         template.close(rset, pstm);
+	      }   
+		
+		return waitingList;
+	}
+	
+	
+	
+	
+	
 
 	private Waiting convertAllToWaiting(ResultSet rset)  throws SQLException {
 		Waiting waiting = new Waiting();

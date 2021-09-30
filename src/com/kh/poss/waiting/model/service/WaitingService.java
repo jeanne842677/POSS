@@ -60,11 +60,11 @@ public class WaitingService {
 		return res;
 	}
 	
-	public int updateWaiting(Waiting waiting) {
+	public int updateWaiting(String waitingNum) {
 		Connection conn = template.getConnection();
 		int res = 0;
 		try {
-			res = waitingDao.updateWaiting(waiting, conn);
+			res = waitingDao.updateWaiting(waitingNum, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -116,6 +116,26 @@ public class WaitingService {
 	      }
 	      return searchWaitingList;
 	}
+	
+	
+	
+	public List<Waiting> selectTodayWaiting(String userId) {
+		
+		List<Waiting> waitingList = null;
+	    Connection conn = template.getConnection();
+	    try {
+	    	
+	    	waitingList = waitingDao.selectTodayWaiting(userId , conn);
+			
+	      } finally {
+	         template.close(conn);
+	      }
+	      return waitingList;
+		
+		
+	}
+	
+	
 	   
 	
 }

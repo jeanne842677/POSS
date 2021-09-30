@@ -4,20 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import com.google.gson.Gson;
-import com.kh.poss.menu.model.service.MenuService;
 
 // WebSocket 호스트 설정
-@ServerEndpoint("/broadsocket")
-public class Socket {
+@ServerEndpoint("/socketTest")
+public class SocketTest {
 // 접속 된 클라이언트 WebSocket session 관리 리스트
 	private static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
 // 메시지에서 유저 명을 취득하기 위한 정규식 표현
@@ -38,18 +34,14 @@ public class Socket {
 // 메시지 내용을 콘솔에 출력한다.
 		System.out.println(message);
 		
-		
-		MenuService menuService = new MenuService();
-		Gson gson = new Gson();
-		String a = gson.toJson(menuService.selectCateList(message));
-		System.out.println(a);
+
 		
 		sessionUsers.forEach(session -> {
 	
 			
 			try {
 // 리스트에 있는 모든 세션(메시지 보낸 유저 제외)에 메시지를 보낸다. (형식: 유저명 => 메시지)
-				session.getBasicRemote().sendText(a);
+				session.getBasicRemote().sendText(message);
 				
 			} catch (IOException e) {
 // 에러가 발생하면 콘솔에 표시한다.

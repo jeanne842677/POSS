@@ -53,6 +53,9 @@ public class WaitingController extends HttpServlet {
 		case "waiting-search": // 웨이팅 내역 폼으로 이동
 			waitingSearch(request, response);
 			break;
+		case "update": // 웨이팅 완료
+			update(request, response);
+			break;
 		default:
 			throw new PageNotFoundException();
 		}
@@ -187,7 +190,15 @@ public class WaitingController extends HttpServlet {
 		
 	}
 	
-	
+
+	private void update(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
+
+		String waitingNum = request.getParameter("waitingNum");
+		waitingService.updateWaiting(waitingNum);
+		
+		
+	}
+
 	
 	
 

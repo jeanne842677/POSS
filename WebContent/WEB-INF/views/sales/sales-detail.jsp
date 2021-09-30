@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
     <title>매출관리</title>
            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
@@ -401,7 +402,7 @@
         
         <div class="todaysales">
             <div class="todaysales_title">오늘 총 매출</div>
-            <div class="todaysales_num">576,000 원</div>
+            <div class="todaysales_num">${todaySales} 원</div>
         </div>
     </section>
 
@@ -436,30 +437,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2021.08.14</td>
-                  <td>정상</td>
-                  <td>아메리카노 2</td>
-                  <td>신용카드</td>
-                  <td>6,000원</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>2021.08.10</td>
-                  <td>정상</td>
-                  <td>카페라떼</td>
-                  <td>신용카드</td>
-                  <td>4,500원</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>2021.08.08</td>
-                    <td>정상</td>
-                    <td>민트초코라떼</td>
-                    <td>현금</td>
-                    <td>5,500원</td>
-                  </tr>
+              	<c:forEach items="${salesList}" varStatus="vs" var="sl">
+	                <tr>
+	                  <td>${vs.index +1}</td>
+	                  <td>${sl.regDate}</td>
+	                  <td>정상</td>
+	                  <td>${sl.title}</td>
+	                  <c:choose>
+	                  	<c:when test="${sl.payment eq 'P01'}">
+	                  		<td>현금</td>
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<td>카카오페이</td>
+	                  	</c:otherwise>
+	                  </c:choose>
+	                  <td>${sl.sumPrice}원</td>
+	                </tr>
+                </c:forEach>
               </tbody>
             </table>
         </div>

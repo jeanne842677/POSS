@@ -332,13 +332,30 @@ outline:none;
 				<div class="card border-secondary mb-3" id="waiting" >
 					<div class="card-header" id="waiting_header">웨이팅</div>
 					<div class="card-body">
+						
+						<c:if test="${ not empty waitingList }">
+							<c:forEach items="${ waitingList }" var="wl" varStatus="status">
 						<div class="waiting" >
-							<div class="time">18:30</div>
-							<div class="name">박다섯글자</div>
-							<div class="table_num">1층 4번</div>
-							<div class="num">5명</div>
-
+							<div class="time">${ timeList[status.index] }</div>
+							<div class="name">${wl.phone }</div>
+							<div class="num">${wl.waitingPeople }명</div>
 						</div>
+						<script type="text/javascript">
+							document.querySelectorAll('.waiting')[${status.index}].addEventListener( 'click' ,e=>{
+								let waitingNum = ${wl.waitingNum};
+								fetch('/waiting/update?waitingNum='+waitingNum)
+								.then(res=> {
+									e.target.remove();
+								})
+								
+								
+							})
+						
+						</script>
+							</c:forEach>
+						</c:if>
+							
+					
 					</div>
 				  </div>
 
@@ -414,7 +431,14 @@ outline:none;
 							e.setAttribute("data-ordernum" , arr.orderMasterIdx);
 						}
 					
-					//테이블 선택시 실행되는 메소드 (추가예정)
+		
+
+					
+					
+				})
+				
+				
+							//테이블 선택시 실행되는 메소드 (추가예정)
 					e.addEventListener('click' , event=> {
 						
 						let idx= e.dataset.idx;
@@ -436,11 +460,7 @@ outline:none;
 						
 						
 						
-					})
-
-					
-					
-				})
+					});
 				
 			});
 			
@@ -458,9 +478,11 @@ outline:none;
 		location.href='/seat/modify';
 		
 		
-	})
+	});
 	
 	
+	
+
 	
 
 </script>

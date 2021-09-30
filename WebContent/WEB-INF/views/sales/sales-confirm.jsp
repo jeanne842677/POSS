@@ -5,19 +5,22 @@
 <head>
 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-       <title>매출관리</title>
-           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="resources/js/datepicker-ko.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-   
+<title>매출관리</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/resources/js/datepicker-ko.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.css" integrity="sha512-GQSxWe9Cj4o4EduO7zO9HjULmD4olIjiQqZ7VJuwBxZlkWaUFGCxRkn39jYnD2xZBtEilm0m4WBG7YEmQuMs5Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.js" integrity="sha512-SuXpPdajLF/GkLBHndpO/A05M1yY4UXJjeeYSbuXRat6E2AUmnG5CVQ0xPtI7IxfXjRmAHoOuOsCqd8yoPup+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.js" integrity="sha512-11Z4MD9csmC3vH8Vd0eIPJBQu3uEHEqeznWEt3sLBCdQx3zm9mJbBcJH8WTcyGY9EXDE81BNpjE2vLosPK8cFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/cal.css">
 
 <style type="text/css">
    html, body {
@@ -236,15 +239,9 @@
     .onetopmenu{
         width:30%;
         text-align: center;
-        border:15px solid #ff8b8b;
         width:270px; height:270px;
-        border-radius:270px;
         min-width: 270px;
 
-    }
-    .onetopmenu>*{
-        justify-content: center;
-        padding:52px 10px 10px 10px;
     }
 
     /* 메뉴 순위 */
@@ -273,7 +270,7 @@
    /* 매출캘린더 제목, 이번달 총 매출 금액-------------------------------- */
     #title_area2{
         width:100%;
-        height: 50;
+        height: 50px;
         display:flex;
         justify-content: space-between;
         padding:20px 50px 20px 50px;  
@@ -316,6 +313,7 @@
 
     /* footer ----------------------------------------------------------*/
     #footer{
+    	margin-top: 100px;
         width:100%;
         width:100%;
         height:30px;
@@ -362,11 +360,12 @@
     width: 50%;
 }
 
-    
+.c3-chart-arcs-title {
+	font-size: 20px;
+	font-weight: bold;
+}
 
 
-
-    
 </style>
 </head>
 <body>
@@ -378,7 +377,7 @@
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">포스
+                  <a class="nav-link" href="/seat/select">포스
                     <span class="visually-hidden">(current)</span>
                   </a>
                 </li>
@@ -386,14 +385,14 @@
                   <a class="nav-link active" href="/sales/confirm">매출관리</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/board/notice">게시판</a>
+                  <a class="nav-link" href="/board/${authentication.userId}/notice">게시판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">웨이팅</a>
+                  <a class="nav-link" href="/waiting/waiting-confirm">웨이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
-                  </li>
+                  <a class="nav-link" href="/reserve/${authentication.userId}/confirm">예약내역</a>
+                </li>
             </ul>  
             </div>  
             </nav>
@@ -406,7 +405,7 @@
         
         <div class="todaysales">
             <div class="todaysales_title">오늘 총 매출</div>
-            <div class="todaysales_num">576,000 원</div>
+            <div class="todaysales_num">${todaySales} 원</div>
         </div>
     </section>
 
@@ -418,15 +417,15 @@
 
      <!-- 전체조회 ============================================================================ -->
      <div id="see_all" style="display:block">
-
+	<form action='/sales/confirm' method='POST'>
     <section id="showterm">
         <p class="selectday">기간선택 &nbsp;</p>
-        <input type="text" id ="thismonth" class="start" >         
+        <input type="text" id ="thismonth" name='thismonth' class="start">         
         <div class="seebtn">
-            <button type="button" onclick="selectedmonth()" class="btn btn-primary">조회</button>
+            <button type="submit" onclick="selectedmonth()" class="btn btn-primary">조회</button>
         </div>
     </section>
-
+	</form>
 
    
     <div class="con1titlezone">
@@ -437,34 +436,26 @@
     <section id="content1">
         <div class="analyze">
             <div class="smfont">결제 금액</div>
-            <div class="rednum">4,032,000 원</div><br>
+            <div class="rednum">${sales} 원</div><br>
             <div class="smfont">결제 건수</div>
-            <div class="resnum">480 건</div><br>
+            <div class="resnum">${salesCnt} 건</div><br>
             <div class="smfont">평균 결제 금액</div>
-            <div class="resnum">8,400 원</div>
+            <div class="resnum">${avg} 원</div>
         </div>
 
-        <div class="onetopmenu">
-            <div class="circle">
-            <div class="smfont">인기 상품</div>
-            <div class="resnum"><i class="far fa-thumbs-up"></i>TOP 1</div>
-            <div class="rednum">아메리카노</div>
-            <div class="midfont">총 <b class="bold">480</b> 주문 수 중 <b class="bold">180</b> 주문</div>
-            </div>    
-        </div>
+		
+        <div class="onetopmenu" id="chart"></div>
 
         <div class="rankmenu">
-            <div class="menuname2">2 라떼</div>
-            <div class="menuname2">3 허니자몽</div>
-            <div class="menuname2">4 아이스초코</div>
-            <div class="menuname2">5 망고 에이드</div>
+        	<c:forEach items='${nameArr}' var='name' varStatus="vs" begin='1'>
+	            <div class="menuname2">${vs.index + 1} ${name}</div>
+            </c:forEach>
         </div>
 
         <div class="ordernum">
-            <div class="ordernum1">101 주문</div>
-            <div class="ordernum1">89 주문</div>
-            <div class="ordernum1">65 주문</div>
-            <div class="ordernum1">45 주문</div>
+            <c:forEach items='${cntArr}' var='cnt' begin='1'>
+	            <div class="menuname2">${cnt} 주문</div>
+            </c:forEach>
         </div>
     </section>
 
@@ -477,14 +468,12 @@
         
         <div class="monthsales">
             <div class="monthsales_title">이번달 총 매출 금액</div>
-            <div class="monthsales_num">576,000 원</div>
+            <div class="monthsales_num">${sales} 원</div>
         </div>
      </section>
 
     <section id="content2">  
-            <!-- calender 시작 -->
-            <iframe src="calender/index.html" style="z-index:900; width:100%; height:720px "></iframe>  
-            <!-- calender 끝 -->
+        <div class='cal_wrap'> </div>  
     </section>
     </div>
 <!-- 전체조회 end========================================================================= -->
@@ -553,10 +542,35 @@
 	    document.querySelector(".con1_date").innerText=dday;
 	    }
     
+	    var chart = c3.generate({
+	        data: {
+	            columns: [
+	                ['${nameArr[0]}', '${cntArr[0]}'],
+	                ['${nameArr[1]}', '${cntArr[1]}'],
+	                ['${nameArr[2]}', '${cntArr[2]}'],
+	                ['${nameArr[3]}', '${cntArr[3]}'],
+	                ['${nameArr[4]}', '${cntArr[4]}'],
+	                
+	            ],
+	            type : 'donut',
+	            colors: {
+	            	'${nameArr[0]}' : 'rgb(255, 167, 167)',
+
+	            	'${nameArr[1]}' : 'rgb(97, 191, 173)',
+
+	            	'${nameArr[2]}' : '#6cc3d5',
+
+	            	'${nameArr[3]}' : 'rgb(255, 213, 125)',
+
+	            	'${nameArr[4]}' : 'rgb(249, 247, 232)'
+	        	},
+	        },
+	        donut: {
+	            title: "${nameArr[0]}"
+	        }
+	    });
 
 </script>
-
-
-</div>
+<script type="text/javascript" src="/resources/js/cal.js"></script>
 </body>
 </html>
