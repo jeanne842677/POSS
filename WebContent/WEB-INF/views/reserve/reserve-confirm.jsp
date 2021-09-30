@@ -312,7 +312,12 @@ div {
 }
 
 .table th {
-   text-align: center;
+   	text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #aaa;
+    color: #fff;
+    z-index: 10;
 }
 
 .table td {

@@ -157,14 +157,14 @@
     }
 
     .tb_num{
-        width:10%;
-        min-width:51px;
-        font-size:30px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        color:#343a40;
-        font-weight: bold;
+        width: 100px;
+	    min-width: 51px;
+	    font-size: 30px;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    color: #343a40;
+	    font-weight: bold;
         
     }
     /* 대기시간 */
@@ -256,6 +256,8 @@
         width:100%;
         height: 15%;
         border-top: solid 1px #888;
+        display: flex;
+    	align-items: center;
        
     }
     /* 주문금액 */
@@ -329,11 +331,29 @@
     .menu_cate{
         width:100%;
         height:20%;
+        min-height:200px;
         padding:10px;
         display:flex;
         align-items: center;
         border-bottom: solid 1px #888;
+        overflow-y: hidden;
     }
+	
+	  .menu_cate::-webkit-scrollbar {
+	    width: 3px;
+	  }
+	  .menu_cate::-webkit-scrollbar-thumb {
+	    background-color: #2f3542;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  .menu_cate::-webkit-scrollbar-track {
+	    background-color: grey;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
+
 
     #cate{
         width:20%;
@@ -353,24 +373,55 @@
     
 
     /* 메뉴목록 */
-    .menu_name{
-        width:100%;
-        height:68%;
-        padding:10px;
-        overflow: auto;
+    .menu_zone{
+	    width: 100%;
+	    height: 68%;
     }
+    
+    .menu_name{
+        width: 100%;
+   		height: 100%;
+        padding:10px;
+        overflow:auto;
+       	display: flex;
+    	flex-wrap: wrap;
+    	align-content: baseline;
+    }
+    
+    .menu_name::-webkit-scrollbar {
+	    width: 3px;
+	  }
+	  .menu_name::-webkit-scrollbar-thumb {
+	    background-color: #2f3542;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  .menu_name::-webkit-scrollbar-track {
+	    background-color: grey;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
 
     .menu_name>div{
-        width:20%;
-        min-width:153px;
-        height:30%;
-        min-height: 110px;
-        background-color:  white;
-        color: black;
-        font-size: 2vh;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:10px;
+        min-width: 153px;
+	    height: 25%;
+	    max-height: 128px;
+	    min-height: 128px;
+	    color: black;
+	    font-size: 100%;
+	    font-weight: bold;
+	    box-shadow: 5px 5px #aaa;
+	    margin: 10px;
+	    border-radius: 5px;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-direction: column;
+    }
+    
+    .menu_name>div>img{
+    	margin-bottom:10px;
     }
 
     
@@ -478,6 +529,7 @@
         width:172px;
         min-width:153px;
         height:90%;
+        min-height:128px;
         display:flex;
         flex-direction:column;
         align-items: center;
@@ -489,10 +541,9 @@
         box-shadow: 5px 5px #aaa;
         margin:0 10px;
         position:relative;
-        
-        
+        border-radius: 5px;
+   
     }
-    
    
 </style>
 </head>
@@ -567,13 +618,13 @@
                   </c:forEach>
 
             </div>
-            
-            <div class="menu_name" id="menu_edit">
-           	
-           
-           
+            <div class="menu_zone">
+	            <div class="menu_name" id="menu_edit">
+	           	
+	           
+	           
+	            </div>
             </div>
-            
             <div class="select_commit">
                 <div class="cancel" style=" cursor: pointer;" id="selectCancel" onclick="location.href='#';">취소</div>
                 <div class="okBtn" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-check-circle"></i><p class="hide">확인</p></div>

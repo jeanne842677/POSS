@@ -36,18 +36,11 @@ html, body {
 	z-index: 100;
 }
 
-.line {
-	width: 50%;
-	display: fixed;
-	position: absolute;
-	margin-top: 30px;
-	height: 3px;
-	background-color: #f9f7e8;
-}
+
 
 .logo>a>img {
 	width: 150px;
-	margin: 35px 10px 10px 10px;
+	margin: 25px 10px 10px 10px;
 	display: block;
 	position: absolute;
 }
@@ -223,7 +216,7 @@ th {
   <body>
     <div class="wrap">
       <div class="left_wrap">
-          <div class="logo"><div class="line"></div><a href="../index"><img src="/resources/image/LOGO6.png"></a></div>
+          <div class="logo"><a href="../index"><img src="/resources/image/LOGO6.png"></a></div>
         <div class="wait_team_wrap">
           <div class="wait_team">
             <div class="wait_team_num_wrap">

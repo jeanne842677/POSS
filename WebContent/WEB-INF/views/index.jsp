@@ -281,15 +281,16 @@ html, body {
 	color: black;
 }
 
-/* 예약 내역 버튼 */
+/* 예약 버튼 */
 #reservation_manage_btn{
-   width: 210px;
-    height: 100px;
+	width: 210px;
+    height: 210px;
     font-size: 20px;
     background-color: rgb(255, 213, 125);
     font-weight: bolder;
     box-shadow: 3px 3px 3px #333;
     color: white;
+    margin-top: 25px;
 }
 
 #reservation_manage_btn:focus{
@@ -306,46 +307,11 @@ html, body {
   
 }
 
-/* 예약 폼 버튼 */
-#reservation_form_btn{
-   width: 210px;
-    height: 100px;
-    font-size: 20px;
-    background-color: rgb(249, 247, 232);
-    color: black;
-    font-weight: bolder;
-    box-shadow: 3px 3px 3px #333;
-    align-content: center;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-#reservation_form_btn:focus{
-  color: #000;
-  background-color: #f9fafb;
-  border-color: #f9fafb;
-  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
-}
-
-#reservation_form_btn:checked{
-  color: #000;
-  background-color: rgb(245, 245, 220);
-  border-color: #f9fafb;
-  
-}
-
-
-
 
 /* 예약 아이콘 */
 #reservation_manage_icon{
-   font-size: 30px;
+   font-size: 50px;
    color: white;
-}
-
-#reservation_form_icon{
-   font-size: 30px;
-   color: #000;
 }
 
 /* 오늘 예약 건수 버튼 */
@@ -554,21 +520,15 @@ html, body {
 					<div id="waiting_text">웨이팅 내역</div>
 				</button>
 
-				<button type="button" class="btn btn-light" id="reservation_form_btn" onclick="location.href='/reserve/${authentication.userId}/reservation-form'">
-				      <div id="reservation_form_icon">
-				          <i class="fas fa-clipboard-list"></i>
-				      </div>
-				      <div id="reservation_manage_text">예약</div>
-				</button>
-
 				<button type="button" class="btn btn-warning"
 					id="reservation_manage_btn"
-					onclick="location.href='/reserve/${authentication.userId}/confirm'">
+					onclick="location.href='/reserve/${authentication.userId}/reservation-form'">
 					<div id="reservation_manage_icon">
 						<i class="fas fa-address-book"></i>
 					</div>
-					<div id="reservation_manage_text">예약내역</div>
+					<div id="reservation_manage_text">예약</div>
 				</button>
+				
 			</div>
 
 			<div class="column_3">

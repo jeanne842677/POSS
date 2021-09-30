@@ -204,6 +204,8 @@ html, body {
 
 .radio {
    margin-top: 30px;
+   display: flex;
+   justify-content: center;
 }
 
 /* content3 ----------------------------------------- */
@@ -305,6 +307,11 @@ html, body {
    width: 80px;
 }
 
+#contract_file{
+	margin-left: 10px;
+	width: 236px;
+}
+
 #content {
    resize: none;
    border: thin;
@@ -314,6 +321,16 @@ html, body {
    height: 200px;
    width: 500px;
 }
+
+.btn, .btn:hover {
+    color: #fff;
+    width: 200px;
+}
+
+.tit_board{
+	height: 100%;
+}
+
 </style>
 </head>
 <body>
