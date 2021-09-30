@@ -344,7 +344,7 @@
     .cate , #addcateBtn{
         width:172px;
         min-width:153px;
-        height:90%;
+        height:128px;
         display:flex;
         flex-direction:column;
         align-items: center;
@@ -356,19 +356,22 @@
         box-shadow: 5px 5px #aaa;
         margin:0 10px;
         position:relative;
+        border-radius: 5px;
     }
     
     .cat_box_icon {
-       width:50px;
-       height:50px; 
+    	width:50px;
+    	height:50px; 
     
     }
     
+
     .cat_box_icon_img {
     
-       width:100%;
-       height:100%;
+    	width:100%;
+    	height:100%;
     }
+
     
     .cat_box_name {
     
@@ -388,17 +391,35 @@
   
     }
 
-
+	
     /* 메뉴목록 */
     .menu_name{
-        width:100%;
-        height:68%;
+         width: 100%;
+   		height: 100%;
         padding:10px;
-        overflow: auto;
-        flex-wrap: wrap;
-        display:flex;
-        flex-wrap: wrap;
+       	display: flex;
+    	flex-wrap: wrap;
+    	align-content: baseline;
+    	overflow-x:hidden;
+        overflow-y:scroll;
     }
+    
+    .menu_name::-webkit-scrollbar{
+     	width:10px;
+     }
+     
+     .menu_name::-webkit-scrollbar-thumb {
+	    background-color: #444;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  
+	  .menu_name::-webkit-scrollbar-track {
+	    background-color: #00ff0000;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
 
     #addmenuBtn{
 
@@ -416,16 +437,20 @@
 
 
     .menu_name>div{
-        width:172px;
-        min-width:153px;
-        height:30%;
-        min-height: 110px;
-        background-color:  white;
-        color: black;
-        font-size: 2vh;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:10px;
+       min-width: 153px;
+	    height: 25%;
+	    max-height: 128px;
+	    min-height: 128px;
+	    color: black;
+	    font-size: 100%;
+	    font-weight: bold;
+	    box-shadow: 5px 5px #aaa;
+	    margin: 10px;
+	    border-radius: 5px;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-direction: column;
     }
 
     
