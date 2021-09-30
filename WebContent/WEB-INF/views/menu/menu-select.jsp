@@ -30,16 +30,17 @@
     } */
     
     /* header ---------------------------------------- */
-    #header{
-        width:100%;
-        height:8.5% fixed;
-        background-color: #78c2ad;
-        color:white;
-        display: flex;
-        justify-content: space-between;
-        line-height: 80px;
-        font-size:30px;
-    }
+    #header {
+	    width: 100%;
+	    height: 8.5% fixed;
+	    background-color: #78c2ad;
+	    color: white;
+	    display: flex;
+	    justify-content: space-between;
+	    line-height: 80px;
+	    font-size: 30px;
+	    min-width: 1130px;
+	}
 
     .back{
         width:3%;
@@ -131,12 +132,13 @@
                 
 
     /* content_wrap------------------------------------------------------------------- */
-    #content_wrap{
-        height:100%;
-        padding:10px;
-        display: flex;
-        justify-content: space-around;
-    }
+   #content_wrap {
+	    height: 100%;
+	    min-width: 1130px;
+	    padding: 10px;
+	    display: flex;
+	    justify-content: space-around;
+	}
 
     /* content1 포스페이지 주문리스트------------------------------------------------------------- */
     #content1{
@@ -339,17 +341,20 @@
         overflow-y: hidden;
     }
 	
-	  .menu_cate::-webkit-scrollbar {
-	    width: 3px;
-	  }
-	  .menu_cate::-webkit-scrollbar-thumb {
-	    background-color: #2f3542;
+	  .menu_cate::-webkit-scrollbar{
+     	width:10px;
+     	height:10px;
+     }
+     
+     .menu_cate::-webkit-scrollbar-thumb {
+	    background-color: #444;
 	    border-radius: 10px;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	  }
+	  
 	  .menu_cate::-webkit-scrollbar-track {
-	    background-color: grey;
+	    background-color: #00ff0000;
 	    border-radius: 10px;
 	    box-shadow: inset 0px 0px 5px white;
 	  }
@@ -375,30 +380,33 @@
     /* 메뉴목록 */
     .menu_zone{
 	    width: 100%;
-	    height: 68%;
+	    height: 68%; 
+	    overflow-x:hidden;
+        overflow-y:scroll; 
     }
     
     .menu_name{
         width: 100%;
    		height: 100%;
         padding:10px;
-        overflow:auto;
        	display: flex;
     	flex-wrap: wrap;
     	align-content: baseline;
     }
     
-    .menu_name::-webkit-scrollbar {
-	    width: 3px;
-	  }
-	  .menu_name::-webkit-scrollbar-thumb {
-	    background-color: #2f3542;
+     .menu_zone::-webkit-scrollbar{
+     	width:10px;
+     }
+     
+     .menu_zone::-webkit-scrollbar-thumb {
+	    background-color: #444;
 	    border-radius: 10px;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	  }
-	  .menu_name::-webkit-scrollbar-track {
-	    background-color: grey;
+	  
+	  .menu_zone::-webkit-scrollbar-track {
+	    background-color: #00ff0000;
 	    border-radius: 10px;
 	    box-shadow: inset 0px 0px 5px white;
 	  }
@@ -528,8 +536,7 @@
     .cate {
         width:172px;
         min-width:153px;
-        height:90%;
-        min-height:128px;
+        height:128px;
         display:flex;
         flex-direction:column;
         align-items: center;
