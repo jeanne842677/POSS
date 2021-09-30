@@ -794,7 +794,7 @@ border-radius: 10px;
   
             <div class="inputicon">
                 <div class="inputicon_tit">아이콘</div>
-                <div class="input4"><i class="fas fa-plus-circle icon_button" id="cat_icon_btn"></i><img class="select-icon" id="select_cat_icon" src="/resources/icon/${ thisCat.icon }.png">
+                <div class="input4"><img class="select-icon" id="select_cat_icon" src="/resources/icon/${ thisCat.icon }.png">
                 <input type="text" id="cat_icon" name="icon" readonly value="${thisCat.icon }"></div>
                 <button id="icon_cencle" class="btn btn-danger icon_cencle" type="button"> 선택안함 </button>
             <div class="icon_wrap" id="cate_icon_wrap">
@@ -938,7 +938,8 @@ border-radius: 10px;
       return "/resources/icon/" + iconName + ".png";
 
       
-   }
+   };
+   
     // 토글 ON/OFF 페이지 전환
     function posspage(){
         let tab1 = document.getElementById('toggle_off');
@@ -1020,19 +1021,7 @@ border-radius: 10px;
     })
     
     
-    //아이콘 버튼 눌렀을 때 
-    document.querySelectorAll(".icon_button").forEach(ele=> {
-       
-          ele.addEventListener("click", e=> {
-              
-               document.querySelector(".icon_wrap").style.display ="block";
-              
-           })
-       
-       
-       
-    })
-    
+
     
  
 
@@ -1045,12 +1034,13 @@ border-radius: 10px;
         e.addEventListener('click' , event=>{
          let iconName = event.target.dataset.icon;
             document.querySelector('#cat_icon').value = iconName;
-            document.querySelector('.icon_button').style.display="none";
+            document.querySelector('#menu_icon').value = iconName;
             document.querySelector('.select-icon').src = iconSrc(iconName);
+            document.querySelector('#select_menu_icon').src = iconSrc(iconName);
             document.querySelector('.select-icon').style.display="block";
+            document.querySelector('#select_menu_icon').style.display="block";
             document.querySelector('#cate_icon_wrap').style.display="none";
             document.querySelector('#menu_icon_wrap').style.display="none";
-            document.getElementById("cat_icon_btn").style.display="none";
            document.getElementById("select_cat_icon").style.display="block";
 
 
@@ -1079,18 +1069,18 @@ border-radius: 10px;
 
 
 
-    //아이콘 취소했을 때 
+/*     //아이콘 취소했을 때 
     document.querySelector("#icon_cencle").addEventListener("click", e=> {
        
        
-        document.querySelector('.icon_button').style.display="block";
         document.querySelector('.icon_wrap').style.display="none";
         document.querySelector('.select-icon').style.display="none";
         document.querySelector('#cat_icon').value = "아이콘 선택";
        
     })
-    
-
+     */
+     
+	
     document.querySelector('#menu_input_wrap').addEventListener('submit', e => {
        let nameCheck = /^.{1,20}$/; 
        let inputName = document.querySelector('#menu_name').value;
@@ -1112,6 +1102,8 @@ border-radius: 10px;
           document.querySelector('#nameCheck1').innerHTML ='(최대 20글자)'; 
        }
     })
+    
+    
 </script>
 </body>
 </html>

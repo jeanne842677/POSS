@@ -380,7 +380,7 @@ div {
         <div class="title">
             <a>예약내역</a>
         </div>
-        <div class="setting" ><i class="fas fa-cog" onclick="location.href='/reserve/${userId}/modify'"></i></div>
+        <div class="setting" ><i class="fas fa-cog" type="button" onclick="location.href='/reserve/${userId}/modify'"></i></div>
         
     </section>
 
@@ -420,6 +420,7 @@ div {
             
             <div class='input-wrap3'>
                 <button id='btn-search' type="submit" class="btn btn-primary">설정</button>
+                <div id='btn-search' class="btn btn-primary" onclick="message('${authentication.userId}');">예약 문자 발송</div>
             </div>             
         </div>
     </section>
@@ -503,6 +504,15 @@ function cancel(reserveIndex, userId) {
    			location.href = '/reserve/'+id+'/reserve-cancel?reserveIdx='+rtest;
    		}
    	}
+};
+function message(userId) {
+	let id = userId;
+   	setModalTitle('modal1','문자발송');
+   	setModalBody('modal1', '금일 예약 문자를 발송 하시겠습니까?');
+   	modal1();
+  	setYesFunc = function msg(){
+   			location.href = '/reserve/'+id+'/msg';
+   	} 
 };
 
       

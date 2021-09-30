@@ -6,7 +6,8 @@
 
 
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -529,6 +530,7 @@
                 <div class="wait_time">0:00</div>
             </div>
 
+
             <div class="order_list" id="total_list">
            		
             </div>
@@ -557,6 +559,7 @@
           				fetch('/menu/select-cate?catIdx=${mcl.catIdx}')
               			.then(res=> res.json())
               			.then(menu=> {
+              				console.dir(menu);
 							createMenu(menu);
               			})
               		});
@@ -566,7 +569,7 @@
             </div>
             
             <div class="menu_name" id="menu_edit">
-           
+           	
            
            
             </div>
@@ -575,7 +578,7 @@
                 <div class="cancel" style=" cursor: pointer;" id="selectCancel" onclick="location.href='#';">취소</div>
                 <div class="okBtn" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-check-circle"></i><p class="hide">확인</p></div>
                 <div class="allcancel" style=" cursor: pointer;" onclick="allCancel()"><i class="far fa-times-circle"></i><p class="hide">전체취소</p></div>
-                <div class="kakaopay" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-credit-card"></i><p class="hide">카카오페이</p></div>
+                <div class="kakaopay" style=" cursor: pointer;" onclick="kakaoPay()"><i class="far fa-credit-card"></i><p class="hide">카카오페이</p></div>
                 <div class="cash" style=" cursor: pointer;" onclick="location.href='#';"><i class="far fa-money-bill-alt"></i><p class="hide">현금</p></div>
             
             </div>       
@@ -587,8 +590,15 @@
 
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
 <script type="text/javascript">
+	
+	let json ;
 
-	let idx = 0;
+	<c:if test="${ not empty orderJoinList}">
+	
+	json = ${orderJoinList};
+	
+	</c:if>
+	
 	
     // 토글 ON/OFF 페이지 전환
     function posspage(){
@@ -607,7 +617,7 @@
     	} else {
     		slide.style.display = 'none';
     	}
-    })
+    });
     
     
 
@@ -733,7 +743,8 @@
                     changeColor(addList);
             })
             document.querySelector('.menu_name').append(menuDiv); 
-       })   
+       })   ;
+    
     };
     
 //전체취소    
@@ -832,7 +843,7 @@ document.querySelector('.cash').addEventListener('click' , e=> {
     
     
  
-    
+    //ok버튼 클릭시
 	document.querySelector(".okBtn").addEventListener("click", e => {
     	
 		let menuArr = [];
@@ -855,7 +866,7 @@ document.querySelector('.cash').addEventListener('click' , e=> {
 			
 		});
 		
-		fetch('/order/order-impl?html_idx=${htmlIdx}&tableUUID=${tableUUID}&orderNum=${ orderNum }' , {
+		fetch('/order/order-impl?html_idx=${htmlIdx}&tableUUID=${tableUUID}&tableName=${tableName}&orderNum=${ orderNum }' , {
 			  method: "POST",
 			  headers: {
 			    "Content-Type": "application/json; charset=utf-8",
@@ -863,17 +874,224 @@ document.querySelector('.cash').addEventListener('click' , e=> {
 			  body: JSON.stringify({
 			    orderList: menuArr
 			  })
+		})
+		.then(res=>res.text())
+		.then(text=> {
+			
+			location.href ="/seat/select";
+			
+			
+			
 		});
+		
 	
 		
     	
     });
 	
 	
+	//현금 결제 클릭시
+	document.querySelector('.cash').addEventListener('click' , e=>{
+		
+		fetch("/order/payment?html_idx=${htmlIdx}&tableUUID=${tableUUID}&tableName=${tableName}&orderNum=${ orderNum }" ,
+				{	  
+			
+				method: "POST",
+			  	headers: {
+				    "Content-Type": "application/json; charset=utf-8",
+				  },
+				  body: JSON.stringify({
+				    orderList: menuArr
+				  })
+			
+				})
+
+		
+		
+	});
+	
 	
 
-    
 
+	let createO = (json) => {
+		json.forEach(m=> {
+			
+			
+
+			  let isReturn = 'false';
+	          let sameMenu = null;
+	          let mDiv =  m.menuIdx;
+	          if(document.querySelector('.selectmenu')) {    
+	             document.querySelectorAll('.selectmenu').forEach(e => {
+	                 if(e.dataset.menuidx == mDiv) {
+	                    sameMenu = e;
+	                    isReturn = 'true';
+	                 }
+	              })
+	          }
+	          if(isReturn == 'true') {
+	             plusCnt(sameMenu);
+	             plusPrice(sameMenu);
+	             plusTotal(sameMenu);
+	               changeColor(sameMenu);
+	             return;
+	          }
+	              let addList = document.createElement("div");
+	              addList.setAttribute("class","selectmenu");
+	              addList.setAttribute("data-check","true");
+	              addList.setAttribute("data-menuidx", m.menuIdx);
+	              //색변환
+	              addList.addEventListener('click', e => {
+	                 document.querySelectorAll('.selectmenu').forEach(i => {
+	                     i.style.background = 'white';
+	                     i.dataset.check = "false";
+	                  })
+	                  addList.style.background = 'rgb(181, 227, 216)';
+	                 addList.dataset.check = "true";
+	              })
+	   
+	                 let nameDiv = document.createElement("div");
+	                 nameDiv.setAttribute("class", "selectname");
+	                 nameDiv.innerHTML += m.name;
+	                 addList.appendChild(nameDiv);
+	                 
+	              let unitPrice = document.createElement("div");
+	                 unitPrice.setAttribute("class","oneprice");
+	                 unitPrice.innerHTML += m.price;
+	                 addList.appendChild(unitPrice);
+	                 
+
+	                 let testDiv = document.createElement("div");
+	                 testDiv.setAttribute("class", "plma");
+	                 testDiv.setAttribute("id", "plma");
+	                  
+	                 let count = m.cnt;
+	                 
+	                 let minusDiv = document.createElement("div");
+	                 minusDiv.setAttribute("class", "minus");
+	                 minusDiv.setAttribute("id", "m");
+	                 minusDiv.setAttribute("type", "button");
+	                 minusDiv.innerHTML = '-';
+	                 let countDiv = document.createElement("div");
+	                 countDiv.setAttribute("id", "count");
+	                 countDiv.innerHTML = count;
+	                 
+	                 let plusDiv = document.createElement("div");
+	                 plusDiv.setAttribute("class", "plus");
+	                 plusDiv.setAttribute("type", "button");
+	                 plusDiv.setAttribute("id", "p");
+	                 plusDiv.innerHTML = '+';
+	                 
+	                 plusDiv.onclick = function(){
+	                let number = countDiv.innerHTML;
+	                    number = parseInt(number) + 1;
+	                    countDiv.innerHTML = number;
+	                    
+	                    let price =  m.price;
+	                    let totalPrice = parseInt(resPrice.innerHTML);
+	                    totalPrice += parseInt(price);
+	                    resPrice.innerHTML = totalPrice;
+	                    plusTotal(addList);
+	                 }
+	                 
+	                 minusDiv.onclick = function(){
+	                let number = countDiv.innerHTML;
+	                  number = parseInt(number) - 1;
+	                   countDiv.innerHTML = number;
+	                  
+	                  let price = m.price;
+	                  let totalPrice = parseInt(resPrice.innerHTML);
+	                  totalPrice -= parseInt(price);
+	                  resPrice.innerHTML = totalPrice;
+	                  minusTotal(addList);
+	                  if(parseInt(number) == 0) {
+	                     addList.remove();       
+	                  }
+	                 }
+	                 testDiv.appendChild(minusDiv);
+	                 testDiv.appendChild(countDiv); 
+	                 testDiv.appendChild(plusDiv);
+
+	                 addList.appendChild(testDiv);
+
+	                 let resPrice = document.createElement("div");
+	                 resPrice.setAttribute("class","resprice");
+	                 resPrice.innerHTML +=  m.price;
+	                 addList.appendChild(resPrice);
+	                 
+	                 document.getElementById("total_list").appendChild(addList);
+	                 
+	                 //총 주문금액
+	                 totalPrice(addList);
+	               changeColor(addList);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		});
+		
+	};
+
+	if(json) {
+		createO(json);
+	}
+	
+	function kakaoPay(){
+        var IMP = window.IMP;
+        IMP.init('imp37277937'); 
+        var msg;
+        
+        IMP.request_pay({
+            pg : 'kakaopay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : 'KH Books 도서 결제',
+            amount : document.querySelector('.paynum').innerText,
+        }, function(rsp) {
+            if ( rsp.success ) {
+                
+                jQuery.ajax({
+                    url: "/payments/complete",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        imp_uid : rsp.imp_uid
+                        
+                    }
+                }).done(function(data) {
+                    if ( everythings_fine ) {
+                        msg = '결제가 완료되었습니다.';
+                        msg += '\n고유ID : ' + rsp.imp_uid;
+                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '\결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        
+                        alert(msg);
+                    } else {
+                       
+                    }
+                });
+                let price = document.querySelector('.paynum').innerText;
+                //성공시 이동할 페이지
+                setModalTitle('modal2','결제 성공');
+                setModalBody('modal2','금액 : ' + price + '원');
+                modal2();
+            } else {
+                setModalTitle('modal2','결제 실패');
+                setModalBody('modal2','결제가 실패되었습니다.');
+                modal2();
+                
+            }
+        });
+	}
     
 </script>
 </body>

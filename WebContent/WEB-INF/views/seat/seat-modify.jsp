@@ -488,7 +488,7 @@ document.querySelector('#save_btn').addEventListener('click' , e=> {
 		let div = document.createElement('div');
 		div.setAttribute("class" , "drag resize");
 		div.setAttribute("data-idx" , randomAlpha());
-		div.innerHTML = `<input type="text" value="새테이블" class="table_text">`;
+		div.innerHTML = `<input type="text" value="새테이블" class="table_text"><div class="order-list"></div>`;
 	
 		$(div).draggable();
 		$(div).resizable({

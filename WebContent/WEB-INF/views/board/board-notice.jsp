@@ -205,8 +205,8 @@ html, body{
 <div class="wrap_all">
    <div class='wrap_board'>
       <div class='mobile_nav'>
-         <label>예약하기</label>
-         <label>예약확인</label>
+         <label onclick="location.href='/reserve/${userId}/reservation-form'">예약하기</label>
+         <label onclick="location.href='/reserve/${userId}/reservation-lookup'">예약확인</label>
          <label class="now">게시판</label>
       </div>
       <div class='board_title'>

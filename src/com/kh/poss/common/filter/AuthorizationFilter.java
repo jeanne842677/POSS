@@ -45,7 +45,6 @@ public class AuthorizationFilter implements Filter {
 		if (uriArr.length != 0) {
 			switch (uriArr[1]) {
 			case "sales":
-			case "board":
 			case "waiting":
 			case "seat" :
 			case "reserve":

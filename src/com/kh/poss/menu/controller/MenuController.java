@@ -88,6 +88,7 @@ public class MenuController extends HttpServlet {
 		
 		String table = request.getParameter("tableUUID");
 		String HtmlIdx = request.getParameter("idx");
+		String tableName = request.getParameter("tableName");
 		int todayOrderNum =  orderService.selectTodayOrderNum(HtmlIdx);
 		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 		List<MenuCat>  menuCatList = menuService.selectCateList(userId);
@@ -95,6 +96,7 @@ public class MenuController extends HttpServlet {
 		request.setAttribute("tableUUID", table);
 		request.setAttribute("htmlIdx", HtmlIdx);
 		request.setAttribute("orderNum", todayOrderNum);
+		request.setAttribute("tableName", tableName);
 		request.getRequestDispatcher("/menu/menu-select").forward(request, response);
 
 	}

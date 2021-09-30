@@ -60,6 +60,11 @@ public class Order {
 				+ cnt + ", regDate=" + regDate + "]";
 	}
 
+
+	
+
+
+
 	
 	
 }

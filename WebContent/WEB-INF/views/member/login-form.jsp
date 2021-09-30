@@ -132,7 +132,7 @@ body {
 					<span><a class="nav-link" href="/member/join-form">회원 가입</a></span>
 				</div>
 				<div class="kakao_join">
-                    <span><a class="nav-link" onclick="testLogin()">카카오 계정으로 가입하기</a></span>
+                    <span><a class="nav-link" type="button" onclick="insertKakao()">카카오 계정으로 가입하기</a></span>
                 </div>
 			</div>
 		</div>
@@ -141,16 +141,20 @@ body {
 
 <script type="text/javascript"> 
 	   
-	   let login = function() {
-
-       	location.href = "/index";
-       	
-       }
-	   
-   	Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
-	Kakao.isInitialized();
+	let login = function() {
+		location.href = "/index";
+    }
 	
-	function testLogin(){
+	Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
+	
+	Kakao.API.request({
+		url: '/v1/user/unlink',
+		success: function(res){
+			
+		},				
+	})
+	
+	function insertKakao(){
 	   	
 		Kakao.Auth.login({
 			success: (auth) => {
@@ -190,7 +194,6 @@ body {
   })
   
   function kakaoLogin(){
-	   	
     	Kakao.Auth.login({
 			success: (auth) => {
 				Kakao.API.request({
@@ -214,7 +217,7 @@ body {
 					  				url: '/v1/user/unlink',
 					  				success: function(res){
 					  					Kakao.Auth.logout(function() {
-					  						location.href = "/member/logout";
+					  						location.href = "/member/login-form?err=1";
 					  					});
 					  				},				
 					  			})

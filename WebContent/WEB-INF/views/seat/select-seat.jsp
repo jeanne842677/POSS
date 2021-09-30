@@ -398,31 +398,65 @@ outline:none;
 
 	
 	});
-	
-	
-	//테이블 선택시 실행되는 메소드 (추가예정)
-	document.querySelectorAll('.drag').forEach(e=>{
-		
-		e.addEventListener('click' , event=> {
-			
-			let idx= e.dataset.idx;
-			let table = e.childNodes[0].value ;
-			let tableUUID =  e.dataset.idx;
-			let htmlIdx = 	${ tableHtml.tableIdx }
-			location.href="/menu/select?idx=" + htmlIdx + "&tableUUID=" + tableUUID;
-			
-			
-			
-			
-			
-		})
 
 		
-	});
+		//오더리스트 소환
+		fetch(`/order/order-list?html_idx=${ tableHtml.tableIdx }`)
+		.then(res=>res.json())
+		.then(orderlist=> {
+			
+			document.querySelectorAll('.drag').forEach(e=>{
+				
+				orderlist.forEach(arr=> {
+					
+					if(e.dataset.idx == arr.seatUuid){
+							e.children[1].innerHTML += arr.name + " " + arr.cnt + "개" + "<br>" ;
+							e.setAttribute("data-ordernum" , arr.orderMasterIdx);
+						}
+					
+					//테이블 선택시 실행되는 메소드 (추가예정)
+					e.addEventListener('click' , event=> {
+						
+						let idx= e.dataset.idx;
+						let table = e.childNodes[0].value ; //테이블 이름
+						let tableUUID =  e.dataset.idx;
+						let htmlIdx = 	${ tableHtml.tableIdx }
+						
+						let orderIdx = e.dataset.ordernum;
+						
+						if( orderIdx ) {
+							location.href="/order/modify?orderIdx="+orderIdx;
+							
+						}else {
+							
+							location.href="/menu/select?idx=" + htmlIdx + "&tableUUID=" + tableUUID + "&tableName=" + table;
+						
+						}
+						
+						
+						
+						
+					})
+
+					
+					
+				})
+				
+			});
+			
+			
+			
+		} );
+		
+		
+
+
+	
 	
 	
 	document.querySelector('#modify_btn').addEventListener('click' , e=> {
 		location.href='/seat/modify';
+		
 		
 	})
 	

@@ -131,6 +131,22 @@ public class WaitingDao {
 	      System.out.println("searchWaitingList : " + searchWaitingList);
 	      return searchWaitingList;
 	}
+	
+	public int updateWaiting(Waiting waiting, Connection conn) {
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update waiting set is_waiting = 0 where waiting_num = ?";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, waiting.getWaitingNum());
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+	}
 
 	private Waiting convertAllToWaiting(ResultSet rset)  throws SQLException {
 		Waiting waiting = new Waiting();

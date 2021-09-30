@@ -601,38 +601,20 @@ html, body {
 
 <%@ include file="/WEB-INF/views/include/modal.jsp"%>
 <script type="text/javascript">
+		
 		let logout = function() {
-
 			location.href = "/member/logout";
-
 		}
 		
-		let kakaoLogout = function(){	
-			Kakao.API.request({
-				url: '/v1/user/unlink',
-				success: function(res){
-					Kakao.Auth.logout(function() {
-						location.href = "/member/logout";
-					});
-				},				
-			})
-		}
-	
 		
 		function showConfirmLogout() {
 			
 			setModalTitle('modal1', 'Poss 로그아웃');
 			setModalBody('modal1', '로그아웃 하시겠습니까?');
-			Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
-			Kakao.isInitialized();
-			
-			if(!Kakao.Auth.getAccessToken()){
-				setYesFunc = logout;
-			} else {
-				setYesFunc = kakaoLogout;
-			}
+			setYesFunc = logout;
 			modal1();
 		}
+		
 	</script>
 
 

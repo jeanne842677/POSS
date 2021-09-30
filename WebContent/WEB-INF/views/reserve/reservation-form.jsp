@@ -12,62 +12,62 @@
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
-	html, body{
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
-	
-	form {
-		width:100%;
-		height:100%;
-	}
-	
-	.wrap{
-		width:100%;
-		height:100%;
-		display:flex;
-		justify-content: center;
-	}
+	 html, body{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+   }
+   
+   form {
+      width:100%;
+      height:100%;
+   }
+   
+   .wrap{
+      width:100%;
+      height:100%;
+      display:flex;
+      justify-content: center;
+   }
 
-	.wrap_res{
-		width:1130px;
-		height:100%;
-	}
+   .wrap_res{
+      width:1130px;
+      height:100%;
+   }
 
-	.now{
-	color:white;
-	}
-	
-	
-	/* div{
-		border: solid thin;
-	} */
+   .now{
+   color:white;
+   }
+   
+   
+   /* div{
+      border: solid thin;
+   } */
 
 
-	/* 상단 네비게이션---------------------------------------------- */
-	.nav{
-		width:100%;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		font-weight: bold;
-		height: 50px;
-		background-color: rgb(97, 191, 173);
-		color:black;
-	}
-	
-	
-	.nav>div:hover{
-		color: white;
-	}
+   /* 상단 네비게이션---------------------------------------------- */
+   .nav{
+      width:100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-weight: bold;
+      height: 50px;
+      background-color: rgb(97, 191, 173);
+      color:black;
+   }
+   
+   
+   .nav>div:hover{
+      color: white;
+   }
 
     hr{
         width:100%;
     }
-	
-	/* -----------------------------------매장 상단 설명 */
+   
+   /* -----------------------------------매장 상단 설명 */
     @media screen and (max-width: 700px) {
         #description{
             width:100%;
@@ -97,13 +97,16 @@
 
         /* 매장이름 */
         .pic_text{
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0%;
-            color:black;
-            font-weight: bolder;
-            font-size: 20px;
+              position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: 0%;
+          color: black;
+          font-weight: bolder;
+          font-size: 20px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
         }
 
         /* 매장 정보기입란 */
@@ -128,15 +131,15 @@
     /* 배경사진 */
     .picture{
         position: relative;
-		width: 50%;
+      width: 50%;
         min-width:50%;
-		height: 300px;
+      height: 300px;
         background-size: cover;
         }
         
     #store_img{
-    	width: 500px;
-    	height: 300px;
+       width: 100%;
+       height: 300px;
     }
 
     .picture::before{
@@ -153,204 +156,205 @@
 
         /* 매장이름 */
         .pic_text{
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		bottom: 0%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0%;
         color:black;
-		font-weight: bolder;
+      font-weight: bolder;
         font-size: 20px;
-	}
+   }
 
         /* 매장 정보기입란 */
         .message{
-		width: 50%;
-		height: 300px;
-		padding: 10px;
-		font-size: 13px;
-		border-bottom: 2px solid rgb(97, 191, 173, 0.7);
-	}
+      width: 50%;
+      height: 300px;
+      padding: 10px;
+      font-size: 13px;
+      border-bottom: 2px solid rgb(97, 191, 173, 0.7);
+   }
         
     }
 
 
-	/* 날짜,시간,인원/테이블 선택칸 ---------------------------------------*/
-	/* 날짜 ------------------------------*/
-	.cal_wrap{
-		width: 320px;
-		height: 30px;
-		display: flex;
-		justify-content: center;
-	}
-	
-	
-	/* 날짜 버튼에 있는 text */
-	#cal_text{
-		width: 320px;
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	
-	/* 시간----------------------------- */
-	/* 시간 div들 라인 */
-	.time_L1, .time_L2, .time_L3{
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-around;
-	}
-	
-	
-	.time_L1, .time_L2, .time_L3>button{
-		margin: 4px 2px 4px 2px;
-	
-	}
-	
-	.button_div{
-		width: 50px;
-	}
-	
-	/* 시간 버튼에 있는 text */
-	#time_text{
-		width: 320px;
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	
-	.btn{
-		width: 75px;
-	}
-	
-	
-	/* 인원/테이블------------------------- */
-	.table_wrap>div{
-		margin: 10px 0 10px 0;
-	}
-	
-	/* 인원/테이블 버튼에 있는 text */
-	#table_text{
-		width: 320px;
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	/* 인원, 증감버튼 */
-	.table_header{
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	/* 증감버튼 */
-	.member_cal{
-		display: flex;
-	}
-	
-	
-	.member_cal>*{
-		margin: 0 5px 0 5px;
-	}
-	
-	/* 선택된 테이블:-.- */
-	.table_no{
-		display: flex;
-		justify-content: flex-end;
-	}
-	
-	/* 테이블 선택하기 버튼영역 */
-	.table_select_btn{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	/* 테이블 선택하기 버튼 */
-	#btn_table{
-		width: 320px;
-		height: 35px;
-		border: none;
-		background-color: rgb(97, 191, 173);
-		color: white;
-		font-size: 18px;
-	}
-	
-	
-	.modal-footer{
-		display: flex;
-		align-content: flex-end;
-	}
-	
-	
-	#table_modal{
-		width: 200px;
-		height: 35px;
-		border: none;
-		background-color: rgb(97, 191, 173);
-		color: white;
-		font-size: 18px;
-	}
-	
-	
-	/* 예약자 정보칸 --------------------------------------------------*/
-	/* 예약자 정보칸 wrap */
-	.client_info{
-		width: 100%;
-		padding: 0 20px 0 20px;
-	}
-	
-	/* 예약자 정보, 필수입력 */
-	.client_head{
-		display: flex;
-		justify-content: center;
+   /* 날짜,시간,인원/테이블 선택칸 ---------------------------------------*/
+   /* 날짜 ------------------------------*/
+   .cal_wrap{
+      width: 320px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+   }
+   
+   
+   /* 날짜 버튼에 있는 text */
+   #cal_text{
+      width: 320px;
+      display: flex;
+      justify-content: space-between;
+   }
+   
+   
+   /* 시간----------------------------- */
+   /* 시간 div들 라인 */
+   .time_L1, .time_L2, .time_L3{
+      flex-wrap: wrap;
+       height: auto;
+       width: 100%;
+       display: flex;
+       justify-content: flex-start;
+   }
+   
+   
+   .time_L1, .time_L2, .time_L3>button{
+      margin: 4px 2px 4px 2px;
+   
+   }
+   
+   .button_div{
+      margin: 10px;
+   }
+   
+   /* 시간 버튼에 있는 text */
+   #time_text{
+      width: 320px;
+      display: flex;
+      justify-content: space-between;
+   }
+   
+   
+   .btn{
+      width: 75px;
+   }
+   
+   
+   /* 인원/테이블------------------------- */
+   .table_wrap>div{
+      margin: 10px 0 10px 0;
+   }
+   
+   /* 인원/테이블 버튼에 있는 text */
+   #table_text{
+      width: 320px;
+      display: flex;
+      justify-content: space-between;
+   }
+   
+   /* 인원, 증감버튼 */
+   .table_header{
+      display: flex;
+      justify-content: space-between;
+   }
+   
+   /* 증감버튼 */
+   .member_cal{
+      display: flex;
+   }
+   
+   
+   .member_cal>*{
+      margin: 0 5px 0 5px;
+   }
+   
+   /* 선택된 테이블:-.- */
+   .table_no{
+      display: flex;
+      justify-content: flex-end;
+   }
+   
+   /* 테이블 선택하기 버튼영역 */
+   .table_select_btn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   
+   /* 테이블 선택하기 버튼 */
+   #btn_table{
+      width: 320px;
+      height: 35px;
+      border: none;
+      background-color: rgb(97, 191, 173);
+      color: white;
+      font-size: 18px;
+   }
+   
+   
+   .modal-footer{
+      display: flex;
+      align-content: flex-end;
+   }
+   
+   
+   #table_modal{
+      width: 200px;
+      height: 35px;
+      border: none;
+      background-color: rgb(97, 191, 173);
+      color: white;
+      font-size: 18px;
+   }
+   
+   
+   /* 예약자 정보칸 --------------------------------------------------*/
+   /* 예약자 정보칸 wrap */
+   .client_info{
+      width: 100%;
+      padding: 0 20px 0 20px;
+   }
+   
+   /* 예약자 정보, 필수입력 */
+   .client_head{
+      display: flex;
+      justify-content: center;
         align-items: center;
-	}
+   }
 
     .client_head>*{
         margin-left:10px;
     }
-	
-	/* 정보입력칸 */
-	.client_body *{
-		font-size: 12px;
+   
+   /* 정보입력칸 */
+   .client_body *{
+      font-size: 12px;
         
-	}
+   }
 
     .client_body{
         display:flex;
         justify-content: center;
     }
-	
-	
-	.client_body i{
-		color: rgb(97, 191, 173);
-	}
-	
-	
-	.client_input>div{
-		display: flex;
-		align-items: center;
+   
+   
+   .client_body i{
+      color: rgb(97, 191, 173);
+   }
+   
+   
+   .client_input>div{
+      display: flex;
+      align-items: center;
         margin:10px 0px 0px 0px; 
-	}
-	
-	
-	.client_input input, .client_input textarea{
-		width: 400px;
-	}
-	
-	
-	.client_input input{
-		height: 30px;
+   }
+   
+   
+   .client_input input, .client_input textarea{
+      width: 400px;
+   }
+   
+   
+   .client_input input{
+      height: 30px;
         width:300px;
-	}
-	
-	
-	.ci_text{
-		font-size: 14px;
+   }
+   
+   
+   .ci_text{
+      font-size: 14px;
         margin-right:10px
-	}
-	
-	/* 최하단 예약하기 버튼 */
+   }
+   
+   /* 최하단 예약하기 버튼 */
     .res_btn{
         width:100%;
         justify-content: center;
@@ -358,21 +362,21 @@
         padding-bottom:20px
     }
 
-	#btn_reservation{
-		width: 320px;
-		height: 45px;
-		border: none;
-		color: white;
-		font-size: 18px;
+   #btn_reservation{
+      width: 320px;
+      height: 45px;
+      border: none;
+      color: white;
+      font-size: 18px;
         display: flex;
         justify-content: center;
         align-items: center;
-	}
-	
+   }
+   
 .valid-msg{
-	color:red;	
-	font-size:10px;
-}	
+   color:red;   
+   font-size:10px;
+}
 </style>
 </head>
 <body>

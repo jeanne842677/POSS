@@ -59,6 +59,21 @@ public class WaitingService {
 		}
 		return res;
 	}
+	
+	public int updateWaiting(Waiting waiting) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		try {
+			res = waitingDao.updateWaiting(waiting, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
 
 
 	public int confirmWaitingByMessage(HttpServletRequest request, HttpServletResponse response, String phone, String waitingPeopleNum) {

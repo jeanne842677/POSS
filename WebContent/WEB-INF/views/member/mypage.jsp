@@ -296,7 +296,7 @@ html, body {
 		<div class="reservation_page_link">
 			<div>예약페이지 URL</div>
 			<div>https://possreservation.co.kr</div>
-			<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn">> 바로가기</button>
+			<button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn" onclick="location.href='/reserve/${authentication.userId}/reservation-form'">> 바로가기</button>
 		</div>
 		<div class="board_page_link">
 			<div>게시판페이지  URL</div>

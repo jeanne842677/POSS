@@ -2,6 +2,7 @@ package com.kh.poss.reserve.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,10 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.runtime.directive.Parse;
+
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.common.file.FileDTO;
 import com.kh.poss.common.file.FileUtil;
 import com.kh.poss.common.file.MultiPartParams;
+import com.kh.poss.common.mms.MmsSender;
+import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.reserve.model.dto.Reserve;
 import com.kh.poss.reserve.model.dto.ReserveConfig;
 import com.kh.poss.reserve.model.service.ReserveService;
@@ -33,7 +38,8 @@ public class reserveController extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String[] uri = request.getRequestURI().split("/");
 		System.out.println(Arrays.toString(uri));
@@ -41,30 +47,31 @@ public class reserveController extends HttpServlet {
 		String userId = uri[uri.length - 2];
 		if (isExist(request, response, userId) != null) {
 			switch (uri[uri.length - 1]) {
+
 			case "confirm": // 예약 전체내역 확인 폼으로 이동
 				confirm(request, response, userId);
 				break;
-				
+
 			case "modify": // 예약 설정 폼으로 이동
 				modify(request, response, userId);
 				break;
-				
+
 			case "reserve-modify":
 				reserveModify(request, response, userId);
 				break;
-				
+
 			case "upload":
 				uploadImage(request, response, userId);
 				break;
-				
+
 			case "okay": // 예약 조회 내역으로 이동
 				okay(request, response, userId);
 				break;
-				
+
 			case "cancel": // 예약 취소 내역 폼으로 이동
 				cancel(request, response, userId);
 				break;
-				
+
 			case "reserve-cancel":
 				reserveCancel(request, response, userId);
 				break;
@@ -76,31 +83,31 @@ public class reserveController extends HttpServlet {
 			case "reservation-insert": // 예약 정보를 db에 저장
 				resInsert(request, response, userId);
 				break;
-				
+
 			case "reservation-info": // 전화번호로 예약정보를 찾아 reservation-confirm에 전달
 				resInfo(request, response, userId);
 				break;
-				
+
 			case "reservation-confirm": // 고객용 예약 확인 폼으로 이동
 				resConfirm(request, response, userId);
 				break;
-				
+
 			case "reservation-cancel": // 고객용 예약 확인 폼에서 예약 취소시 is_cancel 1로 변경
 				resCancel(request, response, userId);
 				break;
-				
+
 			case "reservation-lookup": // 고객용 예약 조회 폼으로 이동
 				resLookup(request, response, userId);
 				break;
-				
+
 			case "reservation-search": // lookup에서 받은 정보로 예약 리스트를 찾아 고객용 예약 확인 폼으로 이동
 				resSearch(request, response, userId);
 				break;
-				
-			case "reservation-select": // lookup에서 받은 정보로 예약 리스트를 찾아 고객용 예약 확인 폼으로 이동
-				resSelect(request, response, userId);
+
+			case "msg": //
+				sendMsg(request, response);
 				break;
-				
+
 			default:
 				throw new PageNotFoundException();
 			}
@@ -150,13 +157,13 @@ public class reserveController extends HttpServlet {
 				day = Integer.parseInt(request.getParameter("day"));
 			}
 
-			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate, endDate,
-					day);
+			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate,
+					endDate, day);
 			request.getSession().setAttribute("reserveList", reserveList);
 			request.setAttribute("userId", userId);
 			request.getRequestDispatcher("/reserve/reserve-confirm").forward(request, response);
-		}
 
+		}
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response, String userId)
@@ -169,16 +176,16 @@ public class reserveController extends HttpServlet {
 		request.getRequestDispatcher("/reserve/reserve-modify").forward(request, response);
 
 	}
-	
-	private void uploadImage(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
+
+	private void uploadImage(HttpServletRequest request, HttpServletResponse response, String userId)
+			throws ServletException, IOException {
 		FileUtil util = new FileUtil();
 		MultiPartParams multiPart = util.fileUpload(request);
-
 
 		List<FileDTO> files = multiPart.getFilesInfo();
 		reserveService.uploadImage(files.get(0), userId);
 		response.sendRedirect("/reserve/" + userId + "/modify");
-		
+
 	}
 
 	private void reserveModify(HttpServletRequest request, HttpServletResponse response, String userId)
@@ -228,8 +235,8 @@ public class reserveController extends HttpServlet {
 				day = Integer.parseInt(request.getParameter("day"));
 			}
 
-			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate, endDate,
-					day);
+			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate,
+					endDate, day);
 			request.getSession().setAttribute("reserveList", reserveList);
 			request.setAttribute("userId", userId);
 			request.getRequestDispatcher("/reserve/reserve-okay").forward(request, response);
@@ -268,8 +275,8 @@ public class reserveController extends HttpServlet {
 				day = Integer.parseInt(request.getParameter("day"));
 			}
 
-			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate, endDate,
-					day);
+			List<Reserve> reserveList = reserveService.selectDetailReserveList(userId, userName, startDate,
+					endDate, day);
 			request.getSession().setAttribute("reserveList", reserveList);
 			request.setAttribute("userId", userId);
 			request.getRequestDispatcher("/reserve/reserve-cancel").forward(request, response);
@@ -301,55 +308,55 @@ public class reserveController extends HttpServlet {
 	// 고객용 예약 폼으로 이동
 	private void resform(HttpServletRequest request, HttpServletResponse response, String userId)
 			throws ServletException, IOException {
-	      ReserveConfig reserveConfig = reserveService.selectConfig(userId);
-	      
-	      if(reserveConfig != null) {
-	         FileDTO fileDTO = reserveService.selectImage(userId);
-	         
-	         SimpleDateFormat testFormat = new SimpleDateFormat("HH:mm");
-	         Calendar cal = Calendar.getInstance();
-	         String[] timeArr = null;
+		ReserveConfig reserveConfig = reserveService.selectConfig(userId);
 
-	         try {
+		if (reserveConfig != null) {
+			FileDTO fileDTO = reserveService.selectImage(userId);
 
-	            long closeSeq = testFormat.parse(reserveConfig.getCloseTime()).getTime();
-	            long openSeq = testFormat.parse(reserveConfig.getOpenTime()).getTime();
+			SimpleDateFormat testFormat = new SimpleDateFormat("HH:mm");
+			Calendar cal = Calendar.getInstance();
+			String[] timeArr = null;
 
-	            long timeCalc = 0;
+			try {
 
-	            if (closeSeq > openSeq) {
-	               timeCalc = closeSeq - openSeq;
-	            } else {
-	               closeSeq += 86400000;
-	               timeCalc = closeSeq - openSeq;
-	            }
+				long closeSeq = testFormat.parse(reserveConfig.getCloseTime()).getTime();
+				long openSeq = testFormat.parse(reserveConfig.getOpenTime()).getTime();
 
-	            int parseTimeCalc = (int) (timeCalc / 3600000);
-	            int diff = 2 * (parseTimeCalc) + 1;
+				long timeCalc = 0;
 
-	            timeArr = new String[diff];
+				if (closeSeq > openSeq) {
+					timeCalc = closeSeq - openSeq;
+				} else {
+					closeSeq += 86400000;
+					timeCalc = closeSeq - openSeq;
+				}
 
-	            cal.setTime(testFormat.parse(reserveConfig.getOpenTime()));
+				int parseTimeCalc = (int) (timeCalc / 3600000);
+				int diff = 2 * (parseTimeCalc) + 1;
 
-	            for (int i = 0; i < timeArr.length; i++) {
-	               timeArr[i] = testFormat.format(cal.getTime());
-	               System.out.println(cal.getTime());
-	               cal.add(Calendar.MINUTE, 30);
-	            }
+				timeArr = new String[diff];
 
-	         } catch (ParseException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	         }
+				cal.setTime(testFormat.parse(reserveConfig.getOpenTime()));
 
-	         request.setAttribute("timeArr", timeArr);
-	         request.setAttribute("userId", userId);
-	         request.setAttribute("reserveConfig", reserveConfig);
-	         request.setAttribute("imageFile", fileDTO);
-	         request.getRequestDispatcher("/reserve/reservation-form").forward(request, response);
-	      } else {
-	         response.sendRedirect("/index");
-	      }
+				for (int i = 0; i < timeArr.length; i++) {
+					timeArr[i] = testFormat.format(cal.getTime());
+					System.out.println(cal.getTime());
+					cal.add(Calendar.MINUTE, 30);
+				}
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			request.setAttribute("timeArr", timeArr);
+			request.setAttribute("userId", userId);
+			request.setAttribute("reserveConfig", reserveConfig);
+			request.setAttribute("imageFile", fileDTO);
+			request.getRequestDispatcher("/reserve/reservation-form").forward(request, response);
+		} else {
+			response.sendRedirect("/index");
+		}
 	}
 
 	// 예약 정보를 db에 저장
@@ -466,6 +473,27 @@ public class reserveController extends HttpServlet {
 		request.setAttribute("selectReserve", selectReserve);
 		request.setAttribute("userId", userId);
 		request.getRequestDispatcher("/reserve/reservation-confirm").forward(request, response);
+	}
+
+	private void sendMsg(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("send Msg");
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		List<Reserve> reserveList = new ArrayList<Reserve>();
+		reserveList = reserveService.selectMessageList(userId);
+
+		for (Reserve msg : reserveList) {
+			String phone = msg.getPhone();
+			String storeName = member.getStore_name();
+			String name = msg.getName();
+			String reservationPeople = msg.getNum();
+			String reservationTime = msg.getReTime();
+			MmsSender.setMessage(phone, storeName, "금일 예약 확인\n* 예약자 : " + name + "\n* 예약인원 : " + reservationPeople
+					+ "명 \n* 예약시간 : " + reservationTime);
+		}
+
+		response.sendRedirect("/reserve/" + userId + "/confirm");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.poss.common.db.JDBCTemplate;
+import com.kh.poss.menu.model.dto.Menu;
 import com.kh.poss.menu.model.dto.MenuCat;
 import com.kh.poss.order.model.dao.OrderDao;
+import com.kh.poss.order.model.dto.Order;
+import com.kh.poss.order.model.dto.OrderJoin;
 import com.kh.poss.order.model.dto.OrderMaster;
 
 
@@ -71,6 +74,23 @@ public class OrderService {
 	
 	
 	
+	public List<OrderJoin> selectOrderList(String seat_html_idx ) {
+
+		Connection conn = template.getConnection();
+		List<OrderJoin> orderJoinList = null;
+		
+		try {
+			
+			orderJoinList = orderDao.selectOrderList( seat_html_idx ,conn);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		return orderJoinList;
+		
+	}
+	
 	
 
 	public int selectTodayOrderNum(String seat_html_idx) {
@@ -84,6 +104,26 @@ public class OrderService {
 			template.close(conn);
 		}
 		return res;
+	}
+
+
+
+	public List<OrderJoin> selectTableOrderList(String order_master_idx) {
+		
+		Connection conn = template.getConnection();
+		List<OrderJoin> orderJoinList = null;
+		
+		try {
+			
+			orderJoinList= orderDao.selectTableOrderList( order_master_idx ,conn);
+			
+		} finally {
+			template.close(conn);
+		}
+		
+		
+		
+		return orderJoinList;
 	}
 
 	

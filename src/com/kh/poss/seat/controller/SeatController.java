@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.member.model.dto.Member;
+import com.kh.poss.reserve.controller.reserveController;
+import com.kh.poss.reserve.model.dto.Reserve;
+import com.kh.poss.reserve.model.service.ReserveService;
 import com.kh.poss.seat.model.dto.SeatHTML;
 import com.kh.poss.seat.model.service.SeatService;
+import com.kh.poss.waiting.model.dto.Waiting;
+import com.kh.poss.waiting.model.service.WaitingService;
 
 @WebServlet("/seat/*")
 public class SeatController extends HttpServlet {
@@ -52,28 +57,38 @@ public class SeatController extends HttpServlet {
 
 	
 
-	//포스 버튼 눌렀을 때
+	//포스 버튼 눌렀을 때 (테이블 선택 창)
 	private void select(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Member member = (Member)request.getSession().getAttribute("authentication");
 		String userId = member.getUserId(); 
 		List<SeatHTML> seatList = seatService.selectSeatList(userId);
 		
-		System.out.println(seatList);
+		ReserveService reserveService = new ReserveService();
+		List<Reserve> reserveList =reserveService.selectReserveList(userId);
+		
+		WaitingService waitingService = new WaitingService();
+		List<Waiting> waitingList = waitingService.searchWaitingList(userId, "2021-09-28", "2021-09-30");
+		
+		
+		System.out.println(reserveList);
+		System.out.println(waitingList);
+		
+		request.setAttribute("reserveList", reserveList);
+		request.setAttribute("waitingList", waitingList);
 		
 		if(seatList.size()==0 ) {
 			
-			System.out.println("여기");
 			SeatHTML seat = new SeatHTML();
 			seat.setFloor("1층");
-			seat.setTableHtml("");
+			seat.setTableHtml(""); //만약 테이블이 없는 경우
 			seat.setUserId(userId);
 			request.setAttribute("tableHtml", seat);
 			seatService.saveHtml(seat);
 			
 		}else {
-			System.out.println("setList : 여기");
 			request.setAttribute("tableHtml", seatList.get(0));
+			
 		}
 		
 		request.getRequestDispatcher("/seat/select-seat").forward(request, response);
