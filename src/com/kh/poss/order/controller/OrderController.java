@@ -162,6 +162,7 @@ public class OrderController extends HttpServlet {
 
 		List<OrderJoin> orderJoinList = orderService.selectTableOrderList(orderIdx);
 		
+		
 
 		MenuService menuService = new MenuService();
 		if (orderJoinList.size() > 0) {
@@ -175,6 +176,7 @@ public class OrderController extends HttpServlet {
 			request.setAttribute("orderNum", orderJoinList.get(0).getTodayOrderNum());
 			request.setAttribute("orderJoinList", orderJoinJson);
 			request.setAttribute("orderIdx", orderIdx);
+			
 	
 		}
 

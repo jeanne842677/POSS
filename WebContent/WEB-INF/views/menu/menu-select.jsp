@@ -1117,6 +1117,7 @@ function totalPrice(selectmenu) {
 		createO(json);
 	}
 	
+
 	
 	let payingInKakao = function() {
 		let orderIdx;
@@ -1149,16 +1150,23 @@ function totalPrice(selectmenu) {
 	}
 	
 	
+	
 	function kakaoPay(){
         var IMP = window.IMP;
         IMP.init('imp37277937'); 
         var msg;
+	
+        let menuName ;
+        <c:if test="${ not empty orderJoinList}">;
+        menuName = ${orderJoinList}[0].name + " 외" ;
+        
+        </c:if>
         
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'KH Books 도서 결제',
+            name : menuName,
             amount : document.querySelector('.paynum').innerText,
         }, function(rsp) {
             if ( rsp.success ) {

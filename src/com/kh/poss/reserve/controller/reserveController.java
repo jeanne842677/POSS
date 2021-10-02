@@ -107,6 +107,10 @@ public class reserveController extends HttpServlet {
 			case "msg": //
 				sendMsg(request, response);
 				break;
+				
+			case "reservation-select": // 고객용 예약 확인 폼으로 이동
+	            resSelect(request, response, userId);
+	            break;
 
 			default:
 				throw new PageNotFoundException();

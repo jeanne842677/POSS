@@ -268,6 +268,12 @@ outline:none;
 
 
 
+
+.cat_delete_btn {
+	display:none;
+
+}
+
 </style>
 
 </head>
@@ -340,7 +346,7 @@ outline:none;
 							<div class="name">${wl.phone }</div>
 							<div class="num">${wl.waitingPeople }명</div>
 						</div>
-						<script type="text/javascript">
+						<script type="text/ja,,,,,vascript">
 							document.querySelectorAll('.waiting')[${status.index}].addEventListener( 'click' ,e=>{
 								let waitingNum = ${wl.waitingNum};
 								fetch('/waiting/update?waitingNum='+waitingNum)

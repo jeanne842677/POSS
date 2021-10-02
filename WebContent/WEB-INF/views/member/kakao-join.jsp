@@ -158,13 +158,6 @@ color: white;
       <img src="/resources/image/LOGO2.png">
       <div class="info_test">
          <div>
-            <label><l>* </l>아이디</label>
-            <input type="text" class="form-control" value="${kakaoId}" name="userId" id="userId" placeholder="ID" required />
-            <button type="button" class="btn btn-light" id="btnIdCheck">중복 확인</button>
-         </div>
-         <div id="idCheck" class="valid-msg" > </div>
-         
-         <div>
             <label><l>* </l>대표자명</label>
             <input type="text" class="form-control" name="name" id="name" placeholder="대표자명">
          </div>
@@ -237,6 +230,6 @@ function search() {
     }).open();
 }
 </script>
-<script type="text/javascript" src="/resources/js/joinForm.js"></script>
+<script type="text/javascript" src="/resources/js/joinForm.js?ver=1"></script>
 </body>
 </html>

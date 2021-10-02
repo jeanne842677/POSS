@@ -43,9 +43,7 @@ public class MemberController extends HttpServlet {
       case "login": // 로그인 후 메인페이지로 이동
          login(request, response);
          break;
-      case "kakao-form": // 로그인 후 메인페이지로 이동
-         kakaoForm(request, response);
-         break;
+
       case "kakao-login": // 로그인 후 메인페이지로 이동
          kakaoLogin(request, response);
          break;
@@ -155,14 +153,7 @@ public class MemberController extends HttpServlet {
    }
 
    
-   private void kakaoForm(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
 
-      request.getRequestDispatcher("/test/kakao-test").forward(request, response);
-
-   }
-
-   
    private void kakaoLogin(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
 
@@ -209,7 +200,7 @@ public class MemberController extends HttpServlet {
          throws ServletException, IOException {
 	  
 	  String userId = request.getParameter("userId");
-	  request.setAttribute("kakaoId", userId);
+	  request.getSession().setAttribute("kakaoId", userId);
 	  
       request.getRequestDispatcher("/member/kakao-join").forward(request, response);
 
@@ -222,9 +213,13 @@ public class MemberController extends HttpServlet {
       String password = "";
       
 		if (request.getParameter("password") == null) {
-			password = "kakaopw123!";
+			password = UUID.randomUUID().toString().substring(0,12)+"a1!";
 		} else {
 			password = request.getParameter("password");
+		}
+		
+		if(userId ==null) {
+			userId = (String) request.getSession().getAttribute("kakaoId");
 		}
 
       String name = request.getParameter("name");
@@ -291,6 +286,7 @@ public class MemberController extends HttpServlet {
       HttpSession session = request.getSession();
 
       Member member = (Member) session.getAttribute("persistUser");
+      request.getSession().removeAttribute("kakaoId");
       memberService.insertMember(member);
       session.removeAttribute("persistToken");
       session.removeAttribute("persistUser");

@@ -258,6 +258,16 @@ input{
    align-items: center;
 }
 
+
+
+.cat_delete_btn {
+	position: absolute;
+	bottom: 15px;
+	right:15px;
+	
+
+}
+
 </style>
 
 </head>
@@ -488,7 +498,11 @@ document.querySelector('#save_btn').addEventListener('click' , e=> {
 		let div = document.createElement('div');
 		div.setAttribute("class" , "drag resize");
 		div.setAttribute("data-idx" , randomAlpha());
-		div.innerHTML = `<input type="text" value="새테이블" class="table_text"><div class="order-list"></div>`;
+		div.innerHTML = `<input type="text" value="새테이블" class="table_text"><div class="order-list"></div><i class="fas fa-minus-circle cat_delete_btn"></i>`;
+		div.children[2].addEventListener('click' , e=> {
+			
+			div.remove();
+		})
 	
 		$(div).draggable();
 		$(div).resizable({
@@ -505,7 +519,21 @@ document.querySelector('#save_btn').addEventListener('click' , e=> {
 
 		$(".drag").css("position" , "absolute");
 		document.querySelector('.table_wrap').appendChild(div);
+		
+		
 
+		
+	})
+	
+	
+	document.querySelectorAll('.drag').forEach(e=>{
+		
+		e.childNodes[2].addEventListener('click' , event=> {
+
+			e.remove();
+		})
+	
+		
 		
 	})
 	
