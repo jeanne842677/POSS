@@ -1,6 +1,8 @@
 package com.kh.poss.seat.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,18 +66,25 @@ public class SeatController extends HttpServlet {
 		String userId = member.getUserId(); 
 		List<SeatHTML> seatList = seatService.selectSeatList(userId);
 		
-		ReserveService reserveService = new ReserveService();
-		List<Reserve> reserveList =reserveService.selectReserveList(userId);
 		
 		WaitingService waitingService = new WaitingService();
-		List<Waiting> waitingList = waitingService.searchWaitingList(userId, "2021-09-28", "2021-09-30");
+		List<Waiting> waitingList = waitingService.selectTodayWaiting(userId);
 		
 		
-		System.out.println(reserveList);
-		System.out.println(waitingList);
+		System.out.println("웨이팅 리스트: " + waitingList);
 		
-		request.setAttribute("reserveList", reserveList);
 		request.setAttribute("waitingList", waitingList);
+		SimpleDateFormat form = new SimpleDateFormat("HH:mm");
+		
+		List<String> timeList = new ArrayList<>(); 
+		for(Waiting waiting : waitingList) {
+			String hour = form.format(waiting.getTime());
+			timeList.add(hour);
+		}
+		
+		request.setAttribute("timeList", timeList );
+		
+		
 		
 		if(seatList.size()==0 ) {
 			
@@ -90,6 +99,7 @@ public class SeatController extends HttpServlet {
 			request.setAttribute("tableHtml", seatList.get(0));
 			
 		}
+		
 		
 		request.getRequestDispatcher("/seat/select-seat").forward(request, response);
 		

@@ -710,18 +710,9 @@ border-radius: 10px;
    
    width:50px;
    height:50px;
-   display:none;
 
 }
 
-#icon_cencle {
-
-   width:100px;
-   height: 35px;
-   margin-right:10px;
-   
-
-}
 
 .cat_delete_btn  {
 
@@ -797,9 +788,8 @@ border-radius: 10px;
   
             <div class="inputicon">
                 <div class="inputicon_tit">아이콘</div>
-                <div class="input4"><i class="fas fa-plus-circle icon_button" id="cat_icon_btn"></i><img class="select-icon" id="select_cat_icon" src="/resources/icon/ade.png">
-                <input type="text" id="cat_icon" name="icon" readonly value="아이콘 선택"></div>
-                <button id="icon_cencle" class="btn btn-danger icon_cencle" type="button"> 선택안함 </button>
+                <div class="input4"><img class="select-icon" id="select_cat_icon" src="/resources/icon/ade.png">
+                <input type="text" id="cat_icon" name="icon" readonly value="ade"></div>
             <div class="icon_wrap" id="cate_icon_wrap">
             
             
@@ -830,17 +820,6 @@ border-radius: 10px;
                       
                       <script>
                        document.getElementsByClassName('cate')[${status.index}].addEventListener('click' , e=> {
-/*                        document.getElementById("cate_input_wrap").action ="/menu/modify-cate?catIdx=${mcl.catIdx}";
-                       document.getElementById("cate_form_btn").innerHTML = "수정";
-                       document.getElementById("cat_name").value = "${mcl.name}";
-                       document.getElementById("cat_color").value = "${mcl.color}";
-                       document.getElementById("cat_icon").value = "${mcl.icon}";
-                       document.getElementById("select_cat_icon").src = iconSrc("${mcl.icon}");
-                       document.getElementById("cat_icon_btn").style.display="none";
-                       document.getElementById("select_cat_icon").style.display="block";
-                         document.getElementById("cate_input_wrap").style.display ="block";
-                         document.getElementById("menu_input_wrap").style.display = "none";
-                         document.getElementById("content1").style.display = "none"; */
                          location.href="/menu/menu-list?catIdx=${mcl.catIdx}";
                          
                     });
@@ -870,7 +849,13 @@ border-radius: 10px;
 <script type="text/javascript">
 
    let idx = 0;
-   
+   let iconSrc = function(iconName) {
+	      
+	      return "/resources/icon/" + iconName + ".png";
+
+	      
+	   };
+	   
     // 토글 ON/OFF 페이지 전환
     function posspage(){
         let tab1 = document.getElementById('toggle_off');
@@ -937,21 +922,7 @@ border-radius: 10px;
 
     })
     
-    
-    //아이콘 버튼 눌렀을 때 
-    document.querySelectorAll(".icon_button").forEach(ele=> {
-       
-          ele.addEventListener("click", e=> {
-              
-               document.querySelector(".icon_wrap").style.display ="block";
-              
-           })
-       
-       
-       
-    })
-    
-    
+
  
 
    
@@ -963,7 +934,6 @@ border-radius: 10px;
         e.addEventListener('click' , event=>{
          let iconName = event.target.dataset.icon;
             document.querySelector('#cat_icon').value = iconName;
-            document.querySelector('.icon_button').style.display="none";
             document.querySelector('.select-icon').src = iconSrc(iconName);
             document.querySelector('.select-icon').style.display="block";
             document.querySelector('#cate_icon_wrap').style.display="none";
@@ -986,16 +956,7 @@ border-radius: 10px;
     })
 
 
-    //아이콘 취소했을 때 
-    document.querySelector("#icon_cencle").addEventListener("click", e=> {
-       
-       
-        document.querySelector('.icon_button').style.display="block";
-        document.querySelector('.icon_wrap').style.display="none";
-        document.querySelector('.select-icon').style.display="none";
-        document.querySelector('#cat_icon').value = "아이콘 선택";
-       
-    })
+
     
     document.querySelector('#cate_input_wrap').addEventListener('submit', e => {
        let nameCheck = /^.{1,20}$/; 

@@ -148,7 +148,6 @@
 					<div id="name">예약자 : <c:out value="${reserve.name}"/></div>
 					<div id="phone">연락처 : <c:out value="${reserve.phone}"/></div>
 					<div id="cnt">인 원 : <c:out value="${reserve.num}"/>인</div>
-					<div id="table">테이블 : <c:out value="${reserve.seatIdx}"/></div>
 					<div id="table">예약날짜 : <c:out value="${reserve.reDate}"/></div>
 					<div id="table">예약시간 : <c:out value="${reserve.reTime}"/></div>
 				</div>
@@ -158,7 +157,6 @@
 					<div id="name">예약자 : <c:out value="${selectReserve.name}"/></div>
 					<div id="phone">연락처 : <c:out value="${selectReserve.phone}"/></div>
 					<div id="cnt">인 원 : <c:out value="${selectReserve.num}"/>인</div>
-					<div id="table">테이블 : <c:out value="${selectReserve.seatIdx}"/></div>
 					<div id="table">예약날짜 : <c:out value="${selectReserve.reDate}"/></div>
 					<div id="table">예약시간 : <c:out value="${selectReserve.reTime}"/></div>
 				</div>	

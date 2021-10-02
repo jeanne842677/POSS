@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.css" integrity="sha512-GQSxWe9Cj4o4EduO7zO9HjULmD4olIjiQqZ7VJuwBxZlkWaUFGCxRkn39jYnD2xZBtEilm0m4WBG7YEmQuMs5Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.js" integrity="sha512-SuXpPdajLF/GkLBHndpO/A05M1yY4UXJjeeYSbuXRat6E2AUmnG5CVQ0xPtI7IxfXjRmAHoOuOsCqd8yoPup+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.js" integrity="sha512-11Z4MD9csmC3vH8Vd0eIPJBQu3uEHEqeznWEt3sLBCdQx3zm9mJbBcJH8WTcyGY9EXDE81BNpjE2vLosPK8cFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/cal.css">
 
 <style type="text/css">
    html, body {
@@ -363,33 +364,6 @@
 	font-weight: bold;
 }
 
-#content{
-      display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 65vh;
-        margin-top: 100px;
-   }
-
-   .content-wrap{
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-   }
-   
-   .table th{
-      text-align: center;
-   }
-
-   .table td{
-      text-align: center;
-   }
-
-   #btn-table{
-      border-radius: 5%;
-      height:30px;
-      line-height: 20px;
-   }
 
 </style>
 </head>
@@ -454,68 +428,12 @@
 
    
     <div class="con1titlezone">
-        <p class="con1_title">[ 매출분석 ]</p>
+        <p class="con1_title"> </p>
         <p class="con1_date">${period}</p>
     </div>
 
     <section id="content1">
-        <div class="analyze">
-            <div class="smfont">결제 금액</div>
-            <div class="rednum">${sales} 원</div><br>
-            <div class="smfont">결제 건수</div>
-            <div class="resnum">${salesCnt} 건</div><br>
-            <div class="smfont">평균 결제 금액</div>
-            <div class="resnum">${avg} 원</div>
-        </div>
-
-		
-        <div class="onetopmenu" id="chart"></div>
-		
-		
-        <div class="rankmenu">
-       	   <c:forEach items='${nameArr}' var='name' varStatus="vs" begin='1'>
-            <div class="menuname2">${vs.index + 1} ${name}</div>
-           </c:forEach>
-        </div>
-
-        <div class="ordernum">
-            <c:forEach items='${cntArr}' var='cnt' begin='1'>
-	            <div class="menuname2">${cnt} 주문</div>
-            </c:forEach>
-        </div>
-    </section>
-
-  <hr>
-
-    <section id="title_area2">
-        <div class="title2">
-            <a>[ 일별매출 ]</a>
-        </div>
-     </section>
-
-    <section id="content2">  
-        <div id='content'>
-        <div class='content-wrap'>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">NO</th>
-                  <th scope="col">영업일자</th>
-                  <th scope="col">거래금액</th>
-                </tr>
-              </thead>
-              <tbody>
-                <c:forEach var="i" begin="0" step="1" end="${arraySize-1}" varStatus="vs">
-					<tr>
-                     <td>${vs.index + 1}</td>
-                     <td>${dailyDate[i]}</td>
-                     <td>${dailyPrice[i]} 원</td>
-                   </tr>
-				</c:forEach>
-              </tbody>
-            </table>
-        </div>
-    </div>
+        데이터가 없습니다.
     </section>
     </div>
 <!-- 전체조회 end========================================================================= -->
@@ -583,34 +501,7 @@
 	    const dday = document.querySelector("#thismonth").value;
 	    }
     
-	    var chart = c3.generate({
-	        data: {
-	            columns: [
-	                ['${nameArr[0]}', '${cntArr[0]}'],
-	                ['${nameArr[1]}', '${cntArr[1]}'],
-	                ['${nameArr[2]}', '${cntArr[2]}'],
-	                ['${nameArr[3]}', '${cntArr[3]}'],
-	                ['${nameArr[4]}', '${cntArr[4]}'],
-	                
-	            ],
-	            type : 'donut',
-	            colors: {
-	            	'${nameArr[0]}' : 'rgb(255, 167, 167)',
-
-	            	'${nameArr[1]}' : 'rgb(97, 191, 173)',
-
-	            	'${nameArr[2]}' : '#6cc3d5',
-
-	            	'${nameArr[3]}' : 'rgb(255, 213, 125)',
-
-	            	'${nameArr[4]}' : 'rgb(249, 247, 232)'
-	        	},
-	        },
-	        donut: {
-	            title: "${nameArr[0]}"
-	        }
-	    });
-
 </script>
+<script type="text/javascript" src="/resources/js/cal.js"></script>
 </body>
 </html>

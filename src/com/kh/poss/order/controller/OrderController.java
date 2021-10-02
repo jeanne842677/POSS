@@ -55,11 +55,23 @@ public class OrderController extends HttpServlet {
 		case "modify":
 			modify(request, response);
 			break;
+		case "modify-impl":
+			modifyImpl(request, response);
+			break;
+		case "cencle":
+			cencle(request, response);
+			break;
+		case "pay":
+			pay(request, response);
+			break;
 		default:
 			throw new PageNotFoundException();
 		}
 
 	}
+
+
+
 
 	// 확인버튼 눌러서
 	// 오더가 실행되면
@@ -80,24 +92,30 @@ public class OrderController extends HttpServlet {
 		String tableName = request.getParameter("tableName");
 		int orderNum = Integer.parseInt(request.getParameter("orderNum"));
 
-		System.out.println(res);
+		
+		//오더 들어오 정보 json으로 파싱함
 		Gson gson = new Gson();
 		Map<String, List<Map<String, String>>> orderMap = gson.fromJson(res, HashMap.class);
 		List<Map<String, String>> orderList = orderMap.get("orderList");
-
+		
+		
 		OrderMaster orderMaster = new OrderMaster();
 		orderMaster.setSeatHtmlIdx(htmlIdx);
 		orderMaster.setTableName(tableName);
 		orderMaster.setSeatUUID(tableUUID);
 		orderMaster.setTodayOrderCnt(orderNum);
 
-		System.out.println("여기");
-
-		if (orderList == null) {
-
-			// orderService.orderCencle(orderMaster);
+		//오더리스트가 비어있으면?
+		if (orderList.size() == 0) {
+			
+			System.out.println(orderMaster);
+			System.out.println("오더리스트 비었음");
+			//orderService.orderCencle(orderMaster);
 			response.sendRedirect("/seat/select");
 			return;
+			
+			
+			
 		}
 
 		orderService.insertOrderList(orderMaster, orderList);
@@ -106,6 +124,8 @@ public class OrderController extends HttpServlet {
 
 	}
 
+	
+	
 	private void payment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -126,9 +146,7 @@ public class OrderController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String htmlIdx = request.getParameter("html_idx");
-		System.out.println(htmlIdx);
 		List<OrderJoin> orderJoinList = orderService.selectOrderList(htmlIdx);
-		System.out.println(orderJoinList);
 
 		Gson gson = new Gson();
 		String json = gson.toJson(orderJoinList);
@@ -137,14 +155,13 @@ public class OrderController extends HttpServlet {
 
 	}
 
-	// 오더 수정시
+	// 오더 수정시(테이블 누를때)
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String orderIdx = request.getParameter("orderIdx");
-		System.out.println(orderIdx);
 
 		List<OrderJoin> orderJoinList = orderService.selectTableOrderList(orderIdx);
-		System.out.println(orderJoinList);
+		
 		
 
 		MenuService menuService = new MenuService();
@@ -158,13 +175,80 @@ public class OrderController extends HttpServlet {
 			request.setAttribute("menuCatList", menuCatList);
 			request.setAttribute("orderNum", orderJoinList.get(0).getTodayOrderNum());
 			request.setAttribute("orderJoinList", orderJoinJson);
-
+			request.setAttribute("orderIdx", orderIdx);
+			
+	
 		}
 
 		request.getRequestDispatcher("/menu/menu-select").forward(request, response);
 
 	}
+	
+	
+	//오더 수정하기 (dao에서 진짜 수정)
+	private void modifyImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 
+
+		String orderIdx = request.getParameter("orderIdx");
+		BufferedReader br = new BufferedReader(request.getReader());
+		String line = "";
+		String res = "";
+		while ((line = br.readLine()) != null) {
+
+			res += line;
+
+		}
+		
+		Gson gson = new Gson();
+		Map<String, List<Map<String, String>>> orderMap = gson.fromJson(res, HashMap.class);
+		List<Map<String, String>> orderList = orderMap.get("orderList");
+		
+		System.out.println("오더 넘버:  "+orderIdx);
+		System.out.println("수정된 오더리스트 : " + orderList);
+		
+		orderService.modifyOrderMaster(orderIdx ,orderList);
+		
+		
+		
+		
+		
+	}
+
+	
+	
+	
+	private void cencle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		
+		String orderIdx = request.getParameter("orderIdx");
+		System.out.println(orderIdx);
+		orderService.orderCencle(orderIdx);
+		
+		
+		
+	}
+	
+	
+	
+	//결제
+	private void pay(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		String option = request.getParameter("option");
+		String orderIdx = request.getParameter("orderIdx");
+		System.out.println(option);
+		System.out.println(orderIdx);
+		
+		orderService.paymentCompleted(orderIdx , option);
+		
+		
+		
+	}
+
+	
+	
+	
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

@@ -425,7 +425,7 @@
 		      		<div>선택된 날짜 :&nbsp</div>
 		      		<jsp:useBean id="currDay" class="java.util.Date"></jsp:useBean>
 		      		<fmt:formatDate var="dayFormat" value="${currDay}" pattern="yyyy-MM-dd"/>
-		      		<div><input type="date" name="reDate" id='input_date' value="${dayFormat}" min="${dayFormat}" max="${reserveConfig.endPeriod}"></div>
+		      		<div><input type="date" name="reDate" id='input_date' value="${reserveConfig.startPeriod}" min="${reserveConfig.startPeriod}" max="${reserveConfig.endPeriod}"></div>
 		      	</div>
 		      	
 		      </div>
@@ -481,42 +481,6 @@
 							<div id='result'>0</div>
 							<input type='button' onclick='count("plus")' value='+'/>
 						</div>
-						
-		        	</div>
-		        	<hr style="border:6px color= rgb(97, 191, 173); padding: 0 20px 0 20px">
-		        	<div class="table_no">
-		        		<div>선택된 테이블 : </div>
-		        		<div id='selected_table'>-.-</div>
-		        	</div>
-		        	
-		        	<div class="table_select_btn">
-		        		
-		        		
-		        		<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary" id='btn_table' data-bs-toggle="modal" data-bs-target="#exampleModal">
-						  테이블 선택하기
-						</button>
-						
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLabel">테이블 선택하기</h5>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>
-						      <div class="modal-body">
-						     	   <button type="button" class="btn btn-primary" id="table1" onclick='table_selector("table1")'>table1</button>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" id='table_modal' data-bs-dismiss="modal">선택완료</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-		        		
-		        		
-		        		
 		        	</div>
 		        </div>
 		        
@@ -545,12 +509,12 @@
 			<div class='client_input'>
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>예약자</div>
-					<div><input type="text" name="name" id="name" class="form-control" placeholder="예약자를 입력해주세요"></div>
+					<div><input type="text" name="name" id="name" class="form-control" placeholder="예약자를 입력해주세요" autocomplete="off"></div>
 				</div>
 				
 				<div>
 					<div class="ci_text"><i class="fas fa-check"></i>연락처</div>
-					<div><input type="text" name="phone" id="number"  class="form-control" placeholder="연락처를 입력해주세요"></div>
+					<div><input type="text" name="phone" id="number"  class="form-control" placeholder="연락처를 입력해주세요" autocomplete="off"></div>
 				</div>
 				
 				<div>
@@ -581,12 +545,8 @@ function res_confirm() {
 		let resultClient = document.getElementById('selected_client');
 		let resnumber = resultCnt.innerText;
 		let count =  resultClient.innerText = resnumber + '인';
-	//테이블 받아오기
-		let resultTable = document.getElementById('selected_table');
-		let tablenum = resultTable.innerText;
-		let table = resultTable.innerText = tablenum;
 	
-	let write = "예약자: " + name + "<br><br>연락처: " + number +"<br><br>인 원: " + count  + "<br><br>테이블: " + table + "<br><br><br>예약을 완료하시겠습니까?";
+	let write = "예약자: " + name + "<br><br>연락처: " + number +"<br><br>인 원: " + count  + "<br><br><br>예약을 완료하시겠습니까?";
 
 	modal1();
 	setModalTitle('modal1','예약내용 확인');
@@ -704,16 +664,6 @@ document.getElementById('input_date').addEventListener('change', e => {
 
 document.getElementById('selected_date').innerText =  document.getElementById('input_date').value;
 todayTimeDisabled();
-
-
-
-/* 선택된 테이블 표시해주기 */
-function table_selector(table) {
-	let resultTable = document.getElementById('selected_table');
-	resultTable.innerText = table;
-}
-
-
 
 </script>
 

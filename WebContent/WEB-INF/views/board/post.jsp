@@ -210,6 +210,7 @@ tbody>tr{
 <link href="/resources/css/all.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
    <div class="wrap_all">
       <div class='wrap_board'> 
          <div class='mobile_nav'>
@@ -252,7 +253,7 @@ tbody>tr{
                   	<tr>
                   		<td>${rl.replyWriter}</td>
                   		<td>${rl.reply}</td>
-                  		<td><button id="delete" onclick="deleteReply(${rl.replyIdx},${rl.replyPw}, '${board.userId}')">삭제</button></td>
+                        <td><button id="delete" onclick="deleteReply(${rl.replyIdx},${rl.replyPw}, '${board.userId}')">삭제</button></td>
                   	</tr>
                   </tbody>
                   </c:forEach>
@@ -268,40 +269,82 @@ tbody>tr{
 <script type="text/javascript">
 
 function confirmPw(pwParams,userId){
+	let password = pwParams;
+	let boardId = userId;
 	
-	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
-		
-	if(inputPw == pwParams){
-		location.href = '/board/'+userId+'/modify-form';
-	} else {
-		alert("다시 입력하세요!");
-		return;
-	}
+	modal3();
+	setModalTitle('modal3','비밀번호를 입력하세요');
+   	setConfirmFunc = function confirmPw(){
+   		if(document.getElementById("confirmPw").value == password){
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 완료');
+   	   	    setModalBody('modal2', '비밀번호가 확인되었습니다.');
+   	   		setOkayFunc = function confirmTrue(){
+   				location.href = '/board/'+boardId+'/modify-form';
+   			}
+   		} else {
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 실패');
+   	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
+   	   		setOkayFunc = function rCancel(){
+   	   		location.href = '/board/'+boardId+'/post?boardIdx=${board.boardIdx}';
+   	   		}
+   		}
+   	}
 }
 
 function confirmPw2(pwParams,userId){
 	
-	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
-		
-	if(inputPw == pwParams){
-		alert("게시글이 삭제되었습니다.");
-		location.href = '/board/'+userId+'/delete';
-	} else {
-		alert("다시 입력하세요!");
-		return;
-	}
+	let password = pwParams;
+	let boardId = userId;
+	
+	modal3();
+	setModalTitle('modal3','비밀번호를 입력하세요');
+   	setConfirmFunc = function confirmPw(){
+   		if(document.getElementById("confirmPw").value == password){
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 완료');
+   	   	    setModalBody('modal2', '게시글이 삭제되었습니다.');
+   	   		setOkayFunc = function confirmTrue(){
+   	   			location.href = '/board/'+boardId+'/delete';
+   			}
+   		} else {
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 실패');
+   	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
+   	   		setOkayFunc = function rCancel(){
+   	   			location.href = '/board/'+boardId+'/post?boardIdx=${board.boardIdx}';
+   	   		}
+   		}
+   	}
+
 }
 
 function deleteReply(replyIdx, replyPw, userId) {
-	let inputPw = prompt("비밀번호를 입력하세요(숫자4자리)");
 	
-	if(inputPw == replyPw){
-		alert("댓글이 삭제되었습니다.");
-		location.href = '/board/'+userId+'/reply-delete?replyIdx='+replyIdx;
-	} else {
-		alert("다시 입력하세요!");
-		return;
-	}
+	let password = replyPw;
+	let replIdx = replyIdx;
+	let replyId = userId;
+	
+	modal3();
+	setModalTitle('modal3','비밀번호를 입력하세요');
+   	setConfirmFunc = function confirmPw(){
+   		if(document.getElementById("confirmPw").value == password){
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 완료');
+   	   	    setModalBody('modal2', '댓글이 삭제되었습니다.');
+   	   		setOkayFunc = function confirmTrue(){
+   	   			location.href = '/board/'+replyId+'/reply-delete?replyIdx='+replIdx;
+   			}
+   		} else {
+   			modal2();
+   	   		setModalTitle('modal2','비밀번호 확인 실패');
+   	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
+   	   		setOkayFunc = function rCancel(){
+   	   			location.href = '/board/'+replyId+'/post?boardIdx=${board.boardIdx}';
+   	   		}
+   		}
+   	}
 }
 
 (() => {
@@ -316,6 +359,7 @@ function deleteReply(replyIdx, replyPw, userId) {
 			}
 	})
 })();
+
 </script>
 
 </html>

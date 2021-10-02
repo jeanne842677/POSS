@@ -112,7 +112,6 @@
                             <div id="name">예약자 : <c:out value="${rl.name}"/></div>
                             <div id="phone">연락처 : <c:out value="${rl.phone}"/></div>
                             <div id="cnt">인 원 : <c:out value="${rl.num}"/>인</div>
-                            <div id="table">테이블 : <c:out value="${rl.seatIdx}"/></div>
                             <div id="table">예약날짜 : <c:out value="${rl.reDate}"/></div>
                             <div id="table">예약시간 : <c:out value="${rl.reTime}"/></div>
                     </div>

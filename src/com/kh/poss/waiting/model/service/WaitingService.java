@@ -26,7 +26,6 @@ public class WaitingService {
 	private WaitingDao waitingDao = new WaitingDao();
 	private JDBCTemplate template = JDBCTemplate.getInstance();
 
-	
 	public int insertWaiting(Waiting waiting) {
 		System.out.println("\n*********** service 실행! *************\n");
 		Connection conn = template.getConnection();
@@ -43,13 +42,12 @@ public class WaitingService {
 		return res;
 	}
 
-
-	public int waitingCnt(Waiting waiting) {
+	public int waitingCnt(String userId) {
 		System.out.println("\n*********** Cnt service 실행! *************\n");
 		Connection conn = template.getConnection();
 		int res = 0;
 		try {
-			res = waitingDao.waitingCnt(waiting, conn);
+			res = waitingDao.waitingCnt(userId, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -59,12 +57,13 @@ public class WaitingService {
 		}
 		return res;
 	}
-	
-	public int updateWaiting(Waiting waiting) {
+
+	public int totalWaitingCnt(String userId) {
+		System.out.println("\n*********** Cnt service 실행! *************\n");
 		Connection conn = template.getConnection();
 		int res = 0;
 		try {
-			res = waitingDao.updateWaiting(waiting, conn);
+			res = waitingDao.totalWaitingCnt(userId, conn);
 			template.commit(conn);
 		} catch (Exception e) {
 			template.rollback(conn);
@@ -75,8 +74,23 @@ public class WaitingService {
 		return res;
 	}
 
+	public int updateWaiting(String waitingNum) {
+		Connection conn = template.getConnection();
+		int res = 0;
+		try {
+			res = waitingDao.updateWaiting(waitingNum, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		return res;
+	}
 
-	public int confirmWaitingByMessage(HttpServletRequest request, HttpServletResponse response, String phone, String waitingPeopleNum) {
+	public int confirmWaitingByMessage(HttpServletRequest request, HttpServletResponse response, String phone,
+			String waitingPeopleNum) {
 		Connection conn = template.getConnection();
 		int res = 0;
 		try {
@@ -89,34 +103,60 @@ public class WaitingService {
 			template.close(conn);
 		}
 		return res;
-		
-		
-	}
 
+	}
 
 	public List<Waiting> selectWaitingList(String userId) {
-	      List<Waiting> waitingList = null;
-	      Connection conn = template.getConnection();
-	      try {
-	    	  waitingList = waitingDao.selectWaitingList(userId, conn);
-	      } finally {
-	         template.close(conn);
-	      }
-	      return waitingList;
-	   }
-
+		List<Waiting> waitingList = null;
+		Connection conn = template.getConnection();
+		try {
+			waitingList = waitingDao.selectWaitingList(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		return waitingList;
+	}
 
 	public List<Waiting> searchWaitingList(String userId, String start, String end_date) {
-	    List<Waiting> searchWaitingList = null;
-	      Connection conn = template.getConnection();
-	      try {
-	    	  searchWaitingList = waitingDao.searchWaitingList(userId, start, end_date, conn);
-	      } finally {
-	         template.close(conn);
-	      }
-	      return searchWaitingList;
+		List<Waiting> searchWaitingList = null;
+		Connection conn = template.getConnection();
+		try {
+			searchWaitingList = waitingDao.searchWaitingList(userId, start, end_date, conn);
+		} finally {
+			template.close(conn);
+		}
+		return searchWaitingList;
 	}
-	   
-	
-}
 
+	public List<Waiting> selectTodayWaiting(String userId) {
+
+		List<Waiting> waitingList = null;
+		Connection conn = template.getConnection();
+		try {
+
+			waitingList = waitingDao.selectTodayWaiting(userId, conn);
+
+		} finally {
+			template.close(conn);
+		}
+		return waitingList;
+
+	}
+
+	public Waiting selectNewWaiting(String userId) {
+
+		Waiting waiting = null;
+		Connection conn = template.getConnection();
+		try {
+
+			waiting = waitingDao.selectNewWaiting(userId, conn);
+
+		} finally {
+			template.close(conn);
+		}
+
+		return waiting;
+
+	}
+
+}

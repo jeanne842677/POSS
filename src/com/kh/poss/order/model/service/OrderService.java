@@ -26,31 +26,18 @@ public class OrderService {
 		int res = 0;
 		List<String> menuList = new ArrayList<>();
 		List<String> menuCnt = new ArrayList<>();
-		String orderTitle = "";
 		
 		
-		System.out.println("서비스: 오더리스트 : " +orderList);
 		for(Map<String, String > map : orderList) {
 			menuList.add(map.get("menuIdx"));
 			menuCnt.add(map.get("menuCnt"));
 			
 			
-			
 		}
 		
-		System.out.println("메뉴 리스트: " + menuList);
-		System.out.println("메뉴 cnt: " + menuCnt);
 		 
 		
-		if(orderList.size()>0) {
-			orderTitle = orderList.get(0).get("menuIdx") + "외 " + orderList.size() +"건";
-		}else {
-			orderTitle = "주문취소";
-		}
-		
-		orderMaster.setTitle(orderTitle);
-		
-		System.out.println("오더 타이틀: " + orderTitle);
+	
 		try {
 
 			orderDao.insertOrderList(orderMaster ,menuList , menuCnt ,conn);
@@ -126,9 +113,98 @@ public class OrderService {
 		return orderJoinList;
 	}
 
+
+
+	//오더 취소시
+	public int orderCencle(String orderMasterIdx) {
+
+		Connection conn = template.getConnection();
+
+		int res = 0;
+		try {
+			
+			res = orderDao.orderCencle(orderMasterIdx , conn); //오더 정보를 취소로 바꿈
+			orderDao.DeleteOrderList(orderMasterIdx, conn); //오더 리스트 내역 삭제
+			
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+		
+		
+	}
+
+
+
+	public int modifyOrderMaster(String orderMasterIdx , List<Map<String, String>> orderList) {
+		Connection conn = template.getConnection();
+
+		int res = 0;
+		
+		List<String> menuList = new ArrayList<>();
+		List<String> menuCnt = new ArrayList<>();
+		
+		for(Map<String, String > map : orderList) {
+			menuList.add(map.get("menuIdx"));
+			menuCnt.add(map.get("menuCnt"));
+			
+			
+			
+		}
+		
+		try {
+			
+			orderDao.DeleteOrderList(orderMasterIdx, conn); //오더 리스트 내역 삭제
+			orderDao.modifyOrderMaster(orderMasterIdx, menuList, menuCnt , conn);
+			
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+		
+	}
+
+
+
+	public int paymentCompleted(String orderMasterIdx, String option) {
+
+		Connection conn = template.getConnection();
+
+		int res = 0;
+		
+		try {
+			
+			res = orderDao.paymentCompleted(orderMasterIdx, option ,conn); 
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		return res;
+		
+		
+	}
 	
 	
+
 	
+
+
 	
 	
 	

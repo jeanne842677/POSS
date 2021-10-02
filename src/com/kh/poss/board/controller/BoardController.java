@@ -129,6 +129,17 @@ public class BoardController extends HttpServlet {
       
 	  if (member != null) {
 		  title = "[관리자]" + title;
+		  writer = "관리자";
+	  } else {
+		  
+		  if (title.contains("[관리자]")) {
+    		  title = title.replace("[관리자]", "");
+    	  }
+		  
+		  if(writer.equals("관리자")) {
+			  writer = "익명";
+		  }
+		  
 	  }
 	   
       int isPrivate = 0;
@@ -144,6 +155,7 @@ public class BoardController extends HttpServlet {
       board.setBoardContent(content);
       board.setBoardPrivate(isPrivate);
       board.setBoardPw(password);
+      
       // 글쓰기 버튼시 db에 등록할 로직 구현 {}
 
       int ibSuccess = boardService.insertBoard(board);
@@ -163,6 +175,10 @@ public class BoardController extends HttpServlet {
       board.setUserId(userId);
       board.setBoardIdx(boardIdx);
       board = boardService.selectBoardDetail(userId, boardIdx);
+      
+      if(board.getTitle().contains("[관리자]")) {
+    	  board.setTitle(board.getTitle().replace("[관리자]", ""));
+      }
       
       List<Reply> replyList = replyService.selectReplyList(boardIdx);
       
@@ -203,6 +219,7 @@ public class BoardController extends HttpServlet {
    private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       Board board = (Board) request.getSession().getAttribute("board");
+      Member member = (Member) request.getSession().getAttribute("authentication");
 
       String boardIdx = board.getBoardIdx();
       String userId = board.getUserId();
@@ -211,6 +228,25 @@ public class BoardController extends HttpServlet {
       String content = request.getParameter("content");
       String Private = request.getParameter("isPrivate");
       String password = request.getParameter("password");
+        
+     
+      if(member != null) {
+    	  
+    	  title = "[관리자]" + title;
+    	  writer = "관리자";
+    	  
+      } else {
+		  
+		  if (title.contains("[관리자]")) {
+    		  title = title.replace("[관리자]", "");
+    	  }
+		  
+		  if(writer.equals("관리자")) {
+			  writer = "익명";
+		  }
+		  
+	  }
+      
 
       int isPrivate = 0;
 

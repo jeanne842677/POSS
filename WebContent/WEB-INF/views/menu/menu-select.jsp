@@ -881,26 +881,7 @@ function totalPrice(selectmenu) {
 }
 
 
-document.querySelector('.cash').addEventListener('click' , e=> {
-	
-	
-	   let totalPrice = document.querySelector('.paynum').innerText;
-	   setModalTitle('modal1','현금결제');
-	      setModalBody('modal1', '현금결제를 진행하시겠습니까?');
-	      modal1();
-	      setYesFunc = function testFnc(){
-	         setModalTitle('modal2','현금결제');
-	            setModalBody('modal2', '총 결제 금액 : ' + totalPrice + '원');
-	          modal2();
-	         }
-	
-	
-});
 
-
-    
-    
- 
     //ok버튼 클릭시
 	document.querySelector(".okBtn").addEventListener("click", e => {
     	
@@ -924,7 +905,65 @@ document.querySelector('.cash').addEventListener('click' , e=> {
 			
 		});
 		
-		fetch('/order/order-impl?html_idx=${htmlIdx}&tableUUID=${tableUUID}&tableName=${tableName}&orderNum=${ orderNum }' , {
+
+		let orderIdx;
+		<c:if test="${not empty orderIdx }" >
+			orderIdx = ${orderIdx} ;
+		</c:if>
+		
+		//만약 주문 내역이 없으면?
+		if(menuArr.length==0) {
+			
+			if(orderIdx) {
+				
+				fetch('/order/cencle?orderIdx='+orderIdx)
+				.then(res=> {
+
+					location.href ="/seat/select";
+					
+				});
+				
+				
+			}else {
+				location.href ="/seat/select";
+
+			}
+			
+			
+			return;
+		}
+		
+		
+		//만약 이미 오더된 상황이라면?
+		if(orderIdx) {
+			
+			fetch('/order/modify-impl?orderIdx='+orderIdx ,
+				{
+				  method: "POST",
+				  headers: {
+				    "Content-Type": "application/json; charset=utf-8",
+				  },
+				  body: JSON.stringify({
+				    orderList: menuArr
+				  })
+			})
+			.then(res=> {
+
+				location.href ="/seat/select";
+				
+			});
+			
+			
+			
+			return; 
+			
+			
+		}
+		
+		
+		//새 주문이라면?
+		fetch('/order/order-impl?html_idx=${htmlIdx}&tableUUID=${tableUUID}&tableName=${tableName}&orderNum=${ orderNum }' , 
+			{
 			  method: "POST",
 			  headers: {
 			    "Content-Type": "application/json; charset=utf-8",
@@ -949,26 +988,7 @@ document.querySelector('.cash').addEventListener('click' , e=> {
 	
 	
 	//현금 결제 클릭시
-	document.querySelector('.cash').addEventListener('click' , e=>{
-		
-		fetch("/order/payment?html_idx=${htmlIdx}&tableUUID=${tableUUID}&tableName=${tableName}&orderNum=${ orderNum }" ,
-				{	  
-			
-				method: "POST",
-			  	headers: {
-				    "Content-Type": "application/json; charset=utf-8",
-				  },
-				  body: JSON.stringify({
-				    orderList: menuArr
-				  })
-			
-				})
 
-		
-		
-	});
-	
-	
 
 
 	let createO = (json) => {
@@ -1098,20 +1118,62 @@ document.querySelector('.cash').addEventListener('click' , e=> {
 		
 	};
 
+	
+	
 	if(json) {
 		createO(json);
 	}
+	
+
+	
+	let payingInKakao = function() {
+		let orderIdx;
+		<c:if test="${not empty orderIdx }" >
+			orderIdx = ${orderIdx} ;
+		</c:if>
+		
+		fetch("/order/pay?option=P02&orderIdx="+orderIdx)
+		.then(res=>{
+			
+			location.href= "/seat/select";
+			
+		});
+		
+	}
+	
+	let payingInCash = function() {
+		let orderIdx;
+		<c:if test="${not empty orderIdx }" >
+			orderIdx = ${orderIdx} ;
+		</c:if>
+		
+		fetch("/order/pay?option=P01&orderIdx="+orderIdx)
+		.then(res=>{
+			
+			location.href= "/seat/select";
+			
+		});
+		
+	}
+	
+	
 	
 	function kakaoPay(){
         var IMP = window.IMP;
         IMP.init('imp37277937'); 
         var msg;
+	
+        let menuName ;
+        <c:if test="${ not empty orderJoinList}">;
+        menuName = ${orderJoinList}[0].name + " 외" ;
+        
+        </c:if>
         
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : 'KH Books 도서 결제',
+            name : menuName,
             amount : document.querySelector('.paynum').innerText,
         }, function(rsp) {
             if ( rsp.success ) {
@@ -1141,8 +1203,12 @@ document.querySelector('.cash').addEventListener('click' , e=> {
                 //성공시 이동할 페이지
                 setModalTitle('modal2','결제 성공');
                 setModalBody('modal2','금액 : ' + price + '원');
+                setOkayFunc = payingInKakao;
                 modal2();
+                
             } else {
+
+            	removeModalFnc("okay");
                 setModalTitle('modal2','결제 실패');
                 setModalBody('modal2','결제가 실패되었습니다.');
                 modal2();
@@ -1150,6 +1216,41 @@ document.querySelector('.cash').addEventListener('click' , e=> {
             }
         });
 	}
+	
+	
+
+	document.querySelector('.cash').addEventListener('click' , e=> {
+		
+		
+		 
+		   let totalPrice = document.querySelector('.paynum').innerText;
+		 	
+		   if(totalPrice==0) {
+
+			   removeModalFnc("okay");
+		       setModalTitle('modal2','현금결제');
+		       setModalBody('modal2', '결제할 금액이 없습니다.');
+		       modal2();
+		      
+			
+			   return;
+		   }else {
+		   
+		   setModalTitle('modal1','현금결제');
+		      setModalBody('modal1', '현금결제를 진행하시겠습니까?');
+		      modal1();
+		      setYesFunc = function testFnc(){
+
+		          setModalTitle('modal2','현금결제');
+		          setModalBody('modal2', '총 결제 금액 : ' + totalPrice + '원');
+		          setOkayFunc = payingInCash;
+			      modal2();
+		          
+		         }
+		   }	      
+	
+	});
+
     
 </script>
 </body>

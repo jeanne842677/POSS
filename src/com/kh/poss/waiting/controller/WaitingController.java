@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.poss.common.exception.PageNotFoundException;
 import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.waiting.model.dto.Waiting;
@@ -53,6 +56,15 @@ public class WaitingController extends HttpServlet {
 		case "waiting-search": // 웨이팅 내역 폼으로 이동
 			waitingSearch(request, response);
 			break;
+			
+		case "update": // 웨이팅 완료
+			update(request, response);
+			break;
+			
+		case "new-waiting": // 웨이팅 완료
+			newWaiting(request, response);
+			break;
+			
 		default:
 			throw new PageNotFoundException();
 		}
@@ -60,19 +72,27 @@ public class WaitingController extends HttpServlet {
 	}
 
 
+
+
 	// 웨이팅 폼으로 이동
 	private void waitingPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		int waitingCnt = waitingService.waitingCnt(userId);
+		request.setAttribute("waitingCnt",  waitingCnt);
+		
 		request.getRequestDispatcher("/waiting/waiting-page").forward(request, response);
 	}
 
+	
+	
 	// 웨이팅 정보 db에 저장
 	private void waitingInsert(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
 		// 웨이팅 db에 업데이트
 
-		System.out.println("\n*********** controller 실행! *************\n");
 
 		Member member = (Member) request.getSession().getAttribute("authentication");
 
@@ -87,29 +107,25 @@ public class WaitingController extends HttpServlet {
 		waiting.setWaitingPeople(waitingPeople);
 		
 		int isSuccess = waitingService.insertWaiting(waiting);
-		int waitingCnt = waitingService.waitingCnt(waiting);
-		int time = (waitingService.waitingCnt(waiting))*15;
+		int waitingNum = waitingService.totalWaitingCnt(userId); //waitingNum : 대기번호
 		
-		String team = Integer.toString(waitingCnt);
-		String estimatedTime = Integer.toString(time);
-		request.getSession().setAttribute("team", team);
-		request.getSession().setAttribute("estimatedTime", estimatedTime);
 		
-		int isSuccessSendwaitingMessage = waitingService.confirmWaitingByMessage(request, response, phone, waitingPeopleNum);
+		//int isSuccessSendwaitingMessage = waitingService.confirmWaitingByMessage(request, response, phone, waitingPeopleNum);
 
 		if (isSuccess > 0) {
-			System.out.println("웨이팅 등록 성공");
-			response.getWriter().print(waitingCnt);
+			response.getWriter().print(waitingNum);
 		} else {
 			System.out.println("등록 실패");
 			response.getWriter().print("disable");
 		}
 		
-		if (isSuccessSendwaitingMessage > 0) {
+		if ( 1 > 0) {
 			System.out.println("발송 완료");
 		}else {
 			System.out.println("발송 실패");
 		}
+		
+		
 		
 
 	}
@@ -180,7 +196,6 @@ public class WaitingController extends HttpServlet {
 			searchTimeList.add(dateFormat);
 		}
 
-		System.out.println("searchTimeList : " +searchTimeList);
 		request.setAttribute("searchTimeList", searchTimeList);
 
 		request.getRequestDispatcher("/waiting/waiting-confirm").forward(request, response);
@@ -188,7 +203,37 @@ public class WaitingController extends HttpServlet {
 	}
 	
 	
-	
+	//웨이팅 번호 삭제가 일어나면? 
+	private void update(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
+
+		String waitingNum = request.getParameter("waitingNum");
+		waitingService.updateWaiting(waitingNum);
+		
+		
+	}
+
+	private void newWaiting(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		
+		Waiting waiting = waitingService.selectNewWaiting(userId);
+		
+		SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("time", sf.format(waiting.getTime()));
+		map.put("waiting", waiting);
+		
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(map);
+		
+		response.setContentType("application/json; charset=utf-8");
+		response.getWriter().print(json);
+		
+	}
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
