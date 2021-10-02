@@ -46,20 +46,19 @@ public class WaitingDao {
 		return res;
 	}
 
-	public int waitingCnt(Waiting waiting, Connection conn) {
-		System.out.println("cnt dao 실행!");
+	public int waitingCnt(String userId, Connection conn) {
+		
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		int res = 0;
-		String query = "select count(*) cnt from waiting where user_id = ? and time >= sysdate";
+		String query = "select count(*) cnt from waiting where user_id = ? and time >= sysdate and is_waiting = 1";
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, waiting.getUserId());
+			pstm.setString(1, userId);
 			rset = pstm.executeQuery();
 			
 			if(rset.next()) {
 				res = rset.getInt("cnt");
-				System.out.println(res);
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException(e);
@@ -68,7 +67,34 @@ public class WaitingDao {
 		}
 		return res;
 	}
+	
+	
+	public int totalWaitingCnt(String userId, Connection conn) {
+		
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		int res = 0;
+		String query = "select count(*) cnt from waiting where user_id = ? and time >= sysdate";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+			
+			if(rset.next()) {
+				res = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		return res;
+		
+	}
 
+	
+	
+	
 	public int confirmWaitingByMessage(HttpServletRequest request, HttpServletResponse response, String phone,
 			String waitingPeopleNum) {
 		
@@ -190,6 +216,35 @@ public class WaitingDao {
 		waiting.setWaitingPeople(rset.getInt("num"));
 		waiting.setTime(rset.getDate("time"));
 		//waiting.setOrderIdx(rset.getString("order_master_idx"));
+		return waiting;
+	}
+
+	
+	
+	public Waiting selectNewWaiting(String userId, Connection conn) {
+		
+		Waiting waiting = null;
+		PreparedStatement pstm = null;
+	    ResultSet rset = null;
+	    
+	    String query = "select rownum , w.* from (select * from waiting where user_Id= ? order by time desc) w where rownum=1" ;
+
+	    try {
+	         pstm = conn.prepareStatement(query);
+	         pstm.setString(1, userId);
+	         rset = pstm.executeQuery();
+	         
+	         if(rset.next()) {
+	        	waiting = convertAllToWaiting(rset);
+	         }
+	      } catch (SQLException e) {
+	         throw new DataAccessException(e);
+	      } finally {
+	         template.close(rset, pstm);
+	      }   
+		
+	    
+		
 		return waiting;
 	}
 	

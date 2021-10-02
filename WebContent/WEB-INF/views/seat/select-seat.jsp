@@ -331,7 +331,7 @@ outline:none;
 				  </div>
 				<div class="card border-secondary mb-3" id="waiting" >
 					<div class="card-header" id="waiting_header">웨이팅</div>
-					<div class="card-body">
+					<div class="card-body wait-card">
 						
 						<c:if test="${ not empty waitingList }">
 							<c:forEach items="${ waitingList }" var="wl" varStatus="status">
@@ -345,9 +345,10 @@ outline:none;
 								let waitingNum = ${wl.waitingNum};
 								fetch('/waiting/update?waitingNum='+waitingNum)
 								.then(res=> {
-									e.target.remove();
+									document.querySelectorAll('.waiting')[${status.index}].remove();
+									webSocket.send("remove-waiting");
+									
 								})
-								
 								
 							})
 						
@@ -481,9 +482,73 @@ outline:none;
 	});
 	
 	
+	var webSocket = new WebSocket("ws://localhost:9090/waitingSocket");
+
+	webSocket.onopen = function(message) {
+		console.dir("소켓이 연결되었습니다.");
+	};
+	
+	
+	// WebSocket 서버와 접속이 끊기면 호출되는 함수
+	webSocket.onclose = function(message) {
+		alert("소켓 연결이 끊어졌습니다.");
+	};
+	
+	
+	
+	// WebSocket 서버와 통신 중에 에러가 발생하면 요청되는 함수
+	webSocket.onerror = function(message) {
+		alert("소켓 에러가 발생했습니다.");
+	};
+	
+	
+	
+	let obj ;
+	
+	/// WebSocket 서버로 부터 메시지가 오면 호출되는 함수
+	webSocket.onmessage = function(message) {
+		
+		console.dir(message.data);
+		if(message.data=="waiting-add") {
+			
+			
+			alert("새로운 웨이팅이 있습니다.");
+			
+			fetch("/waiting/new-waiting")
+			.then(res=> res.json())
+			.then(waiting => {
+				obj = waiting;
+				
+				let time = waiting.time;
+				
+				let waitingDiv = document.createElement('div');
+				waitingDiv.setAttribute("class" , "waiting");
+				waitingDiv.innerHTML = "<div class='time'>"+ time+ "</div>" +
+				"<div class='name'>" + waiting.waiting.phone+ " </div>" +
+				"<div class='num'>" + waiting.waiting.waitingPeople+ "명 </div>" ;
+				
+				document.querySelector('.wait-card').append(waitingDiv);
+				
+				waitingDiv.addEventListener( 'click' ,e=>{
+					let waitingNum = waiting.waiting.waitingNum;
+					fetch('/waiting/update?waitingNum='+waitingNum)
+					.then(res=> {
+						waitingDiv.remove();
+						webSocket.send("remove-waiting");
+						
+					})
+					
+				})
+				
+			})
+			
+		}
+		
+	};
+	
 	
 
-	
+    
 
 </script>
 

@@ -50,9 +50,13 @@ public class SalesController extends HttpServlet {
 	}
 
 	private void confirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Map<String, Object> rankMap = null;
 		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 
+		//오늘 총 판매금액
+		int todaySales = salesService.selectTodaySales(userId);
+		String todaySales2 = String.format("%,d", todaySales);
+		
 		//기간
 		Date time = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM");
@@ -62,36 +66,58 @@ public class SalesController extends HttpServlet {
 		}
 		
 		//탑 5메뉴
-		Map<String, Object> rankMap = salesService.selectMenuRank(userId, period);
-		String[] name = new String[rankMap.size()];
-		rankMap.keySet().stream().findFirst().get();
-		int[] cnt = new int[rankMap.size()];
-		
-		for (int i = 0; i < rankMap.size(); i++) {
-			name[i] = rankMap.keySet().stream().skip(i).findFirst().get();
-			cnt[i] = (int) rankMap.values().toArray()[i];
+		rankMap = salesService.selectMenuRank(userId, period);
+		if(rankMap.size() == 0) {
+			request.setAttribute("todaySales", todaySales2);
+			request.getRequestDispatcher("/sales/sales-confirm2").forward(request, response);
+		}else {
+			String[] name = new String[rankMap.size()];
+			rankMap.keySet().stream().findFirst().get();
+			int[] cnt = new int[rankMap.size()];
+			
+			for (int i = 0; i < rankMap.size(); i++) {
+				name[i] = rankMap.keySet().stream().skip(i).findFirst().get();
+				cnt[i] = (int) rankMap.values().toArray()[i];
+			}
+				
+			//총 판매금액
+			int sales = salesService.selectTotalSales(userId, period);
+			String sales2 = String.format("%,d", sales);
+
+			//총 판매건수
+			int salesCnt = salesService.selectTotalSalesCnt(userId, period);
+			int avg = sales / salesCnt;
+			String avg2 = String.format("%,d", avg);
+			
+			
+			//오늘 판매 메뉴와 메뉴별 금액
+			
+		    Map<String, Object> todayMap = salesService.selectTodayMenu(userId,period); 
+		    String[] dailyDate = new String[todayMap.size()];
+		    todayMap.keySet().stream().findFirst().get(); 
+		    int[] dailyPrice = new int[todayMap.size()];
+		  
+		    for (int i = 0; i < todayMap.size(); i++) { 
+		    	dailyDate[i] = todayMap.keySet().stream().skip(i).findFirst().get(); 
+		    	dailyPrice[i] = (int)todayMap.values().toArray()[i]; 
+		    }
+			int arraySize = dailyPrice.length;
+			System.out.println(arraySize);
+		    
+			request.setAttribute("period", period);
+			request.setAttribute("nameArr", name);
+			request.setAttribute("cntArr", cnt);
+			request.setAttribute("sales", sales2);
+			request.setAttribute("salesCnt", salesCnt);
+			request.setAttribute("avg", avg2);
+			request.setAttribute("todaySales", todaySales2);
+			request.setAttribute("dailyDate", dailyDate);
+			request.setAttribute("dailyPrice", dailyPrice);
+			request.setAttribute("arraySize", arraySize);
+			request.getRequestDispatcher("/sales/sales-confirm").forward(request, response);
 		}
-
-		//총 판매금액
-		int sales = salesService.selectTotalSales(userId, period);
-		String sales2 = String.format("%,d", sales);
-
-		//총 판매건수
-		int salesCnt = salesService.selectTotalSalesCnt(userId, period);
-		int avg = sales / salesCnt;
-		String avg2 = String.format("%,d", avg);
 		
-		//오늘 판매금액
-		int todaySales = salesService.selectTodaySales(userId);
-		String todaySales2 = String.format("%,d", todaySales);
 		
-		request.setAttribute("nameArr", name);
-		request.setAttribute("cntArr", cnt);
-		request.setAttribute("sales", sales2);
-		request.setAttribute("salesCnt", salesCnt);
-		request.setAttribute("avg", avg2);
-		request.setAttribute("todaySales", todaySales2);
-		request.getRequestDispatcher("/sales/sales-confirm").forward(request, response);
 	}
 
 	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

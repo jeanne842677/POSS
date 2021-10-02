@@ -28,7 +28,7 @@ public class OrderDao {
 
 		CallableStatement cstm = null;
 		ResultSet rset = null;
-		String query = "{call SP_ORDERS_INSERT(?,?,?,?,?,?,?)}";
+		String query = "{call SP_ORDERS_INSERT(?,?,?,?,?,?,? )}";
 
 		System.out.println(orderMaster);
 		try {

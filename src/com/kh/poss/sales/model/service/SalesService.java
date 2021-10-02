@@ -67,6 +67,17 @@ public class SalesService {
 	    }
 	    return salesList;
 	}
+	
+	public Map<String,Object> selectTodayMenu(String userId, String period) {
+		  Map<String,Object> todayMap = null;
+	      Connection conn = template.getConnection();
+	      try {
+	    	  todayMap = salesDao.selectTodayMenu(userId, period, conn);
+	      } finally {
+	         template.close(conn);
+	      }
+	      return todayMap;
+	}
 }
 	
 

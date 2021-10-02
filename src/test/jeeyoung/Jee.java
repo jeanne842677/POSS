@@ -57,8 +57,6 @@ public class Jee extends HttpServlet {
 	private void socket(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		SocketTest soc = new SocketTest();
-		
 		
 	}
 

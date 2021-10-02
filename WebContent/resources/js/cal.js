@@ -63,8 +63,8 @@ let makeform = function(selector) {
         for(let i = 0 ; i<8 ; i++) {
             let day = document.createElement('td');
             week.append(day);
-            // let dayDiv = document.createElement('div');
-            // day.append(dayDiv);
+            let dayDiv = document.createElement('div');
+            day.append(dayDiv);
         }
         
         
@@ -123,9 +123,6 @@ let monthDraw = function(cal,date) {
 
 
     let newDate = new Date();
-
-
-
     
     //데이 받아서 
     

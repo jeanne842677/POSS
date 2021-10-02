@@ -220,18 +220,18 @@ th {
         <div class="wait_team_wrap">
           <div class="wait_team">
             <div class="wait_team_num_wrap">
-              <c:if test="${not empty team}">
+              <c:if test="${not empty waitingCnt}">
               <div> 현재 대기팀 </div>
-              <div class="team_num">${team}</div>
+              <div class="team_num">${waitingCnt}</div>
               </c:if>
             </div>
             <div style="font-size:20px;">휴대폰 번호를 입력하시면 <br> 문자로 알려드립니다.</div>
           </div>
         </div>
         <div class="wait_time_wrap">
-         <c:if test="${not empty estimatedTime}">
+         <c:if test="${not empty waitingCnt}">
           <span>예상시간</span>
-          <span id="wait_time">${estimatedTime}</span>
+          <span id="wait_time">${waitingCnt*10}</span>
           <span>분</span>
           </c:if>
         </div>
@@ -298,12 +298,49 @@ th {
 
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
         <script type="text/javascript">
-        let waitingPage = function() {
+		//웹소켓 연결
+		var webSocket = new WebSocket("ws://localhost:9090/waitingSocket");
+		
+		webSocket.onopen = function(message) {
+			console.dir("소켓이 연결되었습니다.");
+		};
+		
+		
+		// WebSocket 서버와 접속이 끊기면 호출되는 함수
+		webSocket.onclose = function(message) {
+			alert("소켓 연결이 끊어졌습니다.");
+		};
+		
+		
+		
+		// WebSocket 서버와 통신 중에 에러가 발생하면 요청되는 함수
+		webSocket.onerror = function(message) {
+			alert("소켓 에러가 발생했습니다.");
+		};
+		
+		
+		
+		/// WebSocket 서버로 부터 메시지가 오면 호출되는 함수
+		webSocket.onmessage = function(message) {
+			
+			console.dir(message.data);
+			if(message.data=="remove-waiting") {
+				
+				let teamNum = document.querySelector('.team_num')
+				teamNum.innerHTML = parseInt(teamNum.innerHTML) - 1;
+			
+			}
+			
+		};
+        
 
-        	location.href = "/waiting/waiting-page";
-        	
-        }
-      let idx = 0;
+		let idx=0;
+		
+	 let waitingPage = ()=> {
+		 
+		 location.href = "/waiting/waiting-page";
+		 
+	 }
 
       document.querySelectorAll('tr').forEach(tr=> {
         tr.addEventListener('mousedown', e=>{
@@ -384,10 +421,13 @@ th {
 			}
 		 else {  	
 			 		//예약이 완료되면(db저장 & 문자메세지) 모달창으로 현재 예약번호와 함께 안내말 출력
+					webSocket.send("waiting-add");		
 					setModalTitle('modal2','웨이팅이 등록 되었습니다.');
 					setModalBody('modal2', '연락처 : ' + phoneNum + '<br>인원 수 : ' + waitingNum + '<br>예약 번호 : ' + text);
 					setOkayFunc = waitingPage;
 					modal2();
+					
+					
 					
 			
 		 }

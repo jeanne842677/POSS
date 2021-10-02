@@ -8,9 +8,8 @@
     <title>매출관리</title>
            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-       <script type="text/javascript" src="resources/js/datepicker-ko.js"></script>
        <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
+   <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">   
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
    
@@ -319,33 +318,33 @@
     }
 
     /* 표  */
-	#content{
-		display: flex;
+   #content{
+      display: flex;
         justify-content: center;
         width: 100%;
         height: 65vh;
         margin-top: 9px;
-	}
+   }
 
-	.content-wrap{
-		width: 100%;
-		height: 100%;
-		overflow: auto;
-	}
-	
-	.table th{
-		text-align: center;
-	}
+   .content-wrap{
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+   }
+   
+   .table th{
+      text-align: center;
+   }
 
-	.table td{
-		text-align: center;
-	}
+   .table td{
+      text-align: center;
+   }
 
-	#btn-table{
-		border-radius: 5%;
-		height:30px;
-		line-height: 20px;
-	}
+   #btn-table{
+      border-radius: 5%;
+      height:30px;
+      line-height: 20px;
+   }
 
     
     
@@ -413,15 +412,17 @@
 
 <!-- 매출내역 ============================================================================= -->
 <div id="slaes_history" style="display:block;">
-
+   
+   <form action='/sales/detail' onsubmit="selectedmonth()" method='POST'>
     <section id="showterm">
         <p class="selectday">기간선택 &nbsp;</p>
-        <input type="text" id ="thismonth" class="start" > 
+        <input type="text" id ="thismonth" name="thismonth" placeholder="날짜를 입력하세요" autocomplete="off" class="start" > 
         
         <div class="seebtn">
-            <button type="button" onclick="selectedmonth()" class="btn btn-primary">조회</button>
+            <button type="submit" class="btn btn-primary">조회</button>
         </div>
     </section>
+    </form>
 
     <div id='content'>
         <div class='content-wrap'>
@@ -437,22 +438,22 @@
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${salesList}" varStatus="vs" var="sl">
-	                <tr>
-	                  <td>${vs.index +1}</td>
-	                  <td>${sl.regDate}</td>
-	                  <td>정상</td>
-	                  <td>${sl.title}</td>
-	                  <c:choose>
-	                  	<c:when test="${sl.payment eq 'P01'}">
-	                  		<td>현금</td>
-	                  	</c:when>
-	                  	<c:otherwise>
-	                  		<td>카카오페이</td>
-	                  	</c:otherwise>
-	                  </c:choose>
-	                  <td>${sl.sumPrice}원</td>
-	                </tr>
+                 <c:forEach items="${salesList}" varStatus="vs" var="sl">
+                   <tr>
+                     <td>${vs.index +1}</td>
+                     <td>${sl.regDate}</td>
+                     <td>정상</td>
+                     <td>${sl.title}</td>
+                     <c:choose>
+                        <c:when test="${sl.payment eq 'P01'}">
+                           <td>현금</td>
+                        </c:when>
+                        <c:otherwise>
+                           <td>카카오페이</td>
+                        </c:otherwise>
+                     </c:choose>
+                     <td>${sl.sumPrice}원</td>
+                   </tr>
                 </c:forEach>
               </tbody>
             </table>
@@ -513,19 +514,17 @@ $(document).ready(function(){
 });
 
 // 현재 월 기본값으로 표시
-  document.getElementById('thismonth').value= new Date().toISOString().slice(0, 7);
   const dday = document.querySelector("#thismonth").value;
-  document.querySelector(".con1_date").innerText=dday;
+  document.querySelector("#thismonth").value = dday;
 
 // 기간 선택 값 받아오기
     function selectedmonth(){
-    const dday = document.querySelector("#thismonth").value;
-    document.querySelector(".con1_date").innerText=dday;
+       const dday = document.querySelector("#thismonth").value;
+       document.getElementById('thismonth').value = dday;
     }
     
 
 </script>
 
-</div>
 </body>
 </html>
