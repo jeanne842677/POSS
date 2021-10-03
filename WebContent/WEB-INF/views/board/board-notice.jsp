@@ -174,6 +174,11 @@ html, body{
    
 }
 
+#page>ul>li{
+	margin:10px;
+	font-size:22px;
+}
+
 #keywordBox {
 	width: 50%;
 	border-top: none;
@@ -187,6 +192,15 @@ html, body{
 #keywordBox::placeholder {
 	text-align: center;
 }
+
+#keywordBox:focus {
+		outline:none;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom-color: #61bfad;
+		}
+		
 #search {
 	width: 60px;
 	height: 30px;

@@ -12,29 +12,29 @@
 <style type="text/css">
 
 html, body {
-   width:100%;
+	width:100%;
 }
 
 /* 전체 감싸기 */
 .wrap{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 /* 상단바 감싸기 */
 .nav_wrap{
-   display: flex;
-   justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 /* div,ul,li,a,span {
-   border: solid thin;
+	border: solid thin;
 } */
 
 /*네비게이션영역 */
 #header{
-   width:100%;
+	width:100%;
     height:100px;
     background-color: #aaa;
     background-color: white;
@@ -48,21 +48,21 @@ html, body {
 
 /*상단바*/
 .navbar{
-   width:100%;
-   height: 90px;
-   display:flex;
-   font-size: 25px;
-   border-bottom: 1px solid;
+	width:100%;
+	height: 90px;
+	display:flex;
+	font-size: 25px;
+	border-bottom: 1px solid;
 }
 
 /* 상단바 세부 그룹 */
 .nav_group{
-   margin-top: 3px;
-   display: flex;
+	margin-top: 3px;
+	display: flex;
 }
 
 .nav_group > * {
-   flex-shrink:0;
+	flex-shrink:0;
 }
 
 /* 구현해조 */
@@ -92,81 +92,87 @@ html, body {
 
 /* 메인으로 버튼 */
 #main_button{
-   border-radius: 15px;
-   font-size: 12px;
-   height: 30px;
-   margin-top: 27px;
-   margin-left: 20px;
+	border-radius: 15px;
+	font-size: 12px;
+	height: 30px;
+	margin-top: 27px;
+	margin-left: 20px;
 }
 
 /* 내정보 수정*/
 .modify_my_info_text{
-   font-size: 25px;
-   font-weight:bold;
-   text-align: center;
-   margin-top: 25px;
+	font-size: 25px;
+	font-weight:bold;
+	text-align: center;
+	margin-top: 25px;
 }
 
 /* 수정영역 감싸는 */
 .wrap_modify{
-   height: 350px;
-   align-self: center;
-   margin-top: 50px;
+	height: 350px;
+    width: 493px;
+    align-self: center;
+    margin-top: 50px;
 }
 
 /* 입력공간 */
 .info_text{
-   text-align: center;
-   justify-content: center;
+
 }
 
 
 .info_text>div{
-   margin-bottom: 20px;
-   display: flex;
-   justify-content: space-between;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .info_text>div label{
-   text-align: left;
-   font-size: 17px;
+	text-align: left;
+	font-size: 17px;
 }
 
 .info_text input{
-   float: right;
-   width: 250px;
-   margin-left: 30px;
+	float: right;
+	width: 250px;
+	margin-left: 30px;
 }
 
 /* 내정보 수정 버튼*/
 .modify_my_info{
-   text-align: center;
-   margin-top: 100px;
+	text-align: center;
+	margin-top: 100px;
 }
 
 /* 내정보 수정 버튼 */
 #modify_confirm_btn{
-   width: 750px;
-   height: 35px;
-   margin-left: 50px;
-   font-size: 15px;
-   margin-top: 50px;
+	width: 750px;
+	height: 35px;
+	font-size: 15px;
+	margin-top: 70px;
 }
 
 #searchAddress{
-   border-radius: 15px;
-   font-size: 12px;
-   height: 30px;
+	border-radius: 15px;
+	font-size: 12px;
+	height: 30px;
 }
 
 .ID{
-   text-align: left;
+	text-align: left;
 }
 
-.valid-msg{
-   color:red;   
-   font-size:10px;
+.noneselect{
+	outline:none;
+	border: none;
 }
+
+.noneselect:focus{
+	outline:none;
+	border: none;
+}
+
+
 
     
 </style>
@@ -198,37 +204,37 @@ html, body {
               <div class="info_text">
              <div>
               <label>매장명</label>
-               <input type="text" id="storeName" name="storeName" value="${authentication.store_name}">
+               <input type="text" id="storeName" class="form-control" name="storeName" value="${authentication.store_name}">
                </div>
                <div>
                <label>매장주소</label>
-               <input type="text" id="storeAddress" name="storeAddress" style="width: 135px;" value="${addressNum}">
+               <input type="text" id="storeAddress" class="form-control" name="storeAddress" style="width: 135px; margin-left: 132px;" value="${addressNum}">
                <button type="button" class="btn btn-secondary" id="searchAddress" onclick="search();">주소찾기</button>
                </div>
                <div>
                <label></label>
-               <input type="text" id="storeDetailAddress" name="storeDetailAddress" value="${detailAddress}">
+               <input type="text" id="storeDetailAddress" class="form-control" name="storeDetailAddress" value="${detailAddress}">
                </div>
                <div>
                <label>대표자명</label>
-               <input type="text" id="managerName" name="name" value="${authentication.name}">
+               <input type="text" id="managerName" class="form-control" name="name" value="${authentication.name}">
                </div>
                <div>
                <label>대표번호</label>
-               <input type="text" id="managerPhone" name="phone" value="${authentication.phone}">
+               <input type="text" id="managerPhone" class="form-control" name="phone" value="${authentication.phone}">
                </div>
                <div id="phoneCheck" class="valid-msg"> </div>
                <div>
                <label>아이디</label>
-               <input type="text" id="ID" name="id" name="id" value="${authentication.userId}" readonly>
+               <input type="text" id="ID" class="noneselect" name="id" name="id" value="${authentication.userId}" readonly>
                </div>
                <div>
                <label>비밀번호</label>
-               <input type="password" id="userPw" name="password" value="${authentication.password}">
+               <input type="password" id="userPw" class="form-control" name="password" value="${authentication.password}">
                </div>
                <div>
                <label>비밀번호 확인</label>
-                <input type="password" id="userPwConfirm" placeholder="PASSWORD">
+                <input type="password" class="form-control" id="userPwConfirm" placeholder="PASSWORD">
                 </div>
                <div class='d-flex' style="justify-content: space-between;">
                 <div id="pwCheck" class="valid-msg"> </div>

@@ -16,542 +16,542 @@
     <title>possPage</title>
 <style type="text/css">
     html, body {
-        width:100%;
-        min-width:965px;
-        min-height: 700px;
-        height:100%;
-        background-color: #ddd;
-    }
+    width:100%;
+    min-width:1130px;
+    min-height: 700px;
+    height:100%;
+    background-color: #ddd;
+}
 
+
+
+/* div{
+    border: solid 1px;
+} */
+
+/* header ---------------------------------------- */
+#header {
+    width: 100%;
+    height: 8.5% fixed;
+    background-color: #78c2ad;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    line-height: 80px;
+    font-size: 30px;
+    min-width: 1130px;
+}
+
+.back{
+    width:3%;
+    height:80px;
+    text-align:center;
+    min-width: 25px;
+}
+
+
+.now_order{
+    width:83%;
+    height:80px;
+    font-weight: bold;
+    min-width: 520px;
+    padding-left:10px
+}
+
+
+/* 토글버튼 */
+.modify_toggle{
+    width:10%;
+    min-width: 80px;
+    height:80px;
     
+}
 
-    /* div{
-        border: solid 1px;
-    } */
+.form-switch .form-check-input{
+    border : solid 5px white;
+    height: 1.4em;
+    width:2.5em;
+}
+
+.form-check {
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+/* ////토글버튼 끝 */
+
+/* 네비게이션 */
+#menubar{
+    width:4%;
+    height:80px;
+    text-align: center;
+    min-width: 58px;
+}
+
+#menuslide{
+    width: 100%;
+    z-index: 1000;
+    position: absolute;
+    float: right;
+    display: flex;
+    justify-content: end;
+}
+
+.slide{
+    width: 300px;
+    height: 250px;
+    background-color: #f9f7e8;
+    display: flex;
+    position: absolute;
+    margin: 80px 10px 10px 10px;
+    border-bottom : solid 5px #ccc;
+    border-left : solid 5px #ccc;
+    border-right : solid 5px #ccc;
+    justify-content: center;
+}
+
+.go{
+    width:80%;
+    color:#343a40;
+    font-size: 23px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.go_home, .go_sales, .go_reserve, .go_waiting{
+    height: 20%;
+    border-bottom : dotted 1px #666;
+    line-height: 49px;
+}
+
+.go_board{
+    height: 20%;
+    line-height: 49px;
+}
+            
+
+/* content_wrap------------------------------------------------------------------- */
+#content_wrap {
+    height: 100%;
+    min-width: 1130px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* content1 포스페이지 주문리스트------------------------------------------------------------- */
+#content1{
+    width:40%;
+    min-width: 495px;
+    height:100%;
+    background-color: white;
+    padding:10px;
+}
+
+/* 테이블번호 */
+.table_num{
+    width:100%;
+    height:8%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px #888;
+}
+
+.tb_num{
+    width: 100px;
+    min-width: 51px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #343a40;
+    font-weight: bold;
     
-    /* header ---------------------------------------- */
-    #header {
-	    width: 100%;
-	    height: 8.5% fixed;
-	    background-color: #78c2ad;
-	    color: white;
-	    display: flex;
-	    justify-content: space-between;
-	    line-height: 80px;
-	    font-size: 30px;
-	    min-width: 1130px;
-	}
+}
+/* 대기시간 */
+.wait_time{
+    width:10%;
+    min-width:58px;
+    font-size:25px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .back{
-        width:3%;
-        height:80px;
-        text-align:center;
-        min-width: 25px;
-    }
+/* 주문목록 */
+.order_list{
+    width:100%;
+    min-width: 477px;
+    height: 77%;
+    padding: 10px 0px 10px 0px;
+    overflow: auto;
+}
 
+/* 각주문 wrap */
+.selectmenu{
+    width:100%;
+    min-width: 420px;
+    height:100px;
+    display:flex;
+    justify-content: space-around;
+    background : rgb(181, 227, 216);
+}
+/* 메뉴이름 */
+.selectname{
+    width:25%;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color:#343a40;
+}
+/* 단가 */
+.oneprice{
+    width:25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+}
 
-    .now_order{
-        width:83%;
-        height:80px;
-        font-weight: bold;
-        min-width: 520px;
-        padding-left:10px
-    }
+/* 개수조절 */
+.plma{
+    width:25%;
+    height:100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size:25px;
+    color:#343a40;
+    font-weight: bold;
+}
+
+/* +,- 버튼 */
+.minus, .plus{
+    width:30px;
+    height:30px;
+    background-color:#bbb;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color:#343a40;
+}
+
+/* 메뉴당 개수*단가 */
+.resprice{
+    width:25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color:#343a40;
+    font-weight: bold;
+}
+
+/* 주문금액wrap */
+.order_sum{
+    width:100%;
+    height: 15%;
+    border-top: solid 1px #888;
+    display: flex;
+    align-items: center;
+   
+}
+/* 주문금액 */
+.sum{
+    width:100%;
+    height:50%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.menusum{
+    width:20%;
+    min-width:102px;
+    height:100%;
+    font-size: 25px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ordernum{
+    width:20%;
+    min-width:142px;
+    height:100%;
+    font-size: 25px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 총금액 */
+.pay{
+    width:100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.paysum{
+    width:20%;
+    min-width:102px;
+    height:100%;
+    display:flex;
+    font-size: 30px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+.paynum{
+    width:20%;
+    min-width:142px;
+    height:100%;
+    display:flex;
+    font-size: 30px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+/* content2 포스페이지 메뉴리스트------------------------------------------------------------- */
+#content2{
+    width:59%;
+    height:100%;
+    background-color: white;
+    margin-left: 10px;
+}
+
+/* 메뉴카테고리 */
+.menu_cate{
+    width:100%;
+    height:20%;
+    min-height:200px;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    border-bottom: solid 1px #888;
+    overflow-y: hidden;
+}
+
+  .menu_cate::-webkit-scrollbar{
+     width:10px;
+     height:10px;
+ }
  
-
-    /* 토글버튼 */
-    .modify_toggle{
-        width:10%;
-        min-width: 80px;
-        height:80px;
-        
-    }
-
-    .form-switch .form-check-input{
-        border : solid 5px white;
-        height: 1.4em;
-        width:2.5em;
-    }
-
-    .form-check {
-        height: 80px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    /* ////토글버튼 끝 */
-
-    /* 네비게이션 */
-    #menubar{
-        width:4%;
-        height:80px;
-        text-align: center;
-        min-width: 58px;
-    }
-
-    #menuslide{
-        width: 100%;
-        z-index: 1000;
-        position: absolute;
-        float: right;
-        display: flex;
-        justify-content: end;
-    }
-
-    .slide{
-        width: 300px;
-        height: 250px;
-        background-color: #f9f7e8;
-        display: flex;
-        position: absolute;
-        margin: 80px 10px 10px 10px;
-        border-bottom : solid 5px #ccc;
-        border-left : solid 5px #ccc;
-        border-right : solid 5px #ccc;
-        justify-content: center;
-    }
-
-    .go{
-        width:80%;
-        color:#343a40;
-        font-size: 23px;
-        font-weight: 600;
-        text-align: center;
-    }
-
-    .go_home, .go_sales, .go_reserve, .go_waiting{
-        height: 20%;
-        border-bottom : dotted 1px #666;
-        line-height: 49px;
-    }
-
-    .go_board{
-        height: 20%;
-        line-height: 49px;
-    }
-                
-
-    /* content_wrap------------------------------------------------------------------- */
-   #content_wrap {
-	    height: 100%;
-	    min-width: 1130px;
-	    padding: 10px;
-	    display: flex;
-	    justify-content: space-around;
-	}
-
-    /* content1 포스페이지 주문리스트------------------------------------------------------------- */
-    #content1{
-        width:40%;
-        min-width: 495px;
-        height:100%;
-        background-color: white;
-        padding:10px;
-    }
-
-    /* 테이블번호 */
-    .table_num{
-        width:100%;
-        height:8%;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: solid 1px #888;
-    }
-
-    .tb_num{
-        width: 100px;
-	    min-width: 51px;
-	    font-size: 30px;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    color: #343a40;
-	    font-weight: bold;
-        
-    }
-    /* 대기시간 */
-    .wait_time{
-        width:10%;
-        min-width:58px;
-        font-size:25px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* 주문목록 */
-    .order_list{
-        width:100%;
-        min-width: 477px;
-        height: 77%;
-        padding: 10px 0px 10px 0px;
-        overflow: auto;
-    }
-
-    /* 각주문 wrap */
-    .selectmenu{
-        width:100%;
-        min-width: 420px;
-        height:100px;
-        display:flex;
-        justify-content: space-around;
-        background : rgb(181, 227, 216);
-    }
-    /* 메뉴이름 */
-    .selectname{
-        width:25%;
-        min-width: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 25px;
-        color:#343a40;
-    }
-    /* 단가 */
-    .oneprice{
-        width:25%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 23px;
-    }
-
-    /* 개수조절 */
-    .plma{
-        width:25%;
-        height:100%;
-        display:flex;
-        justify-content: space-around;
-        align-items: center;
-        font-size:25px;
-        color:#343a40;
-        font-weight: bold;
-    }
-    
-    /* +,- 버튼 */
-    .minus, .plus{
-        width:30px;
-        height:30px;
-        background-color:#bbb;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        font-weight: bold;
-        color:#343a40;
-    }
-
-    /* 메뉴당 개수*단가 */
-    .resprice{
-        width:25%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 25px;
-        color:#343a40;
-        font-weight: bold;
-    }
-
-    /* 주문금액wrap */
-    .order_sum{
-        width:100%;
-        height: 15%;
-        border-top: solid 1px #888;
-        display: flex;
-    	align-items: center;
-       
-    }
-    /* 주문금액 */
-    .sum{
-        width:100%;
-        height:50%;
-        display: flex;
-        justify-content: space-between;
-        
-    }
-
-    .menusum{
-        width:20%;
-        min-width:102px;
-        height:100%;
-        font-size: 25px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .ordernum{
-        width:20%;
-        min-width:142px;
-        height:100%;
-        font-size: 25px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* 총금액 */
-    .pay{
-        width:100%;
-        height: 50%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .paysum{
-        width:20%;
-        min-width:102px;
-        height:100%;
-        display:flex;
-        font-size: 30px;
-        font-weight: bold;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .paynum{
-        width:20%;
-        min-width:142px;
-        height:100%;
-        display:flex;
-        font-size: 30px;
-        font-weight: bold;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* content2 포스페이지 메뉴리스트------------------------------------------------------------- */
-    #content2{
-        width:59%;
-        height:100%;
-        background-color: white;
-        margin-left: 10px;
-    }
-
-    /* 메뉴카테고리 */
-    .menu_cate{
-        width:100%;
-        height:20%;
-        min-height:200px;
-        padding:10px;
-        display:flex;
-        align-items: center;
-        border-bottom: solid 1px #888;
-        overflow-y: hidden;
-    }
-	
-	  .menu_cate::-webkit-scrollbar{
-     	width:10px;
-     	height:10px;
-     }
-     
-     .menu_cate::-webkit-scrollbar-thumb {
-	    background-color: #444;
-	    border-radius: 10px;
-	    background-clip: padding-box;
-	    border: 2px solid transparent;
-	  }
-	  
-	  .menu_cate::-webkit-scrollbar-track {
-	    background-color: #00ff0000;
-	    border-radius: 10px;
-	    box-shadow: inset 0px 0px 5px white;
-	  }
-
-
-    #cate{
-        width:20%;
-        min-width:153px;
-        height:100%;
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        color:#343a40;
-        background-color: #f9f7e8;
-        font-size:30px;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:10px;
-    }
-
-    
-
-    /* 메뉴목록 */
-    .menu_zone{
-	    width: 100%;
-	    height: 68%; 
-	    overflow-x:hidden;
-        overflow-y:scroll; 
-    }
-    
-    .menu_name{
-        width: 100%;
-   		height: 100%;
-        padding:10px;
-       	display: flex;
-    	flex-wrap: wrap;
-    	align-content: baseline;
-    }
-    
-     .menu_zone::-webkit-scrollbar{
-     	width:10px;
-     }
-     
-     .menu_zone::-webkit-scrollbar-thumb {
-	    background-color: #444;
-	    border-radius: 10px;
-	    background-clip: padding-box;
-	    border: 2px solid transparent;
-	  }
-	  
-	  .menu_zone::-webkit-scrollbar-track {
-	    background-color: #00ff0000;
-	    border-radius: 10px;
-	    box-shadow: inset 0px 0px 5px white;
-	  }
-
-    .menu_name>div{
-        min-width: 153px;
-	    height: 25%;
-	    max-height: 128px;
-	    min-height: 128px;
-	    color: black;
-	    font-size: 100%;
-	    font-weight: bold;
-	    box-shadow: 5px 5px #aaa;
-	    margin: 10px;
-	    border-radius: 5px;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    flex-direction: column;
-    }
-    
-    .menu_name>div>img{
-    	margin-bottom:10px;
-    }
-
-    
-    .img_view{
-    	width:100%;
-    	height: 80%;
-    }
-    
-    .img_view>img{
-    	width: 100%;;
-    	height: 100%;
-    }
-    
-    .menu_info{
-    	display: flex;
-    	justify-content: space-around;
-    }
-
-
-    /* 결제방식 */
-    .select_commit{
-        width:100%;
-        height:12%;
-        background-color: #666;
-        display:flex;
-        justify-content: space-around;
-        
-    }
-
-    .select_commit>*{
-        color:white;
-    }
-
-    .cancel, .okBtn, .allcancel, .kakaopay, .cash{
-        width:20%;
-        display:flex;
-        font-size: 25px;
-        font-weight: bold;
-        justify-content: center;
-        align-items: center;
-        color:white;
-    }
-
-
-    @media screen and (max-width: 1320px) {
-        .hide{
-            display: none;
-        }
-    
-    }
+ .menu_cate::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
   
-    /* poss modify ========================================================================================================= */
-    #toggle_on{
-        width:100%;
-        height:91.5%;
-    }
+  .menu_cate::-webkit-scrollbar-track {
+    background-color: #00ff0000;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 
 
-    #toggle_off{
-        width:100%;
-        height:91.5%;
+#cate{
+    width:20%;
+    min-width:153px;
+    height:128px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color:#343a40;
+    background-color: #f9f7e8;
+    font-size:30px;
+    font-weight: bold;
+    box-shadow: 5px 5px #aaa;
+    margin:10px;
+}
+
+
+
+/* 메뉴목록 */
+.menu_zone{
+    width: 100%;
+    height: 68%; 
+    overflow-x:hidden;
+    overflow-y:scroll; 
+}
+
+.menu_name{
+    width: 100%;
+       height: 100%;
+    padding:10px;
+       display: flex;
+    flex-wrap: wrap;
+    align-content: baseline;
+}
+
+ .menu_zone::-webkit-scrollbar{
+     width:10px;
+ }
+ 
+ .menu_zone::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  
+  .menu_zone::-webkit-scrollbar-track {
+    background-color: #00ff0000;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
+.menu_name>div{
+    min-width: 153px;
+    height: 25%;
+    max-height: 128px;
+    min-height: 128px;
+    color: black;
+    font-size: 100%;
+    font-weight: bold;
+    box-shadow: 5px 5px #aaa;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.menu_name>div>img{
+    margin-bottom:10px;
+}
+
+
+.img_view{
+    width:100%;
+    height: 80%;
+}
+
+.img_view>img{
+    width: 100%;;
+    height: 100%;
+}
+
+.menu_info{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+/* 결제방식 */
+.select_commit{
+    width:100%;
+    height:12%;
+    background-color: #666;
+    display:flex;
+    justify-content: space-around;
+    
+}
+
+.select_commit>*{
+    color:white;
+}
+
+.cancel, .okBtn, .allcancel, .kakaopay, .cash{
+    width:20%;
+    display:flex;
+    font-size: 25px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    color:white;
+}
+
+
+@media screen and (max-width: 1320px) {
+    .hide{
+        display: none;
     }
+
+}
+
+/* poss modify ========================================================================================================= */
+#toggle_on{
+    width:100%;
+    height:91.5%;
+}
+
+
+#toggle_off{
+    width:100%;
+    height:91.5%;
+}
 
 
 
 .icon {
 
-    width:50px;
-    padding: 5px;
-    margin: 3px;
+width:50px;
+padding: 5px;
+margin: 3px;
 
 }
 
 
-    /* 메뉴카테고리 */
-    .menu_cate{
-        width:100%;
-        height:20%;
-        padding:10px;
-        display:flex;
-        align-items: center;
-        border-bottom: solid 1px #888;
-        overflow: auto;
-        
-    
-    }
-
-    
-    .cat_box_icon {
-    	width:50px;
-    	height:50px; 
-    
-    }
+/* 메뉴카테고리 */
+.menu_cate{
+    width:100%;
+    height:20%;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    border-bottom: solid 1px #888;
+    overflow: auto;
     
 
-    .cat_box_icon_img {
-    
-    	width:100%;
-    	height:100%;
-    }
+}
+
+
+.cat_box_icon {
+    width:50px;
+    height:50px; 
+
+}
+
+
+.cat_box_icon_img {
+
+    width:100%;
+    height:100%;
+}
 
 
 
-    .cate {
-        width:172px;
-        min-width:153px;
-        height:128px;
-        display:flex;
-        flex-direction:column;
-        align-items: center;
-        justify-content: center;
-        color:#343a40;
-        background-color: #f9f7e8;
-        font-size:30px;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:0 10px;
-        position:relative;
-        border-radius: 5px;
-   
-    }
-   
+.cate {
+    width:172px;
+    min-width:153px;
+    height:128px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    color:#343a40;
+    background-color: #f9f7e8;
+    font-size:30px;
+    font-weight: bold;
+    box-shadow: 5px 5px #aaa;
+    margin:0 10px;
+    position:relative;
+    border-radius: 5px;
+
+}
+  
 </style>
 </head>
 <body>

@@ -169,35 +169,35 @@ div {
 
 /* 조회 */
 .info-input {
-   width: 100%;
-   height: 80px;
-   overflow: hidden;
-   background-color: rgb(249, 247, 232);
-   display: flex;
-   align-items: center;
-   padding: 0 2vw 0 2vw;
-   justify-content: space-between
+   	width: 100%;
+    height: 80px;
+    overflow: hidden;
+    background-color: rgb(249, 247, 232);
+    display: flex;
+    align-items: center;
+    padding: 0 2vw 0 2vw;
+    justify-content: flex-start;
 }
 
 /* input-wrap1,2,3 */
 .input-wrap1 {
-   width: 60%;
-   display: flex;
-   justify-content: space-between;
+   	width: auto;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .input-wrap2 {
-   width: 27%;
-   display: flex;
-   justify-content: flex-end;
-   flex-shrink: 0;
+    width: 260px;
+    display: flex;
+    justify-content: flex-start;
+    flex-shrink: 0;
 }
 
 .input-wrap3 {
-   width: 8%;
-   display: flex;
-   flex-shrink: 0;
-   justify-content: center;
+   	width: 12%;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
 }
 
 /* 휴대폰 번호 입력란, 카테고리란 */
@@ -213,9 +213,9 @@ div {
 
 /* 회원 선택 */
 .select_member {
-   width: 27%;
-   margin-top: auto;
-   align-items: center;
+   	width: 36%;
+    margin-right: 20px;
+    align-items: center;
 }
 
 .name {
@@ -240,17 +240,6 @@ div {
 }
 
 .date {
-   display: flex;
-}
-
-/* 시간 선택 */
-.select_time {
-   width: 20%;
-   margin-top: auto;
-   align-items: center;
-}
-
-.time {
    display: flex;
 }
 
@@ -292,7 +281,7 @@ div {
    width: 100%;
    width: 100%;
    height: 30px;
-   background-color: #61bfad;
+   background-color: #78c2ad;
 }
 
 /* 표  */
@@ -309,6 +298,23 @@ div {
    height: 100%;
    overflow: auto;
 }
+
+.content-wrap::-webkit-scrollbar{
+     width:10px;
+ }
+ 
+ .content-wrap::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  
+  .content-wrap::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
 
 .table th {
    	text-align: center;
@@ -346,6 +352,11 @@ div {
    background-color: white;
    border: none;
 }
+
+.form-control{
+font-size:14px;
+}
+
 
 </style>
 </head>
@@ -490,6 +501,7 @@ div {
     </div>
 <!-- 전체조회 end========================================================================= -->
 </form>
+<footer id="footer"></footer>
 
 
 

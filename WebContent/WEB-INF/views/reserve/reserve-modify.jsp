@@ -108,8 +108,10 @@ html, body {
 /* 메인 ----------------------------------------- */
 .main {
    width: 100%;
-   display: flex;
-   justify-content: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .main_wrap {
@@ -331,6 +333,15 @@ html, body {
 	height: 100%;
 }
 
+.back {
+    width: 1130px;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    font-size: 40px;
+    margin-top: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -358,6 +369,8 @@ html, body {
          </header>
 
          <main class='main'>
+         <div class="back" style=" cursor: pointer;" onclick="history.back()"><i class="fas fa-arrow-left" id="arrow" aria-hidden="true"></i></div>
+         
             <div class='main_wrap'>
          <form action="/reserve/${userId}/reserve-modify" method="post">
                <div class='content1'>

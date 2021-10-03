@@ -106,11 +106,12 @@
 
 .left_wrap{
 
-	width: 30%;
+	width: 22%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-   align-items: center;
+   	align-items: center;
+	margin-left: auto;
 }
 
 .center_wrap {
@@ -146,7 +147,7 @@
 
 
 .table_wrap {
-	width:1100px;
+	width:1200px;
 	background-color: white;
 	overflow: hidden;
 	position:relative;

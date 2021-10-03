@@ -16,7 +16,7 @@
 <style type="text/css">
     html, body {
         width:100%;
-        min-width:965px;
+        min-width:1130px;
         min-height: 700px;
         height:100%;
         background-color: #ddd;
@@ -29,16 +29,17 @@
     } */
     
     /* header ---------------------------------------- */
-    #header{
-        width:100%;
-        height:8.5% fixed;
-        background-color: #78c2ad;
-        color:white;
-        display: flex;
-        justify-content: space-between;
-        line-height: 80px;
-        font-size:30px;
-    }
+     #header {
+	    width: 100%;
+	    height: 8.5% fixed;
+	    background-color: #78c2ad;
+	    color: white;
+	    display: flex;
+	    justify-content: space-between;
+	    line-height: 80px;
+	    font-size: 30px;
+	    min-width: 1130px;
+	}
 
     .back{
         width:3%;
@@ -332,31 +333,50 @@
     /* 메뉴카테고리 */
     .menu_cate{
         width:100%;
-        height:20%;
-        padding:10px;
-        display:flex;
-        align-items: center;
-        border-bottom: solid 1px #888;
-        overflow: auto;
-        
-    
+	    height:20%;
+	    min-height:200px;
+	    padding:10px;
+	    display:flex;
+	    align-items: center;
+	    border-bottom: solid 1px #888;
+	    overflow-y: hidden;
     }
+    
+    .menu_cate::-webkit-scrollbar{
+     width:10px;
+     height:10px;
+	 }
+	 
+	 .menu_cate::-webkit-scrollbar-thumb {
+	    background-color: #444;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  
+	  .menu_cate::-webkit-scrollbar-track {
+	    background-color: #00ff0000;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
+    
 
     .cate , #addcateBtn{
         width:172px;
-        min-width:153px;
-        height:90%;
-        display:flex;
-        flex-direction:column;
-        align-items: center;
-        justify-content: center;
-        color:#343a40;
-        background-color: #f9f7e8;
-        font-size:30px;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:0 10px;
-        position:relative;
+	    min-width:153px;
+	    height:128px;
+	    display:flex;
+	    flex-direction:column;
+	    align-items: center;
+	    justify-content: center;
+	    color:#343a40;
+	    background-color: #f9f7e8;
+	    font-size:30px;
+	    font-weight: bold;
+	    box-shadow: 5px 5px #aaa;
+	    margin:0 10px;
+	    position:relative;
+	    border-radius: 5px;
     }
     
     .cat_box_icon {
@@ -395,12 +415,32 @@
         width:100%;
         height:68%;
         padding:10px;
-        overflow: auto;
         flex-wrap: wrap;
         display:flex;
         flex-wrap: wrap;
         position: relative;
+        overflow-x:hidden;
+    	overflow-y:scroll;
     }
+    
+    .menu_name::-webkit-scrollbar{
+     width:10px;
+ }
+ 
+ .menu_name::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  
+  .menu_name::-webkit-scrollbar-track {
+    background-color: #00ff0000;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+    
+    
 
     #addmenuBtn{
 
@@ -418,16 +458,20 @@
 
 
     .menu_name>div{
-        width:172px;
-        min-width:153px;
-        height:30%;
-        min-height: 110px;
-        background-color:  white;
-        color: black;
-        font-size: 2vh;
-        font-weight: bold;
-        box-shadow: 5px 5px #aaa;
-        margin:10px;
+         min-width: 153px;
+    height: 25%;
+    max-height: 128px;
+    min-height: 128px;
+    color: black;
+    font-size: 100%;
+    font-weight: bold;
+    box-shadow: 5px 5px #aaa;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     }
 
     
