@@ -11,100 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
-
+	<link rel="stylesheet" href="/resources/css/error/404.css">
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">	
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-<style type="text/css">
 
-    html, body{
-        background-color: #f9f7e8;
-        width:100%;
-        height:100%;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        /* cursor: url(resources/image/LOGO2.png) 4 12, auto; */
-    }
-
-    body{
-        cursor: url(cursor.cur), auto;
-    }
-
-
-    .wrap{
-        width:800px;
-        height:600px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    .title{
-        font-size:180px;
-        display:flex;
-        justify-content: center;
-        font-weight: bold;
-        font-family: 'Cairo', sans-serif;
-        color: #444;
-        text-shadow: 10px 10px #fff;
-    }
-
-    .sub_title{
-        display:flex;
-        justify-content: center;
-        font-size:30px;
-        padding:0px 30px 10px 30px;
-    }
-    
-    .description1, .description2{
-        display:flex;
-        justify-content: center;
-    }
-
-    .btn_wrap{
-        display:flex;
-        justify-content: space-around;
-        width:100%;
-        padding:25px;
-    }
-
-    .btn1{
-        width:150px;
-    }
-    
-    .btn2{
-        width:150px;
-    }
-
-    .deco{
-        display:flex;
-        flex-direction: row;
-        width:100%;
-    }
-
-    .half{
-        width:12.5%;
-        height: 80px;
-        border-radius: 0px 0px 45px 45px;
-    }
-
-    .color1{
-        background-color: #78c2ad;
-    }
-
-    .color2{
-        background-color: #f9f7e8;
-    }
-
-    .color3{
-        background-color:  #ff8b8b;
-    }
-
-</style>
 
 </head>
-<body>
+<body style="background-color: #f9f7e8;">
     <div class="wrap">
         <div class="deco">
             <div class="half color1"></div>

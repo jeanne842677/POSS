@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+html , body {
+    height: 100%;
+    width: 100%;
+    background-color:#61bfad;
+
+}
+
+
+
+
+/*전체 wrap*/
+.wrap {
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+/*살구색 로그인창 wrap*/
+.login_wrap {
+    
+    position: relative;
+
+    width: 550px;
+    height: 480px;
+    border-radius: 10px;
+    background-color: rgb(249,247,232);
+    box-shadow: 10px 10px grey;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/*로고 이미지*/
+#logo {
+
+
+    width : 450px;
+    position: absolute;
+    top: -80px;
+
+    
+
+}
+
+
+/*아이디, 비밀번호 ,로그인, 카카오계정버튼 div들의 wrap*/
+.inner_login_wrap {
+
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    top: 100px;
+
+
+
+
+}
+
+
+.inner_login_wrap > * {
+
+    margin: 10px 0 10px 0;
+    height : 50px;
+    display:block;
+    width: 100%;
+    margin : 10px 0
+
+
+}
+
+
+/*로그인 버튼*/
+#loginBtn {
+    background-color: RGB(255, 139, 139);
+    border-color:RGB(255, 139, 139);
+    font-weight: 600;
+}
+
+
+
+
+
+/*비밀번호 찾기 / 아이디찾기 / 회원가입 찾기 wrap*/
+.find_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.find_wrap > * {
+    
+    margin: 0 10px 0 10px;
+
+
+}
+
+/*로그인 정보 알림 문구*/
+
+.loginAlert {
+    display:none;
+    height:15px;
+    font-size:11px;
+    margin: 15px 0 15px 0;
+    color:red;
+
+
+}
+
+.text1 {
+
+    height : 30px;
+    margin : 0px;
+ 
+
+
+}
+
+.email_auth {
+
+    display: flex;
+    height:50px;
+
+}
+
+#authentication{
+
+    width: 65%;
+    margin-right: 10px;
+
+}
+
+#auth_btn {
+    width:35%;
+    background-color:rgb(97,191,173);
+    color:white;
+    
+    font-weight: 600;
+}
+
+#next_btn {
+
+  	background-color: rgb(255, 139, 139);
+    color:white;
+    font-weight: 600;
+
+}
+
+
+l {
+	color:rgb(255, 139, 139);
+
+}
+
+
+.modal{
+   margin-top: 30vh;
+   
+   
+}
