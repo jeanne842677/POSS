@@ -99,7 +99,8 @@
 }
 
 .content{
-   display: flex;;
+   display: flex;
+    justify-content: center;
 	
 }
 
@@ -111,7 +112,6 @@
 	flex-direction: column;
 	justify-content: center;
    	align-items: center;
-	margin-left: auto;
 }
 
 .center_wrap {
