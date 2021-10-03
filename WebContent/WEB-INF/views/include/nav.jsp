@@ -9,7 +9,7 @@
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">포스</a>
+                  <a class="nav-link" href="/seat/select">포스</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/sales/${userId}/confirm">매출관리</a>
@@ -21,7 +21,7 @@
                   <a class="nav-link" href="/waiting/${userId}/waiting-page">웨이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/reserve/${userId}/confirm">예약내역</a>
+                    <a class="nav-link" href="/reserve/${userId}/confirm">예약내역</a>
                 </li>
                 
             </ul>  

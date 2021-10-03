@@ -216,7 +216,7 @@ th {
   <body>
     <div class="wrap">
       <div class="left_wrap">
-          <div class="logo"><a href="../index"><img src="/resources/image/LOGO6.png"></a></div>
+          <div class="logo"><a href="../index"><img src="/resources/image/LOGO2.png"></a></div>
         <div class="wait_team_wrap">
           <div class="wait_team">
             <div class="wait_team_num_wrap">

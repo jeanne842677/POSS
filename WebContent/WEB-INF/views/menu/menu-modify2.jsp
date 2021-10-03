@@ -800,11 +800,11 @@ border-radius: 10px;
         <div id="menuslide" style="display:none;">
             <div class="slide">
                 <ul class="go">
-                    <li class="go_home" style=" cursor: pointer;" onclick="location.href='#';" >메인메뉴</li>
-                    <li class="go_sales" style=" cursor: pointer;" onclick="location.href='#';">매출관리</li>
-                    <li class="go_reserve" style=" cursor: pointer;" onclick="location.href='#';">예약내역</li>
-                    <li class="go_waiting" style=" cursor: pointer;" onclick="location.href='#';">웨이팅</li>
-                    <li class="go_board" style=" cursor: pointer;" onclick="location.href='#';">게시판</li>
+                    <li class="go_home" style=" cursor: pointer;" onclick="location.href='/index';" >메인메뉴</li>
+                    <li class="go_sales" style=" cursor: pointer;" onclick="location.href='/sales/${userId}/confirm';">매출관리</li>
+                    <li class="go_reserve" style=" cursor: pointer;" onclick="location.href='/reserve/${userId}/confirm';">예약내역</li>
+                    <li class="go_waiting" style=" cursor: pointer;" onclick="location.href='/reserve/${userId}/confirm';">웨이팅</li>
+                    <li class="go_board" style=" cursor: pointer;" onclick="location.href='/board/${userId}/notice';">게시판</li>
                 </ul>
             </div>
         </div>

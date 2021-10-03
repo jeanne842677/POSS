@@ -362,32 +362,7 @@ font-size:14px;
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
 <form method="post">
 <div class="wrap">
-    <header id="header">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <a href="/index"><img src="/resources/image/LOGO6.png" class="logo"></a>
-                   
-        <div class="menugroup">
-            <ul class="navbar-nav me-auto" class="menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">포스</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/sales/${userId}/confirm">매출관리</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/board/${userId}/notice">게시판</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/waiting/${userId}/waiting-page">웨이팅</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/reserve/${userId}/confirm">예약내역</a>
-                </li>
-                
-            </ul>  
-            </div>  
-            </nav>
-    </header>
+    <%@ include file="/WEB-INF/views/include/nav.jsp" %>
 <div class="section-wrap">
     <section id="title_area">
         <div class="title">

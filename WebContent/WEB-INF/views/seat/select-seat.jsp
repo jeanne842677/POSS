@@ -286,32 +286,8 @@ outline:none;
 
 
 		<!-- 상단 네비게이션 -->
-		<header id="header">
-         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                 <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
-                
-     <div class="menugroup">
-         <ul class="navbar-nav me-auto" class="menu">
-             <li class="nav-item">
-               <a class="nav-link active" href="#">포스</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/sales/confirm">매출관리</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/board/notice">게시판</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="/reserve/confirm">예약내역</a>
-             </li>
-             
-         </ul>  
-         </div>  
-         </nav>
- </header>
+		<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
 
 
 

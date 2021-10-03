@@ -353,33 +353,8 @@ margin-left: 190px;
 </head>
 <body>
     <div class="wrap">
-    <header id="header">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
-                   
-        <div class="menugroup">
-            <ul class="navbar-nav me-auto" class="menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">포스
-                    <span class="visually-hidden">(current)</span>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/sales/confirm">매출관리</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/waiting/notice">게시판</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">웨이팅</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
-                  </li>
-            </ul>  
-            </div>  
-            </nav>
-    </header>
+    <%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
 <div class="section-wrap">
     <section id="title_area">
         <div class="title">
