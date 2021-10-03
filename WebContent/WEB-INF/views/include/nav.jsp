@@ -4,7 +4,7 @@
     
 <header id="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                    <a href="/index"><img src="/resources/image/LOGO6.png" class="logo"></a>
+                    <a href="/index"><img src="/resources/image/LOGO2.png" class="logo"></a>
                    
         <div class="menugroup">
             <ul class="navbar-nav me-auto" class="menu">
