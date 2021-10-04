@@ -16,7 +16,16 @@
 <script type="text/javascript" src="resources/js/weather.js"></script>
 <link rel="stylesheet" href="/resources/css/index.css">
 <script defer type="text/javascript" src="/resources/js/index.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>

@@ -13,7 +13,16 @@
 <link  href="/resources/css/reserve/reservation-form.css" type="text/css" rel="stylesheet">
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script defer type="text/javascript" src="/resources/js/reserve/reservation-form.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>

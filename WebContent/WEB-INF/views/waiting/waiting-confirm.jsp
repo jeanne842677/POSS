@@ -14,7 +14,16 @@
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="/resources/css/waiting/waiting-confirm.css">
    <script defer type="text/javascript" src="/resources/js/waiting/waiting-confirm.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 
 </head>
 <body>

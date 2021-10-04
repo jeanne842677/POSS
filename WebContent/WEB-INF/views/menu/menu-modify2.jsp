@@ -15,7 +15,16 @@
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
     <script defer type="text/javascript" src="/resources/js/menu/menu-modify2.js"></script>
     <title>possPage</title>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 

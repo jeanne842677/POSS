@@ -1,11 +1,7 @@
-@font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
-}
+@charset "UTF-8";
 
-body{
-	font-family:nanumr;
-}
+
+
 
 html, body{
    width: 100%;

@@ -12,7 +12,16 @@
 <link rel="stylesheet" href="/resources/css/reset.css">
 <script defer type="text/javascript" src="/resources/js/board/board-notice.js"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 <div class="wrap_all">

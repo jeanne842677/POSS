@@ -14,6 +14,17 @@
 
 <title>Document</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
+
 </head>
 <body>
 	<div class="wrap">

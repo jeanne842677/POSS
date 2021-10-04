@@ -10,7 +10,16 @@
 <link rel="stylesheet" href="/resources/css/member/mypage.css">
 <script defer type="text/javascript" src="/resources/js/member/mypage.js"></script>
 
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>

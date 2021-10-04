@@ -14,6 +14,16 @@
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <script defer type="text/javascript" src="/resources/js/member/lost-pass.js"></script>
     <title>아이디 찾기</title>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body style=" background-color:#61bfad;">
     <div class="wrap">

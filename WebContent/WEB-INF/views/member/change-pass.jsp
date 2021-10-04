@@ -13,7 +13,16 @@
 <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script defer type="text/javascript" src="/resources/js/member/change-pass.js"></script>
 
-    
+    <style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 

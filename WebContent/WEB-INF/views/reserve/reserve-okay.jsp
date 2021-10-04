@@ -13,7 +13,16 @@
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <script defer type="text/javascript" src="/resources/js/reserve/reserve-okay.js"></script>
-    
+   <style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style> 
 
 </head>
 <body>

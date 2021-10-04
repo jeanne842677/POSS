@@ -13,7 +13,16 @@
 <link rel="stylesheet" href="/resources/css/member/select-user-id-form.css">
 <script defer type="text/javascript" src="/resources/js/member/select-user-id-form.js"></script>
 
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
     <title>Document</title>
 </head>
 <body>

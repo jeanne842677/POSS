@@ -9,6 +9,16 @@
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/member/kakao-join.css">
 <script defer type="text/javascript" src="/resources/js/member/kakao-join.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 

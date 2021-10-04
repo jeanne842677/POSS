@@ -18,6 +18,16 @@
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script defer type="text/javascript" src="/resources/js/reserve/reserve-modify.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
       <div class="wrap">

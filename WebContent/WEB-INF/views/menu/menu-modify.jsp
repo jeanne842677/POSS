@@ -15,7 +15,16 @@
     <script defer type="text/javascript" src="/resources/js/menu/menu-modify.js"></script>
     
     <title>possPage</title>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 

@@ -22,7 +22,16 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/cal.css">
 <link rel="stylesheet" href="/resources/css/sales/sales-confirm2.css">
 <script defer type="text/javascript" src="/resources/js/sales/sales-confirm2.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
     <div class="wrap">

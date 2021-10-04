@@ -17,7 +17,16 @@
 <script defer type="text/javascript" src="/resources/js/error/404.js"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 
 </head>
 <body style="background-color: #f9f7e8;">

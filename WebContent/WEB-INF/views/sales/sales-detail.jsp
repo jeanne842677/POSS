@@ -14,7 +14,16 @@
    <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="/resources/css/sales/sales-detail.css">
    <script defer type="text/javascript" src="/resources/js/sales/sales-detail.js"></script>
-   
+   <style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
     <div class="wrap">

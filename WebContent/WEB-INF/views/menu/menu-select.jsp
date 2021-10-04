@@ -19,6 +19,17 @@
     <title>possPage</title>
     
     <style>
+    <style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+
+    
     /* header ---------------------------------------- */
 	  #header {
 	    width: 100%;

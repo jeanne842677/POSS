@@ -70,6 +70,7 @@ html, body {
 	font-size: 150px;
 	line-height: 150px;
 	font-weight: 800;
+	margin-top: 25px;
 }
 
 /*예상 대기시간*/
@@ -161,7 +162,7 @@ html, body {
 .input_wait>span {
 	font-size: 50px;
 	line-height: 42px;
-	margin: 0px 4px 0px 4px;
+	margin: 8px 4px 0px 4px;
 	color: lightgray;
 }
 

@@ -13,6 +13,25 @@
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script defer type="text/javascript" src="/resources/js/reserve/reservation-confirm.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+
+.table th {
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #aaa;
+    color: #fff;
+    z-index: 10;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>

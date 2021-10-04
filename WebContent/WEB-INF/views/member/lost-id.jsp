@@ -16,6 +16,16 @@
 <script defer type="text/javascript" src="/resources/js/member/lost-id.js"></script>
 
     <title>아이디 찾기</title>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
     <div class="wrap">

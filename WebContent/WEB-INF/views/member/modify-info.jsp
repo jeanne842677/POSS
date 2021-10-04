@@ -10,7 +10,16 @@
 <link rel="stylesheet" href="/resources/css/all.css">
 <link rel="stylesheet" href="/resources/css/member/modify-info.css">
 <script defer type="text/javascript" src="/resources/js/member/modify-info.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
 
+body{
+	font-family:nanumr;
+}
+</style>
 </head>
 <body>
 <form action="/member/modify" method="post">
