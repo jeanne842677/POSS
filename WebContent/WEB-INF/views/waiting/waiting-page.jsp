@@ -124,14 +124,14 @@ body{
 	
 	// WebSocket 서버와 접속이 끊기면 호출되는 함수
 	webSocket.onclose = function(message) {
-		alert("소켓 연결이 끊어졌습니다.");
+		console.dir("소켓 연결이 끊어졌습니다.");
 	};
 	
 	
 	
 	// WebSocket 서버와 통신 중에 에러가 발생하면 요청되는 함수
 	webSocket.onerror = function(message) {
-		alert("소켓 에러가 발생했습니다.");
+		console.dir("소켓 에러가 발생했습니다.");
 	};
 	
 	
@@ -142,9 +142,10 @@ body{
 		console.dir(message.data);
 		if(message.data=="remove-waiting") {
 			
-			let teamNum = document.querySelector('.team_num')
+			let teamNum = document.querySelector('.team_num');
 			teamNum.innerHTML = parseInt(teamNum.innerHTML) - 1;
-		
+			let waitTime = document.querySelector('#wait_time')	;
+			waitTime.innerHTML = parseInt(teamNum.innerHTML) * 10;
 		}
 		
 	};

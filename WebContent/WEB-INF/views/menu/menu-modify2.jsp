@@ -81,7 +81,6 @@ body{
                 <div class="inputicon_tit">아이콘</div>
                 <div class="input4"><img class="select-icon" id="select_cat_icon" src="/resources/icon/${ thisCat.icon }.png">
                 <input type="text" id="cat_icon" name="icon" readonly value="${thisCat.icon }"></div>
-                <button id="icon_cencle" class="btn btn-danger icon_cencle" type="button"> 선택안함 </button>
             <div class="icon_wrap" id="cate_icon_wrap">
             
             

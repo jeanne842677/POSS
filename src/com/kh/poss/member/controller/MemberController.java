@@ -146,9 +146,7 @@ public class MemberController extends HttpServlet {
          response.getWriter().print("available");
       }
       
-      String reservationNum = Integer.toString(reserveService.countReservation(member.getUserId()));
       
-      request.getSession().setAttribute("reservationNum", reservationNum);
 
    }
 

@@ -15,7 +15,7 @@
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="/resources/css/seat/select-seat.css">
+<link rel="stylesheet" href="/resources/css/seat/select-seat.css?ver=1">
 
 <style type="text/css">
 @font-face{
@@ -51,13 +51,6 @@ body{
 				<div class="card border-warning mb-3" id="reserve" >
 					<div class="card-header" id="reserve_header">예약</div>
 					<div class="card-body">
-						<div class="reserve">
-							<div class="time">18:30</div>
-							<div class="name">임지영</div>
-							<div class="table_num">3번</div>
-							<div class="num">5명</div>
-
-						</div>
 
 							
 					</div>
@@ -68,13 +61,13 @@ body{
 						
 						<c:if test="${ not empty waitingList }">
 							<c:forEach items="${ waitingList }" var="wl" varStatus="status">
-						<div class="waiting" >
+						<div class="waiting" id="idx${wl.waitingNum}" >
 							<div class="time">${ timeList[status.index] }</div>
 							<div class="name">${wl.phone }</div>
 							<div class="num">${wl.waitingPeople }명</div>
 						</div>
-						<script type="text/ja,,,,,vascript">
-							document.querySelectorAll('.waiting')[${status.index}].addEventListener( 'click' ,e=>{
+						<script type="text/javascript"> 
+							document.querySelector('#idx${wl.waitingNum}').addEventListener( 'click' ,e=>{
 								let waitingNum = ${wl.waitingNum};
 								fetch('/waiting/update?waitingNum='+waitingNum)
 								.then(res=> {
@@ -239,8 +232,6 @@ body{
 		console.dir(message.data);
 		if(message.data=="waiting-add") {
 			
-			
-			alert("새로운 웨이팅이 있습니다.");
 			
 			fetch("/waiting/new-waiting")
 			.then(res=> res.json())

@@ -25,7 +25,6 @@ body{
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 <form action="/reserve/${userId}/reservation-insert" method="post" id="frm_reserve">
 <div class="wrap">
 	<div class="wrap_res">
@@ -109,7 +108,7 @@ body{
 		    <h2 class="accordion-header" id="headingThree">
 		      <button class="accordion-button collapsed" id="table_btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 		        <div id="table_text">
-		        	<div><i class="far fa-user"></i>&nbsp인원/테이블 선택</div><div id='selected_client'>-.-</div>
+		        	<div><i class="far fa-user"></i>&nbsp인원 선택</div><div id='selected_client'>-.-</div>
 		        </div>
 		      </button>
 		    </h2>
@@ -180,5 +179,6 @@ body{
 </form>
 
 
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 </body>
 </html>

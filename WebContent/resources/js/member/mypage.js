@@ -24,25 +24,3 @@ document.querySelector("#delete_account_btn").addEventListener("click", e => {
 	}
 })
 	
-function modifyInfo(){
-	modal3();
-	setModalTitle('modal3','비밀번호 확인');
-   	setConfirmFunc = function confirmPw(){
-   		if(document.getElementById("confirmPw").value == '${authentication.password}'){
-   			modal2();
-   	   		setModalTitle('modal2','비밀번호 확인 완료');
-   	   	    setModalBody('modal2', '비밀번호가 확인되었습니다.');
-   	   		setOkayFunc = function confirmTrue(){
-   				location.href = "/member/modify-info";
-   			}
-   		} else {
-   			modal2();
-   	   		setModalTitle('modal2','비밀번호 확인 실패');
-   	   	    setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
-   	   		setOkayFunc = function rCancel(){
-   	   		location.href = "/member/mypage?userId=${authentication.userId}";
-   	   		}
-   		}
-   	}
-	
-}
