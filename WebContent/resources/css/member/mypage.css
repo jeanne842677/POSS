@@ -206,14 +206,32 @@ html, body {
 	flex-shrink: 0;
 }
 
+/* 소개페이지 바로가기 버튼 */
+#info_link_btn{
+	border-radius: 15px;
+	font-size: 10px;
+    margin-left:10px;
+}
+
+.info_page_link{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+}
+
+.info_page_link>*{
+	flex-shrink: 0;
+}
+
 /* 게시판페이지 바로가기 버튼 */
 #board_link_btn{
 	border-radius: 15px;
 	font-size: 10px;
     margin-left:10px;
 }
-
-
 
 
 

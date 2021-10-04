@@ -207,6 +207,7 @@ html, body {
 .table_num {
 	width:60px;
 	text-align: right;
+	font-family: 'nanumr';
 
 }
 
@@ -230,6 +231,8 @@ html, body {
 .table_text  {
 background-color: transparent;
 border: none;
+font-family:nanumr;
+font-weight:900;
 
 }
 
@@ -259,4 +262,9 @@ outline:none;
 
 .waitwrap{
 	
+}
+
+.order-list{
+	    line-height: 24px;
+	    
 }

@@ -473,7 +473,7 @@ font-size:14px;
                               <td>미방문</td>
                            </c:when>
                            <c:otherwise>
-                              <td>방문</td>>
+                              <td>방문</td>
                            </c:otherwise>
                         </c:choose>
                         <td>${rl.content}</td>

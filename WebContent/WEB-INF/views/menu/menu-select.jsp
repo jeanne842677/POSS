@@ -25,8 +25,15 @@
 	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+
 body{
 	font-family:nanuml;
+	background-color: #ddd;
 }
 
     
