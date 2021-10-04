@@ -119,6 +119,7 @@ body{
 </div>
 
 
+<%@ include file="/WEB-INF/views/include/modal.jsp" %>
 
 
 </body>

@@ -8,23 +8,37 @@ function inputKeyword(userId) {
 }
 
 
-
 function confirmPrivate(idxParams, privateParams, pwParams, userId){
-   
-   if(privateParams == 0){
-      location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
-   } else if(privateParams == 1){
-      let confirmPw = prompt("비밀번호를 입력하세요");
-      
-      if(confirmPw == pwParams){
-         location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
-      } else {
-         alert("다시 입력하세요!");
-         return;
-      }
-      
-   } else {
-      alert("오류 발생");
-   }
-   
-}
+	   
+	   let boardIdx = idxParams;
+	   let isPrivate = privateParams;
+	   let boardPw = pwParams;
+	   let boardId = userId;
+	   
+	   if(isPrivate == 0){
+	      location.href = '/board/'+boardId+'/post?boardIdx='+boardIdx;
+	   } else if(privateParams == 1){
+	      modal3();
+	      setModalTitle('modal3','비밀번호 확인');
+	      setConfirmFunc = function confirmPw(){
+	            
+	      if(document.getElementById("confirmPw").value == pwParams){
+	               modal2();
+	                  setModalTitle('modal2','비밀번호 확인 완료');
+	                   setModalBody('modal2', '비밀번호가 확인되었습니다.');
+	                  setOkayFunc = function confirmTrue(){
+	                     location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
+	               }
+	                  
+	      } else {
+	               modal2();
+	                  setModalTitle('modal2','비밀번호 확인 실패');
+	                   setModalBody('modal2', '비밀번호가 올바르지 않습니다.');
+	                  setOkayFunc = function rCancel(){
+	                  location.href = '/board/'+userId+'/notice';
+	                  }
+	            }
+	         }
+	   }
+	   
+	}
