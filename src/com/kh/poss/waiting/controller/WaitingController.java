@@ -112,7 +112,7 @@ public class WaitingController extends HttpServlet {
 		
 		   
 	    String storeName = member.getStore_name();
-	    //MmsSender.setMessage(phone, storeName, "웨이팅 등록이 완료되었습니다.\n* 웨이팅 인원 : " + waitingPeopleNum + "명\n* 호출 시 안계실 경우 웨이팅이 취소될 수 있으니 유의해 주시기 바랍니다." );
+	    MmsSender.setMessage(phone, storeName, "웨이팅 등록이 완료되었습니다.\n* 웨이팅 인원 : " + waitingPeopleNum + "명\n* 호출 시 안계실 경우 웨이팅이 취소될 수 있으니 유의해 주시기 바랍니다." );
 
 
 		if (isSuccess > 0) {
