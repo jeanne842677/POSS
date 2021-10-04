@@ -13,7 +13,7 @@
 	href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/all.css">
 <script type="text/javascript" src="resources/js/clock.js"></script>
-<script type="text/javascript" src="resources/js/weather.js"></script>
+<script type="text/javascript" src="resources/js/weather.js?ver=1"></script>
 
 
 

@@ -147,7 +147,6 @@ public class OrderController extends HttpServlet {
 
 		String htmlIdx = request.getParameter("html_idx");
 		List<OrderJoin> orderJoinList = orderService.selectOrderList(htmlIdx);
-
 		Gson gson = new Gson();
 		String json = gson.toJson(orderJoinList);
 		response.setContentType("application/json; charset=utf-8");
@@ -159,11 +158,7 @@ public class OrderController extends HttpServlet {
 	private void modify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String orderIdx = request.getParameter("orderIdx");
-
 		List<OrderJoin> orderJoinList = orderService.selectTableOrderList(orderIdx);
-		
-		
-
 		MenuService menuService = new MenuService();
 		if (orderJoinList.size() > 0) {
 			Gson gson = new Gson();

@@ -53,7 +53,7 @@ let getLocationTemp = async () => {
     /* 지역과 기온 랜더링*/
    let locataionTemp = await getLocationTemp();
     document.querySelector('.location').innerHTML = locataionTemp.place;
-    document.querySelector('.weather_temp').innerHTML = locataionTemp.temp + 'º ';
+    document.querySelector('.weather_temp').innerHTML = Math.floor(locataionTemp.temp) + 'º ';
    document.querySelector('.weather_statu').innerHTML = locataionTemp.description;
    document.querySelector('.weather_icon').innerHTML = `<img src = 'http://openweathermap.org/img/wn/${locataionTemp.statu}@2x.png' class="weather">`;
  

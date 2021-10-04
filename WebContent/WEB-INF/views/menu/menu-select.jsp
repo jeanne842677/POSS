@@ -1087,7 +1087,7 @@ function totalPrice(selectmenu) {
 
 	                 let resPrice = document.createElement("div");
 	                 resPrice.setAttribute("class","resprice");
-	                 resPrice.innerHTML +=  m.price;
+	                 resPrice.innerHTML =  (m.price * m.cnt);
 	                 addList.appendChild(resPrice);
 	                 
 	                 document.getElementById("total_list").appendChild(addList);
@@ -1095,16 +1095,7 @@ function totalPrice(selectmenu) {
 	                 //총 주문금액
 	                 totalPrice(addList);
 	               changeColor(addList);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			
 		});
