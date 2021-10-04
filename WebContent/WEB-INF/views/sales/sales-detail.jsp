@@ -16,13 +16,23 @@
    <script defer type="text/javascript" src="/resources/js/sales/sales-detail.js"></script>
    <style type="text/css">
 @font-face{
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+}
+
+body{
+	font-family:nanuml;
+}
+
+@font-face{
 	font-family:'nanumr';
 	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
 }
 
-body{
+.title{
 	font-family:nanumr;
 }
+
 </style>
 </head>
 <body>

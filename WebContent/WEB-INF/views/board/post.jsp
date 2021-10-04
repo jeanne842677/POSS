@@ -13,12 +13,12 @@
 
 <style type="text/css">
 @font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
 body{
-	font-family:nanumr;
+	font-family:nanuml;
 }
 </style>
 </head>
