@@ -75,9 +75,6 @@ local.properties
 ### Java-Web ###
 ## ignoring target file
 target/
-<<<<<<< HEAD
-=======
 
->>>>>>> c678c79c33c4554dc2703b018cecadd04e769b78
 
 # End of https://www.toptal.com/developers/gitignore/api/java-web,eclipse
