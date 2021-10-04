@@ -51,6 +51,15 @@ body{
 				<div class="card border-warning mb-3" id="reserve" >
 					<div class="card-header" id="reserve_header">예약</div>
 					<div class="card-body">
+			        <div class="rewrap">
+			                     <div class="reserve">
+			                        <div class="time">18:30</div>
+			                        <div class="name">임지영</div>
+			                        <div class="table_num">3번</div>
+			                        <div class="num">5명</div>
+			   
+			                     </div>
+			                  </div>
 
 							
 					</div>
@@ -61,17 +70,20 @@ body{
 						
 						<c:if test="${ not empty waitingList }">
 							<c:forEach items="${ waitingList }" var="wl" varStatus="status">
+						<div class="waitwrap">
+							
 						<div class="waiting" id="idx${wl.waitingNum}" >
 							<div class="time">${ timeList[status.index] }</div>
 							<div class="name">${wl.phone }</div>
 							<div class="num">${wl.waitingPeople }명</div>
+						</div>
 						</div>
 						<script type="text/javascript"> 
 							document.querySelector('#idx${wl.waitingNum}').addEventListener( 'click' ,e=>{
 								let waitingNum = ${wl.waitingNum};
 								fetch('/waiting/update?waitingNum='+waitingNum)
 								.then(res=> {
-									document.querySelectorAll('.waiting')[${status.index}].remove();
+									document.querySelector('#idx${wl.waitingNum}').remove();
 									webSocket.send("remove-waiting");
 									
 								})

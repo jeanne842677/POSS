@@ -22,87 +22,90 @@ import com.kh.poss.reserve.model.service.ReserveService;
 
 @WebServlet("/board/*")
 public class BoardController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	private BoardService boardService = new BoardService();
-	private ReplyService replyService = new ReplyService();
-	private ReserveService reserveService = new ReserveService();
+   private BoardService boardService = new BoardService();
+   private ReplyService replyService = new ReplyService();
+   private ReserveService reserveService = new ReserveService();
 
-	public BoardController() {
-		super();
-	}
+   public BoardController() {
+      super();
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-		String[] uri = request.getRequestURI().split("/");
-		System.out.println(Arrays.toString(uri));
-		String userId = uri[uri.length - 2];
-		if (isExist(request, response, userId) != null) {
-			switch (uri[uri.length - 1]) {
-			case "notice": // 게시판으로 이동
-				notice(request, response, userId);
-				break;
-			case "write-form": // 글쓰기 페이지로 이동
-				writeForm(request, response, userId);
-				break;
-			case "write": // 글쓰기 후 게시판으로 이동
-				write(request, response, userId);
-				break;
-			case "post": // 게시글 상세페이지
-				post(request, response, userId);
-				break;
-			case "search":
-				search(request, response, userId);
-				break;
-			case "modify-form":
-				modifyForm(request, response);
-				break;
-			case "modify":
-				modify(request, response);
-				break;
-			case "delete":
-				delete(request, response, userId);
-				break;
-			case "reply-write":
-				replyWrite(request, response, userId);
-				break;
-			case "reply-delete":
-				replyDelete(request, response, userId);
-				break;
-			default:
-				throw new PageNotFoundException();
-			}
-		} else {
-			throw new PageNotFoundException();
-		}
-	}
+      String[] uri = request.getRequestURI().split("/");
+      System.out.println(Arrays.toString(uri));
+      String userId = uri[uri.length - 2];
+      
+      
+      if (isExist(request, response, userId) != null) {
+         switch (uri[uri.length - 1]) {
+         case "notice": // 게시판으로 이동
+            notice(request, response, userId);
+            break;
+         case "write-form": // 글쓰기 페이지로 이동
+            writeForm(request, response, userId);
+            break;
+         case "write": // 글쓰기 후 게시판으로 이동
+            write(request, response, userId);
+            break;
+         case "post": // 게시글 상세페이지
+            post(request, response, userId);
+            break;
+         case "search":
+            search(request, response, userId);
+            break;
+         case "modify-form":
+            modifyForm(request, response);
+            break;
+         case "modify":
+            modify(request, response);
+            break;
+         case "delete":
+            delete(request, response, userId);
+            break;
+         case "reply-write":
+            replyWrite(request, response, userId);
+            break;
+         case "reply-delete":
+            replyDelete(request, response, userId);
+            break;
+         default:
+            throw new PageNotFoundException();
+         }
+      } else {
+         throw new PageNotFoundException();
+      }
+   }
 
-	private String isExist(HttpServletRequest request, HttpServletResponse response, String userId)
-			throws ServletException, IOException {
-		String existId = reserveService.isExsist(userId);
-		return existId;
+   private String isExist(HttpServletRequest request, HttpServletResponse response, String userId)
+         throws ServletException, IOException {
+      String existId = reserveService.isExsist(userId);
+      return existId;
 
-	}
+   }
 
 
    private void notice(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-	  
-	  
-	  Criteria cri = new Criteria();
-	  int page = 1; 
-	  
-	  if(request.getParameter("page") != null) {
-		  page = Integer.parseInt(request.getParameter("page"));
-	  }
-	  
-	  cri.setPage(page);
-	  PageMaker pageMaker = new PageMaker();
-	  pageMaker.setCri(cri);
-	  pageMaker.setTotalCount(boardService.getAllCount(userId));
-	        
-	  List<Board> boardList = boardService.selectBoardList(userId, cri);
-	    
+     
+     Member member = (Member) request.getSession().getAttribute("authentication");
+     
+     Criteria cri = new Criteria();
+     int page = 1; 
+     
+     if(request.getParameter("page") != null) {
+        page = Integer.parseInt(request.getParameter("page"));
+     }
+     
+     cri.setPage(page);
+     PageMaker pageMaker = new PageMaker();
+     pageMaker.setCri(cri);
+     pageMaker.setTotalCount(boardService.getAllCount(userId));
+           
+     List<Board> boardList = boardService.selectBoardList(userId, cri);
+       
       request.setAttribute("boardList", boardList);
       request.setAttribute("userId", userId);
       request.setAttribute("pageMaker", pageMaker);
@@ -111,36 +114,50 @@ public class BoardController extends HttpServlet {
    }
 
    private void writeForm(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-	  
-	  request.setAttribute("userId", userId);
+     
+     request.setAttribute("userId", userId);
       request.getRequestDispatcher("/board/write-form").forward(request, response);
    }
 
    private void write(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
       
-	  Member member = (Member) request.getSession().getAttribute("authentication");
-	  
-	  String writer = request.getParameter("writer");
+     Member member = (Member) request.getSession().getAttribute("authentication");
+     
+     String writer = request.getParameter("writer");
       String title = request.getParameter("title");
       String content = request.getParameter("content");
       String Private = request.getParameter("isPrivate");
       String password = request.getParameter("password");
       
-	  if (member != null) {
-		  title = "[관리자]" + title;
-		  writer = "관리자";
-	  } else {
-		  
-		  if (title.contains("[관리자]")) {
-    		  title = title.replace("[관리자]", "");
-    	  }
-		  
-		  if(writer.equals("관리자")) {
-			  writer = "익명";
-		  }
-		  
-	  }
-	   
+     if (member != null) {
+        
+        if (member.getUserId().equals(userId)) {
+           title = "[관리자]" + title;
+           writer = "관리자";
+           
+        } else {
+           
+           if (title.contains("[관리자]")) {
+               title = title.replace("[관리자]", "");
+            }
+           
+           if(writer.equals("관리자")) {
+              writer = "익명";
+           } 
+        }
+        
+     } else {
+        
+        if (title.contains("[관리자]")) {
+            title = title.replace("[관리자]", "");
+         }
+        
+        if(writer.equals("관리자")) {
+           writer = "익명";
+        }
+        
+     }
+      
       int isPrivate = 0;
 
       if (Private != null) {
@@ -159,9 +176,9 @@ public class BoardController extends HttpServlet {
 
       int ibSuccess = boardService.insertBoard(board);
       if (ibSuccess == 1) {
-    	  
+         
       } else {
-    	  
+         
       }
       response.sendRedirect("/board/"+userId+"/notice"); // 게시판으로 이동
    }
@@ -176,7 +193,7 @@ public class BoardController extends HttpServlet {
       board = boardService.selectBoardDetail(userId, boardIdx);
       
       if(board.getTitle().contains("[관리자]")) {
-    	  board.setTitle(board.getTitle().replace("[관리자]", ""));
+         board.setTitle(board.getTitle().replace("[관리자]", ""));
       }
       
       List<Reply> replyList = replyService.selectReplyList(boardIdx);
@@ -195,14 +212,14 @@ public class BoardController extends HttpServlet {
       String searchKeyword = request.getParameter("keyword");
       
       int page = 1; 
-	  if(request.getParameter("page") != null) {
-		  page = Integer.parseInt(request.getParameter("page"));
-	  }
-	  cri.setPage(page);
-	  PageMaker pageMaker = new PageMaker();
-	  pageMaker.setCri(cri);
-	  pageMaker.setTotalCount(boardService.getSearchCount(userId, searchKeyword));
-	  
+     if(request.getParameter("page") != null) {
+        page = Integer.parseInt(request.getParameter("page"));
+     }
+     cri.setPage(page);
+     PageMaker pageMaker = new PageMaker();
+     pageMaker.setCri(cri);
+     pageMaker.setTotalCount(boardService.getSearchCount(userId, searchKeyword));
+     
       List<Board> searchList = boardService.searchBoardList(userId, searchKeyword, cri);
       request.setAttribute("userId", userId);
       request.setAttribute("searchKeyword", searchKeyword);
@@ -230,21 +247,33 @@ public class BoardController extends HttpServlet {
         
      
       if(member != null) {
-    	  
-    	  title = "[관리자]" + title;
-    	  writer = "관리자";
-    	  
+         
+         if (member.getUserId().equals(userId)) {
+            title = "[관리자]" + title;
+            writer = "관리자";
+
+         } else {
+
+            if (title.contains("[관리자]")) {
+               title = title.replace("[관리자]", "");
+            }
+
+            if (writer.equals("관리자")) {
+               writer = "익명";
+            }
+         }
+
       } else {
-		  
-		  if (title.contains("[관리자]")) {
-    		  title = title.replace("[관리자]", "");
-    	  }
-		  
-		  if(writer.equals("관리자")) {
-			  writer = "익명";
-		  }
-		  
-	  }
+
+         if (title.contains("[관리자]")) {
+            title = title.replace("[관리자]", "");
+         }
+
+         if (writer.equals("관리자")) {
+            writer = "익명";
+         }
+        
+     }
       
 
       int isPrivate = 0;
