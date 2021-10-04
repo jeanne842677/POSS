@@ -1,6 +1,4 @@
-@charset "UTF-8";
-
- html, body {
+html, body {
     width:100%;
     min-width:1130px;
     min-height: 700px;
@@ -536,3 +534,4 @@ margin: 3px;
     border-radius: 5px;
 
 }
+  
