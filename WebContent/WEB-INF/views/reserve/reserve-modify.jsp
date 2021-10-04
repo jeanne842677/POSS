@@ -12,22 +12,13 @@
    href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <!-- datepicker 기간제어 하는데 필요한거 end -->
 
-<link rel="stylesheet" href="/resources/css/reserve/reserve-modify.css?ver=1">
+<link rel="stylesheet" href="/resources/css/reserve/reserve-modify.css">
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script defer type="text/javascript" src="/resources/js/reserve/reserve-modify.js"></script>
 <style type="text/css">
-@font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
-}
-
-.title{
-	font-family:nanumr;
-}
-
 @font-face{
 	font-family:'nanuml';
 	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
@@ -37,18 +28,25 @@ body{
 	font-family:nanuml;
 }
 
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+.title{
+	font-family:nanumr;
+}
+
 @charset "UTF-8";
 
 html, body {
    width: 100%;
    min-width: 1130px;
 }
-/* 
-div {
+
+/* div {
         border: solid thin;
     }  */
-
-/* header (네비게이션영역)-------------------------------------------------------- */
 #header {
    width: 100%;
    height: 80px;
@@ -93,9 +91,264 @@ div {
    width: 1130px;
    display: block;
    margin: auto;
-   overflow: auto;
 }
 
+/* 메뉴아래 매출관리, 오늘 총 매출------------------------------------------------  */
+#title_area {
+   width: 100%;
+   min-width: 550px;
+   height: 100px;
+}
+
+.title {
+   width: 1130px;
+   height: 100px;
+   display: flex;
+   justify-content: center;
+   flex-shrink: 0;
+   line-height: 100px;
+   position: absolute;
+   font-size: 25px;
+   color: #343a40;
+   font-weight: bolder;
+   padding: 10px 0px 0px 0px;
+}
+/* 메인 ----------------------------------------- */
+.main {
+   width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main_wrap {
+   width: 1130px;
+}
+
+.content1 {
+   width: 100%;
+   height: 40vh;
+   border: 2px solid rgb(255, 167, 167);
+   border-radius: 50px;
+   background-color: white;
+   margin-top: 5vh;
+   margin-bottom: 5vh;
+   position: relative;
+}
+
+.content2 {
+   width: 100%;
+   height: 40vh;
+   border: 2px solid rgb(255, 167, 167);
+   border-radius: 50px;
+   background-color: white;
+   margin-top: 5vh;
+   margin-bottom: 5vh;
+   position: relative;
+}
+
+.content3 {
+   width: 100%;
+   height: 40vh;
+   border: 2px solid rgb(255, 167, 167);
+   border-radius: 50px;
+   background-color: white;
+   margin-top: 5vh;
+   margin-bottom: 5vh;
+   position: relative;
+}
+
+/* content1 ----------------------------------------- */
+#title1 {
+   width: 100%;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#title1>div {
+   width: 180px;
+   height: 40px;
+   background-color: rgb(255, 167, 167);
+   color: white;
+   font-weight: bolder;
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50px;
+}
+
+#main1 {
+   width: 100%;
+   height: 28vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.cal_wrap {
+   width: 80%;
+   height: 40%;
+   border: none;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.cal_wrap>table {
+   width: 60%;
+   height: 70%;
+   text-align: center;
+   background-color: white;
+   box-shadow: 5px 5px 5px gray;
+}
+
+.cal_wrap>table>caption {
+   caption-side: top;
+   text-align: center;
+}
+
+.radio {
+   margin-top: 30px;
+   display: flex;
+   justify-content: center;
+}
+
+/* content3 ----------------------------------------- */
+#title3 {
+   width: 100%;
+   height: 10vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#title3>div {
+   width: 180px;
+   height: 40px;
+   background-color: rgb(255, 167, 167);
+   color: white;
+   font-weight: bolder;
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50px;
+}
+
+#time_title {
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   text-align: center;
+   margin-bottom: 40px;
+}
+
+#time_title>div {
+   text-align: center;
+   margin-top: 60px;
+}
+
+#time_table {
+   width: 100%;
+   height: 60vh;
+   display: flex;
+   align-items: center;
+   text-align: center;
+}
+
+#time_table>table {
+   text-align: center;
+   width: 50%;
+   height: 60%;
+}
+
+.form-check {
+   display: flex;
+   justify-content: center;
+   font-size: 20px;
+}
+
+.select_time {
+   margin-top: 20px;
+}
+
+/* footer ----------------------------------------- */
+.footer {
+   width: 100%;
+   height: 5vh;
+   background-color: rgb(97, 191, 173);
+}
+
+.drag {
+   position: absolute;
+   background-color: red;
+   width: 200px;
+   height: 200px;
+   border-radius: 5px;
+   display: inline-block;
+}
+
+.table_text {
+   background-color: transparent;
+   border: none;
+}
+
+.table_text:focus {
+   outline: none;
+}
+
+.content_info {
+   display: flex;
+   justify-content: space-around;
+   align-content: center;
+}
+
+.content_info>#writer {
+   border: thin;
+   border-style: solid;
+   border-color: gray;
+   border-radius: 5px;
+   width: 80px;
+}
+
+#contract_file{
+	margin-left: 10px;
+	width: 236px;
+}
+
+#content {
+   resize: none;
+   border: thin;
+   border-style: solid;
+   border-color: gray;
+   border-radius: 5px;
+   height: 200px;
+   width: 500px;
+}
+
+.btn, .btn:hover {
+    color: #fff;
+    width: 200px;
+}
+
+.tit_board{
+	height: 100%;
+}
+
+.back {
+    width: 1130px;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    font-size: 40px;
+    margin-top: 20px;
+}
 
 </style>
 </head>

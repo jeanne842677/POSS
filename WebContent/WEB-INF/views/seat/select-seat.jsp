@@ -7,7 +7,7 @@
 <title>포스테이블</title>
 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
-
+<link rel="stylesheet" href="/resources/css/reset.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

@@ -387,7 +387,7 @@ font-size:14px;
 <div class="section-wrap">
     <section id="title_area">
         <div class="title">
-            <a>예약내역</a>
+            <a>예약 내역</a>
         </div>
         <div class="setting" ><i class="fas fa-cog" onclick="location.href='/reserve/${userId }/modify'"></i></div>
         

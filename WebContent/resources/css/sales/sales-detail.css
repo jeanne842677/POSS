@@ -343,3 +343,20 @@ html, body {
     float: left;
     width: 50%;
 }
+
+.content-wrap::-webkit-scrollbar{
+     width:10px;
+ }
+ 
+ .content-wrap::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  
+  .content-wrap::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }

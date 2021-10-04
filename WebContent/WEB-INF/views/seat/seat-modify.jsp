@@ -49,17 +49,18 @@ body{
             <div class="card border-warning mb-3" id="reserve">
                <div class="card-header" id="reserve_header">예약</div>
                <div class="card-body">
-                  
+                  <div class="reserve">
                   
 
-                     
+                  </div>
                </div>
               </div>
             <div class="card border-secondary mb-3" id="waiting">
                <div class="card-header" id="waiting_header">웨이팅</div>
                <div class="card-body">
+                  <div class="waitwrap">
                   
-                  
+                  </div>
                </div>
               </div>
 
