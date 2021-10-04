@@ -12,13 +12,22 @@
    href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <!-- datepicker 기간제어 하는데 필요한거 end -->
 
-<link rel="stylesheet" href="/resources/css/reserve/reserve-modify.css">
+<link rel="stylesheet" href="/resources/css/reserve/reserve-modify.css?ver=1">
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script defer type="text/javascript" src="/resources/js/reserve/reserve-modify.js"></script>
 <style type="text/css">
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+.title{
+	font-family:nanumr;
+}
+
 @font-face{
 	font-family:'nanuml';
 	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
@@ -28,14 +37,65 @@ body{
 	font-family:nanuml;
 }
 
-@font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+@charset "UTF-8";
+
+html, body {
+   width: 100%;
+   min-width: 1130px;
+}
+/* 
+div {
+        border: solid thin;
+    }  */
+
+/* header (네비게이션영역)-------------------------------------------------------- */
+#header {
+   width: 100%;
+   height: 80px;
+   background-color: #aaa;
 }
 
-.title{
-	font-family:nanumr;
+/*로고*/
+.logo {
+   width: 155px;
 }
+
+/*네비게이션 wrap*/
+.navbar-nav {
+   -ms-flex-direction: row;
+   flex-direction: row;
+   justify-content: space-around;
+   min-width: 390px;
+}
+
+/*메뉴*/
+.navbar {
+   width: 100%;
+   height: 80px;
+   display: flex;
+   justify-content: space-between;
+   font-size: 25px;
+   font-weight: bold;
+   padding-top: 0;
+}
+
+.menugroup {
+   width: 43%;
+}
+
+/* 메뉴글씨 */
+.navbar-dark .navbar-nav .nav-link {
+   color: #343a40;
+   flex-shrink: 0;
+}
+
+.section-wrap {
+   width: 1130px;
+   display: block;
+   margin: auto;
+   overflow: auto;
+}
+
 
 </style>
 </head>
