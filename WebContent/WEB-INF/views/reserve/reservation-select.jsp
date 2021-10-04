@@ -9,87 +9,21 @@
 <title>예약 조회페이지</title>
 
 <link href="/resources/css/all.css" rel="stylesheet">
+<link href="/resources/css/reserve/reservation-select.css" rel="stylesheet">
 <link href="/resources/css/reset.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/js/modal.js"></script>
 <style type="text/css">
-   html, body{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      
-   }
-   
-   
-   .wrap{
-      width:100%;
-      height:100%;
-      display:flex;
-      justify-content: center;
-   }
-   
-   .wrap_res{
-      width:1130px;
-      height:100%;
-   }
+@font-face{
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+}
 
-   .now{
-   color:white;
-   }
-   
-   /* div{
-      border: solid thin;
-   } */
-
-
-   /* 상단 네비게이션---------------------------------------------- */
-   .nav{
-      width:100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      font-weight: bold;
-      height: 50px;
-      background-color: rgb(97, 191, 173);
-      color:black;
-   }
-   
-   
-   .nav>div:hover{
-      color: white;
-   }
-
-   
-   /* text */
-   .content{
-      width: 100%;
-      height:300px;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-   }
-
-   .selectBox {
-      width: 400px;
-      height: auto;
-      border: 5px solid rgba(97, 191, 174, 0.7);
-      background-color: white;
-      margin-top: 10px;
-      padding:20px;
-   }
-
-   .box_wrap{
-       display:flex;
-       flex-direction:column;
-   }
-
-   .box_wrap>div{
-       margin:10px;
-   }
-
+body{
+	font-family:nanuml;
+}
 </style>
 </head>
 <body>

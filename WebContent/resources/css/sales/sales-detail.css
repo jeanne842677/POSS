@@ -1,0 +1,345 @@
+@charset "UTF-8";
+
+html, body {
+        width:100%;
+        min-width:1130px;
+    }
+
+    /* div {
+        border: solid thin;
+    } */
+
+
+    /* header (네비게이션영역)-------------------------------------------------------- */
+    #header{
+        width:100%;
+        height:80px;
+        background-color: #aaa;
+    }
+
+    /*로고*/
+    .logo {
+        width:155px;
+    }
+
+    /*네비게이션 wrap*/
+    .navbar-nav {
+        -ms-flex-direction: row;
+        flex-direction: row;
+        justify-content: space-around;
+        min-width: 390px;
+        }
+
+    /*메뉴*/
+    .navbar{
+        width:100%;
+        height: 80px;
+        display:flex;
+        justify-content: space-between;
+        font-size: 25px;
+        font-weight: bold;
+        padding-top:0;
+    }
+
+    .menugroup{
+        width:43%; 
+    }
+
+    /* 메뉴글씨 */
+    .navbar-dark .navbar-nav .nav-link{
+        color: #343a40;
+        flex-shrink:0;
+    }
+
+
+
+    .section-wrap{
+        width: 1130px;
+        display: block;
+        margin: auto;
+    }
+
+
+    /* 메뉴아래 매출관리, 오늘 총 매출------------------------------------------------  */
+    #title_area{
+        width:100%;
+        min-width: 550px;
+    }
+
+    .title{
+        width: 1130px;
+        height:100px;  
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+        line-height: 100px;
+        position: absolute;
+        font-size:25px;
+        color: #343a40;
+        font-weight: bolder;
+        padding:10px 0px 0px 0px;
+    }
+
+    .todaysales{
+        width: 20%;
+        min-width: 300px;
+        height: 100px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        padding:10px 0px 0px 0px;
+    }
+
+    .todaysales_title{
+        height:50%;  
+        line-height: 65px; 
+        font-size: 16px; 
+        color: #343a40; 
+        font-weight: bold;
+    }
+
+    .todaysales_num{
+        height:50%;
+        font-size: 25px;
+        font-weight: bold;
+        color: #fe4f4f;
+    }
+
+    /* tab영역------------------------------------------------------- */
+    #tabzone{
+        width: 100%;
+        height:40px;
+        display:flex;
+    }
+
+    #tabzone>*{
+        text-align: center;
+        width:150px;
+        margin-left:10px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .tab1{
+        color:white;
+        background-color: #ff8b8b;
+        border-style: none;
+    }
+
+    .tab2{
+        color: #343a40; 
+        background-color: #f9f7e8;
+        border-style: none;
+    }
+
+    
+
+    /* 기간선택 창------------------------------------------------------ */
+    #showterm{
+        width:100%;
+        height:80px;
+        display:flex;
+        background-color: #f9f7e8;
+        display:flex;
+        align-items: center;
+    }
+
+    #showterm>*{
+        margin-left:10px;
+    }
+    
+
+    /* 매출분석, 기간----------------------------------------------- */
+    .con1titlezone{
+        width:100%;
+        height: 50;
+        display:flex;
+        justify-content: space-between;
+        padding:20px 50px 20px 50px;
+        font-size: 23px;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    /* 매출분석, 메뉴분석---------------------------------------- */
+    #content1{
+        width:100%;
+        min-width: 800px;
+        height: 300px;
+        display:flex;
+        align-items: center;
+        justify-content: space-around;
+        margin:0px 0px 10px 0px;
+    }
+
+    /* 글자 설정 */
+    .smfont, .rednum, .resnum, .bold{
+        flex-shrink: 0;
+    }
+
+    .smfont{
+        font-size:15px;
+        color:#343a40;
+    }
+
+    .rednum{
+        font-size:25px;
+        font-weight: bold;
+        color:#fe4f4f;
+    }
+
+    .resnum{
+        font-size:25px;
+        font-weight: bold;
+        color:#343a40;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+
+    /* 매출분석 */
+    .analyze{
+        width:30%;
+        padding:0px 0px 0px 100px;
+    }
+
+    .analyze>*{
+        margin:0px 0px 10px 0px;
+        width:180px;
+    }
+    
+    /* top메뉴 */
+    .onetopmenu{
+        width:30%;
+        text-align: center;
+        border:15px solid #ff8b8b;
+        width:270px; height:270px;
+        border-radius:270px;
+        min-width: 270px;
+
+    }
+    .onetopmenu>*{
+        justify-content: center;
+        padding:52px 10px 10px 10px;
+    }
+
+    /* 메뉴 순위 */
+    .ordernum {
+        min-width: 200px;
+        width:15%;
+    }
+
+    .rankmenu{
+        min-width: 200px;
+        width:10%;
+    }
+
+    .ordernum>*, .rankmenu>*{
+        font-size:16px;
+        margin:30px;
+        font-weight:bold;
+        color:#343a40;
+    }
+
+    .ordernum>*{
+        padding-left:0px;
+        
+    }
+
+   /* 매출캘린더 제목, 이번달 총 매출 금액-------------------------------- */
+    #title_area2{
+        width:100%;
+        height: 50;
+        display:flex;
+        justify-content: space-between;
+        padding:20px 50px 20px 50px;  
+        min-width: none;
+    }
+
+    .title2{
+        font-size: 23px;
+        font-weight: bold;
+        color: #343a40;
+        line-height: 50px;
+        min-width:140px;
+    }
+
+    .monthsales>*{
+        margin:0px 0px 3px 0px;
+        min-width:300px;
+    }
+    
+    .monthsales_title{
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .monthsales_num{
+       text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        color: #fe4f4f;
+    }
+
+     /* 캘린더--------------------------------------------------- */
+    #content2{
+        width:100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* footer ----------------------------------------------------------*/
+    #footer{
+        width:100%;
+        width:100%;
+        height:30px;
+        background-color: #61bfad;
+    }
+
+    /* 표  */
+   #content{
+      display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 65vh;
+        margin-top: 9px;
+   }
+
+   .content-wrap{
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+   }
+   
+   .table th{
+      text-align: center;
+   }
+
+   .table td{
+      text-align: center;
+   }
+
+   #btn-table{
+      border-radius: 5%;
+      height:30px;
+      line-height: 20px;
+   }
+
+    
+    
+/* datepicker */
+    .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    width: 47%;
+    float: right;
+    }
+
+    .ui-datepicker .ui-datepicker-title select.ui-datepicker-year {
+    float: left;
+    width: 50%;
+}

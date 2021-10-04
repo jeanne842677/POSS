@@ -7,275 +7,26 @@
 <title>포스테이블</title>
 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
+
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/resources/css/seat/select-seat.css">
+
 <style type="text/css">
-/* 
-메인 민트색 : rgb(97, 191, 173)
-베이지색 : rgb(249, 247, 232)
-라즈베리색 : rgb(255, 167, 167)
-진회색 : rgb(127, 127, 127)
-진갈색 : rgb(79, 65, 51)
- */
- html, body {
-	width: 100%;
-	min-width: 1590px;
-	height: 100%;
-	min-height: 640px;
-	display: flex;
-	justify-content: center;
-	min-height: 600px;
+@font-face{
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
-.wrap {
-	width: 100%;
-	min-width: 360px;
-	height: 100%;
-	min-height: 640px;
-	display: flex;
-	flex-direction: column;
+body{
+	font-family:nanuml;
 }
-
-/* header (네비게이션영역)-------------------------------------------------------- */
-#header {
-	width: 100%;
-	height: 80px;
-	background-color: #aaa;
-}
-
-/*로고*/
-.logo {
-	width: 155px;
-}
-
-/*네비게이션 wrap*/
-.navbar-nav {
-	-ms-flex-direction: row;
-	flex-direction: row;
-	justify-content: space-around;
-	min-width: 390px;
-}
-
-/*메뉴*/
-.navbar {
-	width: 100%;
-	height: 80px;
-	display: flex;
-	justify-content: space-between;
-	font-size: 25px;
-	font-weight: bold;
-	padding-top: 0;
-}
-
-.menugroup {
-	width: 43%;
-}
-
-/* 메뉴글씨 */
-.navbar-dark .navbar-nav .nav-link {
-	color: #343a40;
-	flex-shrink: 0;
-}
-
-.section-wrap {
-	width: 1130px;
-	display: block;
-	margin: auto;
-}
-
-.under_wrap {
-
-	width:100%;
-	height:100%;
-	background-color: lightgray;
-	display: flex;;
-	justify-content:center;
-
-}
-
-.content{
-   display: flex;;
-	
-}
-
-
-.left_wrap{
-
-	width: 30%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-   align-items: center;
-}
-
-.center_wrap {
-	display: flex;
-   width:70%;
-}
-
-
-
-.card {
-   width:98%;
-	height: 47%;		
-
-}
-
-#reserve_header{ 
-
-	background-color: RGB(255, 206, 103);
-	color:black;
-	
-
-}
-
-
-#waiting_header {
-
-
-
-	background-color: RGB(243, 150, 154);
-	color:black;
-
-}
-
-
-.table_wrap {
-	width:1100px;
-	background-color: white;
-	overflow: hidden;
-	position:relative;
-}
-
-.btn_wrap {
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-
-}
-
-.btn_top {
-	
-	display: flex;
-	flex-direction: column;
-	margin-top: 10px;
-}
-
-.btn_bottom{
-
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 40px;
-
-}
-
-.btn {
-	border-radius: 1px 6px 6px 1px;
-	width:135px;
-	height:60px;
-	font-size:20px;
-	margin-top:2px;
-
-
-}
-.card-body {
-	overflow: scroll;
-	
-}
-.card-body::-webkit-scrollbar {
-  display: none;
-}
-
-.reserve , .waiting {
-	width:100%;
-	height: 50px;
-	background-color: rgba(255, 207, 103, 0.7);
-	margin-bottom: 5px;
-	display: flex;
-	color:black;
-	align-items: center;
-
-}
-
-.waiting {
-
-	background-color: rgb(243, 150, 154, 0.7);
-
-
-}
-
-
-.time {
-	width:60px;
-	margin-left: 10px;
-	
-
-}
-
-.name {
-
-	width:130px;
-	text-align: center;
-
-}
-
-.table_num {
-	width:60px;
-	text-align: right;
-
-}
-
-.num {
-	width:50px;
-	text-align: right;
-	margin-right: 10px;
-}
-
-.drag{
-	position:absolute;
-	background-color: rgba(181, 227, 216, 0.7);
-	width:200px;
-	height: 200px;
-	border-radius: 5px;
-	display:inline-block;
-   border: solid 1px #ccc;
-   padding: 10px;
-}
-
-.table_text  {
-background-color: transparent;
-border: none;
-
-}
-
-.table_text:focus {
-outline:none;
-
-}
-
-
-.floor {
-	padding: 0px;
-	line-height: 60px;
-
-}
-
-
-
-
-.cat_delete_btn {
-	display:none;
-
-}
-
 </style>
-
 </head>
 <body>
 	<div class='wrap'>
@@ -285,32 +36,8 @@ outline:none;
 
 
 		<!-- 상단 네비게이션 -->
-		<header id="header">
-         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                 <a href="../index"><img src="/resources/image/LOGO6.png" class="logo"></a>
-                
-     <div class="menugroup">
-         <ul class="navbar-nav me-auto" class="menu">
-             <li class="nav-item">
-               <a class="nav-link active" href="#">포스</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/sales/confirm">매출관리</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/board/notice">게시판</a>
-             </li>
-             <li class="nav-item">
-               <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
-             </li>
-             <li class="nav-item">
-                 <a class="nav-link" href="/reserve/confirm">예약내역</a>
-             </li>
-             
-         </ul>  
-         </div>  
-         </nav>
- </header>
+		<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
 
 
 
@@ -411,11 +138,7 @@ outline:none;
    </div>
 
 	</div>
-	
-</body>
 <script type="text/javascript">
-	
-
 	document.querySelectorAll('.table_text').forEach(tableText=>{
 	
 	tableText.setAttribute("readonly" , "readonly" );
@@ -551,13 +274,8 @@ outline:none;
 		}
 		
 	};
-	
-	
-
-    
-
-</script>
-
+	</script>
+</body>
 
 
 

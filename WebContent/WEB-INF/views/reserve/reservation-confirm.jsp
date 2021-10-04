@@ -8,124 +8,29 @@
 <title>예약 확인페이지</title>
 <link href="/resources/css/all.css" rel="stylesheet">
 <link href="/resources/css/reset.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/reserve/reservation-confirm.css" rel="stylesheet">
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script defer type="text/javascript" src="/resources/js/reserve/reservation-confirm.js"></script>
 <style type="text/css">
-	html, body{
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
-	
-	.wrap{
-		width:100%;
-		height:100%;
-		display:flex;
-		justify-content: center;
-	}
-	
-	.wrap_res{
-		width:1130px;
-		height:100%;
-	}
+@font-face{
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+}
 
-	.now{
-	color:white;
-	}
-	
-	/* div{
-		border: solid thin;
-	} */
+body{
+	font-family:nanuml;
+}
 
-
-	/* 상단 네비게이션---------------------------------------------- */
-	.nav{
-		width:100%;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		font-weight: bold;
-		height: 50px;
-		background-color: rgb(97, 191, 173);
-		color:black;
-	}
-	
-	
-	.nav>div:hover{
-		color: white;
-	}
-	
-	/* text */
-	.content{
-		width: 100%;
-		height:300px;
-		padding: 10px;
-	}
-	
-	#title{
-		display:flex;
-		justify-content: center;
-		align-items: center;
-		width:100%;
-		font-weight: bolder;
-		font-size: 20px;
-		
-	}	
-
-	.hr{
-		width:100%;
-		display:flex;
-		justify-content: center;
-	}
-
-	.info_wrap{
-		width:100%;
-		display:flex;
-		justify-content:center;
-	}
-	
-	.info{
-		width:200px;
-
-	}
-
-	.info>div{
-		padding:10px;
-		display: flex;
-		justify-content: baseline;
-	}
-	
-	/* 버튼 */
-
-	.foot_wrap{
-		display:flex;
-		justify-content: center;
-		width:100%;
-	}
-	.btn_wrap{
-		width: 100%;
-		padding-bottom: 20px;
-		display:flex;
-		justify-content: center;
-		margin-top: 5vh;
-	}
-	
-	#cancel{
-		width: 120px;
-		height: 45px;
-		border: none;
-		margin:10px;
-	}
-	
-	#confirm{
-		width: 120px;
-		height: 45px;
-		border: none;
-		margin:10px;
-	}
-	
+.table th {
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    background-color: #aaa;
+    color: #fff;
+    z-index: 10;
+}
 </style>
 </head>
 <body>
@@ -186,23 +91,5 @@
 
 
 
-<script type="text/javascript">
-function cancel(reserveIdx, userId) {
-	let resIdx = reserveIdx;
-	let id = userId;
-   	setModalTitle('modal1','예약취소');
-   	setModalBody('modal1', '정말로 예약을 취소 하시겠습니까?');
-   	modal1();
-   	setYesFunc = function testFnc(){
-   		modal2();
-   		setModalTitle('modal2','예약취소 완료');
-   	    setModalBody('modal2', '예약이 취소되었습니다.');
-   		setOkayFunc = function rCancel(){
-   			location.href = '/reserve/'+id+'/reservation-cancel?reserveIdx='+resIdx;
-   		}
-   	}
-};
-
-</script>
 </body>
 </html>

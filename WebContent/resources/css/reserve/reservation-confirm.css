@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+html, body{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	
+	.wrap{
+		width:100%;
+		height:100%;
+		display:flex;
+		justify-content: center;
+	}
+	
+	.wrap_res{
+		width:1130px;
+		height:100%;
+	}
+
+	.now{
+	color:white;
+	}
+	
+	/* div{
+		border: solid thin;
+	} */
+
+
+	/* 상단 네비게이션---------------------------------------------- */
+	.nav{
+		width:100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		font-weight: bold;
+		height: 50px;
+		background-color: rgb(97, 191, 173);
+		color:black;
+	}
+	
+	
+	.nav>div:hover{
+		color: white;
+	}
+	
+	/* text */
+	.content{
+		width: 100%;
+		height:300px;
+		padding: 10px;
+	}
+	
+	#title{
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		width:100%;
+		font-weight: bolder;
+		font-size: 20px;
+		
+	}	
+
+	.hr{
+		width:100%;
+		display:flex;
+		justify-content: center;
+	}
+
+	.info_wrap{
+		width:100%;
+		display:flex;
+		justify-content:center;
+	}
+	
+	.info{
+		width:200px;
+
+	}
+
+	.info>div{
+		padding:10px;
+		display: flex;
+		justify-content: baseline;
+	}
+	
+	/* 버튼 */
+
+	.foot_wrap{
+		display:flex;
+		justify-content: center;
+		width:100%;
+	}
+	.btn_wrap{
+		width: 100%;
+		padding-bottom: 20px;
+		display:flex;
+		justify-content: center;
+		margin-top: 5vh;
+	}
+	
+	#cancel{
+		width: 120px;
+		height: 45px;
+		border: none;
+		margin:10px;
+	}
+	
+	#confirm{
+		width: 120px;
+		height: 45px;
+		border: none;
+		margin:10px;
+	}

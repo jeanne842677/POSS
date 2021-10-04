@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,110 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-	href="https://bootswatch.com/5/minty/bootstrap.min.css">
-<style type="text/css">
-html, body {
-	height: 100%;
-	width: 100%;
-}
+<link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/member/login-form.css">
+<script defer type="text/javascript" src="/resources/js/member/login-form.js"></script>
+	
 
-body {
-	background-color: rgb(97, 191, 173);
-}
-
-/*전체 wrap*/
-.wrap {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-}
-
-/*살구색 로그인창 wrap*/
-.login_wrap {
-	position: relative;
-	width: 550px;
-	height: 480px;
-	border-radius: 10px;
-	background-color: rgb(249, 247, 232);
-	box-shadow: 10px 10px grey;
-	flex-direction: column;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-/*로고 이미지*/
-#logo {
-	width: 450px;
-	position: absolute;
-	top: -80px;
-}
-
-/*아이디, 비밀번호 ,로그인, 카카오계정버튼 div들의 wrap*/
-.inner_login_wrap {
-	width: 80%;
-	height: 70%;
-	position: absolute;
-	top: 100px;
-}
-
-.inner_login_wrap>* {
-	margin: 10px 0 10px 0;
-	height: 50px;
-	display: block;
-	width: 100%;
-	margin: 10px 0
-}
-
-/*로그인 버튼*/
-#loginBtn {
-	background-color: RGB(255, 139, 139);
-	border-color: RGB(255, 139, 139);
-	font-weight: 600;
-}
-
-/*카카오 로그인버튼*/
-#kakaoLoginBtn {
-	background-color: RGB(249, 224, 0);
-	border-color: RGB(249, 224, 0);
-	color: black;
-	font-weight: 600;
-}
-
-/*비밀번호 찾기 / 아이디찾기 / 회원가입 찾기 wrap*/
-.find_wrap {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.find_wrap>* {
-	margin: 0 10px 0 10px;
-}
-
-/*로그인 정보 알림 문구*/
-#loginAlert {
-	height: 15px;
-	font-size: 11px;
-	margin: 15px 0 15px 0;
-	color: red;
-}
-
-.nav-link {
-	padding: 0px;
-	color: gray;
-}
-
-.kakao_join{
-    display:flex;
-    justify-content: center;
-}
-</style>
 <title>Document</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style type="text/css">
+@font-face{
+	font-family:'nanuml';
+	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+}
+
+body{
+	font-family:nanuml;
+}
+</style>
+
 </head>
 <body>
 	<div class="wrap">
@@ -138,104 +51,5 @@ body {
 		</div>
 	</div>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
-
-<script type="text/javascript"> 
-	   
-	let login = function() {
-		location.href = "/index";
-    }
-	
-	Kakao.init('e5cd0153e48da9da48f6b22ac3f45bfd');
-	
-	Kakao.API.request({
-		url: '/v1/user/unlink',
-		success: function(res){
-			
-		},				
-	})
-	
-	function insertKakao(){
-	   	
-		Kakao.Auth.login({
-			success: (auth) => {
-				Kakao.API.request({
-					url: '/v2/user/me',
-					success: function(res){
-						let kakaoId = res.id;
-						location.href = '/member/kakao-join?userId='+kakaoId;
-					}
-				})
-			},
-			fail: (err) => {
-				console.error(err)
-			}
-		})
-	}
-		
-    document.querySelector("#loginBtn").addEventListener('click', e => {
- 		let id = document.querySelector('#userId').value;
-	   	let password = document.querySelector('#password').value;
-       
-    fetch('/member/login?userId=' + id + '&password=' + password , 
-    		{method:'POST'}
-    ).then(response => response.text()
-    		
-    ).then(text => {
-    	console.dir(text);
-    	 if(text == 'available'){
-    		setModalTitle('modal2','Poss 로그인');
-			setModalBody('modal2','로그인 되었습니다.');
-			setOkayFunc = login;
-			modal2();
-          }else if(text == 'disable'){
-            location.href="/member/login-form?err=1";
-          }
-    })
-  })
-  
-  function kakaoLogin(){
-    	Kakao.Auth.login({
-			success: (auth) => {
-				Kakao.API.request({
-					url: '/v2/user/me',
-					success: function(res){
-						let kakaoId = res.id;
-						
-						fetch('/member/kakao-login?userId=' + kakaoId, 
-					    		{method:'POST'}
-					    ).then(response => response.text()
-					    		
-					    ).then(text => {
-					    	console.dir(text);
-					    	 if(text == 'available'){
-					    		setModalTitle('modal2','Poss 로그인');
-								setModalBody('modal2','로그인 되었습니다.');
-								setOkayFunc = login;
-								modal2();
-					          }else if(text == 'disable'){
-					        	  Kakao.API.request({
-					  				url: '/v1/user/unlink',
-					  				success: function(res){
-					  					Kakao.Auth.logout(function() {
-					  						location.href = "/member/login-form?err=1";
-					  					});
-					  				},				
-					  			})
-					          }
-					    })
-					}
-				})
-			},
-			fail: (err) => {
-				console.error(err)
-			}
-		})
-   }
-  
-
-</script>
-
-
-
 </body>
 </html>

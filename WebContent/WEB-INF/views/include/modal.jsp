@@ -58,7 +58,7 @@
 </div>
 <!--  okay 모달 end -->
 
-<!-- okay 모달 -->
+<!-- okay 모달3 -->
 <div class="modal" style="display:none; margin-top:30vh" id="modal3">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,8 +68,8 @@
                     <span aria-hidden="true"></span>
                 </button>
             </div>
-            <div class="modal-body" id="modal3-body">
-                <input type="password" id="confirmPw" style="margin-left: 110px; width: 200px; height: 80px;">
+            <div class="modal-body" id="modal3-body"style="display: flex; justify-content: center;">
+                <input type="password" id="confirmPw" style="width: 200px; height: 60px;">
             </div>
             <div class="modal-footer">
                 <button type="button" id="confirm" class="btn btn-primary" data-bs-dismiss="modal" onclick="clickConfirm(setConfirmFunc)">확인</button>
