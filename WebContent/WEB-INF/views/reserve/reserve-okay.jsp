@@ -12,6 +12,7 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>  
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+<script defer type="text/javascript" src="/resources/js/reserve/reserve-okay.js"></script>
     
 
 </head>
@@ -132,32 +133,6 @@
 <!-- 전체조회 end========================================================================= -->
 </form>
 <footer id="footer"></footer>
-
-
-
-
-<script type="text/javascript">
-function cancel(reserveIndex,userId) {
-	let rtest = reserveIndex;
-	let id = userId;
-   	setModalTitle('modal1','예약취소');
-   	setModalBody('modal1', '정말로 예약을 취소 하시겠습니까?');
-   	modal1();
-   	setYesFunc = function testFnc(reserveIndex){
-   		modal2();
-   		setModalTitle('modal2','예약취소 완료');
-   	    setModalBody('modal2', '예약이 취소되었습니다.');
-   		setOkayFunc = function rCancel(){
-   			location.href = '/reserve/'+id+'reserve-cancel?reserveIdx='+rtest;
-   		}
-   	}
-};
-
-
-
-      
-
-</script>
 
 
 </body>

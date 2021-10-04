@@ -6,12 +6,13 @@
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <meta charset="UTF-8">
 <title>poss 게시판 목록 페이지</title>
-<link href="/resources/css/board/board-notice.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/css/board/board-notice.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/all.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 <link rel="stylesheet" href="/resources/css/reset.css">
+<script defer type="text/javascript" src="/resources/js/board/board-notice.js"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-<link href="/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/resources/css/all.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="wrap_all">
@@ -108,48 +109,8 @@
    </div>
 </div>
 
-<script type="text/javascript">
-function inputKeyword(userId) {
-   let keyword = document.querySelector("#keywordBox").value;
-   if(keyword == "") {
-	   location.href='/board/'+userId+'/notice';
-   }else {
-	   location.href='/board/'+userId+'/search?keyword='+keyword;
-   }
-}
 
-function prev(inputPage) {
-   
-   let page = inputPage - 1;
-   
-   if(page == 0){
-      alert("전 페이지가 존재하지 않습니다.");
-      return;
-   }
-   
-   location.href = "/board/${userId}/notice?page="+page;
-}
 
-function confirmPrivate(idxParams, privateParams, pwParams, userId){
-   
-   if(privateParams == 0){
-      location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
-   } else if(privateParams == 1){
-      let confirmPw = prompt("비밀번호를 입력하세요");
-      
-      if(confirmPw == pwParams){
-         location.href = '/board/'+userId+'/post?boardIdx='+idxParams;
-      } else {
-         alert("다시 입력하세요!");
-         return;
-      }
-      
-   } else {
-      alert("오류 발생");
-   }
-   
-}
 
-</script>
 </body>
 </html>

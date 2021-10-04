@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
 <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script defer type="text/javascript" src="/resources/js/reserve/reservation-confirm.js"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/modal.jsp" %>
@@ -71,23 +72,5 @@
 
 
 
-<script type="text/javascript">
-function cancel(reserveIdx, userId) {
-	let resIdx = reserveIdx;
-	let id = userId;
-   	setModalTitle('modal1','예약취소');
-   	setModalBody('modal1', '정말로 예약을 취소 하시겠습니까?');
-   	modal1();
-   	setYesFunc = function testFnc(){
-   		modal2();
-   		setModalTitle('modal2','예약취소 완료');
-   	    setModalBody('modal2', '예약이 취소되었습니다.');
-   		setOkayFunc = function rCancel(){
-   			location.href = '/reserve/'+id+'/reservation-cancel?reserveIdx='+resIdx;
-   		}
-   	}
-};
-
-</script>
 </body>
 </html>

@@ -7,13 +7,12 @@
 <title>글 작성페이지</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 <link rel="stylesheet" href="/resources/css/reset.css">
-<script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
 <link href="/resources/css/all.css" rel="stylesheet">
 <link href="/resources/css/board/write-form.css" rel="stylesheet">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<style type="text/css">
+<script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
+<script defer type="text/javascript" src="/resources/js/board/write-form.js"></script>
 
-</style>
 </head>
 <body>
 	<form class="wrap_all" action="/board/${userId}/write" method="post" id="frm_write">
@@ -50,27 +49,7 @@
 		</div>
 	</form>
 
-<script type="text/javascript">
-var check = $("input[type='checkbox']");
-check.click(function(){
-	$("#public").toggle();
-	$("#private").toggle();
-});
 
-(() => {
-	document.querySelector('#frm_write').addEventListener('submit', e => {
-			
-			let pwReg = /^\d{4}$/;
-			
-			if(!pwReg.test(password.value)){
-				e.preventDefault();
-				document.querySelector('#password').value = "";
-				document.querySelector('#pwCheck').innerHTML ='비밀번호는 숫자 4자리입니다.'; 
-			}
-	})
-})();
-
-</script>
 
 </body>
 </html>

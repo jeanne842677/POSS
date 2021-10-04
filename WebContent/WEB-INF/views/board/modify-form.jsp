@@ -7,10 +7,11 @@
 <title>글 작성페이지</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css"/> 
 <link rel="stylesheet" href="/resources/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/all.css" >
+<link rel="stylesheet" type="text/css" href="/resources/css/board/modify-form.css">
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-<link href="/resources/css/all.css" rel="stylesheet">
-<link href="/resources/css/board/modify-form.css" rel="stylesheet">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script defer type="text/javascript" src="/resources/js/board/modify-form.js"></script>
 
 </head>
 <body>
@@ -47,23 +48,7 @@
       </div>
    </form>
 
-<script type="text/javascript">
-var check = $("input[type='checkbox']");
-check.click(function(){
-   $("#public").toggle();
-   $("#private").toggle();
-});
 
-let switchFnc = document.querySelector("#switch");
-
-if (switchFnc.value == 0){
-	switchFnc.removeAttribute("checked");
-} else {
-	document.getElementById("public").style.display = "none";
-	document.getElementById("private").style.display = "block";
-}
-
-</script>
 
 </body>
 </html>

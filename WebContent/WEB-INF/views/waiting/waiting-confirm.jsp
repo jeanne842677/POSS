@@ -12,7 +12,8 @@
    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">   
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-   
+   <link rel="stylesheet" href="/resources/css/waiting/waiting-confirm.css">
+   <script defer type="text/javascript" src="/resources/js/waiting/waiting-confirm.js"></script>
 
 
 </head>
@@ -97,52 +98,6 @@
 <footer id="footer"></footer>
 </div>
 
-<script type="text/javascript">
-//선택날짜 기간 넘기지않게 비활성화
- $(function() {
-        // start Date 설정시 end Date의 min Date 지정
-        $( "#start" ).datepicker({
-            dateFormat: "yy-mm-dd",
-            dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-            monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-            monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-            defaultDate: "+1w",
-            numberOfMonths: 1,
-            changeMonth: true,
-            showMonthAfterYear: true ,
-            changeYear: true,
-            maxDate:0,
-            onClose: function( selectedDate ) {
-                $( "#end" ).datepicker( "option", "minDate", selectedDate );
-            }
-        });
-         // end Date 설정시 start Date max Date 지정
-        $( "#end" ).datepicker({
-            dateFormat: "yy-mm-dd",
-            dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-            monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-            monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-            defaultDate: "+1w",
-            numberOfMonths: 1,
-            changeMonth: true,
-            showMonthAfterYear: true ,
-            changeYear: true,
-         	maxDate:0,
-            onClose: function( selectedDate ) {
-                $( "#start" ).datepicker( "option", "maxDate", selectedDate );
-            }
-        });
 
-   });
-// 현재 날짜 기본값으로 표시
-document.getElementById('start').value = new Date().toISOString().substring(0, 10);
-document.getElementById('end').value = new Date().toISOString().substring(0, 10);  
-
-
-let scrollHeight = document.querySelector('.content-wrap').scrollHeight;
-document.querySelector('.content-wrap').scrollTop = scrollHeight;
-
-
-</script>
 </body>
 </html>

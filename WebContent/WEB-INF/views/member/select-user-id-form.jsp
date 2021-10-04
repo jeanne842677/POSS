@@ -11,6 +11,8 @@
     
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/member/select-user-id-form.css">
+<script defer type="text/javascript" src="/resources/js/member/select-user-id-form.js"></script>
+
 
     <title>Document</title>
 </head>
@@ -47,29 +49,6 @@
         </div>
     </div>
 
-<script type="text/javascript">
-	
-	
-	
-	
-	
-	document.querySelector('#login_btn').addEventListener('click', e=>{
-		
-		location.href="/member/login-form";
-		
-	})
-	
-	
-	document.querySelector('#find_pass_btn').addEventListener('click', e=>{
-		
-		location.href="/member/change-pass";
-		
-	})
-	
-	
-	
-
-</script>
 
 </body>
 </html>

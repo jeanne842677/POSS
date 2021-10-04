@@ -15,6 +15,7 @@
 <script type="text/javascript" src="resources/js/clock.js"></script>
 <script type="text/javascript" src="resources/js/weather.js"></script>
 <link rel="stylesheet" href="/resources/css/index.css">
+<script defer type="text/javascript" src="/resources/js/index.js"></script>
 
 
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -147,22 +148,6 @@
 	</div>
 
 <%@ include file="/WEB-INF/views/include/modal.jsp"%>
-<script type="text/javascript">
-		
-		let logout = function() {
-			location.href = "/member/logout";
-		}
-		
-		
-		function showConfirmLogout() {
-			
-			setModalTitle('modal1', 'Poss 로그아웃');
-			setModalBody('modal1', '로그아웃 하시겠습니까?');
-			setYesFunc = logout;
-			modal1();
-		}
-		
-	</script>
 
 
 
