@@ -67,6 +67,16 @@
   	<location>/WEB-INF/views/error/404.jsp</location>
   </error-page>
   
+  <error-page>
+  	<error-code>400</error-code>
+  	<location>/WEB-INF/views/error/400.jsp</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/WEB-INF/views/error/500.jsp</location>
+  </error-page>
+  
   
   
   <!-- 이 exception 발생시  -->

@@ -7,17 +7,7 @@ function inputKeyword(userId) {
    }
 }
 
-function prev(inputPage) {
-   
-   let page = inputPage - 1;
-   
-   if(page == 0){
-      alert("전 페이지가 존재하지 않습니다.");
-      return;
-   }
-   
-   location.href = "/board/${userId}/notice?page="+page;
-}
+
 
 function confirmPrivate(idxParams, privateParams, pwParams, userId){
    

@@ -458,7 +458,7 @@ public class ReserveDao {
 		ResultSet rset = null;
 		String query = "";
 
-		query = "select * from reserve where user_id= ? and re_date >= sysdate-1 and re_date < sysdate";
+		query = "select * from reserve where user_id= ? and is_visit = '0' and is_cancel='0' and re_date >= current_date-1 and re_date < current_date";
 
 		try {
 			pstm = conn.prepareStatement(query);

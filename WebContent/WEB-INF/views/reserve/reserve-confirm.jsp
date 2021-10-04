@@ -449,7 +449,6 @@ font-size:14px;
                   <th scope="col">예약일</th>
                   <th scope="col">방문시간</th>
                   <th scope="col">예약인원</th>
-                  <th scope="col">테이블</th>
                   <th scope="col">예약자</th>
                   <th scope="col">연락처</th>
                   <th scope="col">방문상태</th>
@@ -465,7 +464,6 @@ font-size:14px;
                         <td>${rl.reDate}</td>
                         <td>${rl.reTime}</td>
                         <td>${rl.num}명</td>
-                        <td>1번</td>
                         <td>${rl.name}</td>
                         <td>${rl.phone}</td>
                         <c:choose>
@@ -473,12 +471,12 @@ font-size:14px;
                               <td>미방문</td>
                            </c:when>
                            <c:otherwise>
-                              <td>방문</td>>
+                              <td>방문</td>
                            </c:otherwise>
                         </c:choose>
                         <td>${rl.content}</td>
                         <c:choose>
-                           <c:when test="${rl.isCancel eq 0}">
+                          <c:when test="${rl.isCancel eq 0 and rl.isVisit eq 0}">
                               <td><button type='button' id='btn-table' class="btn btn-outline-secondary" onclick="cancel('${rl.reserveIdx}','${rl.userId}')">예약취소</button></td>
                            </c:when>
                            <c:otherwise>
