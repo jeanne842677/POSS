@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/include/head.jsp" %>
 <title>예약 페이지</title>
-<link href="/resources/css/reserve/reservation-form.css">
+<link href="/resources/css/reserve/reservation-form.css?ver=1"  rel="stylesheet">
 <link href="/resources/css/all.css" rel="stylesheet">
 <link href="/resources/css/reset.css" type="text/css" rel="stylesheet">
 <link  href="/resources/css/bootstrap.css" type="text/css" rel="stylesheet">

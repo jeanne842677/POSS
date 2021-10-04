@@ -76,7 +76,6 @@ public class BoardDao {
       } finally {
          template.close(rset, pstm);
       }   
-      System.out.println(boardList);
       return boardList;
    }
    
@@ -108,7 +107,6 @@ public class BoardDao {
       } finally {
          template.close(rset, pstm);
       }   
-      System.out.println(searchList);
       return searchList;
    }
    
@@ -132,7 +130,6 @@ public class BoardDao {
          template.close(pstm);
       }
       
-      System.out.println(count);
       return count;
    }
    
@@ -157,7 +154,6 @@ public class BoardDao {
 		   template.close(pstm);
 	   }
 	   
-	   System.out.println(count);
 	   return count;
    }
    
@@ -180,7 +176,6 @@ public class BoardDao {
       } finally {
          template.close(rset, pstm);
       }   
-      System.out.println(board);
       return board;
    }
 

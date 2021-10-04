@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="/resources/css/seat/seat-modify.css">
-<script defer type="text/javascript" src="/resources/js/seat/seat-modify.js"></script>
+<script defer type="text/javascript" src="/resources/js/seat/seat-modify.js?ver=1"></script>
 <style type="text/css">
 @font-face{
 	font-family:'nanuml';

@@ -7,7 +7,7 @@
 
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 
-<link rel="stylesheet" href="/resources/css/menu/menu-select.css">
+<link rel="stylesheet" href="/resources/css/menu/menu-select.css?ver=1">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <meta charset="UTF-8">
@@ -88,7 +88,7 @@ body{
 
     <div id="header">
         <div class="back" style=" cursor: pointer;" onclick="location.href='/seat/select'"><i class="fas fa-chevron-left"></i> </div>
-        <div class="now_order">현재주문 3건 | 09월 06일 오전 9:25</div>
+        <div class="now_order"></div>
         <div class="modify_toggle">
         	<div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="location.href='/menu/modify'">
@@ -114,7 +114,6 @@ body{
         <div id="content1">
             <div class="table_num">
                 <div class="tb_num">${ orderNum }번</div>
-                <div class="wait_time">0:00</div>
             </div>
 
 
@@ -196,6 +195,8 @@ json = ${orderJoinList};
 
  }
 
+ 
+ 
  // 메뉴바
 document.querySelector("#menubar").addEventListener("click", e => {
     let slide = document.getElementById('menuslide');
@@ -329,8 +330,15 @@ document.querySelector("#menubar").addEventListener("click", e => {
                    //총 주문금액
                    totalPrice(addList);
                  changeColor(addList);
+                 
+                 document.querySelector('.order_list').scrollTop = document.querySelector('.order_list').scrollHeight;
+                 
+                 
          })
          document.querySelector('.menu_name').append(menuDiv); 
+         
+         
+         
     })   ;
  
  };
@@ -780,6 +788,20 @@ document.querySelector('.cash').addEventListener('click' , e=> {
       }         
 
 });
+
+
+
+let thisTime = () => {
+	
+	let date = new Date();
+	let str = date.getFullYear()+"년 "+ (date.getMonth()+1) + "월 " + date.getDate()+"일 " + date.getHours() + "시 " + date.getMinutes()+"분";
+	return str;
+}
+
+document.querySelector('.now_order').innerHTML = thisTime();
+	
+	
+	
 
 </script>
 </body>

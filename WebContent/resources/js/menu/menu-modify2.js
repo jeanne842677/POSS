@@ -169,3 +169,15 @@ let idx = 0;
           document.querySelector('#nameCheck1').innerHTML ='(최대 20글자)'; 
        }
     })
+    
+    
+    
+let thisTime = () => {
+	
+	let date = new Date();
+	let str = date.getFullYear()+"년 "+ (date.getMonth()+1) + "월 " + date.getDate()+"일 " + date.getHours() + "시 " + date.getMinutes()+"분";
+	return str;
+}
+
+document.querySelector('.now_order').innerHTML = thisTime();
+	

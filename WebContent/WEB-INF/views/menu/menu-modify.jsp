@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/menu/menu-modify.css">
     <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
-    <script defer type="text/javascript" src="/resources/js/menu/menu-modify.js"></script>
+    <script defer type="text/javascript" src="/resources/js/menu/menu-modify.js?ver=1"></script>
     
     <title>possPage</title>
 <style type="text/css">
@@ -31,10 +31,10 @@ body{
 
     <div id="header">
         <div class="back" style=" cursor: pointer;" onclick="location.href='/seat/select-seat';"><i class="fas fa-chevron-left"></i> </div>
-        <div class="now_order">현재주문 3건 | 09월 06일 오전 9:25</div>
+        <div class="now_order"></div>
         <div class="modify_toggle">
            <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="location.href='/menu/select'">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="" onclick="location.href='/menu/select'">
              </div>
         </div>
         <div id="menubar" type="button"><i class="fas fa-bars"></i></div>
@@ -56,7 +56,7 @@ body{
 
         <div id="content1">
               <div>
-                 클릭하세요~
+               	 메뉴를 클릭하세요
               </div>
         </div>
 

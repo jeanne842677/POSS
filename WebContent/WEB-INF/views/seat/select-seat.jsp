@@ -119,7 +119,6 @@ body{
 					<div class="btn_bottom">
 						
 						<button type="button" class="btn btn-secondary" id="table_move">테이블 이동</button>
-						<button type="button" class="btn btn-secondary" id="table_share">테이블 합석</button>
 						<button type="button" class="btn btn-secondary" id="modify_btn">테이블 수정</button>
 
 

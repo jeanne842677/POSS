@@ -342,6 +342,24 @@ html, body {
     box-shadow: inset 0px 0px 5px white;
   }
 
+  .order_list::-webkit-scrollbar{
+     width:10px;
+     height:10px;
+ }
+ 
+ .order_list::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  
+  .order_list::-webkit-scrollbar-track {
+    background-color: #00ff0000;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+
 
 #cate{
     width:20%;

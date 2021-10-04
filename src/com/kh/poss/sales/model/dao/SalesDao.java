@@ -179,7 +179,7 @@ public class SalesDao {
 	      		"join order_list using (order_master_idx) " + 
 	      		"join menu using (menu_idx) " + 
 	      		"where to_char(reg_date, 'yyyy-mm') = ? " + 
-	      		"group by to_char(reg_date, 'yyyy-mm-dd')";
+	      		"group by to_char(reg_date, 'yyyy-mm-dd') order by dailyDate";
 	      try {
 	         pstm = conn.prepareStatement(query);
 	         pstm.setString(1, userId);

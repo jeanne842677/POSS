@@ -37,7 +37,6 @@ public class BoardController extends HttpServlet {
 
 		String[] uri = request.getRequestURI().split("/");
 		System.out.println(Arrays.toString(uri));
-		System.out.println("날아온 url : " + uri[uri.length - 1]); // 콘솔 확인용 코드 (추후 삭제 예정)
 		String userId = uri[uri.length - 2];
 		if (isExist(request, response, userId) != null) {
 			switch (uri[uri.length - 1]) {
@@ -160,9 +159,9 @@ public class BoardController extends HttpServlet {
 
       int ibSuccess = boardService.insertBoard(board);
       if (ibSuccess == 1) {
-         System.out.println("게시판 등록 성공");
+    	  
       } else {
-         System.out.println("등록 실패");
+    	  
       }
       response.sendRedirect("/board/"+userId+"/notice"); // 게시판으로 이동
    }
@@ -272,7 +271,6 @@ public class BoardController extends HttpServlet {
       Board board = (Board) request.getSession().getAttribute("board");
       
       String boardIdx = board.getBoardIdx();
-      System.out.println(boardIdx);
       int dbSuccess = boardService.deleteBoard(boardIdx);
 
        if (dbSuccess == 1) {
@@ -306,7 +304,6 @@ public class BoardController extends HttpServlet {
    private void replyDelete(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
       
       String replyIdx = request.getParameter("replyIdx");
-      System.out.println(replyIdx);
       Board board = (Board) request.getSession().getAttribute("board");
        String boardIdx = board.getBoardIdx();
 
