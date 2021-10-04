@@ -19,6 +19,11 @@
 	font-family:'nanumr';
 	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
 }
+
+.title{
+	font-family:nanumr;
+}
+
 @font-face{
 	font-family:'nanuml';
 	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
@@ -28,9 +33,7 @@ body{
 	font-family:nanuml;
 }
 
-.title{
-	font-family:nanumr;
-}
+
 
 </style>
 </head>
