@@ -108,6 +108,9 @@ public class MemberController extends HttpServlet {
       case "deleteUser": // 회원 탈퇴
          deleteUser(request, response);
          break;
+      case "info-page": // 회원 탈퇴
+          infoPage(request, response);
+          break;
       default:
          throw new PageNotFoundException();
 
@@ -115,7 +118,8 @@ public class MemberController extends HttpServlet {
 
    }
 
-   // 로그인 폼으로 이동
+ 
+// 로그인 폼으로 이동
    private void loginForm(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
 
@@ -517,5 +521,11 @@ public class MemberController extends HttpServlet {
          throws ServletException, IOException {
       doGet(request, response);
    }
+
+   
+   private void infoPage(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+	   request.getRequestDispatcher("/member/info-page").forward(request, response);
+		
+	}
 
 }

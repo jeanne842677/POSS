@@ -82,6 +82,14 @@ body{
       </div>
    </div>
    
+   <div class="info_page_link">
+         <div class="text">POSS 소개 페이지  URL</div>
+         <div>https://localhost:9090/member/info-page</div>
+         <button class="btn btn-lg btn-primary" type="button" id="reservation_link_btn" onclick="location.href='/member/info-page'">> 바로가기</button>
+      </div>
+      </div>
+   </div>
+   
    <div class="delete">
       <div><button type="button" class="btn btn-secondary" id="delete_account_btn">> 회원탈퇴</button></div>
    </div>

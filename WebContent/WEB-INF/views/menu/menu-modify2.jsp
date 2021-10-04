@@ -24,6 +24,13 @@
 body{
 	font-family:nanuml;
 }
+
+@font-face{
+	font-family:'nanumr';
+	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+}
+
+
 </style>
 </head>
 <body>
