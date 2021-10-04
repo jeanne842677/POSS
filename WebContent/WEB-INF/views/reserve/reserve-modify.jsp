@@ -20,21 +20,21 @@
 <script defer type="text/javascript" src="/resources/js/reserve/reserve-modify.js"></script>
 <style type="text/css">
 @font-face{
-	font-family:'nanuml';
-	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+   font-family:'nanuml';
+   src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
 body{
-	font-family:nanuml;
+   font-family:nanuml;
 }
 
 @font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+   font-family:'nanumr';
+   src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
 }
 
 .title{
-	font-family:nanumr;
+   font-family:nanumr;
 }
 
 @charset "UTF-8";
@@ -318,8 +318,8 @@ html, body {
 }
 
 #contract_file{
-	margin-left: 10px;
-	width: 236px;
+   margin-left: 10px;
+   width: 236px;
 }
 
 #content {
@@ -338,7 +338,7 @@ html, body {
 }
 
 .tit_board{
-	height: 100%;
+   height: 100%;
 }
 
 .back {
@@ -418,7 +418,7 @@ html, body {
                   <div id='main1'>
                   <form action="/reserve/${userId}/upload" method="post" enctype="multipart/form-data">
                      <div class="tit_board">
-                           	파일 : <input type="file" name="files" id="contract_file"/>
+                              파일 : <input type="file" name="files" id="contract_file"/>
                      </div>
                      <div class='radio'>
                         <button type='submit' id='btn-search' class="btn btn-primary">설정</button>

@@ -48,7 +48,11 @@ public class AuthorizationFilter implements Filter {
 			case "waiting":
 			case "seat" :
 			case "reserve":
-				loginAuthorize(httpRequest, httpResponse, uriArr);
+				
+				if (uriArr[2].equals("confirm")) {
+					loginAuthorize(httpRequest, httpResponse, uriArr);
+				}
+				
 				break;
 			case "member":
 				mypageAuthorize(httpRequest, httpResponse, uriArr);

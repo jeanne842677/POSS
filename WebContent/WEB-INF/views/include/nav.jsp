@@ -12,16 +12,16 @@
                   <a class="nav-link" href="/seat/select">포스</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/sales/confirm">매출관리</a>
+                  <a class="nav-link" href="/sales/${userId}/confirm">매출관리</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/board/${authentication.userId}/notice">게시판</a>
+                  <a class="nav-link" href="/board/${userId}/notice">게시판</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/waiting/waiting-page">웨이팅</a>
+                  <a class="nav-link" href="/waiting/${userId}/waiting-page">웨이팅</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reserve/${authentication.userId}/confirm">예약내역</a>
+                    <a class="nav-link" href="/reserve/confirm">예약내역</a>
                 </li>
                 
             </ul>  

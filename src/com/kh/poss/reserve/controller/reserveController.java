@@ -45,95 +45,86 @@ public class reserveController extends HttpServlet {
 		System.out.println(Arrays.toString(uri));
 		System.out.println("날아온 url : " + uri[uri.length - 1]); // 콘솔 확인용 코드 (추후 삭제 예정)
 		String userId = uri[uri.length - 2];
-		if (isExist(request, response, userId) != null) {
-			switch (uri[uri.length - 1]) {
+		switch (uri[uri.length - 1]) {
 
-			case "confirm": // 예약 전체내역 확인 폼으로 이동
-				confirm(request, response, userId);
-				break;
+		case "confirm": // 예약 전체내역 확인 폼으로 이동
+			confirm(request, response);
+			break;
 
-			case "modify": // 예약 설정 폼으로 이동
-				modify(request, response, userId);
-				break;
+		case "modify": // 예약 설정 폼으로 이동
+			modify(request, response);
+			break;
 
-			case "reserve-modify":
-				reserveModify(request, response, userId);
-				break;
+		case "reserve-modify":
+			reserveModify(request, response);
+			break;
 
-			case "upload":
-				uploadImage(request, response, userId);
-				break;
+		case "upload":
+			uploadImage(request, response);
+			break;
 
-			case "okay": // 예약 조회 내역으로 이동
-				okay(request, response, userId);
-				break;
+		case "okay": // 예약 조회 내역으로 이동
+			okay(request, response);
+			break;
 
-			case "cancel": // 예약 취소 내역 폼으로 이동
-				cancel(request, response, userId);
-				break;
+		case "cancel": // 예약 취소 내역 폼으로 이동
+			cancel(request, response);
+			break;
 
-			case "reserve-cancel":
-				reserveCancel(request, response, userId);
-				break;
+		case "reserve-cancel":
+			reserveCancel(request, response);
+			break;
 
-			case "reservation-form": // 고객용 예약 폼으로 이동
-				resform(request, response, userId);
-				break;
+		case "reservation-form": // 고객용 예약 폼으로 이동
+			resform(request, response, userId);
+			break;
 
-			case "reservation-insert": // 예약 정보를 db에 저장
-				resInsert(request, response, userId);
-				break;
+		case "reservation-insert": // 예약 정보를 db에 저장
+			resInsert(request, response, userId);
+			break;
 
-			case "reservation-info": // 전화번호로 예약정보를 찾아 reservation-confirm에 전달
-				resInfo(request, response, userId);
-				break;
+		case "reservation-info": // 전화번호로 예약정보를 찾아 reservation-confirm에 전달
+			resInfo(request, response, userId);
+			break;
 
-			case "reservation-confirm": // 고객용 예약 확인 폼으로 이동
-				resConfirm(request, response, userId);
-				break;
+		case "reservation-confirm": // 고객용 예약 확인 폼으로 이동
+			resConfirm(request, response, userId);
+			break;
 
-			case "reservation-cancel": // 고객용 예약 확인 폼에서 예약 취소시 is_cancel 1로 변경
-				resCancel(request, response, userId);
-				break;
+		case "reservation-cancel": // 고객용 예약 확인 폼에서 예약 취소시 is_cancel 1로 변경
+			resCancel(request, response, userId);
+			break;
 
-			case "reservation-lookup": // 고객용 예약 조회 폼으로 이동
-				resLookup(request, response, userId);
-				break;
+		case "reservation-lookup": // 고객용 예약 조회 폼으로 이동
+			resLookup(request, response, userId);
+			break;
 
-			case "reservation-search": // lookup에서 받은 정보로 예약 리스트를 찾아 고객용 예약 확인 폼으로 이동
-				resSearch(request, response, userId);
-				break;
+		case "reservation-search": // lookup에서 받은 정보로 예약 리스트를 찾아 고객용 예약 확인 폼으로 이동
+			resSearch(request, response, userId);
+			break;
 
-			case "msg": //
-				sendMsg(request, response);
-				break;
-				
-			case "reservation-select": // 고객용 예약 확인 폼으로 이동
-	            resSelect(request, response, userId);
-	            break;
-	            
-	            
-	
-			default:
-				throw new PageNotFoundException();
-			}
-		} else {
+		case "msg": //
+			sendMsg(request, response);
+			break;
+
+		case "reservation-select": // 고객용 예약 확인 폼으로 이동
+			resSelect(request, response, userId);
+			break;
+
+		default:
 			throw new PageNotFoundException();
 		}
-
 	}
 
-	private String isExist(HttpServletRequest request, HttpServletResponse response, String userId)
+	
+
+	private void confirm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String existId = reserveService.isExsist(userId);
-		return existId;
-
-	}
-
-	private void confirm(HttpServletRequest request, HttpServletResponse response, String userId)
-			throws ServletException, IOException {
-
-		request.getSession().setAttribute("userId", userId);
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		System.out.println(userId);
+		
 
 		if (request.getParameter("name") == null && request.getParameter("startDate") == null
 				&& request.getParameter("endDate") == null && request.getParameter("day") == null) {
@@ -172,9 +163,12 @@ public class reserveController extends HttpServlet {
 		}
 	}
 
-	private void modify(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void modify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
+		
 		ReserveConfig reserveConfig = reserveService.selectConfig(userId);
 
 		request.setAttribute("userId", userId);
@@ -183,19 +177,26 @@ public class reserveController extends HttpServlet {
 
 	}
 
-	private void uploadImage(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void uploadImage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
 		FileUtil util = new FileUtil();
 		MultiPartParams multiPart = util.fileUpload(request);
+		
+		String userId = member.getUserId();
 
 		List<FileDTO> files = multiPart.getFilesInfo();
 		reserveService.uploadImage(files.get(0), userId);
-		response.sendRedirect("/reserve/" + userId + "/modify");
+		response.sendRedirect("/reserve/modify");
 
 	}
 
-	private void reserveModify(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void reserveModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
 		String startPeriod = request.getParameter("start");
 		String endPeriod = request.getParameter("end");
@@ -206,12 +207,15 @@ public class reserveController extends HttpServlet {
 		System.out.println(startPeriod + ", " + endPeriod + ", " + openTime + ", " + closeTime + ", " + userId);
 
 		reserveService.modifyReserve(userId, startPeriod, endPeriod, openTime, closeTime, introductionOfStore);
-		response.sendRedirect("/reserve/" + userId + "/modify");
+		response.sendRedirect("/reserve/modify");
 
 	}
 
-	private void okay(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void okay(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
 		if (request.getParameter("name") == null && request.getParameter("startDate") == null
 				&& request.getParameter("endDate") == null && request.getParameter("day") == null) {
@@ -250,8 +254,11 @@ public class reserveController extends HttpServlet {
 
 	}
 
-	private void cancel(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void cancel(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
 		if (request.getParameter("name") == null && request.getParameter("startDate") == null
 				&& request.getParameter("endDate") == null && request.getParameter("day") == null) {
@@ -289,14 +296,17 @@ public class reserveController extends HttpServlet {
 		}
 	}
 
-	private void reserveCancel(HttpServletRequest request, HttpServletResponse response, String userId)
+	private void reserveCancel(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		String userId = member.getUserId();
 
 		String reserveIdx = request.getParameter("reserveIdx");
 		System.out.println(reserveIdx);
 
 		if (reserveService.cancelReserve(reserveIdx) > 0) {
-			response.sendRedirect("/reserve/" + userId + "/cancel");
+			response.sendRedirect("/reserve/cancel");
 		} else {
 			return;
 		}
@@ -501,10 +511,6 @@ public class reserveController extends HttpServlet {
 
 		response.sendRedirect("/reserve/" + userId + "/confirm");
 	}
-	
-
-	
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

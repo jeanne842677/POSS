@@ -7,28 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Document</title>
    
-
+<link rel="stylesheet" href="/resources/css/reserve/reserve-cancel.css">
 <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css"> 
 <%@ include file="/WEB-INF/views/include/head.jsp" %>  
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/485bb3ceac.js" crossorigin="anonymous"></script>
  <style type="text/css">
 @font-face{
-	font-family:'nanuml';
-	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+   font-family:'nanuml';
+   src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
 body{
-	font-family:nanuml;
+   font-family:nanuml;
 }
 
 @font-face{
-	font-family:'nanumr';
-	src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
+   font-family:'nanumr';
+   src:url(/resources/font/NanumSquareRoundOTFR.otf) format('truetype');
 }
 
 .title{
-	font-family:nanumr;
+   font-family:nanumr;
 }
 
 
@@ -188,7 +188,7 @@ div {
 
 /* 조회 */
 .info-input {
-   	width: 100%;
+      width: 100%;
     height: 80px;
     overflow: hidden;
     background-color: rgb(249, 247, 232);
@@ -200,7 +200,7 @@ div {
 
 /* input-wrap1,2,3 */
 .input-wrap1 {
-   	width: auto;
+      width: auto;
     display: flex;
     justify-content: flex-start;
 }
@@ -213,7 +213,7 @@ div {
 }
 
 .input-wrap3 {
-   	width: 12%;
+      width: 12%;
     display: flex;
     flex-shrink: 0;
     justify-content: center;
@@ -232,7 +232,7 @@ div {
 
 /* 회원 선택 */
 .select_member {
-   	width: 36%;
+      width: 36%;
     margin-right: 20px;
     align-items: center;
 }
@@ -336,7 +336,7 @@ div {
   }
 
 .table th {
-   	text-align: center;
+      text-align: center;
     position: sticky;
     top: 0px;
     background-color: #aaa;
@@ -386,16 +386,16 @@ font-size:14px;
 <div class="section-wrap">
     <section id="title_area">
         <div class="title">
-            <a>예약 내역</a>
+            <a>예약내역</a>
         </div>
-        <div class="setting" ><i class="fas fa-cog" onclick="location.href='/reserve/${userId}/modify'"></i></div>
+        <div class="setting" ><i class="fas fa-cog" onclick="location.href='/reserve/modify'"></i></div>
         
     </section>
 
     <section id="tabzone">
-       <input type="button" id="tab1" class="tab1" onclick="location.href='/reserve/${userId}/confirm'" value="전체조회">
-        <input type="button" id="tab2" class="tab2" onclick="location.href='/reserve/${userId}/okay'" value="예약조회">
-        <input type="button" id="tab3" class="tab3" onclick="location.href='/reserve/${userId}/cancel'"  value="취소조회">    
+       <input type="button" id="tab1" class="tab1" onclick="location.href='/reserve/confirm'" value="전체조회">
+        <input type="button" id="tab2" class="tab2" onclick="location.href='/reserve/okay'" value="예약조회">
+        <input type="button" id="tab3" class="tab3" onclick="location.href='/reserve/cancel'"  value="취소조회">    
     </section>
 
 

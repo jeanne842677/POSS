@@ -132,7 +132,7 @@ body{
 				<c:if test="${not empty authentication}">
 					<button type="button" class="btn btn-outline-primary"
 						id="today_reservation_btn"
-						onclick="location.href='/reserve/${authentication.userId}/confirm'">
+						onclick="location.href='/reserve/confirm'">
 						<div id="trt">오늘의 예약은</div>
 						<div id="today_reservation_text">
 							<div id="trt_total">총</div>

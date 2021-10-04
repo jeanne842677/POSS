@@ -9,7 +9,7 @@ function cancel(reserveIndex,userId) {
    		setModalTitle('modal2','예약취소 완료');
    	    setModalBody('modal2', '예약이 취소되었습니다.');
    		setOkayFunc = function rCancel(){
-   			location.href = '/reserve/'+id+'reserve-cancel?reserveIdx='+rtest;
+   			location.href = '/reserve/' + 'reserve-cancel?reserveIdx='+rtest;
    		}
    	}
 };
