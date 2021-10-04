@@ -1,30 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>포스테이블</title>
 
-<%@ include file="/WEB-INF/views/include/head.jsp" %>
+<%@ include file="/WEB-INF/views/include/head.jsp"%>
 <link rel="stylesheet" href="/resources/css/reset.css">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
 <link rel="stylesheet" href="/resources/css/bootstrap.css">
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script
+	src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="/resources/css/seat/select-seat.css?ver=1">
 
 <style type="text/css">
-@font-face{
-	font-family:'nanuml';
-	src:url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
+@font-face {
+	font-family: 'nanuml';
+	src: url(/resources/font/NanumSquareRoundOTFL.otf) format('truetype');
 }
 
-body{
-	font-family:nanuml;
+body {
+	font-family: nanuml;
 }
 </style>
 </head>
@@ -36,7 +43,7 @@ body{
 
 
 		<!-- 상단 네비게이션 -->
-		<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+		<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 
 
 
@@ -46,103 +53,126 @@ body{
 		<!------------------------------------------------------->
 
 		<div class="under_wrap">
-         <div class="content">
-			<div class="left_wrap">
-				<div class="card border-warning mb-3" id="reserve" >
-					<div class="card-header" id="reserve_header">예약</div>
-					<div class="card-body">
-			        <div class="rewrap">
-			                     <div class="reserve">
-			                        <div class="time">18:30</div>
-			                        <div class="name">임지영</div>
-			                        <div class="table_num">3번</div>
-			                        <div class="num">5명</div>
-			   
-			                     </div>
-			                  </div>
+			<div class="content">
+				<div class="left_wrap">
+					<div class="card border-warning mb-3" id="reserve">
+						<div class="card-header" id="reserve_header">예약</div>
+						<div class="card-body">
 
-							
+
+							<c:if test="${ not empty reserveList }">
+								<c:forEach items="${ reserveList }" var="rl" varStatus="status">
+
+									<div class="rewrap">
+										<div class="reserve" id="idx${rl.reserveIdx}">
+											<div class="time">${rl.reTime}</div>
+											<div class="name">${rl.name}</div>
+											<div class="num">${ rl.num}명</div>
+
+										</div>
+									</div>
+									<script type="text/javascript">
+									
+									document.querySelector('#idx${rl.reserveIdx}').addEventListener('click' , e=> {
+										
+										fetch("/seat/reserve-visit?reserveIdx="+ ${rl.reserveIdx})
+										.then(res=>{
+											
+											document.querySelector('#idx${rl.reserveIdx}').remove();
+											
+										})
+										
+										
+										
+									})
+									</script>
+								</c:forEach>
+							</c:if>
+						</div>
 					</div>
-				  </div>
-				<div class="card border-secondary mb-3" id="waiting" >
-					<div class="card-header" id="waiting_header">웨이팅</div>
-					<div class="card-body wait-card">
-						
-						<c:if test="${ not empty waitingList }">
-							<c:forEach items="${ waitingList }" var="wl" varStatus="status">
-						<div class="waitwrap">
-							
-						<div class="waiting" id="idx${wl.waitingNum}" >
-							<div class="time">${ timeList[status.index] }</div>
-							<div class="name">${wl.phone }</div>
-							<div class="num">${wl.waitingPeople }명</div>
-						</div>
-						</div>
-						<script type="text/javascript"> 
+					<div class="card border-secondary mb-3" id="waiting">
+						<div class="card-header" id="waiting_header">웨이팅</div>
+						<div class="card-body wait-card">
+
+							<c:if test="${ not empty waitingList }">
+								<c:forEach items="${ waitingList }" var="wl" varStatus="status">
+									<div class="waitwrap">
+
+										<div class="waiting" id="idx${wl.waitingNum}">
+											<div class="time">${ timeList[status.index] }</div>
+											<div class="name">${wl.phone }</div>
+											<div class="num">${wl.waitingPeople }명</div>
+										</div>
+									</div>
+									<script type="text/javascript"> 
 							document.querySelector('#idx${wl.waitingNum}').addEventListener( 'click' ,e=>{
 								let waitingNum = ${wl.waitingNum};
-								fetch('/waiting/update?waitingNum='+waitingNum)
+								fetch('/waiting/update?waitingNum='+waitingNum+'&phone=0'+ ${ wl.phone })
 								.then(res=> {
 									document.querySelector('#idx${wl.waitingNum}').remove();
 									webSocket.send("remove-waiting");
 									
 								})
 								
-							})
+							});
 						
 						</script>
-							</c:forEach>
-						</c:if>
-							
-					
-					</div>
-				  </div>
+								</c:forEach>
+							</c:if>
 
-			</div>
-			<div class="center_wrap">
-				<div class="table_wrap">
-					<c:if test="${ not empty tableHtml }">
+
+						</div>
+					</div>
+
+				</div>
+				<div class="center_wrap">
+					<div class="table_wrap">
+						<c:if test="${ not empty tableHtml }">
 						${ tableHtml.tableHtml }
 					</c:if>
-				</div>
-				<div class="btn_wrap">
-					<div class="btn_top">
+					</div>
+					<div class="btn_wrap">
+						<div class="btn_top">
 
-						
-<div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-  <input type="radio" class="btn-check " name="btnradio" id="btnradio1" autocomplete="off" checked="checked">
-  <label class="btn btn-info floor" for="btnradio1">1층</label>
-<!--   <input type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
+
+							<div class="btn-group-vertical" role="group"
+								aria-label="Basic radio toggle button group">
+								<input type="radio" class="btn-check " name="btnradio"
+									id="btnradio1" autocomplete="off" checked="checked"> <label
+									class="btn btn-info floor" for="btnradio1">1층</label>
+								<!--   <input type="radio" class="btn-check " name="btnradio" id="btnradio2" autocomplete="off" >
   <label class="btn btn-info floor" for="btnradio2">Radio 2</label>
   <input type="radio" class="btn-check " name="btnradio" id="btnradio3" autocomplete="off" >
   <label class="btn btn-info floor" for="btnradio3">Radio 3</label> -->
-</div>
-						
-							
+							</div>
+
+
+
+						</div>
+						<div class="btn_bottom">
+
+							<button type="button" class="btn btn-secondary" id="table_move">테이블
+								이동</button>
+							<button type="button" class="btn btn-secondary" id="modify_btn">테이블
+								수정</button>
+
+
+						</div>
+
 
 					</div>
-					<div class="btn_bottom">
-						
-						<button type="button" class="btn btn-secondary" id="table_move">테이블 이동</button>
-						<button type="button" class="btn btn-secondary" id="modify_btn">테이블 수정</button>
-
-
-					</div>
-
 
 				</div>
 
+
+
+
 			</div>
-
-
-
 
 		</div>
 
-   </div>
-
 	</div>
-<script type="text/javascript">
+	<script type="text/javascript">
 	document.querySelectorAll('.table_text').forEach(tableText=>{
 	
 	tableText.setAttribute("readonly" , "readonly" );
@@ -262,7 +292,7 @@ body{
 				
 				waitingDiv.addEventListener( 'click' ,e=>{
 					let waitingNum = waiting.waiting.waitingNum;
-					fetch('/waiting/update?waitingNum='+waitingNum)
+					fetch('/waiting/update?waitingNum='+waitingNum + '&phone='+ waiting.waiting.phone)
 					.then(res=> {
 						waitingDiv.remove();
 						webSocket.send("remove-waiting");

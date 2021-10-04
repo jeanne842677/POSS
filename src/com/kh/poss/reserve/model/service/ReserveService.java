@@ -43,8 +43,8 @@ public class ReserveService {
 		return reserveList;
 	}
 
-	public List<Reserve> selectDetailReserveList(String userId, String userName,
-			String startDate, String endDate, int day) {
+	public List<Reserve> selectDetailReserveList(String userId, String userName, String startDate, String endDate,
+			int day) {
 
 		List<Reserve> reserveList = null;
 		Connection conn = template.getConnection();
@@ -230,6 +230,39 @@ public class ReserveService {
 		}
 		return reserveList;
 
+	}
+
+	public List<Reserve> selectTodayReserveList(String userId) {
+		List<Reserve> reserveList = null;
+		Connection conn = template.getConnection();
+		try {
+			reserveList = reserveDao.selectTodayReserveList(userId, conn);
+		} finally {
+			template.close(conn);
+		}
+		return reserveList;
+
+	}
+
+	public int uploadVisit(String reserveIdx) {
+		
+		Connection conn = template.getConnection();
+		int res = 0;
+		
+		try {
+			res = reserveDao.uploadVisit(reserveIdx, conn);
+			template.commit(conn);
+		} catch (Exception e) {
+			template.rollback(conn);
+			throw e;
+		} finally {
+			template.close(conn);
+		}
+		
+		
+		return res;
+		
+		
 	}
 
 }

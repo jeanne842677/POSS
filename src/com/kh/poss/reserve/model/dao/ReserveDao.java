@@ -248,6 +248,8 @@ public class ReserveDao {
 		System.out.println(reserveList);
 		return reserveList;
 	}
+	
+
 
 	public Reserve selectReserve(String reserveIdx, Connection conn) {
 		Reserve reserve = null;
@@ -476,5 +478,59 @@ public class ReserveDao {
 		return reserveList;
 
 	}
+	
+	
+	public List<Reserve> selectTodayReserveList(String userId, Connection conn) {
+		List<Reserve> reserveList = new ArrayList<Reserve>();
+		Reserve reserve = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		String query = "select * from reserve where user_id = ? and to_char(re_date , 'YYYY:MM:dd') = to_char(current_date , 'YYYY:MM:dd')  and is_visit=0 order by re_time";
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, userId);
+			rset = pstm.executeQuery();
+			
+			while (rset.next()) {
+				reserve = convertAllToReserve(rset);
+				reserveList.add(reserve);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(rset, pstm);
+		}
+		System.out.println(reserveList);
+		return reserveList;
+	}
+
+	
+	
+	//is_visit를 1로 변경
+	public int uploadVisit(String reserveIdx, Connection conn) {
+
+		int res = 0;
+		long time = date.getTime();
+		java.sql.Date date1 = new java.sql.Date(time);
+		PreparedStatement pstm = null;
+		String query = "update reserve set is_visit=1 where reserve_idx = ?";
+		
+		try {
+
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, reserveIdx);
+
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		} finally {
+			template.close(pstm);
+		}
+		return res;
+		
+		
+	}
+	
+	
 
 }

@@ -221,8 +221,7 @@ document.querySelector("#menubar").addEventListener("click", e => {
           menuDiv.setAttribute('style', "background-color:"+ m.color);
           menuDiv.setAttribute("data-menuidx", m.menuIdx);
           menuDiv.innerHTML = `<div class="cat_box_icon"><img class='cat_box_icon_img' src='/resources/icon/` + m.icon + `.png'></div>
-         <div class='menu_info'><div class='menutitle'>` + m.name +`</div><div class='menuprice'>`+ m.price +`</div></div>`;
-       
+          <div class='menu_info'><div class='menutitle'>` + m.name +`</div><div class='menuprice'>`+ m.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +`</div></div>`;       
          menuDiv.addEventListener('click' , e =>{
             let isReturn = 'false';
             let sameMenu = null;
@@ -740,7 +739,7 @@ function kakaoPay(){
              let price = document.querySelector('.paynum').innerText;
              //성공시 이동할 페이지
              setModalTitle('modal2','결제 성공');
-             setModalBody('modal2','금액 : ' + price + '원');
+             setModalBody('modal2','금액 : ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
              setOkayFunc = payingInKakao;
              modal2();
              
@@ -780,7 +779,7 @@ document.querySelector('.cash').addEventListener('click' , e=> {
          setYesFunc = function testFnc(){
 
              setModalTitle('modal2','현금결제');
-             setModalBody('modal2', '총 결제 금액 : ' + totalPrice + '원');
+             setModalBody('modal2', '총 결제 금액 : ' + totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원');
              setOkayFunc = payingInCash;
             modal2();
              

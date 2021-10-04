@@ -111,7 +111,9 @@ public class reserveController extends HttpServlet {
 			case "reservation-select": // 고객용 예약 확인 폼으로 이동
 	            resSelect(request, response, userId);
 	            break;
-
+	            
+	            
+	
 			default:
 				throw new PageNotFoundException();
 			}
@@ -499,6 +501,10 @@ public class reserveController extends HttpServlet {
 
 		response.sendRedirect("/reserve/" + userId + "/confirm");
 	}
+	
+
+	
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

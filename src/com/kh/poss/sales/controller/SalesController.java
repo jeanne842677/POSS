@@ -20,132 +20,139 @@ import com.kh.poss.sales.model.service.SalesService;
 
 @WebServlet("/sales/*")
 public class SalesController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private SalesService salesService = new SalesService();
+   private static final long serialVersionUID = 1L;
+   private SalesService salesService = new SalesService();
 
-	public SalesController() {
-		super();
-	}
+   public SalesController() {
+      super();
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-		String[] uri = request.getRequestURI().split("/");
-		System.out.println(Arrays.toString(uri));
-		System.out.println("날아온 url : " + uri[uri.length - 1]); // 콘솔 확인용 코드 (추후 삭제 예정)
+      String[] uri = request.getRequestURI().split("/");
+      System.out.println(Arrays.toString(uri));
+      System.out.println("날아온 url : " + uri[uri.length - 1]); // 콘솔 확인용 코드 (추후 삭제 예정)
 
-		switch (uri[uri.length - 1]) {
-		case "confirm": // 매출 조회 확인 폼으로 이동
-			confirm(request, response);
+      switch (uri[uri.length - 1]) {
+      case "confirm": // 매출 조회 확인 폼으로 이동
+         confirm(request, response);
 
-			break;
-		case "detail": // 매출 내역 폼으로 이동
-			detail(request, response);
+         break;
+      case "detail": // 매출 내역 폼으로 이동
+         detail(request, response);
 
-			break;
-		default:
-			throw new PageNotFoundException();
-		}
+         break;
+      default:
+         throw new PageNotFoundException();
+      }
 
-	}
+   }
 
-	private void confirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map<String, Object> rankMap = null;
-		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
+   private void confirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      Map<String, Object> rankMap = null;
+      String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
 
-		//오늘 총 판매금액
-		int todaySales = salesService.selectTodaySales(userId);
-		String todaySales2 = String.format("%,d", todaySales);
-		
-		//기간
-		Date time = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM");
-		String period = format.format(time);
-		if (request.getParameter("thismonth") != null) {
-			period = request.getParameter("thismonth");
-		}
-		
-		//탑 5메뉴
-		rankMap = salesService.selectMenuRank(userId, period);
-		if(rankMap.size() == 0) {
-			request.setAttribute("todaySales", todaySales2);
-			request.getRequestDispatcher("/sales/sales-confirm2").forward(request, response);
-		}else {
-			String[] name = new String[rankMap.size()];
-			rankMap.keySet().stream().findFirst().get();
-			int[] cnt = new int[rankMap.size()];
-			
-			for (int i = 0; i < rankMap.size(); i++) {
-				name[i] = rankMap.keySet().stream().skip(i).findFirst().get();
-				cnt[i] = (int) rankMap.values().toArray()[i];
-			}
-				
-			//총 판매금액
-			int sales = salesService.selectTotalSales(userId, period);
-			String sales2 = String.format("%,d", sales);
+      //오늘 총 판매금액
+      int todaySales = salesService.selectTodaySales(userId);
+      String todaySales2 = String.format("%,d", todaySales);
+      
+      //기간
+      Date time = new Date();
+      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM");
+      String period = format.format(time);
+      if (request.getParameter("thismonth") != null) {
+         period = request.getParameter("thismonth");
+      }
+      
+      //탑 5메뉴
+      rankMap = salesService.selectMenuRank(userId, period);
+      if(rankMap.size() == 0) {
+         request.setAttribute("todaySales", todaySales2);
+         request.getRequestDispatcher("/sales/sales-confirm2").forward(request, response);
+      }else {
+         String[] name = new String[rankMap.size()];
+         rankMap.keySet().stream().findFirst().get();
+         int[] cnt = new int[rankMap.size()];
+         
+         for (int i = 0; i < rankMap.size(); i++) {
+            name[i] = rankMap.keySet().stream().skip(i).findFirst().get();
+            cnt[i] = (int) rankMap.values().toArray()[i];
+         }
+            
+         //총 판매금액
+         int sales = salesService.selectTotalSales(userId, period);
+         String sales2 = String.format("%,d", sales);
 
-			//총 판매건수
-			int salesCnt = salesService.selectTotalSalesCnt(userId, period);
-			int avg = sales / salesCnt;
-			String avg2 = String.format("%,d", avg);
-			
-			
-			//오늘 판매 메뉴와 메뉴별 금액
-			
-		    Map<String, Object> todayMap = salesService.selectTodayMenu(userId,period); 
-		    String[] dailyDate = new String[todayMap.size()];
-		    todayMap.keySet().stream().findFirst().get(); 
-		    int[] dailyPrice = new int[todayMap.size()];
-		  
-		    for (int i = 0; i < todayMap.size(); i++) { 
-		    	dailyDate[i] = todayMap.keySet().stream().skip(i).findFirst().get(); 
-		    	dailyPrice[i] = (int)todayMap.values().toArray()[i]; 
-		    }
-			int arraySize = dailyPrice.length;
-			System.out.println(arraySize);
-		    
-			request.setAttribute("period", period);
-			request.setAttribute("nameArr", name);
-			request.setAttribute("cntArr", cnt);
-			request.setAttribute("sales", sales2);
-			request.setAttribute("salesCnt", salesCnt);
-			request.setAttribute("avg", avg2);
-			request.setAttribute("todaySales", todaySales2);
-			request.setAttribute("dailyDate", dailyDate);
-			request.setAttribute("dailyPrice", dailyPrice);
-			request.setAttribute("arraySize", arraySize);
-			request.getRequestDispatcher("/sales/sales-confirm").forward(request, response);
-		}
-		
-		
-	}
+         //총 판매건수
+         int salesCnt = salesService.selectTotalSalesCnt(userId, period);
+         int avg = sales / salesCnt;
+         String avg2 = String.format("%,d", avg);
+         
+         
+         //오늘 판매 메뉴와 메뉴별 금액
+         
+          Map<String, Object> todayMap = salesService.selectTodayMenu(userId,period); 
+          String[] dailyDate = new String[todayMap.size()];
+          todayMap.keySet().stream().findFirst().get(); 
+          int[] dailyPrice = new int[todayMap.size()];
+          String[] dailyPrice2 = new String[todayMap.size()];
+        
+          for (int i = 0; i < todayMap.size(); i++) { 
+             dailyDate[i] = todayMap.keySet().stream().skip(i).findFirst().get(); 
+             dailyPrice[i] = (int)todayMap.values().toArray()[i]; 
+             dailyPrice2[i] = String.format("%,d", dailyPrice[i]);
+          }
+         int arraySize = dailyPrice.length;
+         
+         System.out.println(arraySize);
+          
+         request.setAttribute("period", period);
+         request.setAttribute("nameArr", name);
+         request.setAttribute("cntArr", cnt);
+         request.setAttribute("sales", sales2);
+         request.setAttribute("salesCnt", salesCnt);
+         request.setAttribute("avg", avg2);
+         request.setAttribute("todaySales", todaySales2);
+         request.setAttribute("dailyDate", dailyDate);
+         request.setAttribute("dailyPrice", dailyPrice2);
+         request.setAttribute("arraySize", arraySize);
+         request.getRequestDispatcher("/sales/sales-confirm").forward(request, response);
+      }
+      
+      
+   }
 
-	private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
-		
-		Date time = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM");
-		String period = format.format(time);
-		if (request.getParameter("thismonth") != null) {
-			period = request.getParameter("thismonth");
-		}
-		
-		//리스트
-		List<Sales> salesList = salesService.selectSalesList(userId,period);
-		
-		//오늘 판매금액
-		int todaySales = salesService.selectTodaySales(userId);
-		String todaySales2 = String.format("%,d", todaySales);
-		
-		request.setAttribute("salesList", salesList);
-		request.setAttribute("todaySales", todaySales2);
-		request.getRequestDispatcher("/sales/sales-detail").forward(request, response);
+   private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      String userId = ((Member) request.getSession().getAttribute("authentication")).getUserId();
+      
+      Date time = new Date();
+      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM");
+      String period = format.format(time);
+      if (request.getParameter("thismonth") != null) {
+         period = request.getParameter("thismonth");
+      }
+      
+      //리스트
+      List<Sales> salesList = salesService.selectSalesList(userId,period);
+      
+      //오늘 판매금액
+      int todaySales = salesService.selectTodaySales(userId);
+      String todaySales2 = String.format("%,d", todaySales);
+      
+      
+      request.setAttribute("salesList", salesList);
+      request.setAttribute("todaySales", todaySales2);
+      request.getRequestDispatcher("/sales/sales-detail").forward(request, response);
+      
+      System.out.println("todaySales : " + todaySales2);
+      System.out.println("salesList : " + salesList);
 
-	}
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      doGet(request, response);
+   }
 
 }

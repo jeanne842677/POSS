@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.poss.common.exception.PageNotFoundException;
+import com.kh.poss.common.mms.MmsSender;
 import com.kh.poss.member.model.dto.Member;
 import com.kh.poss.waiting.model.dto.Waiting;
 import com.kh.poss.waiting.model.service.WaitingService;
@@ -109,8 +110,10 @@ public class WaitingController extends HttpServlet {
 		int isSuccess = waitingService.insertWaiting(waiting);
 		int waitingNum = waitingService.totalWaitingCnt(userId); //waitingNum : 대기번호
 		
-		
-		//int isSuccessSendwaitingMessage = waitingService.confirmWaitingByMessage(request, response, phone, waitingPeopleNum);
+		   
+	    String storeName = member.getStore_name();
+	    //MmsSender.setMessage(phone, storeName, "웨이팅 등록이 완료되었습니다.\n* 웨이팅 인원 : " + waitingPeopleNum + "명\n* 호출 시 안계실 경우 웨이팅이 취소될 수 있으니 유의해 주시기 바랍니다." );
+
 
 		if (isSuccess > 0) {
 			response.getWriter().print(waitingNum);
@@ -118,13 +121,7 @@ public class WaitingController extends HttpServlet {
 			System.out.println("등록 실패");
 			response.getWriter().print("disable");
 		}
-		
-		if ( 1 > 0) {
-			System.out.println("발송 완료");
-		}else {
-			System.out.println("발송 실패");
-		}
-		
+
 		
 		
 
@@ -195,6 +192,7 @@ public class WaitingController extends HttpServlet {
 			String dateFormat = format.format(time);
 			searchTimeList.add(dateFormat);
 		}
+		
 
 		request.setAttribute("searchTimeList", searchTimeList);
 
@@ -207,7 +205,13 @@ public class WaitingController extends HttpServlet {
 	private void update(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException  {
 
 		String waitingNum = request.getParameter("waitingNum");
+		String phone = request.getParameter("phone");
 		waitingService.updateWaiting(waitingNum);
+
+		System.out.println("폰번호: " + phone);
+		Member member = (Member) request.getSession().getAttribute("authentication");
+		MmsSender.setMessage(phone, member.getStore_name(), "웨이팅이 완료되었습니다. " + "\n입장해주세요. \n부재시 웨이팅이 취소됩니다." );
+
 		
 		
 	}

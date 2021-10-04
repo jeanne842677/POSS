@@ -9,9 +9,9 @@ public class MmsSender {
 	
 	
 	
-	public static void setMessage(String phone , String storeName, String context) {
+	public static int setMessage(String phone , String storeName, String context) {
 		
-
+		  int res = 1;  //성공시 1시 실패시 0
 		  String api_key = "NCSWYQ05MLTN4URX";
 	      String api_secret = "GM14FK3ESJSI6ZHR3CEHKMBPLFU3YPI1";
 	      Message coolsms = new Message(api_key, api_secret);
@@ -30,10 +30,12 @@ public class MmsSender {
 	         JSONObject obj = (JSONObject) coolsms.send(params);
 	         System.out.println(obj.toString());
 	      } catch (CoolsmsException e) {
+	    	 res = 0;
 	         System.out.println(e.getMessage());
 	         System.out.println(e.getCode());
 	      }
 		
+	      return res;
 		
 	}
 	

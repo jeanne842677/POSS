@@ -37,7 +37,6 @@ public class SeatController extends HttpServlet {
 
 		String[] uri = request.getRequestURI().split("/");
 		System.out.println(Arrays.toString(uri));
-		System.out.println("날아온 url : " + uri[uri.length - 1]);
 
 		switch (uri[uri.length - 1]) {
 		case "select": // 테이블 선택	
@@ -48,6 +47,9 @@ public class SeatController extends HttpServlet {
 			break;
 		case "save-modify" ://테이블 수정 저장버튼
 			saveModify(request, response);
+			break;
+		case "reserve-visit" ://테이블 수정 저장버튼
+			reserveVisit(request, response);
 			break;
 		default:
 			throw new PageNotFoundException();
@@ -66,14 +68,16 @@ public class SeatController extends HttpServlet {
 		String userId = member.getUserId(); 
 		List<SeatHTML> seatList = seatService.selectSeatList(userId);
 		
-		
+		ReserveService reserveService = new ReserveService();
 		WaitingService waitingService = new WaitingService();
 		List<Waiting> waitingList = waitingService.selectTodayWaiting(userId);
+		List<Reserve> reserveList = reserveService.selectTodayReserveList(userId);
 		
 		
-		System.out.println("웨이팅 리스트: " + waitingList);
 		
 		request.setAttribute("waitingList", waitingList);
+		request.setAttribute("reserveList", reserveList);
+		
 		SimpleDateFormat form = new SimpleDateFormat("HH:mm");
 		
 		List<String> timeList = new ArrayList<>(); 
@@ -81,9 +85,10 @@ public class SeatController extends HttpServlet {
 			String hour = form.format(waiting.getTime());
 			timeList.add(hour);
 		}
+	
+		
 		
 		request.setAttribute("timeList", timeList );
-		
 		
 		
 		if(seatList.size()==0 ) {
@@ -140,6 +145,20 @@ public class SeatController extends HttpServlet {
 		
 	}
 
+	
+	
+	//예약자가 방문했다면?
+	private void reserveVisit(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		System.out.println("예약 업로드 여기실행~");
+		String reserveIdx = request.getParameter("reserveIdx");
+		ReserveService reserveService = new ReserveService();
+		reserveService.uploadVisit(reserveIdx);
+		
+	}
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
