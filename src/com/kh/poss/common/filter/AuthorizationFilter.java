@@ -55,6 +55,10 @@ public class AuthorizationFilter implements Filter {
 				
 				break;
 			case "member":
+				if(uriArr[uriArr.length-1].equals("info-page")) {
+					System.out.println("걸림");
+					break;
+				}
 				mypageAuthorize(httpRequest, httpResponse, uriArr);
 			default:
 				break;

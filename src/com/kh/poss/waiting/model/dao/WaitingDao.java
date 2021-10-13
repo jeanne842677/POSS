@@ -151,6 +151,7 @@ public class WaitingDao {
             }
          } catch (SQLException e) {
             throw new DataAccessException(e);
+            
          } finally {
             template.close(rset, pstm);
          }   
@@ -217,6 +218,7 @@ public class WaitingDao {
       waiting.setTime(rset.getDate("time"));
       //waiting.setOrderIdx(rset.getString("order_master_idx"));
       return waiting;
+      
    }
 
    
